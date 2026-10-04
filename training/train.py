@@ -871,10 +871,6 @@ resume_checkpoint_interval =100 ,
             # update the agent, and accumulate diagnostics for this episode.
             while True :
 
-                MAX_RETRIES =3
-                retry_count =0
-                step_success =False
-
                 def all_safe (*values ):
                     safe_tensor =None
                     safe_python =True
@@ -888,72 +884,54 @@ resume_checkpoint_interval =100 ,
                         return safe_python
                     return safe_python and bool (safe_tensor .item ())
 
-                info =None
-                act_tensor =None
-                obs1 =None
-                next_state =None
-                r_local =None
-                r_global =None
-                done =None
-
                 _step_obs_raw =_prefetch_obs
                 _prefetch_obs =None
+                if _step_obs_raw is not None :
+                    obs1 =normalize_observation (_step_obs_raw )
+                else :
+                    obs1 =normalize_observation (env .begin_step ())
 
-                while retry_count <MAX_RETRIES and not step_success :
+                act_tensor =agent .act (obs1 ,env =env ,noise =True )
 
-                    if _step_obs_raw is not None and retry_count ==0 :
-                        obs1 =normalize_observation (_step_obs_raw )
-                        _step_obs_raw =None
-                    else :
-                        obs1 =normalize_observation (env .begin_step ())
+                # Training uses the lightweight info payload for speed.
+                # Evaluation/timing requests detailed snapshots and reward
+                # decomposition for plotting and diagnostics.
+                _build_info_full =bool (getattr (agent ,'test_mode',False ))
+                _ ,r_local ,r_global ,done ,info =env .apply_action (
+                act_tensor ,
+                build_info =_build_info_full ,
+                return_observation =_build_info_full ,
+                )
 
+                if all (done ):
+                    next_state =normalize_observation (env ._get_obs ())
+                else :
+                    _next_raw =env .begin_step ()
+                    next_state =normalize_observation (_next_raw )
+                    _prefetch_obs =_next_raw
 
-                    act_tensor =agent .act (obs1 ,env =env ,noise =True )
-
-                    # Training uses the lightweight info payload for speed.
-                    # Evaluation/timing requests detailed snapshots and reward
-                    # decomposition for plotting and diagnostics.
-                    _build_info_full =bool (getattr (agent ,'test_mode',False ))
-                    _ ,r_local_tmp ,r_global_tmp ,done_tmp ,info_tmp =env .apply_action (
-                    act_tensor ,
-                    build_info =_build_info_full ,
-                    return_observation =_build_info_full ,
+                periodic_finite_check_due =(
+                FINITE_CHECK_INTERVAL_STEPS >0
+                and int (env .step_count )%FINITE_CHECK_INTERVAL_STEPS ==0
+                )
+                finite_check_due =(
+                bool (getattr (agent ,'test_mode',False ))
+                or all (done )
+                or periodic_finite_check_due
+                )
+                if finite_check_due and not all_safe (obs1 ,next_state ,act_tensor ,r_local ,r_global ):
+                    # The environment has already moved past this step and
+                    # cannot be stepped back, so the step is not retried. Its
+                    # transition is neither stored nor learned from, and its
+                    # rewards stay out of the episode sums.
+                    print (
+                    f"Warning: NaN/Inf step data at step {int(env.step_count)}; transition skipped",
+                    flush =True ,
                     )
-
-                    if all (done_tmp ):
-                        next_state_tmp =normalize_observation (env ._get_obs ())
-                        _next_prefetch_tmp =None
-                    else :
-                        _next_raw =env .begin_step ()
-                        next_state_tmp =normalize_observation (_next_raw )
-                        _next_prefetch_tmp =_next_raw
-
-                    periodic_finite_check_due =(
-                    FINITE_CHECK_INTERVAL_STEPS >0
-                    and int (env .step_count )%FINITE_CHECK_INTERVAL_STEPS ==0
-                    )
-                    finite_check_due =(
-                    bool (getattr (agent ,'test_mode',False ))
-                    or all (done_tmp )
-                    or periodic_finite_check_due
-                    )
-                    if finite_check_due and not all_safe (obs1 ,next_state_tmp ,act_tensor ,r_local_tmp ,r_global_tmp ):
-                        retry_count +=1
-                        print (f"Retry: Step data NaN/Inf detected (attempt {retry_count}/{MAX_RETRIES})")
-                        continue
-
-                    info =info_tmp
-                    next_state =next_state_tmp
-                    r_local =r_local_tmp
-                    r_global =r_global_tmp
-                    done =done_tmp
-                    _prefetch_obs =_next_prefetch_tmp
-                    step_success =True
-
-                if not step_success :
-                    print (f"Error: Step data retry failed after {MAX_RETRIES} attempts, stopping training")
-                    agent .episode_end ()
-                    break
+                    if all (done ):
+                        agent .episode_end ()
+                        break
+                    continue
 
                 if torch .is_tensor (r_local ):
                     ep_local_sum_tensor =ep_local_sum_tensor +r_local .detach ().sum ()

@@ -26,15 +26,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--model-dir", required=True)
     parser.add_argument("--episode", type=int, default=None)
-    parser.add_argument(
-        "--bid-bank-dir",
-        default=str(
-            PROJECT_ROOT
-            / "execute_results"
-            / "bid_banks"
-            / "validation_5_minmedmax_3of128ev_128cmd_all_commands"
-        ),
-    )
+    # No default: a bank is built for one command set, and a default path
+    # cannot follow EVMA_ACTIVATION_SIGNAL_SET.
+    parser.add_argument("--bid-bank-dir", required=True)
     parser.add_argument("--command-scenarios", type=int, default=24)
     parser.add_argument("--ev-seeds", type=int, default=3)
     parser.add_argument("--base-seed", type=int, default=1_422_090)
@@ -46,6 +40,14 @@ def build_parser() -> argparse.ArgumentParser:
         help="Controller stack to evaluate. The default is the proposed system.",
     )
     parser.add_argument("--max-days", type=int, default=0)
+    parser.add_argument(
+        "--allow-other-command-set",
+        action="store_true",
+        help=(
+            "Evaluate commands from a set other than the one the bank was designed on "
+            "(pjm_regd on a pjm_regd_phase_shift bank). Otherwise the two must match."
+        ),
+    )
     parser.add_argument(
         "--include-training-commands",
         action="store_true",
@@ -88,6 +90,40 @@ def _commands_seen_in_training(model_dir: Path) -> set[str]:
     )
 
 
+def _check_bank_command_set(bank, *, allow_other: bool) -> None:
+    """Refuse a bank designed on another command set than the one evaluated.
+
+    Compared by the library's declared regime (metadata.json), which every
+    bank since contract version 28 records. An older bank has none and is
+    reported, not refused.
+    """
+
+    from EnvConfig import LOWER_TRAIN_UPPER_BID_ACTIVATION_SOURCE_DIR
+
+    settings = bank.manifest.get("settings") or {}
+    saved = settings.get("activation_signal_regime")
+    metadata_path = Path(LOWER_TRAIN_UPPER_BID_ACTIVATION_SOURCE_DIR) / "metadata.json"
+    current = None
+    if metadata_path.is_file():
+        current = json.loads(metadata_path.read_text(encoding="utf-8")).get("regime")
+    current = str(current).strip() or None if current is not None else None
+    if saved is None:
+        print(
+            f"[eval] the bank records no command set; evaluating {current!r} commands on it",
+            flush=True,
+        )
+        return
+    if str(saved) == str(current):
+        return
+    message = (
+        f"the bank was designed on {saved!r} commands, but this evaluation draws {current!r} "
+        f"from {LOWER_TRAIN_UPPER_BID_ACTIVATION_SOURCE_DIR}"
+    )
+    if not allow_other:
+        raise SystemExit(f"{message}; set EVMA_ACTIVATION_SIGNAL_SET to match or pass --allow-other-command-set")
+    print(f"[eval] {message} (allowed)", flush=True)
+
+
 def _configure_environment() -> None:
     os.environ["EVMA_LOWER_BID_CONTEXT_OBS"] = "1"
     os.environ["EVMA_USE_CENTRAL_EV_RESIDUAL_ALLOCATOR"] = "0"
@@ -106,8 +142,9 @@ def _scale_submitted_bid(fixed_bid: dict) -> dict:
 
     目標も帯も up_plan/down_plan から再計算されるので、この2本を縮めれば
     両方が整合して縮む。縮めた結果が最低入札量を割るブロックは、規定上
-    参加できないのでゼロにする。解き直しではないが、能力 X を出せるなら
-    sX も出せるので実行可能性は保たれる。
+    参加できないのでゼロにする。入札は解き直さないので、縮めた入札が
+    設計用の指令で追従可能かは確かめていない（基準値だけを保つ指令は
+    設計用の指令に含まれず、帯も同じ割合で狭くなる）。
     """
     import numpy as np
 
@@ -255,6 +292,7 @@ def main(argv=None) -> int:
 
     profile = load_observation_normalization_for_archive(model_dir)
     bank = BidBank(bid_bank_dir)
+    _check_bank_command_set(bank, allow_other=bool(args.allow_other_command_set))
     entries = list(bank.entries)
     if args.max_days > 0:
         entries = entries[: int(args.max_days)]
@@ -264,6 +302,16 @@ def main(argv=None) -> int:
         set() if args.include_training_commands else _commands_seen_in_training(model_dir)
     )
     print(f"[eval] excluding {len(seen_in_training)} commands the pretrain drew", flush=True)
+    # The exclusion is per command file. A day holds one file per source unit,
+    # so a holdout command can share its day with a unit the pretrain drew.
+    # Such commands are counted, not excluded.
+    from EnvConfig import LOWER_TRAIN_UPPER_BID_ACTIVATION_SOURCE_DIR
+    from market.activation_scenarios import command_days
+
+    day_of_command = command_days(LOWER_TRAIN_UPPER_BID_ACTIVATION_SOURCE_DIR)
+    training_days = {
+        day_of_command[source] for source in seen_in_training if source in day_of_command
+    }
 
     first_bid = dict(bank.load_entry(entries[0]))
     first_payloads, _ = _activation_scenarios_for_day(
@@ -342,7 +390,16 @@ def main(argv=None) -> int:
             out_dir=day_dir,
             visualize=False,
         )
-        summary = {"service_date": entry["service_date"], **summary}
+        same_day = sum(
+            day_of_command.get(str(payload.get("source", ""))) in training_days
+            for payload in payloads
+        )
+        summary = {
+            "service_date": entry["service_date"],
+            "holdout_commands": len(payloads),
+            "holdout_commands_on_training_days": int(same_day),
+            **summary,
+        }
         day_summaries.append(summary)
         frame = pd.read_csv(day_dir / "results" / "controller_precision_by_scenario.csv")
         frame.insert(0, "bid_day_index", day_index)
@@ -374,9 +431,13 @@ def main(argv=None) -> int:
         "model_dir": str(model_dir),
         "checkpoint_dir": str(checkpoint_dir),
         "model_episode": int(selected_episode),
-        "evaluation_pipeline": "system",
+        "evaluation_pipeline": str(args.pipeline),
         "command_partition": "holdout",
         "excluded_training_commands": len(seen_in_training),
+        "holdout_commands": int(sum(day["holdout_commands"] for day in day_summaries)),
+        "holdout_commands_on_training_days": int(sum(
+            day["holdout_commands_on_training_days"] for day in day_summaries
+        )),
         "bid_days": len(entries),
         "command_scenarios_per_day": int(args.command_scenarios),
         "ev_seeds_per_command": int(args.ev_seeds),

@@ -205,9 +205,11 @@ def plot_performance_metrics (performance_metrics ,results_dir ,title_prefix :st
     Save the main policy-quality metrics used in the paper-style evaluation.
 
     SoC performance is plotted as target-SoC satisfaction rate
-    (`100 - soc_miss_count`). Dispatch tracking is reconstructed from surplus
-    and shortage step counts: successful dispatch steps divided by all
-    non-zero-request steps.
+    (`100 - soc_miss_count`). Dispatch tracking is the share of assessed steps
+    inside the band: up (shortage), down (surplus) and no-instruction steps
+    together, as the market assesses them. A row without the no-instruction
+    counts (histories written before they were stored) has no such rate and
+    is written as NaN rather than as a rate over a subset of the steps.
     """
     if not performance_metrics or len (performance_metrics .get ('soc_miss_count',[]))==0 :
         return
@@ -225,10 +227,17 @@ def plot_performance_metrics (performance_metrics ,results_dir ,title_prefix :st
     surplus_within_list =performance_metrics .get ('surplus_within_narrow',[])
     shortage_steps_list =performance_metrics .get ('shortage_steps',[])
     shortage_within_list =performance_metrics .get ('shortage_within_narrow',[])
+    zero_steps_list =performance_metrics .get ('zero_request_steps',[])
+    zero_within_list =performance_metrics .get ('zero_request_within_narrow',[])
 
 
     soc_hit_rates =[100 -rate for rate in soc_miss_rates ]
 
+
+    def _count_or_none (seq ,idx ):
+        if idx >=len (seq )or seq [idx ]is None :
+            return None
+        return seq [idx ]
 
     dispatch_tracking_rates =[]
     for i in range (len (soc_hit_rates )):
@@ -236,9 +245,14 @@ def plot_performance_metrics (performance_metrics ,results_dir ,title_prefix :st
         s_within =surplus_within_list [i ]if i <len (surplus_within_list )else 0
         sh_steps =shortage_steps_list [i ]if i <len (shortage_steps_list )else 0
         sh_within =shortage_within_list [i ]if i <len (shortage_within_list )else 0
+        z_steps =_count_or_none (zero_steps_list ,i )
+        z_within =_count_or_none (zero_within_list ,i )
+        if z_steps is None or z_within is None :
+            dispatch_tracking_rates .append (float ('nan'))
+            continue
 
-        denom =s_steps +sh_steps
-        numer =s_within +sh_within
+        denom =s_steps +sh_steps +z_steps
+        numer =s_within +sh_within +z_within
         rate =(numer /denom *100.0 )if denom >0 else 0.0
         dispatch_tracking_rates .append (rate )
 
@@ -401,6 +415,8 @@ def plot_performance_metrics (performance_metrics ,results_dir ,title_prefix :st
         'Surplus_Steps_Within_Narrow',
         'Shortage_Steps',
         'Shortage_Steps_Within_Narrow',
+        'Idle_Steps',
+        'Idle_Steps_Within_Narrow',
         'Central_Tracking_Rate_%',
         'System_Tracking_Rate_%',
         'Raw_Actor_MAE_kW',
@@ -444,6 +460,8 @@ def plot_performance_metrics (performance_metrics ,results_dir ,title_prefix :st
             _safe_get (surplus_within_list ,i ),
             _safe_get (shortage_steps_list ,i ),
             _safe_get (shortage_within_list ,i ),
+            _safe_get (zero_steps_list ,i ),
+            _safe_get (zero_within_list ,i ),
             _safe_get (central_tracking_rate_list ,i ),
             _safe_get (system_tracking_rate_list ,i ),
             _safe_get (raw_actor_mae_list ,i ),

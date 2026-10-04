@@ -1310,7 +1310,7 @@ class MADDPG :
                 grad_norm_before =float (grad_norms_before [i ])
                 grad_norm_after =min (grad_norm_before ,GRAD_CLIP_MAX )
 
-                if bool (grad_finite [i ])and grad_norm_before >5.0 :
+                if bool (grad_finite [i ])and grad_norm_before >GRAD_CLIP_MAX :
                     actor_clip_count +=1
                     if i <len (self .actor_clip_counts ):
                         self .actor_clip_counts [i ]=1

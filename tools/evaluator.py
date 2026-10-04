@@ -1130,6 +1130,8 @@ print_summary =None ,
                 'surplus_within_narrow':[],
                 'shortage_steps':[],
                 'shortage_within_narrow':[],
+                'zero_request_steps':[],
+                'zero_request_within_narrow':[],
                 }
                 if enable_switch_metrics :
                     hist ['avg_switches']=[]
@@ -1158,6 +1160,8 @@ print_summary =None ,
                 cur_surplus_within =int (_np .sum (pm .get ('surplus_within_narrow',[])))
                 cur_shortage_steps =int (_np .sum (pm .get ('shortage_steps',[])))
                 cur_shortage_within =int (_np .sum (pm .get ('shortage_within_narrow',[])))
+                cur_zero_steps =int (_np .sum (pm .get ('zero_request_steps',[])))
+                cur_zero_within =int (_np .sum (pm .get ('zero_request_within_narrow',[])))
                 cur_station_limit_hits =int (_np .sum (pm .get ('station_limit_hits',[])))
                 cur_station_limit_steps =int (_np .sum (pm .get ('station_limit_steps',[])))
                 cur_station_charge_limit_hits =int (_np .sum (pm .get ('station_charge_limit_hits',[])))
@@ -1174,6 +1178,7 @@ print_summary =None ,
                 cur_local =cur_global =cur_soc_miss =cur_avg_soc_deficit =cur_surplus_rate =cur_supply_rate =0.0
                 cur_departing_evs =cur_departing_evs_soc_met =0
                 cur_surplus_steps =cur_surplus_within =cur_shortage_steps =cur_shortage_within =0
+                cur_zero_steps =cur_zero_within =None
                 cur_station_limit_hits =cur_station_limit_steps =0
                 cur_station_charge_limit_hits =cur_station_discharge_limit_hits =0
                 cur_station_limit_penalty_total =0.0
@@ -1182,6 +1187,11 @@ print_summary =None ,
 
             for key in _HISTORY_ERROR_KEYS :
                 hist .setdefault (key ,[float ('nan')]*len (hist ['episodes']))
+            # Histories written before the no-instruction counts were stored
+            # have none for their earlier checkpoints; null keeps those rows
+            # from being read as zero no-instruction steps.
+            for key in ('zero_request_steps','zero_request_within_narrow'):
+                hist .setdefault (key ,[None ]*len (hist ['episodes']))
             if test_episode_num in hist ['episodes']:
                 idx =hist ['episodes'].index (test_episode_num )
                 hist ['local_rewards'][idx ]=cur_local
@@ -1196,6 +1206,8 @@ print_summary =None ,
                 hist ['surplus_within_narrow'][idx ]=cur_surplus_within
                 hist ['shortage_steps'][idx ]=cur_shortage_steps
                 hist ['shortage_within_narrow'][idx ]=cur_shortage_within
+                hist ['zero_request_steps'][idx ]=cur_zero_steps
+                hist ['zero_request_within_narrow'][idx ]=cur_zero_within
                 for key in _HISTORY_ERROR_KEYS :
                     hist [key ][idx ]=cur_errors [key ]
                 if enable_switch_metrics :
@@ -1220,6 +1232,8 @@ print_summary =None ,
                 hist ['surplus_within_narrow'].append (cur_surplus_within )
                 hist ['shortage_steps'].append (cur_shortage_steps )
                 hist ['shortage_within_narrow'].append (cur_shortage_within )
+                hist ['zero_request_steps'].append (cur_zero_steps )
+                hist ['zero_request_within_narrow'].append (cur_zero_within )
                 for key in _HISTORY_ERROR_KEYS :
                     hist [key ].append (cur_errors [key ])
                 if enable_switch_metrics :
@@ -1248,6 +1262,8 @@ print_summary =None ,
                 'surplus_within_narrow':[hist .get ('surplus_within_narrow',[0 ]*len (order ))[i ]for i in order ],
                 'shortage_steps':[hist .get ('shortage_steps',[0 ]*len (order ))[i ]for i in order ],
                 'shortage_within_narrow':[hist .get ('shortage_within_narrow',[0 ]*len (order ))[i ]for i in order ],
+                'zero_request_steps':[hist ['zero_request_steps'][i ]for i in order ],
+                'zero_request_within_narrow':[hist ['zero_request_within_narrow'][i ]for i in order ],
                 **{
                 key :[hist .get (key ,[float ('nan')]*len (order ))[i ]for i in order ]
                 for key in _HISTORY_ERROR_KEYS
@@ -1279,6 +1295,8 @@ print_summary =None ,
             'surplus_within_narrow':hist .get ('surplus_within_narrow',[]),
             'shortage_steps':hist .get ('shortage_steps',[]),
             'shortage_within_narrow':hist .get ('shortage_within_narrow',[]),
+            'zero_request_steps':hist .get ('zero_request_steps',[]),
+            'zero_request_within_narrow':hist .get ('zero_request_within_narrow',[]),
             **{key :hist .get (key ,[])for key in _HISTORY_ERROR_KEYS },
             }
             if enable_switch_metrics :

@@ -518,6 +518,9 @@ def _evaluate_controller_precision_impl(
 
     env = EVEnv()
     pipeline = evaluation_pipeline_settings(evaluation_pipeline)
+    # The force layer is the pipeline's own setting below; the training-time
+    # floor (EVMA_TRAIN_FORCE_CHARGING) would otherwise reach marl_raw too.
+    env.apply_train_force_floor = False
     if pipeline["central_allocator"] is not None:
         env.use_central_ev_residual_allocator = bool(pipeline["central_allocator"])
     if pipeline["residual_bess"] is not None:
@@ -682,11 +685,19 @@ def _evaluate_controller_precision_impl(
                 controller_pre_system_step_passed, tracking_enabled
             )
             central_tracking_rate = masked_pass_rate(central_step_passed, tracking_enabled)
-            soc_hit_rate = 1.0 - float(env_metrics.get("soc_miss_rate", 0.0)) / 100.0
+            # EVEnv scores departures on the actions it was handed. With the
+            # central allocator those are not the executed ones on the last
+            # step, so that pipeline counts the SoC each EV actually left with.
+            if bool(pipeline["central_allocator"]):
+                soc_miss_rate = float(env_metrics.get("central_soc_miss_rate", 0.0))
+                departing_evs_soc_met = int(env_metrics.get("central_departing_evs_soc_met", 0))
+            else:
+                soc_miss_rate = float(env_metrics.get("soc_miss_rate", 0.0))
+                departing_evs_soc_met = int(env_metrics.get("departing_evs_soc_met", 0))
+            soc_hit_rate = 1.0 - soc_miss_rate / 100.0
             candidate_soc_passed = bool(
                 candidate_soc_passed
-                and int(env_metrics.get("departing_evs", 0))
-                == int(env_metrics.get("departing_evs_soc_met", 0))
+                and int(env_metrics.get("departing_evs", 0)) == departing_evs_soc_met
             )
             forced_total = int(np.sum(forced_counts))
             forced_active_steps = int(np.count_nonzero(forced_counts > 0.0))
@@ -963,7 +974,7 @@ def _evaluate_controller_precision_impl(
                 "down_step_failed_block_count": int(len(step_direction["down_step_failed_blocks"])),
                 "idle_step_failed_block_count": int(len(step_direction["idle_step_failed_blocks"])),
                 "departing_evs": int(env_metrics.get("departing_evs", 0)),
-                "departing_evs_soc_met": int(env_metrics.get("departing_evs_soc_met", 0)),
+                "departing_evs_soc_met": departing_evs_soc_met,
                 "forced_ev_step_overrides": forced_total,
                 "forced_active_steps": forced_active_steps,
                 "forced_concurrent_max": forced_concurrent_max,

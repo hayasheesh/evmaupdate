@@ -305,6 +305,10 @@ class EVEnv :
         self .local_station_limit_penalty_coef =float (LOCAL_STATION_LIMIT_PENALTY )
         self .local_use_switch_features =bool (USE_SWITCHING_CONSTRAINTS )
         self .use_residual_bess =bool (USE_RESIDUAL_BESS )
+        # The departure force floor applied inside apply_action during training
+        # and interim tests. An evaluation pipeline that decides its own force
+        # layer turns this off, so the process environment cannot add it.
+        self .apply_train_force_floor =bool (TRAIN_FORCE_CHARGING )
         self .bess_power_limit_kw =float (BESS_POWER_KW )
         self .bess_energy_capacity_kwh =float (BESS_ENERGY_KWH )
         self .bess_initial_soc_pct =float (BESS_INITIAL_SOC_PCT )
@@ -1437,7 +1441,7 @@ class EVEnv :
             f"actions must have shape [num_stations, max_ev_per_station], got {tuple(actions.shape)}"
             )
         forced_points_by_station =None
-        if TRAIN_FORCE_CHARGING :
+        if getattr (self ,'apply_train_force_floor',TRAIN_FORCE_CHARGING ):
             actions ,forced_points_by_station =self .apply_force_floor (actions )
         actor_actions =actions .clone ()
         actions ,central_allocator_info =allocate_central_ev_residual (

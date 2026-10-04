@@ -44,11 +44,15 @@ python pre_train.py
 
 ```powershell
 python tools/evaluate_final_system_on_bid_bank.py `
-  --model-dir <run> --output-dir <output> `
+  --model-dir <run> --bid-bank-dir <bank> --output-dir <output> `
   --pipeline marl_force_bess
 ```
 
 `rule_based_central` でもcheckpointを読み込むが、観測次元を決めるためだけでactorの出力は使わない。
+
+`--bid-bank-dir` に既定値はない。bankを作った指令集合と `EVMA_ACTIVATION_SIGNAL_SET` が違うと止まる。`pjm_regd_phase_shift` のbankで `pjm_regd` を評価するときは `--allow-other-command-set` を付ける。
+
+`--episode` を省くと、途中テストの追従率とSoC達成率の和が最大のcheckpointを、1000エピソード以降から選ぶ。追従率は指令なしのstepを含む。指令なしのstep数を記録する前の途中テストは候補に入らない。
 
 ## 主な実装
 

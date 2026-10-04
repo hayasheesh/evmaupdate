@@ -385,6 +385,24 @@ def _row_source(row) -> str:
     return f"{str(row.get('source_type', 'local_5min'))}:{source_name}"
 
 
+def command_days(directory: str | os.PathLike | None = None) -> dict[str, str]:
+    """Calendar day of every command file, keyed by ActivationScenario.source.
+
+    The day the partitioning uses: the source date when the row has one,
+    otherwise the file's date. One day holds one file per source unit.
+    """
+
+    shape_lib = load_proxy_shape_library(directory)
+    days: dict[str, str] = {}
+    for i in range(len(shape_lib)):
+        row = shape_lib.iloc[i]
+        day = row.get("source_date", None)
+        if day is None or (isinstance(day, float) and np.isnan(day)) or not str(day).strip():
+            day = row.get("date", "")
+        days[_row_source(row)] = str(day)
+    return days
+
+
 def build_activation_scenario_set(
     service_date: str | date | None = None,
     n_scenarios: int = 8,

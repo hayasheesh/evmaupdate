@@ -561,6 +561,45 @@ def upper_bid_bank_settings() -> dict[str, object]:
     }
 
 
+def ev_population_signature() -> dict[str, object]:
+    """The EV-physics inputs of a bid that the arrival model does not cover.
+
+    environment.arrival_context.ArrivalScenarioSampler.settings_signature covers
+    the stations, their session tables and the arrival rates. These decide each
+    arriving EV's battery, charger, plug-in SoC and departure target, so a bid
+    solved under other values was solved for another fleet.
+    """
+
+    import hashlib
+
+    from EnvConfig import (
+        EV_BATTERY_CAPACITY_OPTIONS_KWH,
+        EV_BATTERY_CAPACITY_PROBS,
+        EV_CAPACITY,
+        EV_CHARGER_MAX_POWER_OPTIONS_KW,
+        EV_CHARGER_MAX_POWER_PROBS,
+        EV_SOC_ARRIVAL_DISTRIBUTION_PATH,
+        EV_TARGET_REACHABLE_POWER_FRACTION,
+        MAX_EV_POWER_KW,
+        USE_HETEROGENEOUS_EV_PHYSICS,
+    )
+
+    soc_path = Path(EV_SOC_ARRIVAL_DISTRIBUTION_PATH)
+    return {
+        "heterogeneous_ev_physics": bool(USE_HETEROGENEOUS_EV_PHYSICS),
+        "battery_capacity_options_kwh": [float(v) for v in EV_BATTERY_CAPACITY_OPTIONS_KWH],
+        "battery_capacity_probs": [float(v) for v in EV_BATTERY_CAPACITY_PROBS],
+        "charger_power_options_kw": [float(v) for v in EV_CHARGER_MAX_POWER_OPTIONS_KW],
+        "charger_power_probs": [float(v) for v in EV_CHARGER_MAX_POWER_PROBS],
+        "homogeneous_capacity_kwh": float(EV_CAPACITY),
+        "homogeneous_power_kw": float(MAX_EV_POWER_KW),
+        "target_reachable_power_fraction": float(EV_TARGET_REACHABLE_POWER_FRACTION),
+        "arrival_soc_distribution_sha256": (
+            hashlib.sha256(soc_path.read_bytes()).hexdigest() if soc_path.is_file() else None
+        ),
+    }
+
+
 def set_upper_bid_progress_log(path: str | Path | None, reset: bool = True) -> str | None:
     """Set an optional file sink for upper-bid progress messages."""
 
@@ -928,6 +967,7 @@ def _bid_solve_cache_key(
             "base_series_shape": list(series.shape),
             "arrival": arrival_sig,
             "settings": upper_bid_bank_settings(),
+            "ev_population": ev_population_signature(),
         }
         blob = _json.dumps(payload, sort_keys=True, ensure_ascii=False, default=str)
     except (TypeError, ValueError, AttributeError, OSError):

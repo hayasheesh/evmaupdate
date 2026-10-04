@@ -159,7 +159,7 @@ def main() -> int:
         LOWER_TRAIN_UPPER_BID_EV_SCENARIO_LAYOUT,
         LOWER_TRAIN_UPPER_BID_TEST_BANK_COUNT,
     )
-    from training.lower_bid_training import upper_bid_bank_settings
+    from training.lower_bid_training import ev_population_signature, upper_bid_bank_settings
     from training.bid_bank import (
         build_training_bid_bank,
         manifest_settings_match,
@@ -215,6 +215,7 @@ def main() -> int:
         "day_selection_mode": str(day_selection_info["mode"]),
         "selected_dates": [str(payload.get("date")) for payload in payloads],
         "arrival_model": arrival_sampler.settings_signature(),
+        "ev_population": ev_population_signature(),
         **upper_bid_bank_settings(),
         "scenario_workers_per_day": max(int(args.scenario_workers), 1),
     }

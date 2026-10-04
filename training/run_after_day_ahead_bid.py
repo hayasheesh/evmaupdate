@@ -923,6 +923,7 @@ def run_after_day_ahead_bid(
         build_fixed_upper_bid_for_day,
         build_fixed_upper_bid_training_episode,
         _activation_scenarios_for_day,
+        ev_population_signature,
         sample_random_historical_activation,
         set_upper_bid_progress_log,
         upper_bid_bank_settings,
@@ -961,12 +962,14 @@ def run_after_day_ahead_bid(
             BidBank,
             build_training_bid_bank,
             derive_bid_bank_observation_normalization,
+            manifest_missing_settings,
             manifest_settings_match,
         )
 
         arrival_sampler = ArrivalScenarioSampler()
         common_bank_settings = {
             "arrival_model": arrival_sampler.settings_signature(),
+            "ev_population": ev_population_signature(),
             **upper_bid_bank_settings(),
         }
 
@@ -986,6 +989,13 @@ def run_after_day_ahead_bid(
                 return True, False
             compatible = manifest_settings_match(payload, required_settings)
             complete = bool(payload.get("complete", False))
+            unrecorded = manifest_missing_settings(payload, required_settings)
+            if compatible and unrecorded:
+                print(
+                    f"[bid-bank] {path.parent} does not record {unrecorded}; "
+                    "it is used without checking them",
+                    flush=True,
+                )
             if not compatible and complete and bool(LOWER_TRAIN_ACCEPT_BANK_AS_IS):
                 recorded = payload.get("settings") or {}
                 differing = sorted(
