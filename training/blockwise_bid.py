@@ -35,7 +35,6 @@ from EnvConfig import (
     LOWER_TRAIN_UPPER_BID_SEED,
     LOWER_TRAIN_UPPER_BID_UP_MAX_KW,
     LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES,
-    LOWER_TRAIN_UPPER_BID_ENERGY_INITIAL_BID,
     LOWER_TRAIN_UPPER_BID_ENERGY_INITIAL_TIME_LIMIT_S,
     LOWER_TRAIN_RESEARCH_MINIMUM_BID_QUANTITY_KW,
     LOWER_TRAIN_UPPER_BID_PHYSICAL_LP_MIN_DIRECTION_BID_KW,
@@ -919,10 +918,8 @@ def build_blockwise_bid_for_day(
     from training import lower_bid_training as lbt
 
     arrival_probs = None
-    day_context = None
     if arrival_scenario is not None:
         arrival_probs = getattr(arrival_scenario, "arrival_probabilities_by_station", None)
-        day_context = getattr(arrival_scenario, "day_context", None)
     seed = int(LOWER_TRAIN_UPPER_BID_SEED if forecast_seed is None else forecast_seed)
     name = "outer_participation_colgen_benders"
     information_regime = "clairvoyant"
@@ -957,17 +954,11 @@ def build_blockwise_bid_for_day(
     rng_state = lbt._capture_rng_state()
     try:
         candidate_count = int(LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES)
-        if candidate_count < 1 or candidate_count == 2:
-            raise ValueError(
-                "LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES must be 1 for a "
-                "single-realization diagnostic or at least 3 for min/median/max"
-            )
         ev_candidates = lbt._sample_ev_scenario_bank(
             count=candidate_count,
             seed=seed,
             seed_offset=0,
             arrival_probs=arrival_probs,
-            day_context=day_context,
             label=f"blockwise bid candidate {name}",
             service_date=service_date,
             workers=cfg.scenario_workers,
@@ -1038,39 +1029,41 @@ def build_blockwise_bid_for_day(
     initial_down_active = down_limit >= minimum_delta_kw - cfg.eps
     initial_submitted_up = np.where(initial_up_active, up_limit, 0.0)
     initial_submitted_down = np.where(initial_down_active, down_limit, 0.0)
-    energy_initial_summary = {"rule": "assessment_i_caps"}
-    if LOWER_TRAIN_UPPER_BID_ENERGY_INITIAL_BID:
-        energy_seed = energy_feasible_initial_bid(
-            lbt.stratified_ev_activation_scenarios(
-                ev_specs_by_scenario=ev_bank,
-                activation_payloads=forecast_payloads,
-                activations_per_ev=len(forecast_payloads),
-            ),
-            cfg,
-            baseline_min=baseline_floor,
-            baseline_max=baseline_ceiling,
-            up_cap=initial_submitted_up,
-            down_cap=initial_submitted_down,
-            minimum_bid_kw=minimum_delta_kw,
-            sustained_power_min=sustained_power_min,
-            sustained_power_max=sustained_power_max,
-            time_limit_s=(
-                float(LOWER_TRAIN_UPPER_BID_ENERGY_INITIAL_TIME_LIMIT_S)
-                if float(LOWER_TRAIN_UPPER_BID_ENERGY_INITIAL_TIME_LIMIT_S) > 0.0
-                else None
-            ),
-            progress=lbt._bid_build_log,
-        )
-        if energy_seed is None:
-            energy_initial_summary = {
-                "rule": "assessment_i_caps",
-                "aggregate_energy_seed": "no_aggregate_feasible_pattern",
-            }
-        else:
-            natural_baseline = energy_seed.baseline_kw.copy()
-            initial_submitted_up = energy_seed.up_kw.copy()
-            initial_submitted_down = energy_seed.down_kw.copy()
-            energy_initial_summary = dict(energy_seed.summary)
+    # The seed is also the per-block upper limit of the Benders search. The
+    # aggregate LP checks the fleet's cumulative energy over the day in every
+    # EV realization x design command. When no aggregate pattern is feasible
+    # the seed stays at the Assessment-I caps.
+    energy_seed = energy_feasible_initial_bid(
+        lbt.stratified_ev_activation_scenarios(
+            ev_specs_by_scenario=ev_bank,
+            activation_payloads=forecast_payloads,
+            activations_per_ev=len(forecast_payloads),
+        ),
+        cfg,
+        baseline_min=baseline_floor,
+        baseline_max=baseline_ceiling,
+        up_cap=initial_submitted_up,
+        down_cap=initial_submitted_down,
+        minimum_bid_kw=minimum_delta_kw,
+        sustained_power_min=sustained_power_min,
+        sustained_power_max=sustained_power_max,
+        time_limit_s=(
+            float(LOWER_TRAIN_UPPER_BID_ENERGY_INITIAL_TIME_LIMIT_S)
+            if float(LOWER_TRAIN_UPPER_BID_ENERGY_INITIAL_TIME_LIMIT_S) > 0.0
+            else None
+        ),
+        progress=lbt._bid_build_log,
+    )
+    if energy_seed is None:
+        energy_initial_summary = {
+            "rule": "assessment_i_caps",
+            "aggregate_energy_seed": "no_aggregate_feasible_pattern",
+        }
+    else:
+        natural_baseline = energy_seed.baseline_kw.copy()
+        initial_submitted_up = energy_seed.up_kw.copy()
+        initial_submitted_down = energy_seed.down_kw.copy()
+        energy_initial_summary = dict(energy_seed.summary)
     initial_solution = lbt.BiddingSolution(
         status="optimal",
         solver="outer-participation-seed",
@@ -1297,7 +1290,6 @@ def build_blockwise_bid_for_day(
         "assessment_i_sustained_power_max_kw": sustained_power_max.copy(),
         "base_series": np.asarray(base_series, dtype=np.float32).reshape(-1)[:len(target)],
         "arrival_probabilities_by_station": arrival_probs,
-        "day_context": day_context,
         "result": result,
         "baseline_plan": baseline_plan,
         "up_plan": up_plan,

@@ -29,7 +29,7 @@ python tools/build_all_upper_bid_banks.py --workers 2
 
 `--preflight-only` を付けると、指令の区分と本数だけ確認して止まる。
 
-MARLの事前学習:
+MARLの事前学習。train・testのbankが揃っていないとき、またはbankの入札設定が今のコードと違うときは止まる:
 
 ```powershell
 python pre_train.py
@@ -64,4 +64,3 @@ python tools/evaluate_final_system_on_bid_bank.py `
 - `environment/EVEnv.py`: EV群とPCCのBESSを含む環境
 - `environment/central_residual_allocator.py`: 中央観測ルールベースの比較器
 - `training/evaluate_controller_precision.py`: 入札後の統一評価
-- `legacy/finetune/`: 約定後のfine-tune（主線から外した旧実験）

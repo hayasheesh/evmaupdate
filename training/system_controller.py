@@ -22,7 +22,7 @@ from Config import (
     TD3_CLIP_GLOBAL,
     TD3_SIGMA_GLOBAL,
 )
-from EnvConfig import MAX_EV_POWER_KW, POWER_TO_ENERGY
+from EnvConfig import POWER_TO_ENERGY
 from training.Agent import MADDPG
 from training.Agent.standard_maddpg import build_marl_agent
 
@@ -137,8 +137,6 @@ def apply_force_charging(actions, env, *, slack_kwh: float = 0.0):
         for order_index, ev_tensor in enumerate(sorted_active):
             ev_index = int(ev_tensor.item())
             max_power_kw = float(env.ev_max_power_kw[station, ev_index].item())
-            if max_power_kw <= 0.0:
-                max_power_kw = float(MAX_EV_POWER_KW)
             max_step_kwh = max_power_kw * float(POWER_TO_ENERGY)
             if max_step_kwh <= 0.0:
                 continue
@@ -220,6 +218,8 @@ def choose_best_episode(
     if not test_dirs:
         raise FileNotFoundError(f"No TEST* directories found under: {results_dir}")
     history = _test_history_episodes(results_dir)
+    if history is None:
+        raise FileNotFoundError(f"{results_dir / 'test_history.json'} is missing; pass the episode explicitly")
     metrics_path = results_dir / "test_performance_metrics.csv"
     if not metrics_path.is_file():
         raise FileNotFoundError(f"{metrics_path} is missing; pass the episode explicitly")
@@ -235,13 +235,9 @@ def choose_best_episode(
             continue
         if not math.isfinite(score):
             continue
-        episode = history[index] if history is not None and index < len(history) else None
-        if episode is None:
-            try:
-                raw = int(float(row.get("Episode", "")))
-            except (TypeError, ValueError):
-                raw = -1
-            episode = raw if raw in test_dirs else raw * 10
+        if index >= len(history):
+            continue
+        episode = history[index]
         if episode not in test_dirs or episode < int(min_episode):
             continue
         if best is None or score > best[1] or (score == best[1] and episode > best[0]):

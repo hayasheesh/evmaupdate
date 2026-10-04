@@ -102,13 +102,6 @@ def step_dispatch_envelope(env, *, force_slack_kwh: float = 0.0) -> tuple[float,
     station_max = charge_cap.sum(dim=1)
     station_min = -discharge_cap.sum(dim=1)
     station_obligated = obligated_kw.sum(dim=1)
-    if bool(getattr(env, "use_station_total_power_limit", False)):
-        limit = env.station_power_limit_kw
-        station_max = torch.minimum(station_max, limit)
-        station_min = torch.maximum(station_min, -limit)
-        station_obligated = torch.minimum(
-            torch.maximum(station_obligated, -limit), limit
-        )
 
     return (
         float(station_min.sum().item()) + float(bess_min),

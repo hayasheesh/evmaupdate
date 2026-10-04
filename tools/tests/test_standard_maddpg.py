@@ -58,7 +58,6 @@ def test_exploration_is_gaussian_noise_only():
     agent = _agent()
     agent.episode_start()
     assert agent.epsilon == 0.0
-    assert agent.global_correlated_noise_gain == 0.0
 
 
 def test_one_step_moves_critics_actors_and_targets():

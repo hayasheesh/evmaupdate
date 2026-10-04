@@ -25,7 +25,6 @@ from environment.central_residual_allocator import (
 )
 from environment.normalize import normalize_observation
 from environment.observation_config import (
-    BESS_CONTEXT_FEATURES,
     EV_FEAT_DIM,
     LOCAL_TAIL_FEATURE_NAMES,
 )
@@ -125,8 +124,8 @@ def test_actor_reward_and_marl_metrics_stay_pre_bess(env):
     assert metrics["post_bess_mae_kw"] == pytest.approx(0.0, abs=1e-6)
 
     # Grid-side residual telemetry remains in ``info``/metrics, not in the
-    # default actor state. The actor still sees centrally corrected EV SoC.
-    assert not set(BESS_CONTEXT_FEATURES).intersection(LOCAL_TAIL_FEATURE_NAMES)
+    # actor state. The actor still sees centrally corrected EV SoC.
+    assert not any("bess" in name for name in LOCAL_TAIL_FEATURE_NAMES)
     normalized = normalize_observation(obs)
     assert normalized.shape == obs.shape
 

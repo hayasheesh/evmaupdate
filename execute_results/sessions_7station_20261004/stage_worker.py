@@ -43,8 +43,6 @@ def configure(task: str):
         'EVMA_NUM_STATIONS': '7',
         'EVMA_MARL_ALGORITHM': algorithm,
         'EVMA_ACTIVATION_SIGNAL_SET': signal_set,
-        'EVMA_LOWER_TRAIN_BUILD_BID_BANK': '0',
-        'EVMA_LOWER_TRAIN_ACCEPT_BANK_AS_IS': '0',
         'EVMA_LOWER_TRAIN_UPPER_BID_ACTIVATION_SCENARIOS': '128',
         'EVMA_LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES': '128',
         'EVMA_LOWER_TRAIN_BID_BANK_DIR': str(train_bank),
@@ -71,15 +69,9 @@ def check(config, task: str) -> dict:
     assert config.ACTIVATION_SIGNAL_SET == signal_set
     assert config.Q_MIX_GLOBAL_WEIGHT == 0.5
     assert config.MEMORY_SIZE == 500000
-    assert config.GLOBAL_CORRELATED_NOISE_GAIN == 0.0
-    assert config.ACTOR_USE_ACTIVE_EV_COUNT
     assert EnvConfig.GLOBAL_BALANCE_REWARD_ERROR_SCALE_KW == 150.0
     assert EnvConfig.GLOBAL_BALANCE_REWARD_LINEAR_TAIL_KW == 60.0
-    assert EnvConfig.LOCAL_USE_FLEET_RESIDUAL
     assert EnvConfig.LOWER_BID_LOOKAHEAD_BLOCKS == 24
-    assert not EnvConfig.TRAIN_FORCE_CHARGING
-    assert not EnvConfig.TRAIN_USE_RESIDUAL_BESS
-    assert not EnvConfig.USE_CENTRAL_EV_RESIDUAL_ALLOCATOR
     assert EnvConfig.LOWER_TRAIN_UPPER_BID_ACTIVATION_SCENARIOS == 128
     assert EnvConfig.LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES == 128
     assert minimum_bid_quantity_kw() == 250.0
@@ -112,7 +104,6 @@ def main() -> int:
         from environment.normalize import normalize_observation
         from training.system_controller import build_agent
 
-        config.CREATE_AGENT_RUNS_WRITER = False
         env = EVEnv()
         env.reset(net_demand_series=np.zeros(config.EPISODE_STEPS, dtype=np.float32), service_date='2024-04-02')
         agent = build_agent(env)

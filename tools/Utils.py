@@ -220,7 +220,6 @@ def plot_performance_metrics (performance_metrics ,results_dir ,title_prefix :st
 
 
     soc_miss_rates =performance_metrics .get ('soc_miss_count',[])
-    avg_switches_list =performance_metrics .get ('avg_switches',[])
 
 
     surplus_steps_list =performance_metrics .get ('surplus_steps',[])
@@ -307,22 +306,6 @@ def plot_performance_metrics (performance_metrics ,results_dir ,title_prefix :st
         lines =[soc_line ,dt_line ]
         labels =["Target SoC Satisfaction Rate","Dispatch Tracking Rate"]
 
-        if len (avg_switches_list )>0 :
-            ax3 =ax1 .twinx ()
-
-            ax3 .spines ["right"].set_position (("axes",1.15 ))
-
-            switch_line ,=ax3 .plot (x_plot ,avg_switches_list ,marker ='o',markersize =15 ,linestyle ='None',
-            label ="Avg Switches",color ="green")
-            ax3 .set_ylabel ("Avg Switches",color ="green")
-            ax3 .tick_params (axis ="y",labelcolor ="green")
-
-            max_sw =max (max (avg_switches_list ),10 )
-            ax3 .set_ylim (0 ,max_sw +2 )
-            ax3 .spines ["right"].set_color ("green")
-            lines .append (switch_line )
-            labels .append ("Avg Switches")
-
 
 
 
@@ -359,13 +342,6 @@ def plot_performance_metrics (performance_metrics ,results_dir ,title_prefix :st
     departing_evs =performance_metrics .get ('departing_evs',[])
     departing_evs_soc_met =performance_metrics .get ('departing_evs_soc_met',[])
     avg_soc_deficit_list =performance_metrics .get ('avg_soc_deficit',[])
-    station_limit_hits_list =performance_metrics .get ('station_limit_hits',[])
-    station_limit_steps_list =performance_metrics .get ('station_limit_steps',[])
-    station_charge_limit_hits_list =performance_metrics .get ('station_charge_limit_hits',[])
-    station_discharge_limit_hits_list =performance_metrics .get ('station_discharge_limit_hits',[])
-    station_limit_penalty_total_list =performance_metrics .get ('station_limit_penalty_total',[])
-    station_limit_penalty_per_step_list =performance_metrics .get ('station_limit_penalty_per_step',[])
-    station_limit_penalty_per_hit_list =performance_metrics .get ('station_limit_penalty_per_hit',[])
     central_tracking_rate_list =performance_metrics .get ('central_tracking_success_rate',[])
     system_tracking_rate_list =performance_metrics .get ('system_tracking_success_rate',[])
     raw_actor_mae_list =performance_metrics .get ('raw_actor_mae_kw',[])
@@ -377,16 +353,6 @@ def plot_performance_metrics (performance_metrics ,results_dir ,title_prefix :st
     station_target_error_list =performance_metrics .get ('central_max_station_target_error_kw',[])
     central_correction_kwh_list =performance_metrics .get ('central_absolute_correction_kwh',[])
     bess_throughput_list =performance_metrics .get ('bess_throughput_kwh',[])
-    has_switch_cols =len (avg_switches_list )>0
-    has_stlimit_cols =(
-    len (station_limit_hits_list )>0 or
-    len (station_limit_steps_list )>0 or
-    len (station_charge_limit_hits_list )>0 or
-    len (station_discharge_limit_hits_list )>0 or
-    len (station_limit_penalty_total_list )>0 or
-    len (station_limit_penalty_per_step_list )>0 or
-    len (station_limit_penalty_per_hit_list )>0
-    )
 
     with open (csv_path ,'w',newline ='',encoding ='utf-8')as f :
         writer =csv .writer (f )
@@ -396,18 +362,6 @@ def plot_performance_metrics (performance_metrics ,results_dir ,title_prefix :st
         'Dispatch_Tracking_Rate_%',
         'Avg_SoC_Deficit_kWh',
         ]
-        if has_switch_cols :
-            header .append ('Avg_Switches')
-        if has_stlimit_cols :
-            header .extend ([
-            'Station_Limit_Hits',
-            'Station_Limit_Steps',
-            'Station_Charge_Limit_Hits',
-            'Station_Discharge_Limit_Hits',
-            'Station_Limit_Penalty_Total',
-            'Station_Limit_Penalty_Per_Step',
-            'Station_Limit_Penalty_Per_Hit',
-            ])
         header .extend ([
         'SoC_Departing_EVs',
         'SoC_Hit_EVs',
@@ -441,18 +395,6 @@ def plot_performance_metrics (performance_metrics ,results_dir ,title_prefix :st
             dispatch_tracking_rates [i ],
             _safe_get (avg_soc_deficit_list ,i ),
             ]
-            if has_switch_cols :
-                row .append (_safe_get (avg_switches_list ,i ))
-            if has_stlimit_cols :
-                row .extend ([
-                _safe_get (station_limit_hits_list ,i ),
-                _safe_get (station_limit_steps_list ,i ),
-                _safe_get (station_charge_limit_hits_list ,i ),
-                _safe_get (station_discharge_limit_hits_list ,i ),
-                _safe_get (station_limit_penalty_total_list ,i ),
-                _safe_get (station_limit_penalty_per_step_list ,i ),
-                _safe_get (station_limit_penalty_per_hit_list ,i ),
-                ])
             row .extend ([
             _safe_get (departing_evs ,i ),
             _safe_get (departing_evs_soc_met ,i ),
@@ -2029,9 +1971,8 @@ title_prefix :str ="")->None :
     """
     Plot local and global reward components over time.
 
-    Local components include progress shaping, departure reward, discharge
-    penalty, and station-limit penalty when present. The global component is the
-    demand-balance reward.
+    Local components are progress shaping and the departure reward. The global
+    component is the demand-balance reward.
     """
 
     title_prefix_en =title_prefix
@@ -2051,11 +1992,6 @@ title_prefix :str ="")->None :
         steps =np .arange (1 ,len (ep ['rewards_global_balance'])+1 )
         local_shaping =np .asarray (ep ['rewards_local_shaping'],dtype =float )
         local_departure =np .asarray (ep ['rewards_local_departure'],dtype =float )
-        local_discharge_penalty =np .asarray (ep ['rewards_local_discharge_penalty'],dtype =float )
-        local_station_limit_penalty =np .asarray (
-        ep .get ('rewards_local_station_limit_penalty',np .zeros (len (steps ))),
-        dtype =float ,
-        )
         global_balance =np .asarray (ep ['rewards_global_balance'],dtype =float )
 
         fig ,(ax1 ,ax2 )=plt .subplots (2 ,1 ,figsize =(20 ,16 ),sharex =True )
@@ -2063,27 +1999,15 @@ title_prefix :str ="")->None :
 
         ax1 .plot (steps ,local_shaping ,label ='Local Shaping',color ='cyan',lw =3 ,alpha =0.8 )
         ax1 .plot (steps ,local_departure ,label ='Local Departure',color ='orange',lw =4 ,marker ='o',markersize =4 ,ls ='None')
-        ax1 .plot (steps ,local_discharge_penalty ,label ='Local Discharge Penalty',color ='red',lw =2 ,alpha =0.6 )
-        ax1 .plot (steps ,local_station_limit_penalty ,label ='Local Station Limit Penalty',color ='magenta',lw =3 ,alpha =0.9 )
-        ax1 .fill_between (
-        steps ,
-        0 ,
-        local_station_limit_penalty ,
-        color ='magenta',
-        alpha =0.18 ,
-        linewidth =0 ,
-        )
 
 
-        local_total =local_shaping +local_departure +local_discharge_penalty +local_station_limit_penalty
+        local_total =local_shaping +local_departure
         ax1 .plot (steps ,local_total ,label ='Local Total (Sum)',color ='green',lw =2 ,ls ='--',alpha =0.5 )
 
 
         all_local_vals =np .concatenate ([
         local_shaping ,
         local_departure ,
-        local_discharge_penalty ,
-        local_station_limit_penalty ,
         local_total ,
         ])
         if len (all_local_vals )>0 :
@@ -2145,8 +2069,6 @@ title_prefix :str ="")->None :
             'Global_Balance',
             'Local_Shaping',
             'Local_Departure',
-            'Local_Discharge_Penalty',
-            'Local_Station_Limit_Penalty',
             ])
             for i in range (len (steps )):
                 writer .writerow ([
@@ -2154,8 +2076,6 @@ title_prefix :str ="")->None :
                 global_balance [i ],
                 local_shaping [i ],
                 local_departure [i ],
-                local_discharge_penalty [i ],
-                local_station_limit_penalty [i ],
                 ])
 
 
@@ -2250,128 +2170,6 @@ class InterruptHandler :
         return self ._interrupted
 
 
-def launch_tensorboard (log_dir ,max_retries =3 ,port =6006 ):
-    """Launch TensorBoard and open it in a browser when available."""
-    import sys
-    import socket
-    import subprocess
-    import webbrowser
-    import time as _time
-
-    def check_port_available (p ):
-        sock =socket .socket (socket .AF_INET ,socket .SOCK_STREAM )
-        try :
-            sock .bind (('localhost',p ))
-            sock .close ()
-            return True
-        except OSError :
-            return False
-
-    def find_available_port (start_port =6006 ,max_attempts =10 ):
-        for p in range (start_port ,start_port +max_attempts ):
-            if check_port_available (p ):
-                return p
-        return None
-
-    def check_tensorboard_running (p ,max_wait =30 ):
-        import urllib .request
-        import urllib .error
-        url =f"http://localhost:{p}"
-        for _ in range (max_wait ):
-            try :
-                response =urllib .request .urlopen (url ,timeout =1 )
-                if response .getcode ()==200 :
-                    return True
-            except (urllib .error .URLError ,socket .timeout ,ConnectionRefusedError ):
-                _time .sleep (1 )
-        return False
-
-    for attempt in range (max_retries ):
-        try :
-            if not check_port_available (port ):
-                try :
-                    import psutil
-                    killed =False
-                    for proc in psutil .process_iter (['pid','name','cmdline']):
-                        try :
-                            cmdline =proc .info .get ('cmdline',[])
-                            if cmdline and any ('tensorboard'in str (arg ).lower ()for arg in cmdline ):
-                                if str (port )in ' '.join (str (arg )for arg in cmdline ):
-                                    proc .terminate ()
-                                    try :
-                                        proc .wait (timeout =3 )
-                                    except psutil .TimeoutExpired :
-                                        proc .kill ()
-                                    killed =True
-                                    _time .sleep (1 )
-                                    break
-                        except (psutil .NoSuchProcess ,psutil .AccessDenied ,psutil .ZombieProcess ):
-                            continue
-                    if killed :
-                        if not check_port_available (port ):
-                            new_port =find_available_port (port +1 )
-                            if new_port :
-                                port =new_port
-                    else :
-                        new_port =find_available_port (port +1 )
-                        if new_port :
-                            port =new_port
-                except ImportError :
-                    new_port =find_available_port (port +1 )
-                    if new_port :
-                        port =new_port
-                except Exception :
-                    new_port =find_available_port (port +1 )
-                    if new_port :
-                        port =new_port
-
-            if not check_port_available (port )and attempt <max_retries -1 :
-                new_port =find_available_port (port +1 )
-                if new_port :
-                    port =new_port
-
-            cmd =[sys .executable ,"-m","tensorboard.main","--logdir",log_dir ,"--port",str (port )]
-            process =subprocess .Popen (
-            cmd ,
-            stdout =subprocess .PIPE ,
-            stderr =subprocess .PIPE ,
-            creationflags =subprocess .CREATE_NO_WINDOW if sys .platform =='win32'else 0
-            )
-
-            if check_tensorboard_running (port ,max_wait =30 ):
-                try :
-                    webbrowser .open (f"http://localhost:{port}")
-                except Exception :
-                    webbrowser .open (f"http://localhost:{port}")
-                return process
-            else :
-                try :
-                    process .terminate ()
-                    process .wait (timeout =2 )
-                except Exception :
-                    try :
-                        process .kill ()
-                    except Exception :
-                        pass
-                if attempt <max_retries -1 :
-                    new_port =find_available_port (port +1 )
-                    if new_port :
-                        port =new_port
-                    _time .sleep (2 )
-
-        except FileNotFoundError :
-            return None
-        except Exception :
-            if attempt <max_retries -1 :
-                new_port =find_available_port (port +1 )
-                if new_port :
-                    port =new_port
-                _time .sleep (2 )
-
-    print (f"  python -m tensorboard.main --logdir {log_dir} --port {port}")
-    return None
-
-
 def write_train_episode_tb_scalars (
 tb_writer ,
 training_ep ,
@@ -2400,19 +2198,11 @@ bess_throughput_kwh =0.0 ,
 bess_max_abs_power_kw =0.0 ,
 bess_power_limit_hits =0 ,
 bess_energy_limit_hits =0 ,
-avg_switches =0.0 ,
-station_limit_steps =0 ,
-station_limit_penalty_total =0.0 ,
 ep_local_departure_r =0.0 ,
 ep_local_progress_shaping_r =0.0 ,
-ep_local_discharge_penalty_r =0.0 ,
-ep_local_switch_penalty_r =0.0 ,
-ep_local_station_limit_penalty_r =0.0 ,
 station_local_reward_sums =None ,
-enable_switch_metrics =False ,
-enable_stlimit_metrics =False ,
 ):
-    """Write per-episode reward, metric, and penalty scalars to TensorBoard."""
+    """Write per-episode reward and metric scalars to TensorBoard."""
     from Config import TB_VERBOSE
 
     if tb_writer is None :
@@ -2446,113 +2236,12 @@ enable_stlimit_metrics =False ,
     tb_writer .add_scalar ("BESS/power_limit_hits",bess_power_limit_hits ,training_ep )
     tb_writer .add_scalar ("BESS/energy_limit_hits",bess_energy_limit_hits ,training_ep )
 
-    if enable_switch_metrics :
-        tb_writer .add_scalar ("Metrics/avg_switches",avg_switches ,training_ep )
-    if enable_stlimit_metrics :
-        tb_writer .add_scalar ("Metrics/station_limit_steps",station_limit_steps ,training_ep )
-        tb_writer .add_scalar ("Metrics/station_limit_penalty_total",station_limit_penalty_total ,training_ep )
-
     if TB_VERBOSE :
         tb_writer .add_scalar ("Reward/local_departure",ep_local_departure_r /n ,training_ep )
         tb_writer .add_scalar ("Reward/local_shaping",ep_local_progress_shaping_r /n ,training_ep )
-        tb_writer .add_scalar ("Reward/local_discharge_penalty",ep_local_discharge_penalty_r /n ,training_ep )
-        if enable_switch_metrics :
-            tb_writer .add_scalar ("Reward/local_switch_penalty",ep_local_switch_penalty_r /n ,training_ep )
-        if enable_stlimit_metrics :
-            tb_writer .add_scalar ("Reward/local_station_limit_penalty",ep_local_station_limit_penalty_r /n ,training_ep )
         if station_local_reward_sums :
             for st_idx ,sums in enumerate (station_local_reward_sums ):
                 st_id =st_idx +1
                 tb_writer .add_scalar (f"Reward/local_station{st_id}_total",sums ["total"]/n ,training_ep )
                 tb_writer .add_scalar (f"Reward/local_station{st_id}_departure",sums ["departure"]/n ,training_ep )
                 tb_writer .add_scalar (f"Reward/local_station{st_id}_shaping",sums ["progress_shaping"]/n ,training_ep )
-                tb_writer .add_scalar (f"Reward/local_station{st_id}_discharge_penalty",sums ["discharge_penalty"]/n ,training_ep )
-
-
-
-
-
-
-import socket as _socket
-import urllib .request as _urllib_request
-import urllib .error as _urllib_error
-
-
-def check_port_available (port ):
-    """Return True if localhost can bind `port`."""
-    sock =_socket .socket (_socket .AF_INET ,_socket .SOCK_STREAM )
-    try :
-        sock .bind (('localhost',port ))
-        sock .close ()
-        return True
-    except OSError :
-        return False
-
-
-def find_available_port (start_port =6006 ,max_attempts =10 ):
-    """Find the first available localhost port in a short consecutive range."""
-    for p in range (start_port ,start_port +max_attempts ):
-        if check_port_available (p ):
-            return p
-    return None
-
-
-def check_tensorboard_running (port ,max_wait =30 ):
-    """Poll TensorBoard until the HTTP endpoint responds or the timeout expires."""
-    import time as _time
-    url =f"http://localhost:{port}"
-    for _ in range (max_wait ):
-        try :
-            response =_urllib_request .urlopen (url ,timeout =1 )
-            if response .getcode ()==200 :
-                return True
-        except (_urllib_error .URLError ,_socket .timeout ,ConnectionRefusedError ):
-            _time .sleep (1 )
-    return False
-
-
-def runtensorboard_main ():
-    """TensorBoard launcher CLI entry point (formerly main() in runtensorboard.py)."""
-    import sys
-    import subprocess
-    import webbrowser
-
-
-    if len (sys .argv )>1 :
-        logdir =sys .argv [1 ].strip ()
-    else :
-        logdir =input ("TensorBoard log directory: ").strip ()
-        if not logdir :
-            sys .exit (1 )
-
-    port =6006
-    if not check_port_available (port ):
-        new_port =find_available_port (port +1 )
-        if new_port :
-            port =new_port
-        else :
-            pass
-
-    cmd =[sys .executable ,"-m","tensorboard.main","--logdir",logdir ,"--port",str (port )]
-    process =subprocess .Popen (
-    cmd ,
-    stdout =subprocess .PIPE ,
-    stderr =subprocess .PIPE ,
-    creationflags =subprocess .CREATE_NO_WINDOW if sys .platform =='win32'else 0 ,
-    )
-
-
-    if check_tensorboard_running (port ,max_wait =30 ):
-        try :
-            webbrowser .open (f"http://localhost:{port}")
-        except Exception :
-            webbrowser .open (f"http://localhost:{port}")
-    else :
-        process .terminate ()
-        sys .exit (1 )
-
-    try :
-        process .wait ()
-    except KeyboardInterrupt :
-        process .terminate ()
-        process .wait ()

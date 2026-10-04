@@ -6,27 +6,26 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+import pytest
 
 from market.activation_scenarios import (
     LOWER_CONTROL_POOL,
     build_activation_scenario_set,
-    lower_control_pool_label,
 )
 
 
-def _write_library(root: Path, partitions: dict[str, str | None]) -> Path:
+def _write_library(root: Path, partitions: dict[str, str]) -> Path:
     root.mkdir()
     for index, (day, partition) in enumerate(sorted(partitions.items())):
         frame = pd.DataFrame({
-            "up_proxy": np.full(288, 0.1 * (index + 1)),
-            "down_proxy": np.zeros(288),
+            "up_proxy_raw": np.full(288, 0.1 * (index + 1)),
+            "down_proxy_raw": np.zeros(288),
             "source_type": "test_5min",
             "source_date": day,
             "source_bmu": "UNIT",
+            "scenario_partition": partition,
+            "segment_id": f"UNIT:{day}",
         })
-        if partition is not None:
-            frame["scenario_partition"] = partition
-            frame["segment_id"] = f"UNIT:{day}"
         frame.to_csv(root / f"day_{day}.csv", index=False)
     return root
 
@@ -39,7 +38,6 @@ def test_a_partitioned_library_draws_every_pool_but_train(tmp_path):
         service_date="2024-04-02", n_scenarios=1, seed=seed, proxy_shape_dir=library,
         scenario_partition=LOWER_CONTROL_POOL)}
     assert drawn == {"2026-01-03", "2026-01-04"}
-    assert lower_control_pool_label(library) == "validation+test"
 
 
 def test_excluded_sources_are_never_drawn(tmp_path):
@@ -78,12 +76,10 @@ def test_the_pretrain_draws_are_rebuilt_from_their_seeds(tmp_path, monkeypatch):
     assert rebuilt == train_drawn | validation_drawn
 
 
-def test_a_library_without_partitions_draws_as_before(tmp_path):
-    library = _write_library(tmp_path / "legacy", {f"2026-01-0{d}": None for d in range(1, 6)})
-    for seed in range(5):
-        before = build_activation_scenario_set(service_date="2024-04-02", n_scenarios=2, seed=seed,
-                                               proxy_shape_dir=library, scenario_partition=None)
-        now = build_activation_scenario_set(service_date="2024-04-02", n_scenarios=2, seed=seed,
-                                            proxy_shape_dir=library, scenario_partition=LOWER_CONTROL_POOL)
-        assert [s.source_date for s in now] == [s.source_date for s in before]
-    assert lower_control_pool_label(library) == "all_historical"
+def test_a_library_without_partitions_is_refused(tmp_path):
+    library = _write_library(tmp_path / "undeclared", {f"2026-01-0{d}": "test" for d in range(1, 3)})
+    for path in library.glob("*.csv"):
+        pd.read_csv(path).drop(columns=["scenario_partition"]).to_csv(path, index=False)
+    with pytest.raises(ValueError, match="scenario_partition"):
+        build_activation_scenario_set(service_date="2024-04-02", n_scenarios=1, seed=0,
+                                      proxy_shape_dir=library, scenario_partition=LOWER_CONTROL_POOL)

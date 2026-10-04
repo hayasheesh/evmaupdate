@@ -2,13 +2,12 @@
 
 It is an independent actuator at the point of common coupling: it never rewrites
 an EV action, the tracking reward is the raw actor deviation, and the departure
-reward reads the raw actor SoC trajectory. So on a pretrain or a fine-tune it is
-arithmetic whose only consumer is a reported column, and training now runs with
-it off.
+reward reads the raw actor SoC trajectory. So in pretraining it is arithmetic
+whose only consumer is a reported column, and training runs with it off.
 
 That is only safe while the claim holds, which is what this pins. If a future
 change lets the battery reach an EV action or an EV-side reward, the run stops
-being reproducible across the flag and these fail.
+being reproducible across the switch and these fail.
 """
 
 from __future__ import annotations
@@ -105,10 +104,9 @@ def test_only_the_battery_column_moves(paired):
     assert on["metrics"]["post_bess_mae_kw"] != off["metrics"]["post_bess_mae_kw"]
 
 
-def test_training_default_is_off_while_the_environment_default_is_on():
-    from EnvConfig import TRAIN_USE_RESIDUAL_BESS, USE_RESIDUAL_BESS
+def test_the_environment_runs_the_battery_unless_turned_off():
+    from environment.EVEnv import EVEnv
 
-    # The final precision evaluation builds its own environment and must keep
-    # the battery; only training and the scoring inside training drop it.
-    assert bool(USE_RESIDUAL_BESS) is True
-    assert bool(TRAIN_USE_RESIDUAL_BESS) is False
+    # The final precision evaluation builds its own environment and keeps the
+    # battery; training and the interim tests turn it off on theirs.
+    assert EVEnv().use_residual_bess is True

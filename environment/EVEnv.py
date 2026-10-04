@@ -9,15 +9,14 @@ This module manages:
 - optional snapshot generation for evaluation and plotting
 
 Data inputs:
-- Demand series comes from `reset(net_demand_series=...)` or, when omitted, from
-  `environment.readcsv` train/test demand episodes.
+- Demand series comes from `reset(net_demand_series=...)`.
 - EVs come from each station's own measured charging sessions
   (`environment.station_sessions`, tables in `EnvConfig.STATION_SESSION_DIR`).
 
 Core state tensors:
 - Shape is `(num_stations, MAX_EV_PER_STATION)` for `soc`, `target`,
-  `ev_capacity_kwh`, `ev_max_power_kw`, `depart`, `ev_mask`, `switch_count`,
-  and related per-slot tensors.
+  `ev_capacity_kwh`, `ev_max_power_kw`, `depart`, `ev_mask`, and related
+  per-slot tensors.
 - `ev_mask` marks active EV slots. Empty slots keep zeroed state and are ignored
   by action application, rewards, and observations.
 
@@ -39,7 +38,6 @@ from __future__ import annotations
 
 import random
 import random as _pyrandom
-from dataclasses import replace
 
 import numpy as np
 import torch
@@ -54,8 +52,7 @@ service_day_class ,
 )
 from Config import DEVICE
 from EnvConfig import (
-EV_CAPACITY ,EPISODE_STEPS ,TOL_NARROW_METRICS ,
-SOC_WIDE ,
+EPISODE_STEPS ,TOL_NARROW_METRICS ,
 MAX_EV_PER_STATION ,
 EV_SOC_ARRIVAL_DISTRIBUTION_PATH ,
 STATION_SESSION_DIR ,
@@ -65,45 +62,19 @@ SERVICE_CALENDAR_COUNTRY ,
 SESSION_MATCH_MIN_CANDIDATES ,
 EV_PREROLL_DAYS ,
 EV_TARGET_REACHABLE_POWER_FRACTION ,
-NUM_STATIONS ,NUM_EVS ,GLOBAL_BALANCE_REWARD ,GLOBAL_BALANCE_REWARD_SLOPE ,
-GLOBAL_BALANCE_REWARD_MODE ,GLOBAL_BALANCE_REWARD_ERROR_SCALE_KW ,GLOBAL_BALANCE_REWARD_LINEAR_TAIL_KW ,LOCAL_USE_FLEET_RESIDUAL ,
-GLOBAL_REWARD_ON_SYSTEM_OUTPUT ,
-MAX_EV_POWER_KW ,POWER_TO_ENERGY ,TIME_STEP_MINUTES ,
+NUM_STATIONS ,NUM_EVS ,GLOBAL_BALANCE_REWARD ,
+GLOBAL_BALANCE_REWARD_ERROR_SCALE_KW ,GLOBAL_BALANCE_REWARD_LINEAR_TAIL_KW ,
+POWER_TO_ENERGY ,TIME_STEP_MINUTES ,
 EV_BATTERY_CAPACITY_OPTIONS_KWH ,EV_BATTERY_CAPACITY_PROBS ,
 EV_CHARGER_MAX_POWER_OPTIONS_KW ,EV_CHARGER_MAX_POWER_PROBS ,
-USE_HETEROGENEOUS_EV_PHYSICS ,
-USE_STATION_TOTAL_POWER_LIMIT ,STATION_MAX_TOTAL_POWER_KW ,
 LOCAL_DEFICIT_SHAPING_COEF ,
 LOCAL_DEFICIT_SHAPING_CLIP ,
 LOCAL_DEFICIT_SHAPING_URGENCY_GAIN ,
 LOCAL_DEFICIT_SHAPING_URGENCY_STEPS ,
-LOCAL_SHAPING_REDUCTION ,
-LOCAL_SURPLUS_SHAPING_COEF ,
-LOCAL_URGENCY_BASIS ,
-LOCAL_DEPARTURE_REWARD_MODE ,
-LOCAL_DEPARTURE_SMOOTH_LINEAR ,
-LOCAL_DEPARTURE_SMOOTH_QUADRATIC ,
 LOCAL_DEPARTURE_MISS_PENALTY ,
 LOCAL_DEPARTURE_DEFICIT_PENALTY_LINEAR ,
 LOCAL_R_SOC_HIT ,
 SOC_HIT_BONUS ,
-LOCAL_STATION_LIMIT_PENALTY ,
-LOCAL_SWITCH_PENALTY ,
-USE_SWITCHING_CONSTRAINTS ,
-DAY_CONTEXT_USE_OBS ,
-DAY_CONTEXT_INCLUDE_WEATHER ,
-USE_RESIDUAL_BESS ,
-TRAIN_FORCE_CHARGING ,
-TRAIN_FORCE_SLACK_KWH ,
-LOCAL_FORCED_PENALTY_PER_POINT ,
-LOCAL_CRITIC_PER_EV ,
-LOCAL_REWARD_MODE ,
-LOCAL_POTENTIAL_COEF ,
-LOCAL_POTENTIAL_URGENCY_GAIN ,
-LOCAL_POTENTIAL_WINDOW_STEPS ,
-LOCAL_POTENTIAL_MISS_PENALTY ,
-LOCAL_POTENTIAL_GAMMA ,
-BESS_CONTEXT_USE_OBS ,
 BESS_POWER_KW ,
 BESS_ENERGY_KWH ,
 BESS_INITIAL_SOC_PCT ,
@@ -112,119 +83,53 @@ BESS_MIN_SOC_PCT ,
 BESS_MAX_SOC_PCT ,
 BESS_CHARGE_EFFICIENCY ,
 BESS_DISCHARGE_EFFICIENCY ,
-USE_CENTRAL_EV_RESIDUAL_ALLOCATOR ,
 CENTRAL_EV_ALLOCATOR_WATERFILL_ITERS ,
 CENTRAL_EV_ALLOCATOR_DEPARTURE_SLACK_KWH ,
 )
 from environment.observation_config import (
 EV_FEAT_DIM ,
 LOCAL_DEMAND_STEPS ,
-LOCAL_USE_TRACKING_ENABLED ,
-LOCAL_USE_STEP ,
 BID_CONTEXT_FEATURES ,
-BESS_CONTEXT_FEATURES ,
-LOWER_BID_CONTEXT_USE_OBS ,
-CALENDAR_CONTEXT_FEATURES ,
-WEATHER_CONTEXT_FEATURES ,
 )
 from environment.central_residual_allocator import allocate_central_ev_residual
-from environment.force_floor import force_floor_fraction
 
 device =DEVICE
 
 
 def soc_progress_shaping (
 prev_socs ,new_socs ,target ,remaining_steps ,*,
-full_power_soc_per_step =None ,
 coef :float =LOCAL_DEFICIT_SHAPING_COEF ,
 clip :float =LOCAL_DEFICIT_SHAPING_CLIP ,
 urgency_gain :float =LOCAL_DEFICIT_SHAPING_URGENCY_GAIN ,
 urgency_steps :float =LOCAL_DEFICIT_SHAPING_URGENCY_STEPS ,
-urgency_basis :str =LOCAL_URGENCY_BASIS ,
-reduction :str =LOCAL_SHAPING_REDUCTION ,
-surplus_coef :float =LOCAL_SURPLUS_SHAPING_COEF ,
-return_per_ev :bool =False ,
 ):
     """One station's SoC shaping reward for one step, from its present EVs.
 
-    Deficit term: the fall in each EV's shortfall below target (fraction of
-    capacity), weighted from 1 up to 1 + urgency_gain as the EV's slack falls
-    from urgency_steps to zero. The slack is the steps left before departure
-    ("time"), or those steps minus the steps full-power charging needs to reach
-    the target ("laxity", which requires full_power_soc_per_step, the SoC points
-    one step at the EV's rating adds). Surplus term: the fall in each EV's SoC
-    above target, unweighted. Both are combined over the station's EVs by
-    `reduction` and the total is clipped to +-clip. With return_per_ev it also
-    returns each EV's share, which sums to the station value: its term through
-    the same reduction, scaled down with the others when the clip binds.
+    The fall in each EV's shortfall below target (fraction of capacity),
+    weighted from 1 up to 1 + urgency_gain as the steps left before departure
+    fall from urgency_steps to zero, averaged over the station's EVs and
+    clipped to +-clip.
     """
     deficit_prev =torch .clamp (target -prev_socs ,min =0.0 )/100.0
     deficit_curr =torch .clamp (target -new_socs ,min =0.0 )/100.0
     window =max (float (urgency_steps ),1.0 )
-    slack =remaining_steps
-    if urgency_basis =="laxity":
-        if full_power_soc_per_step is None :
-            raise ValueError ("laxity urgency needs full_power_soc_per_step")
-        steps_needed =(deficit_prev *100.0 )/torch .clamp (full_power_soc_per_step ,min =1e-6 )
-        slack =remaining_steps -steps_needed
-    urgency =1.0 +float (urgency_gain )*torch .clamp ((window -slack )/window ,0.0 ,1.0 )
-    per_ev =(deficit_prev -deficit_curr )*urgency
-    if surplus_coef :
-        surplus_prev =torch .clamp (prev_socs -target ,min =0.0 )/100.0
-        surplus_curr =torch .clamp (new_socs -target ,min =0.0 )/100.0
-        per_ev =per_ev +(float (surplus_coef )/float (coef ))*(surplus_prev -surplus_curr )
-    progress =per_ev .sum ()if reduction =="sum"else per_ev .mean ()
-    station =torch .clamp (float (coef )*progress ,-float (clip ),float (clip ))
-    if not return_per_ev :
-        return station
-    share =float (coef )*(per_ev if reduction =="sum"else per_ev /max (int (per_ev .numel ()),1 ))
-    total =share .sum ()
-    scale =torch .where (total .abs ()>1e-12 ,station /torch .where (total .abs ()>1e-12 ,total ,torch .ones_like (total )),torch .zeros_like (total ))
-    return station ,share *scale
-
-
-def soc_potential_rewards (
-prev_socs ,new_socs ,target ,steps_left ,*,
-coef :float =LOCAL_POTENTIAL_COEF ,
-urgency_gain :float =LOCAL_POTENTIAL_URGENCY_GAIN ,
-window :int =LOCAL_POTENTIAL_WINDOW_STEPS ,
-gamma :float =LOCAL_POTENTIAL_GAMMA ,
-):
-    """Each EV's reward for one step under EVMA_LOCAL_REWARD_MODE=potential.
-
-    steps_left is the number of action steps the EV has from this one on (1 on
-    its last), so it has steps_left - 1 after acting. See EnvConfig for the form.
-    """
-    w =max (float (window ),1.0 )
-
-    def urgency (k ):
-        return 1.0 +float (urgency_gain )*torch .clamp ((w -k )/w ,0.0 ,1.0 )
-
-    d_prev =torch .clamp (target -prev_socs ,min =0.0 )/100.0
-    d_next =torch .clamp (target -new_socs ,min =0.0 )/100.0
-    return float (coef )*(urgency (steps_left )*d_prev -float (gamma )*urgency (steps_left -1.0 )*d_next )
+    urgency =1.0 +float (urgency_gain )*torch .clamp ((window -remaining_steps )/window ,0.0 ,1.0 )
+    progress =((deficit_prev -deficit_curr )*urgency ).mean ()
+    return torch .clamp (float (coef )*progress ,-float (clip ),float (clip ))
 
 
 def departure_rewards (
 final_socs ,target_socs ,*,
-mode :str =LOCAL_DEPARTURE_REWARD_MODE ,
 hit_reward :float =float (LOCAL_R_SOC_HIT )+max (float (SOC_HIT_BONUS ),0.0 ),
 miss_penalty :float =LOCAL_DEPARTURE_MISS_PENALTY ,
 linear_per_point :float =LOCAL_DEPARTURE_DEFICIT_PENALTY_LINEAR ,
-smooth_linear :float =LOCAL_DEPARTURE_SMOOTH_LINEAR ,
-smooth_quadratic :float =LOCAL_DEPARTURE_SMOOTH_QUADRATIC ,
 ):
     """Reward each departing EV once for the SoC it leaves with.
 
-    "step": hit_reward at or above target, otherwise
-    -(miss_penalty + linear_per_point * shortfall in SoC points). "smooth":
-    hit_reward - smooth_linear * f - smooth_quadratic * f**2 with f the
-    shortfall as a fraction, which equals hit_reward at the target.
+    hit_reward at or above target, otherwise
+    -(miss_penalty + linear_per_point * shortfall in SoC points).
     """
     shortfall_points =torch .clamp (target_socs -final_socs ,min =0.0 )
-    if mode =="smooth":
-        f =shortfall_points /100.0
-        return float (hit_reward )-float (smooth_linear )*f -float (smooth_quadratic )*f *f
     missed =-(float (linear_per_point )*shortfall_points +float (miss_penalty )*(shortfall_points >0 ).float ())
     return torch .where (shortfall_points <=0 ,torch .full_like (final_socs ,float (hit_reward )),missed )
 
@@ -267,7 +172,6 @@ class EVEnv :
         self ._baseline_series =None
         self .current_regulation_kw =0.0
         self .initial_evs_by_station =[0 ]*self .num_stations
-        self .day_context =np .zeros (self ._day_context_dim (),dtype =np .float32 )
         self .arrival_soc_log =[]
         self .arrival_needed_log =[]
         self .arrival_dwell_log =[]
@@ -275,40 +179,19 @@ class EVEnv :
         self .arrivals_by_station =[0 ]*self .num_stations
 
 
-        self .ev_capacity =EV_CAPACITY
         self .tol_narrow_metrics =TOL_NARROW_METRICS
         self .balance_reward =GLOBAL_BALANCE_REWARD
-        self .global_reward_on_system_output =bool (GLOBAL_REWARD_ON_SYSTEM_OUTPUT )
-        self .balance_reward_mode =str (GLOBAL_BALANCE_REWARD_MODE ).strip ().lower ()
-        if self .balance_reward_mode not in (
-        "bounded_absolute_error","legacy_tolerance_band",
-        ):
-            raise ValueError (
-            "GLOBAL_BALANCE_REWARD_MODE must be 'bounded_absolute_error' or "
-            f"'legacy_tolerance_band', got {self.balance_reward_mode!r}"
-            )
         self ._balance_reward_error_scale_kw =max (
         float (GLOBAL_BALANCE_REWARD_ERROR_SCALE_KW ),1e-6
         )
         self ._balance_reward_linear_tail_kw =float (GLOBAL_BALANCE_REWARD_LINEAR_TAIL_KW )
-        # Kept only for explicit reproduction of the historical flat-top reward.
-        self ._balance_reward_slope =(
-            float (GLOBAL_BALANCE_REWARD_SLOPE )if float (GLOBAL_BALANCE_REWARD_SLOPE )>0
-            else 2.0 *float (self .balance_reward )/max (float (self .tol_narrow_metrics ),1e-6 )
-        )
-        self .soc_wide =SOC_WIDE
 
         self .max_ev_per_station =MAX_EV_PER_STATION
-        self .use_station_total_power_limit =bool (USE_STATION_TOTAL_POWER_LIMIT )
-        self .station_total_power_limit_kw =float (STATION_MAX_TOTAL_POWER_KW )
-        self .local_discharge_penalty_coef =0.0
-        self .local_station_limit_penalty_coef =float (LOCAL_STATION_LIMIT_PENALTY )
-        self .local_use_switch_features =bool (USE_SWITCHING_CONSTRAINTS )
-        self .use_residual_bess =bool (USE_RESIDUAL_BESS )
-        # The departure force floor applied inside apply_action during training
-        # and interim tests. An evaluation pipeline that decides its own force
-        # layer turns this off, so the process environment cannot add it.
-        self .apply_train_force_floor =bool (TRAIN_FORCE_CHARGING )
+        # The PCC battery runs unless a caller turns it off. The central
+        # residual allocator is the rule_based_central comparator only; its
+        # evaluation pipeline turns it on.
+        self .use_residual_bess =True
+        self .use_central_ev_residual_allocator =False
         self .bess_power_limit_kw =float (BESS_POWER_KW )
         self .bess_energy_capacity_kwh =float (BESS_ENERGY_KWH )
         self .bess_initial_soc_pct =float (BESS_INITIAL_SOC_PCT )
@@ -317,15 +200,8 @@ class EVEnv :
         self .bess_max_soc_pct =float (BESS_MAX_SOC_PCT )
         self .bess_charge_efficiency =float (BESS_CHARGE_EFFICIENCY )
         self .bess_discharge_efficiency =float (BESS_DISCHARGE_EFFICIENCY )
-        self .use_central_ev_residual_allocator =bool (USE_CENTRAL_EV_RESIDUAL_ALLOCATOR )
         self .central_ev_allocator_waterfill_iters =int (CENTRAL_EV_ALLOCATOR_WATERFILL_ITERS )
         self .central_ev_allocator_departure_slack_kwh =float (CENTRAL_EV_ALLOCATOR_DEPARTURE_SLACK_KWH )
-        self .station_power_limit_kw =torch .full (
-        (num_stations ,),
-        self .station_total_power_limit_kw ,
-        dtype =torch .float32 ,
-        device =device ,
-        )
 
 
         self .ev_ids =torch .zeros ((num_stations ,self .max_ev_per_station ),dtype =torch .int32 ,device =device )
@@ -344,31 +220,8 @@ class EVEnv :
 
         self .arrival_step =torch .zeros ((num_stations ,self .max_ev_per_station ),dtype =torch .float32 ,device =device )
 
-        self .switch_count =torch .zeros ((num_stations ,self .max_ev_per_station ),dtype =torch .int32 ,device =device )
-        self .last_non_zero_state =torch .zeros ((num_stations ,self .max_ev_per_station ),dtype =torch .int32 ,device =device )
-
 
         self .stations_evs ={i :[]for i in range (self .num_stations )}
-
-
-        self .metrics ={
-        'total_steps':0 ,
-        'surplus_within_narrow':0 ,
-        'shortage_within_narrow':0 ,
-        'surplus_steps':0 ,
-        'shortage_steps':0 ,
-        'station_limit_hits':0 ,
-        'station_limit_steps':0 ,
-        'station_charge_limit_hits':0 ,
-        'station_discharge_limit_hits':0 ,
-        'station_limit_penalty_total':0.0 ,
-        'departing_evs':0 ,
-        'departing_evs_soc_met':0 ,
-        'total_switches_departed':0 ,
-        'total_switches_current':0
-        }
-
-
 
 
         self .net_demand_series =None
@@ -392,7 +245,6 @@ class EVEnv :
         self .last_station_powers =torch .zeros (self .num_stations ,dtype =torch .float32 ,device =device )
         self ._reset_bess_state ()
         self ._active_order_cache =[None ]*self .num_stations
-        self .last_ev_local_rewards =None
         self ._departure_slots_by_step ={}
 
 
@@ -414,7 +266,6 @@ class EVEnv :
     arrival_probabilities_by_station :np .ndarray |None =None ,
     arrival_counts_by_station_step :np .ndarray |None =None ,
     initial_evs_by_station :np .ndarray |None =None ,
-    day_context :np .ndarray |None =None ,
     tol_narrow_series :np .ndarray |None =None ,
     tracking_enabled_series :np .ndarray |None =None ,
     market_context_series :dict |None =None ,
@@ -462,23 +313,7 @@ class EVEnv :
 
 
         if net_demand_series is None :
-
-
-
-            try :
-                from environment.readcsv import load_multiple_demand_files ,get_random_demand_episode
-                all_demand_data =load_multiple_demand_files (train_split =25 )
-                data_pool =all_demand_data .get ('train')or all_demand_data .get ('test')or []
-                if not data_pool :
-                    raise ValueError ("CSV demand data list is empty.")
-                net_demand_series =get_random_demand_episode (data_pool ,self .episode_steps )
-            except Exception as e :
-                raise ValueError (
-                "EVEnv.reset() requires either an explicit net_demand_series "
-                "or loadable daily demand CSV files from Config.DEMAND_ADJUSTMENT_DIR."
-                )from e
-
-
+            raise ValueError ("EVEnv.reset() requires net_demand_series")
         self .net_demand_series_cpu =np .asarray (net_demand_series ,dtype =np .float32 ).reshape (-1 )
         self .net_demand_series =torch .as_tensor (self .net_demand_series_cpu ,dtype =torch .float32 ,device =device )
         self .current_net_demand =float (self .net_demand_series_cpu [0 ])if self .net_demand_series_cpu .size >0 else 0.0
@@ -503,8 +338,6 @@ class EVEnv :
         self .ev_mask .fill_ (False )
         self .initial_remaining .zero_ ()
         self .arrival_step .zero_ ()
-        self .switch_count .zero_ ()
-        self .last_non_zero_state .zero_ ()
         self .last_station_powers .zero_ ()
         self ._reset_bess_state ()
         self .active_evs_total =0
@@ -540,7 +373,6 @@ class EVEnv :
         self ._initial_evs_override =self ._coerce_initial_evs_override (
         initial_evs_by_station
         )
-        self .day_context =self ._coerce_day_context (day_context )
         self ._arrival_events =self ._pregenerate_arrival_events ()
         self ._reset_free_ev_ids ()
         initial_seed =random .randrange (2 **31 )
@@ -750,26 +582,6 @@ class EVEnv :
             out .append (evs )
         return out
 
-    def _day_context_dim (self )->int :
-        if not bool (DAY_CONTEXT_USE_OBS ):
-            return 0
-        dim =len (CALENDAR_CONTEXT_FEATURES )
-        if bool (DAY_CONTEXT_INCLUDE_WEATHER ):
-            dim +=len (WEATHER_CONTEXT_FEATURES )
-        return int (dim )
-
-    def _coerce_day_context (self ,values ):
-        dim =self ._day_context_dim ()
-        if dim <=0 :
-            return np .zeros (0 ,dtype =np .float32 )
-        if values is None :
-            return np .zeros (dim ,dtype =np .float32 )
-        arr =np .asarray (values ,dtype =np .float32 ).reshape (-1 )
-        if arr .size !=dim :
-            raise ValueError (f"day_context must have length {dim}, got {arr.size}")
-        return np .clip (arr ,-1.0 ,1.0 ).astype (np .float32 )
-
-
     def _reset_free_ev_ids (self ):
         """Shuffle EV IDs once per episode and allocate from that list in O(1)."""
         self .used_ev_ids =set ()
@@ -834,19 +646,6 @@ class EVEnv :
         return float (100.0 *self .bess_energy_kwh /max (
         float (self .bess_energy_capacity_kwh ),1e-9
         ))
-
-    def _bess_context_values (self )->dict :
-        return {
-        'last_raw_actor_total_power_kw':float (self .last_raw_actor_total_power_kw ),
-        'last_raw_actor_residual_kw':float (self .last_raw_actor_residual_kw ),
-        'last_central_correction_power_kw':float (self .last_central_correction_power_kw ),
-        'last_central_ev_total_power_kw':float (self .last_central_ev_total_power_kw ),
-        'last_pre_bess_residual_kw':float (self .last_pre_bess_residual_kw ),
-        'last_bess_power_kw':float (self .last_bess_power_kw ),
-        'last_pcc_power_kw':float (self .last_pcc_power_kw ),
-        'last_post_bess_residual_kw':float (self .last_post_bess_residual_kw ),
-        'bess_soc_pct':self ._bess_soc_pct (),
-        }
 
     def bess_feasible_power_bounds_kw (self )->tuple [float ,float ]:
         """Return current PCC-sign BESS bounds ``(min_kw, max_kw)``.
@@ -1020,59 +819,38 @@ class EVEnv :
                 ag_tensor [valid_mask ]=self ._clip_demand_for_obs (self .net_demand_series [indices [valid_mask ]])
             tail_features .append (ag_tensor )
 
-        if LOCAL_USE_TRACKING_ENABLED :
-            tail_features .append (
-            torch .as_tensor (
-            [1.0 if self .current_tracking_enabled else 0.0 ],
-            dtype =torch .float32 ,device =device ,
-            )
-            )
+        tail_features .append (
+        torch .as_tensor (
+        [1.0 if self .current_tracking_enabled else 0.0 ],
+        dtype =torch .float32 ,device =device ,
+        )
+        )
+        # The fleet's own miss on the previous step, one scalar, identical
+        # for every station. Nothing else in the observation reports it.
+        tail_features .append (
+        torch .as_tensor (
+        [float (getattr (self ,'last_raw_actor_residual_kw',0.0 ))],
+        dtype =torch .float32 ,device =device ,
+        )
+        )
+        tail_features .append (
+        torch .as_tensor (
+        [float (self .current_market_context .get (name ,0.0 ))for name in BID_CONTEXT_FEATURES ],
+        dtype =torch .float32 ,device =device ,
+        )
+        )
+        tail_features .append (
+        torch .as_tensor ([float (self .step_count )],dtype =torch .float32 ,device =device )
+        )
 
-        if LOCAL_USE_FLEET_RESIDUAL :
-            # The fleet's own miss on the previous step, one scalar, identical
-            # for every station. Nothing else in the observation reports it.
-            tail_features .append (
-            torch .as_tensor (
-            [float (getattr (self ,'last_raw_actor_residual_kw',0.0 ))],
-            dtype =torch .float32 ,device =device ,
-            )
-            )
-
-        if LOWER_BID_CONTEXT_USE_OBS :
-            tail_features .append (
-            torch .as_tensor (
-            [float (self .current_market_context .get (name ,0.0 ))for name in BID_CONTEXT_FEATURES ],
-            dtype =torch .float32 ,device =device ,
-            )
-            )
-
-        if BESS_CONTEXT_USE_OBS :
-            bess_context =self ._bess_context_values ()
-            tail_features .append (
-            torch .as_tensor (
-            [float (bess_context [name ])for name in BESS_CONTEXT_FEATURES ],
-            dtype =torch .float32 ,device =device ,
-            )
-            )
-
-        if LOCAL_USE_STEP :
-            tail_features .append (
-            torch .as_tensor ([float (self .step_count )],dtype =torch .float32 ,device =device )
-            )
-        if bool (DAY_CONTEXT_USE_OBS )and len (self .day_context )>0 :
-            tail_features .append (
-            torch .as_tensor (self .day_context ,dtype =torch .float32 ,device =device )
-            )
-
-        tail_vec =torch .cat (tail_features )if tail_features else None
-        tail_dim =0 if tail_vec is None else int (tail_vec .numel ())
+        tail_vec =torch .cat (tail_features )
+        tail_dim =int (tail_vec .numel ())
         obs =torch .zeros (
         (self .num_stations ,ev_block_dim +tail_dim ),
         dtype =torch .float32 ,
         device =device ,
         )
-        if tail_vec is not None :
-            obs [:,ev_block_dim :]=tail_vec
+        obs [:,ev_block_dim :]=tail_vec
 
         for st in range (self .num_stations ):
             sorted_active_evs =self ._get_sorted_active_evs (st )
@@ -1087,18 +865,8 @@ class EVEnv :
             ev_view [:,1 ]=ev_socs
             ev_view [:,2 ]=self ._remaining_action_steps (self .depart [st ,sorted_active_evs ])
             ev_view [:,3 ]=self .target [st ,sorted_active_evs ]-ev_socs
-
-            col_idx =4
-            if USE_HETEROGENEOUS_EV_PHYSICS :
-                ev_view [:,col_idx ]=self .ev_capacity_kwh [st ,sorted_active_evs ]
-                col_idx +=1
-                ev_view [:,col_idx ]=self .ev_max_power_kw [st ,sorted_active_evs ]
-                col_idx +=1
-
-            if self .local_use_switch_features :
-                ev_view [:,col_idx ]=self .switch_count [st ,sorted_active_evs ].float ()
-                col_idx +=1
-                ev_view [:,col_idx ]=self .last_non_zero_state [st ,sorted_active_evs ].float ()
+            ev_view [:,4 ]=self .ev_capacity_kwh [st ,sorted_active_evs ]
+            ev_view [:,5 ]=self .ev_max_power_kw [st ,sorted_active_evs ]
 
         return obs
 
@@ -1115,9 +883,6 @@ class EVEnv :
 
     def _sample_physical_profile (self ,rng =random )->tuple [float ,float ]:
         """Sample one EV battery capacity and one charger charge/discharge limit."""
-        if not USE_HETEROGENEOUS_EV_PHYSICS :
-            return float (EV_CAPACITY ),float (MAX_EV_POWER_KW )
-
         capacity_kwh =rng .choices (
         list (EV_BATTERY_CAPACITY_OPTIONS_KWH ),
         weights =list (EV_BATTERY_CAPACITY_PROBS ),
@@ -1167,8 +932,6 @@ class EVEnv :
         self ._invalidate_active_order_cache (station )
         self .initial_remaining [station ,slot_idx ]=float (profile_remaining )
         self .arrival_step [station ,slot_idx ]=float (self .step_count )
-        self .switch_count [station ,slot_idx ]=0
-        self .last_non_zero_state [station ,slot_idx ]=0
 
 
         self .stations_evs [station ]=[ev for ev in self .stations_evs [station ]if ev .get ('id')!=ev_id ]
@@ -1178,50 +941,6 @@ class EVEnv :
         battery_capacity_kwh =capacity_kwh ,max_power_kw =max_power_kw ,
         )
         self .stations_evs [station ].append (ev )
-
-    def _apply_station_power_limit (
-    self ,
-    station :int ,
-    effective_power_kw :torch .Tensor ,
-    )->tuple [torch .Tensor ,torch .Tensor ,torch .Tensor ]:
-        """Apply a symmetric site-level import/export cap to one station."""
-        if (not self .use_station_total_power_limit )or effective_power_kw .numel ()==0 :
-            limited =torch .zeros ((),dtype =torch .bool ,device =device )
-            return effective_power_kw ,limited ,limited
-
-        limit_kw =self .station_power_limit_kw [station ]
-        charge_mask =effective_power_kw >0
-        discharge_mask =effective_power_kw <0
-
-        total_charge_kw =effective_power_kw [charge_mask ].sum ()
-        total_discharge_kw =(-effective_power_kw [discharge_mask ]).sum ()
-
-        charge_limited =total_charge_kw >(limit_kw +1e-6 )
-        discharge_limited =total_discharge_kw >(limit_kw +1e-6 )
-
-        charge_scale =torch .where (
-        charge_limited ,
-        limit_kw /torch .clamp (total_charge_kw ,min =1e-6 ),
-        torch .ones_like (total_charge_kw ),
-        )
-        effective_power_kw =torch .where (
-        charge_mask ,
-        effective_power_kw *charge_scale ,
-        effective_power_kw ,
-        )
-
-        discharge_scale =torch .where (
-        discharge_limited ,
-        limit_kw /torch .clamp (total_discharge_kw ,min =1e-6 ),
-        torch .ones_like (total_discharge_kw ),
-        )
-        effective_power_kw =torch .where (
-        discharge_mask ,
-        effective_power_kw *discharge_scale ,
-        effective_power_kw ,
-        )
-
-        return effective_power_kw ,charge_limited ,discharge_limited
 
     def _pregenerate_arrival_events (self ):
         """Pre-sample arrival events for every step and station in the episode."""
@@ -1401,7 +1120,6 @@ class EVEnv :
                         'target_soc':float (self .target [st ,sorted_evs ][i ].item ()),
                         'battery_capacity_kwh':float (self .ev_capacity_kwh [st ,sorted_evs ][i ].item ()),
                         'max_power_kw':float (self .ev_max_power_kw [st ,sorted_evs ][i ].item ()),
-                        'switch_count':int (self .switch_count [st ,sorted_evs ][i ].item ()),
                         })
                 self ._snapshot_pre [st ]=details
         return self ._get_obs ()
@@ -1440,9 +1158,6 @@ class EVEnv :
             raise ValueError (
             f"actions must have shape [num_stations, max_ev_per_station], got {tuple(actions.shape)}"
             )
-        forced_points_by_station =None
-        if getattr (self ,'apply_train_force_floor',TRAIN_FORCE_CHARGING ):
-            actions ,forced_points_by_station =self .apply_force_floor (actions )
         actor_actions =actions .clone ()
         actions ,central_allocator_info =allocate_central_ev_residual (
         self ,actor_actions ,
@@ -1460,8 +1175,6 @@ class EVEnv :
         raw_reward_soc_tensor =self .soc .clone ()
 
         local_rewards_tensor =torch .zeros (self .num_stations ,dtype =torch .float32 ,device =device )
-        if forced_points_by_station is not None and LOCAL_FORCED_PENALTY_PER_POINT :
-            local_rewards_tensor -=float (LOCAL_FORCED_PENALTY_PER_POINT )*forced_points_by_station
         progress_shaping_rewards_tensor =torch .zeros (self .num_stations ,dtype =torch .float32 ,device =device )
         departing_ev_stats =[0 ,0 ]
         current_request =self .current_net_demand
@@ -1469,29 +1182,13 @@ class EVEnv :
 
 
         station_powers_tensor =torch .zeros (self .num_stations ,dtype =torch .float32 ,device =device )
-        discharge_penalties_tensor =torch .zeros (self .num_stations ,dtype =torch .float32 ,device =device )
-        switch_penalties_tensor =torch .zeros (self .num_stations ,dtype =torch .float32 ,device =device )
-        station_limit_penalties_tensor =torch .zeros (self .num_stations ,dtype =torch .float32 ,device =device )
-        station_charge_limit_hits_tensor =torch .zeros (self .num_stations ,dtype =torch .bool ,device =device )
-        station_discharge_limit_hits_tensor =torch .zeros (self .num_stations ,dtype =torch .bool ,device =device )
 
 
         actual_ev_power_kw_tensor =torch .zeros ((self .num_stations ,self .max_ev_per_station ),device =device )
-        # Per-EV local rewards, indexed like the observation's EV slots, and the
-        # slot each physical EV index occupied in that observation.
-        ev_local_rewards =None
-        physical_to_slot =None
-        if LOCAL_CRITIC_PER_EV :
-            ev_local_rewards =torch .zeros ((self .num_stations ,self .max_ev_per_station ),dtype =torch .float32 ,device =device )
-            physical_to_slot =torch .full ((self .num_stations ,self .max_ev_per_station ),-1 ,dtype =torch .long ,device =device )
         snapshot_after ={}
         for st in range (self .num_stations ):
             # Process one station independently, using only currently active EV slots.
             sorted_active_evs =self ._get_sorted_active_evs (st )
-            if physical_to_slot is not None and sorted_active_evs .numel ()>0 :
-                physical_to_slot [st ,sorted_active_evs ]=torch .arange (
-                int (sorted_active_evs .numel ()),dtype =torch .long ,device =device
-                )
 
             if sorted_active_evs .numel ()>0 :
                 active_count =int (sorted_active_evs .numel ())
@@ -1516,31 +1213,6 @@ class EVEnv :
                 proposed_delta_soc =scaled_power_kw *ev_soc_step_per_kw
                 proposed_delta_soc [torch .abs (proposed_delta_soc )<1e-7 ]=0.0
 
-                if self .local_use_switch_features :
-                    current_state =torch .zeros_like (raw_power_kw ,dtype =torch .int32 )
-                    current_state [raw_power_kw >0 ]=1
-                    current_state [raw_power_kw <0 ]=-1
-
-
-                    last_states =self .last_non_zero_state [st ,sorted_active_evs ]
-                    switched =(current_state !=0 )&(last_states !=0 )&(current_state !=last_states )
-
-                    self .switch_count [st ,sorted_active_evs ]+=switched .int ()
-
-                    non_zero_mask =current_state !=0
-                    if non_zero_mask .any ():
-                        updated_last_states =last_states .clone ()
-                        updated_last_states [non_zero_mask ]=current_state [non_zero_mask ]
-                        self .last_non_zero_state [st ,sorted_active_evs ]=updated_last_states
-
-                    if switched .any ():
-                        self .metrics ['total_switches_current']+=int (switched .sum ().item ())
-
-                    st_switch_penalty =switched .float ().sum ()*LOCAL_SWITCH_PENALTY
-                    local_rewards_tensor [st ]-=st_switch_penalty
-                    switch_penalties_tensor [st ]=st_switch_penalty
-
-
                 new_socs =prev_socs +proposed_delta_soc
                 new_socs =torch .clamp (new_socs ,0.0 ,100.0 )
 
@@ -1548,49 +1220,11 @@ class EVEnv :
                 actual_delta_soc =new_socs -prev_socs
                 actual_delta_kwh =actual_delta_soc *ev_kwh_per_soc_pct
                 effective_power_kw =actual_delta_kwh /POWER_TO_ENERGY
-                if self .use_station_total_power_limit or self .local_station_limit_penalty_coef !=0.0 :
-                    raw_unprojected_power_kw =torch .clamp (
-                    actor_actions [st ,:active_count ],-1.0 ,1.0
-                    )*ev_max_power_kw
-                    raw_unprojected_soc =torch .clamp (
-                    prev_socs +raw_unprojected_power_kw *ev_soc_step_per_kw ,0.0 ,100.0
-                    )
-                    raw_unprojected_power_kw =(
-                    (raw_unprojected_soc -prev_socs )*ev_kwh_per_soc_pct /POWER_TO_ENERGY
-                    )
-                    charge_excess_kw =torch .clamp (
-                    raw_unprojected_power_kw [raw_unprojected_power_kw >0 ].sum ()-self .station_power_limit_kw [st ],
-                    min =0.0 ,
-                    )
-                    discharge_excess_kw =torch .clamp (
-                    (-raw_unprojected_power_kw [raw_unprojected_power_kw <0 ]).sum ()-self .station_power_limit_kw [st ],
-                    min =0.0 ,
-                    )
-                    station_limit_penalty =self .local_station_limit_penalty_coef *(
-                    charge_excess_kw +discharge_excess_kw
-                    )
-                    local_rewards_tensor [st ]-=station_limit_penalty
-                    station_limit_penalties_tensor [st ]=station_limit_penalty
-                    effective_power_kw ,charge_limited ,discharge_limited =self ._apply_station_power_limit (
-                    st ,effective_power_kw
-                    )
-                else :
-                    limit_not_hit =torch .zeros ((),dtype =torch .bool ,device =device )
-                    charge_limited =limit_not_hit
-                    discharge_limited =limit_not_hit
                 actual_delta_kwh =effective_power_kw *POWER_TO_ENERGY
                 actual_delta_soc =actual_delta_kwh *ev_soc_pct_per_kwh
                 new_socs =prev_socs +actual_delta_soc
                 self .prev_soc [st ,sorted_active_evs ]=prev_socs
                 self .soc [st ,sorted_active_evs ]=new_socs
-
-                discharge_energy_kwh =torch .clamp (-raw_delta_kwh ,min =0.0 ).sum ()
-                discharge_penalty =self .local_discharge_penalty_coef *discharge_energy_kwh
-                local_rewards_tensor [st ]-=discharge_penalty
-                discharge_penalties_tensor [st ]=discharge_penalty
-
-                station_charge_limit_hits_tensor [st ]=charge_limited
-                station_discharge_limit_hits_tensor [st ]=discharge_limited
 
                 if build_info and self .record_snapshots :
                     for i ,ev_idx in enumerate (sorted_active_evs ):
@@ -1606,23 +1240,9 @@ class EVEnv :
                 self ._remaining_action_steps (self .depart [st ,sorted_active_evs ]),
                 min =1.0 ,
                 )
-                if LOCAL_REWARD_MODE =="potential":
-                    shaping_per_ev =soc_potential_rewards (prev_socs ,raw_new_socs ,target ,remaining_steps )
-                    shaping_sum =shaping_per_ev .sum ()
-                    if ev_local_rewards is not None :
-                        ev_local_rewards [st ,:active_count ]+=shaping_per_ev
-                elif ev_local_rewards is not None :
-                    shaping_sum ,shaping_per_ev =soc_progress_shaping (
-                    prev_socs ,raw_new_socs ,target ,remaining_steps ,
-                    full_power_soc_per_step =ev_max_power_kw *ev_soc_step_per_kw ,
-                    return_per_ev =True ,
-                    )
-                    ev_local_rewards [st ,:active_count ]+=shaping_per_ev
-                else :
-                    shaping_sum =soc_progress_shaping (
-                    prev_socs ,raw_new_socs ,target ,remaining_steps ,
-                    full_power_soc_per_step =ev_max_power_kw *ev_soc_step_per_kw ,
-                    )
+                shaping_sum =soc_progress_shaping (
+                prev_socs ,raw_new_socs ,target ,remaining_steps ,
+                )
                 local_rewards_tensor [st ]+=shaping_sum
                 progress_shaping_rewards_tensor [st ]=shaping_sum
 
@@ -1655,7 +1275,6 @@ class EVEnv :
                         'target_soc':float (self .target [st ,sorted_active_evs ][i ].item ()),
                         'battery_capacity_kwh':float (ev_capacity_kwh [i ].item ()),
                         'max_power_kw':float (ev_max_power_kw [i ].item ()),
-                        'switch_count':int (self .switch_count [st ,sorted_active_evs ][i ].item ()),
                         })
                     snapshot_after [st ]=details_after
                 else :
@@ -1735,13 +1354,6 @@ class EVEnv :
 
         deviation =raw_actor_deviation
         system_deviation =abs (float (bess_result ['post_residual_kw']))
-        if self .use_station_total_power_limit or self .local_station_limit_penalty_coef !=0.0 :
-            station_limit_mask =station_charge_limit_hits_tensor |station_discharge_limit_hits_tensor
-            self .metrics ['station_charge_limit_hits']+=int (station_charge_limit_hits_tensor .sum ().item ())
-            self .metrics ['station_discharge_limit_hits']+=int (station_discharge_limit_hits_tensor .sum ().item ())
-            self .metrics ['station_limit_hits']+=int (station_limit_mask .sum ().item ())
-            self .metrics ['station_limit_steps']+=int (station_limit_mask .any ().item ())
-            self .metrics ['station_limit_penalty_total']+=float (station_limit_penalties_tensor .sum ().item ())
         self .metrics ['total_steps']+=1
         if self .current_tracking_enabled :
             self .metrics ['tracking_steps']+=1
@@ -1797,16 +1409,13 @@ class EVEnv :
         else 0.0
         )
         balance_reward_only =float (global_reward )
+        # The same reward on the residual after the central allocator and the
+        # battery, reported only.
         system_global_reward =(
         self ._calculate_balance_reward (system_deviation )
         if self .current_tracking_enabled
         else 0.0
         )
-        # Pay the learner for the residual the market judges, when asked to.
-        # `balance_reward_only` keeps reporting the pre-correction figure either
-        # way, so the two stay comparable in the diagnostics.
-        if self .global_reward_on_system_output :
-            global_reward =system_global_reward
 
 
 
@@ -1856,13 +1465,9 @@ class EVEnv :
 
 
 
-                self .metrics ['total_switches_departed']+=int (self .switch_count [st ,departing_indices ].sum ().item ())
                 departing_count =int (departing_indices .numel ())
                 self .active_evs_total =max (0 ,self .active_evs_total -departing_count )
-                if USE_HETEROGENEOUS_EV_PHYSICS :
-                    departed_power_kw =float (self .ev_max_power_kw [st ,departing_indices ].sum ().item ())
-                else :
-                    departed_power_kw =float (departing_count )*float (MAX_EV_POWER_KW )
+                departed_power_kw =float (self .ev_max_power_kw [st ,departing_indices ].sum ().item ())
                 self .active_ev_power_limit_kw =max (
                 0.0 ,self .active_ev_power_limit_kw -departed_power_kw
                 )
@@ -1881,8 +1486,6 @@ class EVEnv :
                 self .depart [st ,departing_indices ]=0
                 self .initial_remaining [st ,departing_indices ]=0.0
                 self .arrival_step [st ,departing_indices ]=0.0
-                self .switch_count [st ,departing_indices ]=0
-                self .last_non_zero_state [st ,departing_indices ]=0
 
         for st in departed_stations :
             self ._invalidate_active_order_cache (st )
@@ -1914,16 +1517,9 @@ class EVEnv :
             self .metrics ['central_total_soc_deficit']+=float (central_soc_deficit_kwh .sum ().item ())
             self .metrics ['central_total_soc_unmet']+=int ((central_soc_deficit >0 ).sum ().item ())
 
-            if LOCAL_REWARD_MODE =="potential":
-                # The shortfall is already charged by the last step's potential
-                # term; only leaving below target at all is charged here.
-                per_ev_departure_rewards =-float (LOCAL_POTENTIAL_MISS_PENALTY )*(
-                departing_final_socs <departing_target_socs
-                ).float ()
-            else :
-                per_ev_departure_rewards =departure_rewards (
-                departing_final_socs ,departing_target_socs
-                )
+            per_ev_departure_rewards =departure_rewards (
+            departing_final_socs ,departing_target_socs
+            )
 
 
             station_ids_cpu =all_departing_data ['station_ids']
@@ -1935,14 +1531,6 @@ class EVEnv :
             station_ids_tensor =torch .as_tensor (station_ids_cpu ,dtype =torch .long ,device =device )
             departure_reward_sum_tensor .index_add_ (0 ,station_ids_tensor ,per_ev_departure_rewards )
             local_rewards_tensor +=departure_reward_sum_tensor
-            if ev_local_rewards is not None :
-                departing_slots =physical_to_slot [
-                station_ids_tensor ,
-                torch .as_tensor (all_departing_data ['slot_indices'],dtype =torch .long ,device =device ),
-                ]
-                ev_local_rewards .index_put_ (
-                (station_ids_tensor ,departing_slots ),per_ev_departure_rewards ,accumulate =True
-                )
 
             ev_ids_cpu =departing_ev_ids .detach ().cpu ().tolist ()
             for ev_id in ev_ids_cpu :
@@ -1980,20 +1568,10 @@ class EVEnv :
                         'target_soc':float (self .target [st ,sorted_evs ][i ].item ()),
                         'battery_capacity_kwh':float (self .ev_capacity_kwh [st ,sorted_evs ][i ].item ()),
                         'max_power_kw':float (self .ev_max_power_kw [st ,sorted_evs ][i ].item ()),
-                        'switch_count':int (self .switch_count [st ,sorted_evs ][i ].item ()),
                         })
                 snapshot_end [st ]=details_end
 
 
-
-        if ev_local_rewards is not None :
-            # Station-level terms (penalties) go equally to the station's EVs,
-            # so the per-EV rewards always sum to the station's local reward.
-            present =physical_to_slot .max (dim =1 ).values +1
-            slot_present =torch .arange (self .max_ev_per_station ,device =device ).unsqueeze (0 )<present .unsqueeze (1 )
-            residual =local_rewards_tensor -ev_local_rewards .sum (dim =1 )
-            ev_local_rewards +=slot_present .float ()*(residual /torch .clamp (present ,min =1 ).float ()).unsqueeze (1 )
-        self .last_ev_local_rewards =ev_local_rewards
 
         done =[self .step_count >=self .episode_steps ]*self .num_stations
 
@@ -2083,10 +1661,7 @@ class EVEnv :
             signed_deviation =float (raw_actor_total_power_kw -current_request )
             _local_rewards_list =local_rewards_tensor .cpu ().tolist ()
             _progress_shaping_list =progress_shaping_rewards_tensor .cpu ().tolist ()
-            _discharge_penalties_list =discharge_penalties_tensor .cpu ().tolist ()
-            _switch_penalties_list =switch_penalties_tensor .cpu ().tolist ()
             _departure_reward_list =departure_reward_sum_tensor .cpu ().tolist ()
-            _station_limit_penalties_list =station_limit_penalties_tensor .cpu ().tolist ()
             info ['reward_breakdown']={
             'global':{
             'balance_reward':float (balance_reward_only ),
@@ -2109,9 +1684,6 @@ class EVEnv :
             'station_power':_station_powers_list [st ],
             'raw_actor_station_power':float (raw_actor_station_powers_tensor [st ].item ()),
             'progress_shaping':_progress_shaping_list [st ],
-            'discharge_penalty':_discharge_penalties_list [st ],
-            'switch_penalty':_switch_penalties_list [st ],
-            'station_limit_penalty':_station_limit_penalties_list [st ],
             'departure_reward':_departure_reward_list [st ],
             'local_total':_local_rewards_list [st ],
             }
@@ -2142,18 +1714,14 @@ class EVEnv :
 
 
 
-    def _spawn_ev_from_event (self ,station :int ,ev_event :dict ,empty_slots :torch .Tensor )->bool :
-        slot_idx =int (empty_slots [random .randint (0 ,int (empty_slots .numel ())-1 )])
-        return self ._spawn_ev_from_event_at_slot (station ,ev_event ,slot_idx )
-
     def _spawn_ev_from_event_at_slot (self ,station :int ,ev_event :dict ,slot_idx :int )->bool :
         init_soc =float (ev_event ['init_soc'])
         target_soc =float (ev_event ['target_soc'])
         dwell_steps =int (ev_event ['dwell_steps'])
         needed_soc =float (ev_event ['needed_soc'])
         profile_ev_id =ev_event .get ('profile_ev_id')
-        capacity_kwh =float (ev_event .get ('capacity_kwh',EV_CAPACITY ))
-        max_power_kw =float (ev_event .get ('max_power_kw',MAX_EV_POWER_KW ))
+        capacity_kwh =float (ev_event ['capacity_kwh'])
+        max_power_kw =float (ev_event ['max_power_kw'])
 
         if profile_ev_id is not None and self ._reserve_ev_id (int (profile_ev_id )):
             ev_id =int (profile_ev_id )
@@ -2179,53 +1747,32 @@ class EVEnv :
         return True
 
     def _calculate_balance_reward (self ,deviation :float )->float :
-        balance_reward_value =getattr (self ,'balance_reward',GLOBAL_BALANCE_REWARD )
-        d =max (float (deviation ),0.0 )
-        mode =getattr (self ,'balance_reward_mode',GLOBAL_BALANCE_REWARD_MODE )
-        if mode =="bounded_absolute_error":
-            scale =max (
-            float (getattr (
-            self ,'_balance_reward_error_scale_kw',
-            GLOBAL_BALANCE_REWARD_ERROR_SCALE_KW ,
-            )),1e-6 ,
-            )
-            # The formal pass/fail tolerance remains an assessment metric. The
-            # learner instead sees a smooth, bounded incentive to reduce every
-            # residual kW, including errors inside that tolerance band.
-            # Past ``d0`` the curve stops bending and keeps the slope it had
-            # there, so a deep miss is paid for in proportion to its depth.
-            # Below d0 nothing changes, so the origin slope and the zero
-            # crossing are exactly where they were.
-            d0 =float (getattr (
-            self ,'_balance_reward_linear_tail_kw',
-            GLOBAL_BALANCE_REWARD_LINEAR_TAIL_KW ,
-            ))
-            if d0 >0.0 and d >d0 :
-                t0 =float (np .tanh (d0 /scale ))
-                return float (balance_reward_value )*(
-                (1.0 -2.0 *t0 )-(2.0 /scale )*(1.0 -t0 *t0 )*(d -d0 )
-                )
-            return float (balance_reward_value )*(
-            1.0 -2.0 *float (np .tanh (d /scale ))
-            )
+        """Bounded tracking reward for an absolute residual ``deviation`` in kW.
 
-        D =max (float (self .tol_narrow_metrics ),1e-6 )
-        if d <=D :
-            return float (balance_reward_value )
-        slope =self ._balance_reward_slope
-        return float (balance_reward_value )-slope *(d -D )
+        The formal pass/fail tolerance remains an assessment metric. The
+        learner instead sees a smooth, bounded incentive to reduce every
+        residual kW, including errors inside that tolerance band. Past the
+        linear-tail point the curve stops bending and keeps the slope it had
+        there, so a deep miss is paid for in proportion to its depth.
+        """
+        d =max (float (deviation ),0.0 )
+        scale =self ._balance_reward_error_scale_kw
+        d0 =self ._balance_reward_linear_tail_kw
+        if d0 >0.0 and d >d0 :
+            t0 =float (np .tanh (d0 /scale ))
+            return float (self .balance_reward )*(
+            (1.0 -2.0 *t0 )-(2.0 /scale )*(1.0 -t0 *t0 )*(d -d0 )
+            )
+        return float (self .balance_reward )*(
+        1.0 -2.0 *float (np .tanh (d /scale ))
+        )
 
 
     def get_metrics (self ):
         metrics ={}
-        forced =getattr (self ,'_train_forced_kwh',None )
-        metrics ['train_forced_kwh']=float (forced .item ())if forced is not None else 0.0
-
 
         if self .metrics ['departing_evs']>0 :
             metrics ['soc_miss_rate']=100.0 -(self .metrics ['departing_evs_soc_met']/self .metrics ['departing_evs']*100.0 )
-
-            metrics ['avg_switches']=self .metrics ['total_switches_departed']/self .metrics ['departing_evs']
 
             unmet =int (self .metrics .get ('total_soc_unmet',0 ))
             if unmet >0 :
@@ -2234,7 +1781,6 @@ class EVEnv :
                 metrics ['avg_soc_deficit']=0.0
         else :
             metrics ['soc_miss_rate']=0.0
-            metrics ['avg_switches']=0.0
             metrics ['avg_soc_deficit']=0.0
 
         if self .metrics ['departing_evs']>0 :
@@ -2313,7 +1859,6 @@ class EVEnv :
         )
 
 
-        metrics ['total_switches']=self .metrics ['total_switches_current']
         metrics ['surplus_steps']=self .metrics ['surplus_steps']
         metrics ['surplus_within_narrow']=self .metrics ['surplus_within_narrow']
         metrics ['shortage_steps']=self .metrics ['shortage_steps']
@@ -2359,11 +1904,6 @@ class EVEnv :
         metrics ['total_steps']=self .metrics ['total_steps']
         metrics ['tracking_steps']=self .metrics ['tracking_steps']
         metrics ['free_steps']=self .metrics ['free_steps']
-        metrics ['station_limit_hits']=self .metrics ['station_limit_hits']
-        metrics ['station_limit_steps']=self .metrics ['station_limit_steps']
-        metrics ['station_charge_limit_hits']=self .metrics ['station_charge_limit_hits']
-        metrics ['station_discharge_limit_hits']=self .metrics ['station_discharge_limit_hits']
-        metrics ['station_limit_penalty_total']=self .metrics ['station_limit_penalty_total']
         metrics ['departing_evs']=self .metrics ['departing_evs']
         metrics ['departing_evs_soc_met']=self .metrics ['departing_evs_soc_met']
         metrics ['central_departing_evs_soc_met']=self .metrics ['central_departing_evs_soc_met']
@@ -2376,9 +1916,6 @@ class EVEnv :
 
     def reset_metrics (self ):
         """Initialize per-episode counters used by training and evaluation."""
-        # Energy the departure force floor added this episode, kept on the
-        # device so applying the floor does not synchronize every step.
-        self ._train_forced_kwh =None
         self .metrics ={
         'total_steps':0 ,
         'tracking_steps':0 ,
@@ -2422,16 +1959,9 @@ class EVEnv :
         'bess_power_limit_hits':0 ,
         'bess_energy_limit_hits':0 ,
         'bess_max_abs_power_kw':0.0 ,
-        'station_limit_hits':0 ,
-        'station_limit_steps':0 ,
-        'station_charge_limit_hits':0 ,
-        'station_discharge_limit_hits':0 ,
-        'station_limit_penalty_total':0.0 ,
         'departing_evs':0 ,
         'departing_evs_soc_met':0 ,
         'central_departing_evs_soc_met':0 ,
-        'total_switches_departed':0 ,
-        'total_switches_current':0 ,
         'total_soc_deficit':0.0 ,
         'total_soc_unmet':0 ,
         'central_total_soc_deficit':0.0 ,
@@ -2445,50 +1975,6 @@ class EVEnv :
             return
         if 0 <=int (station )<self .num_stations :
             self ._active_order_cache [int (station )]=None
-
-    def apply_force_floor (self ,actions :torch .Tensor ):
-        """Raise each present EV's action to the departure force-charging floor.
-
-        Returns the raised actions and, per station, the SoC points the floor
-        added this step on top of what the actor asked for.
-        """
-        actions =actions .clone ()
-        forced_points =torch .zeros (self .num_stations ,dtype =torch .float32 ,device =actions .device )
-        for st in range (self .num_stations ):
-            idx =self ._get_sorted_active_evs (st )
-            k =int (idx .numel ())
-            if k ==0 :
-                continue
-            floor =force_floor_fraction (
-            self .target [st ,idx ]-self .soc [st ,idx ],
-            self ._remaining_action_steps (self .depart [st ,idx ]),
-            self .ev_capacity_kwh [st ,idx ],
-            self .ev_max_power_kw [st ,idx ],
-            float (POWER_TO_ENERGY ),
-            slack_kwh =float (TRAIN_FORCE_SLACK_KWH ),
-            ).to (actions .dtype )
-            proposed =torch .clamp (actions [st ,:k ],-1.0 ,1.0 )
-            raised =torch .maximum (proposed ,floor )
-            added =raised -proposed
-            forced_points [st ]=(added *self .ev_max_power_kw [st ,idx ]*self .ev_soc_step_per_kw [st ,idx ]).sum ()
-            actions [st ,:k ]=torch .where (added >0 ,raised ,actions [st ,:k ])
-            step_kwh =(added *self .ev_max_power_kw [st ,idx ]).sum ()*float (POWER_TO_ENERGY )
-            acc =getattr (self ,'_train_forced_kwh',None )
-            self ._train_forced_kwh =step_kwh if acc is None else acc +step_kwh
-        return actions ,forced_points
-
-    def slot_ev_ids (self )->torch .Tensor :
-        """EV id in each observation slot, [stations, max_ev_per_station], -1 where empty.
-
-        Ids are unique within an episode, so the same EV can be found in the
-        next observation even after the slot order or physical slots changed.
-        """
-        ids =torch .full ((self .num_stations ,self .max_ev_per_station ),-1 ,dtype =torch .long ,device =device )
-        for st in range (self .num_stations ):
-            order =self ._get_sorted_active_evs (st )
-            if order .numel ()>0 :
-                ids [st ,:order .numel ()]=self .ev_ids [st ,order ].long ()
-        return ids
 
     def _get_sorted_active_evs (self ,station :int )->torch .Tensor :
         cached =self ._active_order_cache [station ]

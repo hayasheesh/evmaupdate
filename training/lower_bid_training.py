@@ -27,16 +27,14 @@ from EnvConfig import (
     LOWER_TRAIN_UPPER_BID_SEED,
     LOWER_TRAIN_UPPER_BID_UP_MAX_KW,
     LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES,
-    LOWER_TRAIN_UPPER_BID_ENERGY_INITIAL_BID,
-    LOWER_TRAIN_UPPER_BID_VERBOSE_BID_BUILD,
     LOWER_TRAIN_RESEARCH_MINIMUM_BID_QUANTITY_KW,
     LOWER_BID_LOOKAHEAD_BLOCKS,
 )
 from market.activation_scenarios import (
     LOWER_CONTROL_POOL,
+    LOWER_CONTROL_POOL_LABEL,
     activation_library_signature,
     build_activation_scenario_set,
-    lower_control_pool_label,
     scenarios_to_solver_payload,
 )
 from market.bid_participation import (
@@ -177,11 +175,10 @@ UPPER_BID_BUILDER_KIND = "outer_participation_colgen_benders"
 def _sample_ev_candidate(payload) -> list:
     """One seeded EVEnv rollout; a process-pool task of _sample_ev_scenario_bank."""
 
-    ev_seed, arrival_probs, day_context, service_date = payload
+    ev_seed, arrival_probs, service_date = payload
     return sample_ev_specs_from_evenv(
         seed=ev_seed,
         arrival_probabilities_by_station=arrival_probs,
-        day_context=day_context,
         service_date=service_date,
     )
 
@@ -192,7 +189,6 @@ def _sample_ev_scenario_bank(
     seed: int,
     seed_offset: int,
     arrival_probs,
-    day_context,
     label: str,
     service_date=None,
     workers: int = 1,
@@ -208,7 +204,7 @@ def _sample_ev_scenario_bank(
 
     count = max(int(count), 1)
     payloads = [
-        (int(seed) + int(seed_offset) + 10007 * ev_idx, arrival_probs, day_context, service_date)
+        (int(seed) + int(seed_offset) + 10007 * ev_idx, arrival_probs, service_date)
         for ev_idx in range(count)
     ]
     worker_count = max(1, min(int(workers), count))
@@ -226,31 +222,21 @@ def _sample_ev_scenario_bank(
 
 
 def _select_ev_scenarios_by_count(ev_candidates: list[list]):
-    """Select one seeded realization or min-, median-, and max-size cases.
+    """Select the min-, median-, and max-size cases.
 
     Candidates are ranked by accepted session count, with candidate index as a
     stable tie-break. For an even-sized pool, use the lower median rank. The
-    normal robust bank is ordered minimum, median, maximum. A one-candidate
-    pool is retained as a diagnostic single-realization case.
+    bank is ordered minimum, median, maximum.
     """
 
     candidates = list(ev_candidates)
-    if not candidates:
-        raise ValueError("at least one candidate EV realization is required")
-    if len(candidates) == 2:
-        raise ValueError(
-            "use exactly one EV candidate for a single-realization diagnostic, "
-            "or at least three candidates for min/median/max"
-        )
+    if len(candidates) < 3:
+        raise ValueError("at least three candidate EV realizations are required for min/median/max")
     ranked_indices = sorted(
         range(len(candidates)), key=lambda index: (len(candidates[index]), index)
     )
-    if len(ranked_indices) == 1:
-        ranks = (0,)
-        labels = ("single",)
-    else:
-        ranks = (0, (len(ranked_indices) - 1) // 2, len(ranked_indices) - 1)
-        labels = ("minimum", "median", "maximum")
+    ranks = (0, (len(ranked_indices) - 1) // 2, len(ranked_indices) - 1)
+    labels = ("minimum", "median", "maximum")
     selected = []
     metadata = []
     for label, rank in zip(labels, ranks):
@@ -510,9 +496,6 @@ def upper_bid_bank_settings() -> dict[str, object]:
     silently be mixed into lower-controller training.
     """
 
-    candidate_count = int(LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES)
-    fixed_ev_scenarios = 1 if candidate_count == 1 else 3
-    single_realization = candidate_count == 1
     return {
         "upper_bid_contract_version": 30,
         **activation_library_signature(LOWER_TRAIN_UPPER_BID_ACTIVATION_SOURCE_DIR),
@@ -520,29 +503,17 @@ def upper_bid_bank_settings() -> dict[str, object]:
         "bid_objective": "total_ev_regulation_capacity_kw_block",
         "award_assumption": "full_award",
         "activation_scenarios": int(LOWER_TRAIN_UPPER_BID_ACTIVATION_SCENARIOS),
-        "bank_bid_contract": (
-            "fixed_single_ev_all_commands_k0"
-            if single_realization
-            else "fixed_min_median_max_ev_all_commands_k0"
-        ),
+        "bank_bid_contract": "fixed_min_median_max_ev_all_commands_k0",
         "ev_information_regime": "clairvoyant",
-        "fixed_ev_scenarios": fixed_ev_scenarios,
-        "ev_scenario_candidate_count": candidate_count,
-        "ev_scenario_selection": (
-            "single_seeded_realization"
-            if single_realization
-            else "minimum_lower_median_maximum_by_session_count"
-        ),
+        "fixed_ev_scenarios": 3,
+        "ev_scenario_candidate_count": int(LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES),
+        "ev_scenario_selection": "minimum_lower_median_maximum_by_session_count",
         "all_command_scenarios": True,
         "allowed_command_failures": 0,
         "physical_lp_tracking_contract": "all_assessed_blocks_hard",
         # training.bid_bank.zero_idle_baseline: blocks without bid width.
         "idle_baseline_kw": 0.0,
-        "initial_bid_rule": (
-            "aggregate_energy_robust_lp"
-            if LOWER_TRAIN_UPPER_BID_ENERGY_INITIAL_BID
-            else "assessment_i_caps"
-        ),
+        "initial_bid_rule": "aggregate_energy_robust_lp",
         "physical_lp_min_direction_bid_kw": float(LOWER_TRAIN_UPPER_BID_PHYSICAL_LP_MIN_DIRECTION_BID_KW),
         "solver": "outer_participation_colgen_benders",
         "research_minimum_bid_quantity_kw": str(
@@ -575,24 +546,18 @@ def ev_population_signature() -> dict[str, object]:
     from EnvConfig import (
         EV_BATTERY_CAPACITY_OPTIONS_KWH,
         EV_BATTERY_CAPACITY_PROBS,
-        EV_CAPACITY,
         EV_CHARGER_MAX_POWER_OPTIONS_KW,
         EV_CHARGER_MAX_POWER_PROBS,
         EV_SOC_ARRIVAL_DISTRIBUTION_PATH,
         EV_TARGET_REACHABLE_POWER_FRACTION,
-        MAX_EV_POWER_KW,
-        USE_HETEROGENEOUS_EV_PHYSICS,
     )
 
     soc_path = Path(EV_SOC_ARRIVAL_DISTRIBUTION_PATH)
     return {
-        "heterogeneous_ev_physics": bool(USE_HETEROGENEOUS_EV_PHYSICS),
         "battery_capacity_options_kwh": [float(v) for v in EV_BATTERY_CAPACITY_OPTIONS_KWH],
         "battery_capacity_probs": [float(v) for v in EV_BATTERY_CAPACITY_PROBS],
         "charger_power_options_kw": [float(v) for v in EV_CHARGER_MAX_POWER_OPTIONS_KW],
         "charger_power_probs": [float(v) for v in EV_CHARGER_MAX_POWER_PROBS],
-        "homogeneous_capacity_kwh": float(EV_CAPACITY),
-        "homogeneous_power_kw": float(MAX_EV_POWER_KW),
         "target_reachable_power_fraction": float(EV_TARGET_REACHABLE_POWER_FRACTION),
         "arrival_soc_distribution_sha256": (
             hashlib.sha256(soc_path.read_bytes()).hexdigest() if soc_path.is_file() else None
@@ -619,8 +584,7 @@ def set_upper_bid_progress_log(path: str | Path | None, reset: bool = True) -> s
 
 def _bid_build_log(message: str) -> None:
     line = f"[upper-bid] {message}"
-    if bool(LOWER_TRAIN_UPPER_BID_VERBOSE_BID_BUILD):
-        print(line, flush=True)
+    print(line, flush=True)
     if _BID_PROGRESS_LOG_PATH:
         timestamp = datetime.now().isoformat(timespec="seconds")
         with Path(_BID_PROGRESS_LOG_PATH).open("a", encoding="utf-8") as f:
@@ -864,36 +828,14 @@ def _submitted_bid_info(
     }
 
 
-def build_upper_bid_training_episode(
-    base_series,
-    service_date: str | None,
-    episode_idx: int,
-    arrival_scenario=None,
-):
-    """Build one canonical bid and select its episode command scenario."""
-
-    forecast_seed = int(LOWER_TRAIN_UPPER_BID_SEED) + int(episode_idx) * 1009
-    fixed_bid = build_fixed_upper_bid_for_day(
-        base_series,
-        service_date,
-        arrival_scenario=arrival_scenario,
-        forecast_seed=forecast_seed,
-    )
-    return build_fixed_upper_bid_training_episode(
-        fixed_bid,
-        episode_idx=episode_idx,
-    )
-
-
-
 BID_SOLVE_CACHE_DIR = Path(__file__).resolve().parents[1] / "execute_results" / "bid_solve_cache"
 
 
 def _arrival_scenario_signature(arrival_scenario):
     """Stable bytes for one day's ArrivalScenario, or None if its shape is unknown.
 
-    The scenario is a small dataclass of two arrays plus three scalars. Hashing
-    the arrays keeps the key sensitive to the arrivals the bid was solved
+    The scenario is a small dataclass of one array plus three scalars. Hashing
+    the array keeps the key sensitive to the arrivals the bid was solved
     against; an unexpected field type disables the cache rather than dropping
     that field out of the key.
     """
@@ -906,7 +848,6 @@ def _arrival_scenario_signature(arrival_scenario):
     for field in (
         "service_date",
         "arrival_probabilities_by_station",
-        "day_context",
         "source",
         "day_class",
     ):
@@ -1107,7 +1048,7 @@ def build_fixed_upper_bid_training_episode(
 
     The submitted bid is fixed, while activation rotates across the scenario
     payload. The submitted and awarded widths are used exactly as persisted;
-    pretraining, fine-tuning, and evaluation therefore solve the same task.
+    pretraining and evaluation therefore solve the same task.
     """
 
     result = fixed_bid["result"]
@@ -1122,23 +1063,16 @@ def build_fixed_upper_bid_training_episode(
         s_idx = int(episode_idx) % len(scenarios)
         scenario = scenarios[s_idx]
     else:
-        scenario = None
-    if scenario is not None:
-        target, tol, regulation = _bid_to_target_tol_from_activation(
-            baseline,
-            up,
-            down,
-            scenario.get("up_proxy"),
-            scenario.get("down_proxy"),
-            band_fraction=fixed_bid.get("assessment_band_fraction"),
-        )
-        scenario_name = str(scenario.get("name", f"scenario_{s_idx}"))
-    else:
-        s_idx = 0
-        target = np.asarray(fixed_bid["target_series"], dtype=np.float32).reshape(-1)[:EPISODE_STEPS]
-        tol = np.asarray(fixed_bid["tol_series"], dtype=np.float32).reshape(-1)[:EPISODE_STEPS]
-        regulation = np.asarray(fixed_bid["regulation_series"], dtype=float)
-        scenario_name = "base_proxy"
+        raise ValueError("the submitted bid carries no command scenarios")
+    target, tol, regulation = _bid_to_target_tol_from_activation(
+        baseline,
+        up,
+        down,
+        scenario.get("up_proxy"),
+        scenario.get("down_proxy"),
+        band_fraction=fixed_bid.get("assessment_band_fraction"),
+    )
+    scenario_name = str(scenario.get("name", f"scenario_{s_idx}"))
     info = _submitted_bid_info(
         result,
         baseline,
@@ -1157,15 +1091,9 @@ def build_fixed_upper_bid_training_episode(
         "source": "fixed_upper_bid",
         "activation_scenario_index": int(s_idx),
         "activation_scenario_name": scenario_name,
-        "activation_scenario_source": (
-            str(scenario.get("source", "")) if scenario is not None else ""
-        ),
-        "activation_scenario_source_date": (
-            str(scenario.get("source_date", "")) if scenario is not None else ""
-        ),
-        "activation_scenario_source_bmu": (
-            str(scenario.get("source_bmu", "")) if scenario is not None else ""
-        ),
+        "activation_scenario_source": str(scenario.get("source", "")),
+        "activation_scenario_source_date": str(scenario.get("source_date", "")),
+        "activation_scenario_source_bmu": str(scenario.get("source_bmu", "")),
         "service_date": fixed_bid.get("service_date"),
     })
     instruction_scale_kw = bid_instruction_scale_kw(baseline, up, down)
@@ -1192,7 +1120,6 @@ def build_fixed_upper_bid_training_episode(
         market_context_series = cached_context["series"]
     return target, tol, {
         "arrival_probabilities_by_station": fixed_bid.get("arrival_probabilities_by_station"),
-        "day_context": fixed_bid.get("day_context"),
         "service_date": fixed_bid.get("service_date"),
         "baseline_series": np.repeat(
             np.asarray(baseline, dtype=float).reshape(-1)[:N_BLOCKS], STEPS_PER_BLOCK
@@ -1220,8 +1147,7 @@ def sample_random_historical_activation(
     The upper bid remains certified against its persisted design-command set,
     drawn from the train partition. This draw is only the lower-controller
     command for one rollout, taken from LOWER_CONTROL_POOL: the validation and
-    test partitions of a partitioned library, or the whole of a library without
-    partitions. The stream label separates training and validation while a
+    test partitions of the library. The stream label separates training and validation while a
     stable episode-based seed makes checkpoint comparisons and exact resume
     reproducible. ``exclude_sources`` removes commands from the pool before the
     draw; the training stream excludes the interim-test commands.
@@ -1238,9 +1164,7 @@ def sample_random_historical_activation(
     if len(commands) != 1:
         raise RuntimeError(f"expected one historical command, got {len(commands)}")
     command = dict(commands[0])
-    command["lower_command_sampling_pool"] = lower_control_pool_label(
-        LOWER_TRAIN_UPPER_BID_ACTIVATION_SOURCE_DIR
-    )
+    command["lower_command_sampling_pool"] = LOWER_CONTROL_POOL_LABEL
     command["lower_command_stream"] = stream_name
     command["lower_command_episode_index"] = int(episode_idx)
     return command

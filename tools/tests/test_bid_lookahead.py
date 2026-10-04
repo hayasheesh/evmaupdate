@@ -57,7 +57,6 @@ def test_lower_command_draw_uses_the_lower_control_pool_and_separate_streams(
         }], "test-mode")
 
     monkeypatch.setattr(lower, "_activation_scenarios_for_day", fake_commands)
-    monkeypatch.setattr(lower, "lower_control_pool_label", lambda _directory: "all_historical")
     fixed_bid = {"service_date": "2024-12-02", "forecast_seed": 93180}
     train = lower.sample_random_historical_activation(
         fixed_bid, 17, stream="train"
@@ -68,6 +67,6 @@ def test_lower_command_draw_uses_the_lower_control_pool_and_separate_streams(
 
     assert all(call[2] == 1 and call[3] == LOWER_CONTROL_POOL for call in calls)
     assert calls[0][1] != calls[1][1]
-    assert train["lower_command_sampling_pool"] == "all_historical"
+    assert train["lower_command_sampling_pool"] == "validation+test"
     assert train["lower_command_stream"] == "train"
     assert validation["lower_command_stream"] == "validation"

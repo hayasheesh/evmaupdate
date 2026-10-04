@@ -23,15 +23,6 @@ from market.bid_participation import (
 
 
 EVALUATION_PIPELINES = {
-    # Proposed operational system. Station-level control stays decentralised;
-    # the PCC battery absorbs only the remaining aggregate error.
-    "system": {
-        "force_layer": True,
-        "central_allocator": False,
-        "residual_bess": True,
-        "response_source": "pcc",
-        "use_actor": True,
-    },
     # C4: the force layer is part of the intended MARL controller.  The two
     # downstream rescue layers are excluded so its trajectory is independent.
     "marl_force": {
@@ -41,8 +32,8 @@ EVALUATION_PIPELINES = {
         "response_source": "ev",
         "use_actor": True,
     },
-    # The two rungs between marl_force and system, so the ladder from the bare
-    # actor to the deployed hierarchy can be read one layer at a time.
+    # The bare actor, so the ladder to the proposed system can be read one
+    # layer at a time.
     "marl_raw": {
         "force_layer": False,
         "central_allocator": False,
@@ -50,8 +41,9 @@ EVALUATION_PIPELINES = {
         "response_source": "ev",
         "use_actor": True,
     },
-    # 完全分散の EV 制御に、連系点の BESS だけを足した構成。中央残差配分は
-    # 局あたり11スカラーを要求するが、BESS は合計電力スカラー1個しか見ない。
+    # 提案システム。完全分散の EV 制御に、連系点の BESS だけを足した構成。
+    # 中央残差配分は局あたり11スカラーを要求するが、BESS は合計電力スカラー
+    # 1個しか見ない。
     "marl_force_bess": {
         "force_layer": True,
         "central_allocator": False,
@@ -486,8 +478,7 @@ def _evaluate_controller_precision_impl(
     n_seeds: int = 5,
     base_seed: int = 910_000,
     force_slack_kwh: float = 0.1,
-    ignore_assessment_I: bool = False,
-    evaluation_pipeline: str = "system",
+    evaluation_pipeline: str = "marl_force_bess",
     out_dir=None,
     visualize: bool = True,
 ) -> dict:
@@ -511,20 +502,14 @@ def _evaluate_controller_precision_impl(
     if fixed_bid.get("bid_objective") != "total_ev_regulation_capacity_kw_block":
         raise ValueError("controller precision evaluation requires a capacity-only bid")
     arrival_probs = fixed_bid.get("arrival_probabilities_by_station")
-    day_context = fixed_bid.get("day_context")
     service_date = fixed_bid.get("service_date")
     n_scen = max(int(fixed_bid.get("activation_scenarios", 0)), 1)
     offered_capacity_kw_block = float(np.sum(up_plan + down_plan))
 
     env = EVEnv()
     pipeline = evaluation_pipeline_settings(evaluation_pipeline)
-    # The force layer is the pipeline's own setting below; the training-time
-    # floor (EVMA_TRAIN_FORCE_CHARGING) would otherwise reach marl_raw too.
-    env.apply_train_force_floor = False
-    if pipeline["central_allocator"] is not None:
-        env.use_central_ev_residual_allocator = bool(pipeline["central_allocator"])
-    if pipeline["residual_bess"] is not None:
-        env.use_residual_bess = bool(pipeline["residual_bess"])
+    env.use_central_ev_residual_allocator = bool(pipeline["central_allocator"])
+    env.use_residual_bess = bool(pipeline["residual_bess"])
 
     rows: list[dict] = []
 
@@ -555,7 +540,6 @@ def _evaluate_controller_precision_impl(
                 tracking_enabled_series=tracking_enabled,
                 market_context_series=_arr.get("market_context_series"),
                 arrival_probabilities_by_station=arrival_probs,
-                day_context=day_context,
                 service_date=service_date,
                 baseline_series=_arr.get("baseline_series"),
             )
@@ -790,9 +774,7 @@ def _evaluate_controller_precision_impl(
                 if up_plan[b] > 1e-6:
                     up_pass = bool(direct_pass_II)
                     candidate_up_precision_pass[b] &= up_pass
-                    candidate_up_assessment_i_pass[b] &= bool(
-                        ignore_assessment_I or up_unmet_i <= 1e-12
-                    )
+                    candidate_up_assessment_i_pass[b] &= bool(up_unmet_i <= 1e-12)
                     up_pass_flags.append(1.0 if up_pass else 0.0)
                     up_stay.append(float(direct_stay_rate))
                     if not up_pass:
@@ -800,9 +782,7 @@ def _evaluate_controller_precision_impl(
                 if down_plan[b] > 1e-6:
                     down_pass = bool(direct_pass_II)
                     candidate_down_precision_pass[b] &= down_pass
-                    candidate_down_assessment_i_pass[b] &= bool(
-                        ignore_assessment_I or down_unmet_i <= 1e-12
-                    )
+                    candidate_down_assessment_i_pass[b] &= bool(down_unmet_i <= 1e-12)
                     down_pass_flags.append(1.0 if down_pass else 0.0)
                     down_stay.append(float(direct_stay_rate))
                     if not down_pass:
@@ -988,7 +968,6 @@ def _evaluate_controller_precision_impl(
 
     summary = {
         "evaluation_pipeline": str(evaluation_pipeline),
-        "assessment_i_ignored": bool(ignore_assessment_I),
         "offered_capacity_kw_block": offered_capacity_kw_block,
         "mean_offered_capacity_kw": float(offered_capacity_kw_block / N_BLOCKS),
         "up_pass_rate": float(np.mean([r["up_pass_rate"] for r in rows])) if rows else 1.0,
@@ -1148,8 +1127,7 @@ def evaluate_controller_precision(
     n_seeds: int = 5,
     base_seed: int = 910_000,
     force_slack_kwh: float = 0.1,
-    ignore_assessment_I: bool = False,
-    evaluation_pipeline: str = "system",
+    evaluation_pipeline: str = "marl_force_bess",
     out_dir=None,
     visualize: bool = True,
 ) -> dict:
@@ -1169,7 +1147,6 @@ def evaluate_controller_precision(
             n_seeds=n_seeds,
             base_seed=base_seed,
             force_slack_kwh=force_slack_kwh,
-            ignore_assessment_I=ignore_assessment_I,
             evaluation_pipeline=evaluation_pipeline,
             out_dir=out_dir,
             visualize=visualize,

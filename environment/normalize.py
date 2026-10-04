@@ -9,7 +9,7 @@ Input:
   roughly `(num_stations, state_dim)`. `obs` may be a NumPy array from EVEnv or
   a torch Tensor from replay/evaluation utilities.
 - Per-station layout is:
-  `[EV slots][demand lookahead][market tracking enabled][current step]`
+  `[EV slots][demand][market tracking enabled][fleet residual][bid context][current step]`
 
 Output:
 - `normalize_observation()` returns a torch Tensor with the same shape as input.
@@ -21,29 +21,22 @@ Normalization rules:
 - `soc`: raw percent SoC `[0, 100]` -> `[0, 1]`.
 - `remaining_time`: raw remaining controllable action steps `[0, EPISODE_STEPS]` -> `[0, 1]`.
 - `needed_soc`: raw percent `[0, 100]` -> `[0, 1]`, then clamped to `[-1, 1]`.
-- `battery_capacity_kwh` and `max_power_kw`: present only when
-  `USE_HETEROGENEOUS_EV_PHYSICS=True`; raw values are scaled to `[0, 1]`.
-- `switch_count`: raw count -> `[0, 1]` by dividing by `MAX_SWITCH_COUNT`.
-- `last_direction`: clamped to `[-1, 1]`; expected values are charge/discharge
-  direction-like indicators.
+- `battery_capacity_kwh` and `max_power_kw`: raw values are scaled to `[0, 1]`.
 - `demand lookahead`: centered by the Config demand-target range and divided
   by half of that range, then clamped to `[-OBS_DEMAND_CLAMP,
   OBS_DEMAND_CLAMP]`.
 - `market tracking enabled`: unchanged 0/1 participation indicator.
+- `fleet residual`: divided by the same scale as the demand, then clamped.
+- `bid context`: the instruction scale over its profile scale; the known bid
+  schedule clamped to `[-1, 1]`.
 - `current step`: raw step `[0, EPISODE_STEPS]` -> `[0, 1]`.
 
 Dependencies / layout contract:
 - `environment.observation_config` defines EV feature order and tail layout.
-  If `EV_FEATURE_NAMES`, `LOCAL_DEMAND_STEPS`, or `LOCAL_USE_STEP` changes,
-  this file must remain consistent with that layout.
-- `Config` supplies episode length, max EV slots per station, switch-count
-  scale, and demand-adjustment min/max used for AG request scaling.
-
-Notes:
-- `denormalize_observation()` is a lightweight debug/plotting helper for the
-  first station only. Training should use normalized tensors directly.
-- Unknown EV features are passed through unchanged so adding already-normalized
-  features does not require extra code here.
+  If `EV_FEATURE_NAMES` or the tail layout changes, this file must remain
+  consistent with that layout.
+- `EnvConfig` supplies episode length, max EV slots per station, and the
+  demand-target min/max used for the default demand scaling.
 """
 
 import json
@@ -60,21 +53,13 @@ from EnvConfig import (
     EV_CAPACITY_OBS_SCALE_KWH,
     EV_CHARGER_POWER_OBS_SCALE_KW,
     MAX_EV_PER_STATION,
-    MAX_SWITCH_COUNT,
     PHYSICAL_MAX_POWER_KW,
-    BESS_POWER_KW,
-    BESS_CONTEXT_USE_OBS,
-    LOCAL_USE_FLEET_RESIDUAL,
 )
 from environment.observation_config import (
     EV_FEAT_DIM,
     EV_FEATURE_NAMES,
     LOCAL_DEMAND_STEPS,
-    LOCAL_USE_TRACKING_ENABLED,
-    LOCAL_USE_STEP,
     BID_CONTEXT_FEATURES,
-    BESS_CONTEXT_FEATURES,
-    LOWER_BID_CONTEXT_USE_OBS,
 )
 
 
@@ -237,87 +222,12 @@ def _market_context_scale(feature_name):
     return float(_observation_normalization[profile_key])
 
 
-def _normalize_bess_context(feature_name, value):
-    if feature_name == "bess_soc_pct":
-        return torch.clamp(value / 100.0, 0.0, 1.0)
-    if feature_name == "last_bess_power_kw":
-        scale = max(float(BESS_POWER_KW), 1.0)
-    elif feature_name == "last_pcc_power_kw":
-        scale = max(float(PHYSICAL_MAX_POWER_KW) + float(BESS_POWER_KW), 1.0)
-    else:
-        scale = max(float(PHYSICAL_MAX_POWER_KW), 1.0)
-    return torch.clamp(
-        value / scale,
-        -float(OBS_DEMAND_CLAMP),
-        float(OBS_DEMAND_CLAMP),
-    )
-
-
-def _denormalize_bess_context(feature_name, value):
-    if feature_name == "bess_soc_pct":
-        return value * 100.0
-    if feature_name == "last_bess_power_kw":
-        return value * max(float(BESS_POWER_KW), 1.0)
-    if feature_name == "last_pcc_power_kw":
-        return value * max(float(PHYSICAL_MAX_POWER_KW) + float(BESS_POWER_KW), 1.0)
-    return value * max(float(PHYSICAL_MAX_POWER_KW), 1.0)
-
-
 def _to_tensor(obs):
     # EVEnv usually emits NumPy arrays, while replay/test paths may already use
     # tensors. The rest of this module uses torch indexing and torch.clamp.
     if isinstance(obs, np.ndarray):
         return torch.from_numpy(obs).float()
     return obs
-
-
-def _feature_index(name):
-    # Optional lookup: diagnostic code can keep working even if a feature is
-    # removed from EV_FEATURE_NAMES.
-    try:
-        return EV_FEATURE_NAMES.index(name)
-    except ValueError:
-        return None
-
-
-def _normalize_ev_feature(name, value):
-    # Each EV slot column has a different physical unit, so normalization is
-    # feature-name based rather than position-only.
-    if name == "presence":
-        return value
-    if name == "soc":
-        return value / 100.0
-    if name == "remaining_time":
-        return value / EPISODE_STEPS
-    if name == "needed_soc":
-        return torch.clamp(value / 100.0, -1.0, 1.0)
-    if name == "battery_capacity_kwh":
-        return torch.clamp(value / max(float(EV_CAPACITY_OBS_SCALE_KWH), 1.0), 0.0, 1.0)
-    if name == "max_power_kw":
-        return torch.clamp(value / max(float(EV_CHARGER_POWER_OBS_SCALE_KW), 1.0), 0.0, 1.0)
-    if name == "switch_count":
-        return torch.clamp(value / max(float(MAX_SWITCH_COUNT), 1.0), 0.0, 1.0)
-    if name == "last_direction":
-        return torch.clamp(value, -1.0, 1.0)
-    return value
-
-
-def _denormalize_ev_feature(name, value):
-    # Inverse mapping used for readable debug outputs. Features that are already
-    # unitless or direction-like are returned unchanged.
-    if name == "soc":
-        return value * 100.0
-    if name == "remaining_time":
-        return value * EPISODE_STEPS
-    if name == "needed_soc":
-        return value * 100.0
-    if name == "battery_capacity_kwh":
-        return value * float(EV_CAPACITY_OBS_SCALE_KWH)
-    if name == "max_power_kw":
-        return value * float(EV_CHARGER_POWER_OBS_SCALE_KW)
-    if name == "switch_count":
-        return value * max(float(MAX_SWITCH_COUNT), 1.0)
-    return value
 
 
 def normalize_observation(obs):
@@ -360,12 +270,6 @@ def normalize_observation(obs):
                 norm_ev[..., feat_offset] = torch.clamp(
                     values / max(float(EV_CHARGER_POWER_OBS_SCALE_KW), 1.0), 0.0, 1.0
                 )
-            elif feat_name == "switch_count":
-                norm_ev[..., feat_offset] = torch.clamp(
-                    values / max(float(MAX_SWITCH_COUNT), 1.0), 0.0, 1.0
-                )
-            elif feat_name == "last_direction":
-                norm_ev[..., feat_offset] = torch.clamp(values, -1.0, 1.0)
 
     tail_idx = ev_block_end
     if LOCAL_DEMAND_STEPS > 0 and tail_idx < state_dim:
@@ -383,13 +287,13 @@ def normalize_observation(obs):
             )
             tail_idx = end_ag
 
-    if LOCAL_USE_TRACKING_ENABLED and tail_idx < state_dim:
+    if tail_idx < state_dim:
         normalized_obs[:, tail_idx] = torch.clamp(
             obs[:, tail_idx], 0.0, 1.0
         )
         tail_idx += 1
 
-    if LOCAL_USE_FLEET_RESIDUAL and tail_idx < state_dim:
+    if tail_idx < state_dim:
         # Same units and same divisor as ``demand_0``: the day's own
         # instruction envelope, so the two are directly comparable.
         normalized_obs[:, tail_idx] = torch.clamp(
@@ -399,7 +303,7 @@ def normalize_observation(obs):
         )
         tail_idx += 1
 
-    if LOWER_BID_CONTEXT_USE_OBS and tail_idx < state_dim:
+    if tail_idx < state_dim:
         for feature_name in BID_CONTEXT_FEATURES:
             if tail_idx >= state_dim:
                 break
@@ -415,16 +319,7 @@ def normalize_observation(obs):
                 )
             tail_idx += 1
 
-    if BESS_CONTEXT_USE_OBS and tail_idx < state_dim:
-        for feature_name in BESS_CONTEXT_FEATURES:
-            if tail_idx >= state_dim:
-                break
-            normalized_obs[:, tail_idx] = _normalize_bess_context(
-                feature_name, obs[:, tail_idx]
-            )
-            tail_idx += 1
-
-    if LOCAL_USE_STEP and tail_idx < state_dim:
+    if tail_idx < state_dim:
         # Current time is represented as episode progress. Clamp prevents a
         # malformed step index from leaking out-of-range values.
         normalized_obs[:, tail_idx] = torch.clamp(

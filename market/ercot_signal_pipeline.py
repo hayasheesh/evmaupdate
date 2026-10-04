@@ -1,22 +1,18 @@
-"""Legacy fixed-width SCED activation proxies for simulation.
+"""Causal five-minute sampling of ERCOT SCED resource histories.
 
-This path subtracts the first online Base Point and divides by a segment width.
-It remains for experiment reproduction, but it is not the raw waveform bank.
-For source-faithful Base Point targets and one fixed offset per daily sample,
-use ``market.command_waveforms`` / ``tools.build_market_command_waveforms``.
-
-Its source sampling still uses causal five-minute observations, rejects stale
-gaps, and does not interpolate or clip the stored proxy.
+tools/build_ercot_plan_deviation_library.py reads the SCED ESR files through
+``_resource_inputs`` and samples each resource with
+``build_ercot_resource_frame``. The sampling uses causal five-minute
+observations, rejects stale gaps, and does not interpolate.
 """
 from __future__ import annotations
 
 from datetime import date
 import hashlib
-import json
 from pathlib import Path
 import re
 import tempfile
-from typing import Any, Iterable
+from typing import Any
 
 import numpy as np
 import pandas as pd
@@ -222,35 +218,6 @@ def build_ercot_resource_frame(
     return frame, segments
 
 
-def _day_reasons(frame: pd.DataFrame, min_change_mw: float) -> list[str]:
-    reasons = sorted(set(frame.quality_reason.dropna()) - {""})
-    if len(frame) != STEPS_PER_DAY:
-        reasons.append("non_288_slot_day")
-    if not frame.online.eq(True).any():
-        reasons.append("no_online_steps")
-    # A flat day is not active solely because of the previous day's last BP.
-    within_day = frame.segment_id.eq(frame.segment_id.shift()) & frame.online.eq(True)
-    if not (frame.base_point_mw.diff().abs().where(within_day, 0) > min_change_mw).any():
-        reasons.append("no_base_point_motion")
-    return reasons
-
-
-EXPORT_COLUMNS = [
-    "time_ercot", "grid_utc", "source_sced_timestamp_utc", "source_age_seconds",
-    "source_type", "source_bmu", "resource_kind", "source_date", "scenario_partition",
-    "tel_res_status", "online", "segment_id", "base_point_mw", "response_span_mw",
-    "reference_base_point_mw", "reference_response_width_mw", "delta_base_point_mw",
-    "relative_base_point_mw", "up_proxy_raw", "down_proxy_raw",
-    "signed_activation_raw_up_positive", "simulation_clip_required",
-]
-
-
-def _export_day(frame: pd.DataFrame) -> pd.DataFrame:
-    result = frame[EXPORT_COLUMNS].reset_index(drop=True).copy()
-    result.insert(0, "step", np.arange(len(result)))
-    return result
-
-
 def _resource_inputs(paths, resource_names, default_kind):
     """Bound memory for all-resource archives; spool compact inputs by resource.
 
@@ -296,89 +263,3 @@ def _resource_inputs(paths, resource_names, default_kind):
             raise ValueError("No source rows selected")
         for (kind, name), path in sorted(files.items()):
             yield kind, name, pd.read_csv(path)
-
-
-def build_ercot_day_frame(*, resource_name: str, day: date, rows: pd.DataFrame,
-                          resource_kind: str = "CLR") -> pd.DataFrame | None:
-    """Compatibility helper; pass continuous history, not isolated daily rows."""
-    frame, _ = build_ercot_resource_frame(rows=rows, resource_name=resource_name, resource_kind=resource_kind)
-    frame = frame.loc[frame.source_date == day.isoformat()]
-    return None if frame.empty or _day_reasons(frame, 1e-6) else _export_day(frame)
-
-
-def build_ercot_scenario_library(
-    *, input_csv: str | Path | Iterable[str | Path], output_dir: str | Path,
-    resource_names: Iterable[str] | None = None, resource_kind: str = "CLR",
-    train_end: date | None = None, validation_end: date | None = None,
-    audit_only: bool = False, min_change_mw: float = 1e-6,
-) -> dict[str, Any]:
-    """New library plus day/segment audit; never delete old banks or outputs."""
-    if min_change_mw < 0 or not np.isfinite(min_change_mw):
-        raise ValueError("min_change_mw must be finite and nonnegative")
-    paths = [Path(input_csv)] if isinstance(input_csv, (str, Path)) else [Path(p) for p in input_csv]
-    if not paths:
-        raise ValueError("No input CSVs")
-    root = Path(output_dir)
-    if root.exists() and any(root.iterdir()):
-        raise FileExistsError(f"Output must be empty (existing data preserved): {root}")
-    resources, segments, days, written = [], [], [], []
-    root.mkdir(parents=True, exist_ok=True)
-    (root / "metadata.json").write_text(json.dumps({"build_complete": False}), encoding="utf-8")
-    for kind, name, group in _resource_inputs(paths, resource_names, resource_kind.upper()):
-        frame, audit = build_ercot_resource_frame(
-            rows=group, resource_name=str(name), resource_kind=kind,
-            train_end=train_end, validation_end=validation_end,
-        )
-        segments.extend(audit)
-        kept, up, down, total, over, peak = 0, 0, 0, 0, 0, 0.0
-        for day, day_frame in frame.groupby("source_date", sort=True):
-            reasons = _day_reasons(day_frame, min_change_mw)
-            days.append({
-                "resource_kind": kind, "resource_name": name, "date": day,
-                "partition": day_frame.scenario_partition.iloc[0], "reasons": reasons,
-                "no_fresh_execution_steps": int((day_frame.quality_reason == "no_fresh_execution").sum()),
-                "segment_ids": sorted(set(day_frame.segment_id.dropna()) - {""}),
-            })
-            if reasons:
-                continue
-            kept += 1
-            signed = day_frame.signed_activation_raw_up_positive.to_numpy(float)
-            total += len(signed)
-            up += int((signed > 1e-3).sum())
-            down += int((signed < -1e-3).sum())
-            over += int((np.abs(signed) > 1).sum())
-            peak = max(peak, float(np.abs(signed).max()))
-            if not audit_only:
-                safe = re.sub(r"[^a-zA-Z0-9_-]", "_", str(name))
-                suffix = hashlib.sha256(str(name).encode()).hexdigest()[:8]
-                filename = f"ercot_sced_{kind}_{safe}_{suffix}_{day}.csv"
-                _export_day(day_frame).to_csv(root / filename, index=False, float_format="%.12g")
-                written.append(filename)
-        resources.append({
-            "resource_kind": kind, "resource_name": name, "days": kept,
-            "candidate_days": int(frame.source_date.nunique()), "total_5min_steps": total,
-            "up_frequency": up / total if total else 0,
-            "down_frequency": down / total if total else 0,
-            "activation_frequency": (up + down) / total if total else 0,
-            "raw_above_unit_frequency": over / total if total else 0,
-            "maximum_raw_activation_fraction": peak,
-        })
-    metadata = {
-        "source_type": SOURCE_TYPE, "input_csvs": [str(p.resolve()) for p in paths],
-        "offset_required": False, "absolute_dispatch_recoverable": False,
-        "semantics": "relative command shapes only; EV-VPP chooses baseline and directional bids",
-        "sampling": "latest execution in (t-5min,t]; no interpolation; t starts simulator interval",
-        "timezone": TZ, "dst_policy": "reject non-288-slot local days",
-        "normalization": "median finite positive width of original executions per observed online segment; CLR MPC-LPC, ESR/GEN HSL-LSL",
-        "reference": "first observed online BP; no midnight reset; no mean removal",
-        "source_clipping": "none; clip only at simulator input",
-        "split_policy": "chronological_segment_disjoint" if train_end else "unassigned",
-        "train_end": train_end.isoformat() if train_end else None,
-        "validation_end": validation_end.isoformat() if validation_end else None,
-        "crossing_segment_policy": "exclude every day touching a crossing segment",
-        "min_change_mw": min_change_mw, "audit_only": audit_only,
-        "build_complete": True,
-        "resources": resources, "written_files": written, "days": days, "segments": segments,
-    }
-    (root / "metadata.json").write_text(json.dumps(metadata, ensure_ascii=False, indent=2, allow_nan=False), encoding="utf-8")
-    return metadata

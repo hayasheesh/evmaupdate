@@ -27,8 +27,6 @@ from __future__ import annotations
 
 import copy
 import math
-import os
-import pickle
 
 import torch
 import torch.nn as nn
@@ -39,13 +37,9 @@ from Config import (
     BATCH_SIZE, LR_ACTOR, LR_CRITIC_LOCAL, TAU,
     STD_MADDPG_CRITIC_HIDDEN, STD_MADDPG_GAMMA, STD_MADDPG_GLOBAL_REWARD_WEIGHT,
     STD_MADDPG_GRAD_CLIP, STD_MADDPG_LOCAL_REWARD_WEIGHT,
-    STATION_RULE_ALLOCATION,
 )
 
-try:
-    from .maddpg import MADDPG, device
-except ImportError:
-    from maddpg import MADDPG, device
+from .maddpg import MADDPG, device
 
 
 class CentralizedCritic(nn.Module):
@@ -81,7 +75,6 @@ class StandardMADDPG(MADDPG):
 
         # Gaussian noise on the actor output is the only exploration.
         self.epsilon_initial = self.epsilon_final = self.epsilon = 0.0
-        self.global_correlated_noise_gain = 0.0
 
         obs_dim = self.n * int(s_dim)
         act_dim = self.n * int(max_evs_per_station)
@@ -100,16 +93,15 @@ class StandardMADDPG(MADDPG):
 
     # --- learning -----------------------------------------------------------
 
-    def _executed_actions(self, raw, current_socs, capacity_kwh, max_power_kw,
+    def _executed_actions(self, raw, current_socs, max_power_kw,
                           soc_step_per_kw, kw_per_soc_step, inv_max_power_kw,
-                          padding_mask, use_ste, ev_block=None):
+                          padding_mask, use_ste):
         """Map actor outputs in [-1, 1] to the normalized actions the plant executes."""
-        kw = raw if STATION_RULE_ALLOCATION else (raw * max_power_kw).masked_fill(padding_mask, 0.0)
+        kw = (raw * max_power_kw).masked_fill(padding_mask, 0.0)
         clamped_kw, _ = self._apply_soc_constraint(
             kw, current_socs, padding_mask, use_ste=use_ste,
-            capacity_kwh=capacity_kwh, max_power_kw=max_power_kw,
+            max_power_kw=max_power_kw,
             soc_step_per_kw=soc_step_per_kw, kw_per_soc_step=kw_per_soc_step,
-            ev_block=ev_block,
         )
         normalized = self._normalize_power_by_limit(clamped_kw, max_power_kw, inv_max_power_kw)
         return normalized.masked_fill(padding_mask, 0.0)
@@ -122,7 +114,7 @@ class StandardMADDPG(MADDPG):
         if self.test_mode:
             self._zero_update_logs()
             return
-        if self.buf.pending_size < self.warmup_steps:
+        if self.buf.size < self.warmup_steps:
             self._zero_update_logs()
             return
         self.update_step += 1
@@ -139,9 +131,9 @@ class StandardMADDPG(MADDPG):
         with torch.no_grad():
             next_raw = torch.stack([self.t_actors[i](s2[:, i, :]) for i in range(self.n)], dim=1)
             next_exec = self._executed_actions(
-                next_raw, ctx['current_socs_s2'], ctx['capacity_kwh_s2'], ctx['max_power_kw_s2'],
+                next_raw, ctx['current_socs_s2'], ctx['max_power_kw_s2'],
                 ctx['soc_step_per_kw_s2'], ctx['kw_per_soc_step_s2'], ctx['inv_max_power_kw_s2'],
-                ctx['ev_padding_mask_s2'], use_ste=False, ev_block=ctx['ev_block_s2'],
+                ctx['ev_padding_mask_s2'], use_ste=False,
             ).reshape(B, -1)
             targets = []
             for i in range(self.n):
@@ -184,9 +176,9 @@ class StandardMADDPG(MADDPG):
         try:
             raw = torch.stack([self.actors[i](s[:, i, :]) for i in range(self.n)], dim=1)
             own = self._executed_actions(
-                raw, ctx['current_socs'], ctx['capacity_kwh'], ctx['max_power_kw'],
+                raw, ctx['current_socs'], ctx['max_power_kw'],
                 ctx['soc_step_per_kw'], ctx['kw_per_soc_step'], ctx['inv_max_power_kw'],
-                ctx['ev_padding_mask'], use_ste=True, ev_block=ctx['ev_block'],
+                ctx['ev_padding_mask'], use_ste=True,
             )
             total = torch.zeros((), device=device)
             q_means = []
@@ -261,7 +253,6 @@ class StandardMADDPG(MADDPG):
         }
 
     def training_resume_state_dict(self):
-        noise_state = getattr(self.ou_noise, "state", None)
         return {
             "format_version": 1,
             "compatibility": self._training_resume_compatibility(),
@@ -283,7 +274,6 @@ class StandardMADDPG(MADDPG):
                 "warmup_steps": int(self.warmup_steps),
                 "test_mode": bool(self.test_mode),
             },
-            "noise_state": noise_state.detach().cpu().clone() if torch.is_tensor(noise_state) else None,
             "replay": self.buf.training_resume_state_dict(),
         }
 
@@ -310,12 +300,6 @@ class StandardMADDPG(MADDPG):
         self.update_step = int(scalars["update_step"])
         self.warmup_steps = int(scalars["warmup_steps"])
         self.buf.load_training_resume_state_dict(state["replay"])
-        noise_state = state.get("noise_state")
-        if noise_state is not None:
-            current_noise = getattr(self.ou_noise, "state", None)
-            if not torch.is_tensor(current_noise) or current_noise.shape != noise_state.shape:
-                raise ValueError("exploration-noise state is incompatible")
-            current_noise.copy_(noise_state.to(device=current_noise.device))
         self.set_test_mode(False)
         return {
             "current_episode": int(self.current_episode),
@@ -323,41 +307,6 @@ class StandardMADDPG(MADDPG):
             "replay_size": int(self.buf.size),
             "replay_ptr": int(self.buf.ptr),
         }
-
-    def save_checkpoint(self, path, episode):
-        self.save_actors(path, episode)
-        torch.save({
-            "episode": int(episode),
-            "agent_type": type(self).__name__,
-            "critics": [c.state_dict() for c in self.critics],
-            "t_critics": [c.state_dict() for c in self.t_critics],
-            "opt_a": [o.state_dict() for o in self.opt_a],
-            "opt_c": [o.state_dict() for o in self.opt_c],
-        }, os.path.join(path, f"agent_state_ep{episode}.pth"))
-
-    def load_checkpoint(self, path, episode, map_location=None):
-        self.load_actors(path, episode, map_location=map_location)
-        loaded = {"path": str(path), "episode": int(episode), "actors": True, "critics": False, "optimizers": False}
-        bundle_path = os.path.join(path, f"agent_state_ep{episode}.pth")
-        if not os.path.exists(bundle_path):
-            return loaded
-        target = map_location if map_location is not None else device
-        try:
-            bundle = torch.load(bundle_path, map_location=target, weights_only=True)
-        except (TypeError, RuntimeError, pickle.UnpicklingError):
-            bundle = torch.load(bundle_path, map_location=target)
-        if bundle.get("agent_type") != type(self).__name__:
-            # A research-learner bundle has differently shaped critics; the
-            # actors are shared, so only they are restored.
-            return loaded
-        self._load_module_list(self.critics, bundle["critics"], "critic")
-        self._load_module_list(self.t_critics, bundle["t_critics"], "target critic")
-        loaded["critics"] = True
-        self._load_optimizer_list(self.opt_a, bundle["opt_a"], "actor")
-        self._load_optimizer_list(self.opt_c, bundle["opt_c"], "critic")
-        loaded["optimizers"] = True
-        return loaded
-
 
 def build_marl_agent(s_dim, max_evs_per_station, n_agent, **kwargs):
     """The learner named by Config.MARL_ALGORITHM, with the given shared settings."""

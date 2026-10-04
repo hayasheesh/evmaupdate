@@ -168,17 +168,14 @@ def main() -> int:
 
     if args.output_dir is None:
         split_label = "validation" if args.split == "test" else "train"
-        signal_suffix = (
-            "" if ACTIVATION_SIGNAL_SET == "nem" else f"_{ACTIVATION_SIGNAL_SET}"
-        )
         args.output_dir = str(
             PROJECT_ROOT
             / "execute_results"
             / "bid_banks"
             / (
                 f"{split_label}_{selected_days}_{LOWER_TRAIN_UPPER_BID_EV_SCENARIO_LAYOUT}ev_"
-                f"{LOWER_TRAIN_UPPER_BID_ACTIVATION_SCENARIOS}cmd_all_commands"
-                f"{signal_suffix}"
+                f"{LOWER_TRAIN_UPPER_BID_ACTIVATION_SCENARIOS}cmd_all_commands_"
+                f"{ACTIVATION_SIGNAL_SET}"
             )
         )
 

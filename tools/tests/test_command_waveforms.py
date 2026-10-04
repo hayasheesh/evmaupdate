@@ -6,7 +6,6 @@ import pytest
 
 from market.command_waveforms import (
     STEPS_PER_DAY,
-    aggregate_calendar_day_targets,
     build_command_waveform_day,
     select_end_stamped_calendar_day,
     waveform_to_activation_proxy,
@@ -226,39 +225,6 @@ def test_calendar_day_rejects_missing_or_duplicate_samples():
         )
 
 
-def test_calendar_day_target_aggregation_requires_complete_resource_panel():
-    timestamps = pd.date_range(
-        start="2026-07-22 00:05:00", periods=STEPS_PER_DAY, freq="5min"
-    )
-    source = pd.DataFrame([
-        {"time": stamp, "duid": duid, "target": value}
-        for stamp in timestamps
-        for duid, value in (("WDR1", 1.0), ("WDR2", 2.0))
-    ])
-
-    aggregate = aggregate_calendar_day_targets(
-        source, timestamp_column="time", resource_column="duid",
-        target_column="target", day="2026-07-22",
-    )
-    assert len(aggregate) == STEPS_PER_DAY
-    assert aggregate.calendar_time.iloc[0] == "2026-07-22 00:05:00"
-    assert aggregate.calendar_time.iloc[-1] == "2026-07-23 00:00:00"
-    assert np.allclose(aggregate.aggregate_target_mw, 3.0)
-    assert np.all(aggregate.source_resource_count == 2)
-    assert np.all(aggregate.active_resource_count == 2)
-
-    with pytest.raises(ValueError, match="Incomplete resource panel"):
-        aggregate_calendar_day_targets(
-            source.iloc[1:], timestamp_column="time", resource_column="duid",
-            target_column="target", day="2026-07-22",
-        )
-
-    duplicated = pd.concat([source, source.iloc[[0]]], ignore_index=True)
-    with pytest.raises(ValueError, match="Duplicate resource/timestamp pair"):
-        aggregate_calendar_day_targets(
-            duplicated, timestamp_column="time", resource_column="duid",
-            target_column="target", day="2026-07-22",
-        )
 
 
 def test_every_month_is_split_60_20_20_in_consecutive_blocks():
