@@ -1,0 +1,1344 @@
+Date of publication xxxx 00, 0000, date of current version xxxx 00, 0000.
+Digital Object Identifier 10.1 109/ACCESS.20xx.DOI
+Hierarchical Multi-Agent Reinforcement Learning
+Control for Electric-Vehicle Virtual Power Plants
+in Balancing Markets
+KOSHIN HAYASHI1, SIHUI XUE 1, DAISUKE KODAIRA 1
+1Institute of Systems & Information Engineering, University of Tsukuba, Tsukuba, Ibaraki 305-8573, Japan
+Corresponding author: Daisuke Kodaira (e-mail: kodaira.daisuke.gf@u.tsukuba.ac.jp).
+ABSTRACTBalancing markets require flexible resources that can follow dispatch signals within tight
+response-time budgets. Aggregated electric vehicles operated as a virtual power plant are promising for this
+purpose, but practical deployment requires control architectures that can accommodate station-level available
+power, user charging demand, and strict response-time requirements. This paper proposes a hierarchical
+controller based on multi-agent deep deterministic policy gradient, in which each charging station is modeled
+as an agent and trained under centralized training and decentralized execution. A case study motivated
+by Japan’s balancing-market Frequency Restoration Reserve (FRR) product, hereafter referred to as the
+Secondary 2 (S2) product, is conducted for a virtual power plant with five stations and 50 chargers. In a
+representative single-training-run simulation, the proposed controller achieves a 97% dispatch tracking rate
+within the allowable tracking-error band and an 80% target state-of-charge satisfaction rate when tested
+on held-out dispatch trajectories. Practical latency feasibility is also discussed using a computation-time
+analysis and measured communication/control-plane latency from a field demonstrator based on a distributed
+energy resource remote-control platform used in Japan. The results indicate that the proposed architecture
+is a promising alternative to fully centralized control for latency-constrained electric-vehicle virtual power
+plants.
+INDEX TERMSBalancing market, Electric vehicles, Virtual power plants, Multi-agent reinforcement
+learning, Low-latency control
+I. INTRODUCTION
+W
+ITH the increasing penetration of variable renew-
+able energy, balancing markets are being established
+worldwide to maintain supply–demand balance in power sys-
+tems. In these markets, resources are required to follow dis-
+patch signals within minutes, and settlement is based on track-
+ing accuracy. Aggregated fleets of electric vehicles (EVs)
+operated as electric-vehicle virtual power plants (EV VPPs)
+are attracting attention as such balancing resources because
+their fast, bidirectional charging and discharging capability
+provides flexible distributed regulation.
+However, controlling an EV VPP for balancing-market
+participation still poses a difficult control problem. On the
+one hand, the aggregate fleet output must track the dispatch
+signal with high accuracy at every control step, which is a
+dense fleet-level objective. On the other hand, each individual
+EV user’s target state of charge (SoC) must be met by the
+departure time, which is a sparse user-level objective. In
+practical deployment, the control architecture must also re-
+main compatible with low-latency operation and station-level
+heterogeneity in available power due to site-specific intercon-
+nection limits, feeder constraints, and concurrent loads [1],
+[2].
+Related studies can be organized into several strands, in-
+cluding centralized optimization [3]–[6], centralized rein-
+forcement learning (RL) [7]–[10], rule-based control [11],
+distributed multi-agent RL (MARL) for EV charging [12]–
+[15], global/local reward decomposition in MARL [16], [17],
+and structurally related non-EV regulation problems [18]. As
+summarized in Table 1, prior work already provides many of
+the ingredients needed for the present problem, but not their
+full combination. Closely related EV -fleet regulation studies
+still rely on centralized information or hand-crafted logic,
+while methodologically related MARL studies and non-EV
+analogues do not address balancing-market EV -VPP control
+with departure-time user-side fulfillment under a station-
+VOLUME 11, 2023 1
+
+===PAGE===
+
+Hayashiet al.: Hierarchical Multi-Agent Reinforcement Learning Control for EV VPPs
+FIGURE 1: Conceptual market/control architecture of the EV
+VPP . The TSO dispatch signal is relayed by the aggregator to
+the station layer, where each station performs local EV charg-
+ing/discharging allocation for its connected users. Dashed
+arrows indicate economic flows; station-local observations
+are omitted for visual simplicity.
+based execution architecture.
+This paper addresses this gap by proposing a hierarchi-
+cal control architecture based on multi-agent reinforcement
+learning (MARL). As illustrated in Fig. 1, the TSO dis-
+patch signal is relayed by the aggregator to the station layer,
+and each charging station is modeled as an agent that au-
+tonomously determines charger-level charging/discharging
+commands from the broadcast dispatch signal and its own
+local observations. Under the centralized training and de-
+centralized execution (CTDE) paradigm, the global dispatch-
+tracking objective and the local user-charging objective are
+handled jointly during training while execution remains
+station-local. The fleet output is realized as the sum of these
+local decisions, eliminating the need for online centralized
+optimization at the aggregator. In the present case study,
+station-level available-power heterogeneity is treated as a
+deployment motivation and architectural consideration rather
+than as an explicitly enforced closed-loop constraint; never-
+theless, the station-based formulation is designed so that such
+limits can be incorporated naturally in a deployment-oriented
+extension.
+The main contributions of this paper are as follows.
+•Development of aggregator-to-station hierarchical
+MARL control for EV VPPs under mobility con-
+straints, and comparison with alternative control
+methods.We formulate EV VPP control as a two-
+level architecture consisting of an aggregator layer and
+a station layer. The aggregator relays the TSO-issued
+dispatch signal to all stations, and each charging station
+is modeled as an agent whose policy determines charger-
+level charging/discharging commands for its connected
+EVs using only the broadcast dispatch signal and local
+observations. The realized station power and fleet power
+are the sums of these local decisions, enabling decen-
+tralized execution without online global optimization.
+The effectiveness of the proposed method is evaluated
+against a centralized myopic LP controller, a centralized
+single-agent SAC controller, and a fully decentralized
+DDPG controller.
+•A mixed local/global critic design for balancing-
+market tracking and user-side charging demand.
+Inspired by the decomposed-critic idea in DE-
+MADDPG [19], we introduce a mixed-critic design
+in which a local critic evaluates station-level user-side
+charging quality and a global critic evaluates fleet-
+wide dispatch tracking. Their gradient signals are com-
+bined in the actor update to provide a structured credit-
+assignment mechanism for the dual-objective EV VPP
+setting.
+•An S2-motivated case study with separate computation-
+time and field-latency discussion.Using open data
+and a simulation environment with 50 EV chargers, we
+evaluate dispatch tracking and Target SoC satisfaction
+under requirements relevant to the Secondary 2 (S2)
+product in Japan’s balancing market. We then separate
+aggregator-side online computation from information
+and communication technology (ICT) / control-plane
+latency, and discuss practical response-time feasibility
+using field measurements obtained with a practical dis-
+tributed energy resource (DER) remote-control platform
+used in Japan.
+II. LITERATURE REVIEW
+Related work is summarized in Table 1. Rather than classi-
+fying prior studies by an abstract comparison axis, the table
+groups them into concrete research strands and states, for each
+strand, what has already been achieved and what still remains
+mismatched with the present setting. The detailed discussion
+below follows the same logic: the first three strands are close
+to the present problem setting, whereas the latter three are
+methodologically related but address different problems.
+A. SIMILAR PROBLEM, DIFFERENT METHOD
+Centralized optimization:Problems close to ours have al-
+ready been studied through centralized optimization. Rep-
+resentative examples include day-ahead reserve bidding and
+operation models [3], smart aggregation for secondary re-
+serve [4], charging-time-constrained secondary frequency
+regulation [5], and centralized MPC for multiple EV charging
+stations [6], [20]. These studies show that EV aggregators can
+provide reserve or regulation while accounting for user-side
+charging requirements. The remaining issue is architectural:
+such methods presuppose centralized collection of fleet-wide
+information and repeated online coordination/optimization,
+which becomes increasingly burdensome when low-latency
+response and large fleets must be handled simultaneously.
+Centralized reinforcement learning:Centralized RL has
+also been applied to closely related EV -based regulation prob-
+lems. Existing studies consider dispatch control for supple-
+mentary frequency regulation under user expectations [7],
+deep-RL-based V2G control [8], market-oriented regulation-
+command disaggregation while balancing user charging anx-
+iety and aggregate flexibility [9], and RL-based real-time
+disaggregation of system-operator commands to EV charg-
+ing stations [10]. Hence, it would be inaccurate to claim
+2 VOLUME 11, 2023
+
+===PAGE===
+
+Hayashiet al.: Hierarchical Multi-Agent Reinforcement Learning Control for EV VPPs
+TABLE 1: How the present study is positioned relative to prior work.
+Research strand What is already known What remains missing for this study
+Close problem setting, but different control paradigm
+Centralized optimization
+[3]–[6], [20]
+Accurate reserve/regulation control with
+user-side charging requirements has
+already been demonstrated.
+Requires fleet-wide information aggregation and repeated
+online optimization, which becomes burdensome under
+low-latency large-fleet operation.
+Centralized RL[7]–[10]Dispatch tracking together with
+user-side requirements has been studied,
+with light runtime inference.
+Still depends on centrally observed fleet-wide
+information and a monolithic learner, raising scalability
+and credit-assignment concerns.
+Hand-crafted control[11]Practical low-burden control pipelines
+exist even under limited data collection.
+Depends on manually designed logic and adapts poorly to
+changing dispatch patterns and stochastic EV behavior.
+Methodologically related, but different problem setting
+Distributed MARL for EV
+charging[12]–[15]
+Per-station/per-charger distributed
+learning is already a viable design
+direction for EV charging networks.
+Mainly targets charging scheduling or local energy
+management, rather than fleet-level balancing-market
+dispatch tracking with departure-time fulfillment.
+Global/local reward
+decomposition in MARL[17],
+[19], [21]
+Decomposed global/local learning
+signals help coordination and credit
+assignment in large multi-agent settings.
+These studies do not model the full EV -VPP control
+structure considered here, including fleet-level dispatch
+tracking, EV mobility constraints, and departure-time
+charging obligations.
+Structurally related non-EV
+regulation[18]
+Fleet-level tracking and local service
+quality can be optimized jointly in other
+demand-side resources.
+The structural trade-off is similar, but EV -specific
+mobility constraints and departure-time charging
+obligations are absent.
+This work Station-based CTDE-MARL for
+balancing-market EV-VPP control.
+Jointly addresses per-step fleet-level dispatch tracking
+and departure-time user-side fulfillment under
+station-based execution.
+that existing RL studies do not address tracking and user-
+side objectives. The remaining issue is again architectural.
+These methods still rely on centrally observed fleet-wide
+information, even though practical studies have pointed out
+that complete real-time collection of EV travel, preference,
+and charging data is difficult in deployment [11]. In addition,
+general MARL studies note that the joint state-action space
+can grow exponentially with the number of controlled units
+and that learning from only a shared global reward creates
+a credit-assignment difficulty [16], [17]. Therefore, for a
+problem such as ours, where one fleet-level tracking objective
+must be achieved through many local charging/discharging
+decisions, a single centralized learner may remain attractive
+at runtime but can become disadvantaged from the viewpoint
+of scalability and learning structure.
+Hand-crafted control:Another nearby line of work is hand-
+crafted control. Zenget al.[11] study EV -aggregator fre-
+quency regulation under limited data collection while ac-
+counting for user requirements. The strength of this line is
+that the online control logic is relatively lightweight and
+practically implementable. The weakness is that the controller
+behavior is largely determined by manually designed rules
+and correction logic; as a result, adaptation to non-stationary
+dispatch patterns and stochastic EV arrival/departure be-
+havior depends on the quality of the hand-crafted design.
+This is different in nature from learning-based simultane-
+ous optimization of balancing-market dispatch tracking and
+departure-time fulfillment.
+B. SIMILAR METHOD, DIFFERENT PROBLEM
+Distributed MARL for EV charging:Per-charger or per-
+station distributed MARL has been explored for EV charging
+networks [12]–[15]. Among these, Korkaset al.[12] are
+closest to the present work in terms of learning structure:
+they place one local DDPG agent per charging spot and use
+a global coordinator that feeds back adifference reward. This
+idea of separating global and local learning signals shares a
+common philosophy with the mixed-critic design proposed
+in the present paper. However, their study targets charging-
+cost minimization and user satisfaction within a charging-
+management setting; it does not address balancing-market
+dispatch tracking against an external time-varying dispatch
+signal. Shinet al.[13], Zhanget al.[14], and Wanget al.[15]
+also investigate distributed MARL for EV charging, but not
+the conjunction of per-step dispatch tracking and departure-
+time fulfillment considered here.
+Global/local reward decomposition in MARL:Beyond EV
+charging itself, general MARL studies have proposed explicit
+decompositions of global and local learning signals. DE-
+MADDPG [19] considers settings where global and local
+rewards coexist, while QPD [17] and IRA T [21] show that
+team-level rewards create a credit-assignment difficulty and
+that naive use of individual rewards can even be counterpro-
+ductive. These studies support the methodological choice of
+separating fleet-level and user-level learning signals. How-
+ever, they do not address balancing-market EV -VPP control.
+A structurally related non-EV problem:A similar dual-
+objective trade-off also appears outside EV VPPs. Y anget
+al.[18] study aggregated thermostatically controlled loads
+and jointly optimize AGC-signal tracking and consumer
+VOLUME 11, 2023 3
+
+===PAGE===
+
+Hayashiet al.: Hierarchical Multi-Agent Reinforcement Learning Control for EV VPPs
+comfort. The fleet-level tracking versus local service-quality
+structure is shared with the present problem, but EV -
+specific mobility constraints—stochastic arrivals/departures
+and departure-time charging obligations—are absent, making
+direct application difficult.
+C. SUMMARY AND POSITIONING
+In summary, the first three strands in Table 1 show that
+closely related EV -VPP control objectives have already been
+studied through centralized optimization, centralized RL, and
+hand-crafted control, but each line retains a mismatch with
+the present deployment setting: repeated online optimization,
+dependence on centrally observed fleet-wide information, or
+limited adaptability. The latter three strands show that dis-
+tributed MARL, decomposed global/local learning signals,
+and analogous fleet-versus-local trade-offs are already known
+methodological ingredients, but not yet in the specific com-
+bination required here. The present work is positioned at that
+intersection: a station-based CTDE-MARL architecture for
+balancing-market EV -VPP control that jointly addresses per-
+step fleet-level dispatch tracking and departure-time user-side
+fulfillment. Centralized RL is therefore included as a best-
+effort comparator, and its limitations are examined experi-
+mentally rather than assumed a priori.
+III. CHARACTERISTICS OF BALANCING MARKETS
+Many balancing markets require resources to respond to
+operator-issued dispatch signals within short time budgets.
+In this paper, the dispatch signal denotes the time-varying
+regulation instruction issued by the transmission system oper-
+ator (TSO) to a contracted balancing resource. For the present
+control problem, it is modeled as a common external signal
+that the EV VPP should track over time.
+Balancing markets provide multiple product classes with
+different response-time requirements. A recent review notes
+that, among ancillary-service classes, EV flexibility is espe-
+cially well aligned with secondary reserves in view of reserve
+response times [22]. We therefore focus on the secondary
+layer. Under the current Japanese product requirements, Pri-
+mary reserve requires a 10-s response, Secondary 1 and
+Secondary 2 both require a 5-min response, and Tertiary 1
+and Tertiary 2 require 15-min and 60-min responses, respec-
+tively [23], [24]. Within the Japanese secondary products,
+Secondary 2 corresponds to frequency restoration reserve
+(FRR) and can participate either via dedicated-line online
+communication or via the simplified command system [23],
+[24]. When the simplified command system is used, the
+command interval is 5 min and the monitoring interval is 1
+min [24]. Moreover, the simplified command system is based
+on the common platform specifications developed in the
+Japanese VPP demonstration projects [25]. Since the present
+EV -VPP architecture assumes practical command broadcast-
+ing from the aggregator to the station layer, Secondary 2 is
+the Japanese product most directly aligned with the control
+setting studied here.
+Participation in such a balancing product requires not
+only that a resource respond, but also that it track the in-
+structed trajectory with sufficient accuracy. In Japan’s S2
+product, a±10%band around the contracted value is treated
+as an allowable tracking error band [24]. Because the S2-
+motivated abstraction adopted in this paper evaluates per-
+formance at the market-facing 5-min command interval,
+communication/control-plane delay and device-side actua-
+tion delay are not injected directly into the reinforcement-
+learning environment. Instead, latency is treated as a prac-
+tical feasibility requirement: whether the aggregate EV -VPP
+output enters the allowable tracking-error band within 5 min
+after a dispatch instruction is issued. Consistent with the
+latency decomposition used later in this paper, this end-to-
+end requirement is discussed by separating aggregator-side
+computation from communication/control-plane delay and
+device-side actuation/settling time [26].
+In addition to grid-side tracking performance, EV -VPP
+operation must satisfy user-side charging demand. This re-
+quirement has been explicitly considered in prior EV -based
+regulation and charging studies through EV -owner expecta-
+tions, charging-time constraints, user charging anxiety, and
+user requirements [5], [7], [9], [11]. Therefore, evaluating EV -
+VPP participation only by dispatch tracking or latency would
+be insufficient.
+Accordingly, we assess EV VPP participation using (1) the
+dispatch tracking rate, (2) user-side charging-demand fulfill-
+ment quantified by the Target SoC satisfaction rate and the
+average SoC shortfall, and (3) whether the total latency from
+dispatch issuance to entry into the allowable tracking-error
+band remains within 5 min.
+IV. METHOD
+A. OVERVIEW
+We consider an EV VPP in which an aggregator bids the
+aggregated flexibility of multiple charging stations into the
+balancing market, as conceptually illustrated in Fig. 1. EV
+users participate as long as their charging demand is satisfied,
+and they receive compensation from the aggregator (e.g.,
+discounted charging fees). In return, the aggregator earns
+revenue from the balancing market by providing regulation
+services through the aggregate response of the locally con-
+trolled stations.
+The proposed framework has a two-level control architec-
+ture consisting of an aggregator layer and a station layer.
+At the aggregator layer, the aggregator receives the dispatch
+signal from the TSO and relays that same dispatch signal
+to all stations. At the station layer, each charging station is
+controlled by a station-level agent whose policy determines
+charger-level charging/discharging commands for the EVs
+connected to that station using only the broadcast dispatch
+signal and local observations. The realized station power and
+fleet power are the sums of these local commands; they are
+not directly assigned by the aggregator.
+Fig. 2 summarizes the proposed learning-and-execution
+workflow under the CTDE paradigm. During training,
+4 VOLUME 11, 2023
+
+===PAGE===
+
+Hayashiet al.: Hierarchical Multi-Agent Reinforcement Learning Control for EV VPPs
+dispatch-signal trajectories are sampled from a dataset and
+used to generate rollouts in simulation. Each station-level ac-
+tor maps the broadcast dispatch signal and local observations
+to local charger-level commands, while the critics learn from
+the resulting rewards and state–action transitions. During exe-
+cution, the aggregator periodically relays the dispatch signal,
+and each station applies its trained policy using only local
+observations and the broadcast dispatch signal.
+FIGURE 2: Training and execution flow under centralized
+training and decentralized execution (CTDE). Each station-
+level actor receives the broadcast dispatch signal and station-
+local observations.
+B. EV CHARGING/DISCHARGING CONTROL MODEL
+We assign one agent to each charging station and operate the
+control at discrete time stepst= 0,1,...aligned with the
+dispatch-signal update interval. In the case study of Japan’s
+S2 product, each time step corresponds to 5 minutes. Each
+agent selects actions using only locally available information
+from its own station; accordingly, we treat the problem as a
+decentralized partially observable setting at execution time.
+1) Observation and action
+At stationi, the observationo t
+i is constructed from locally
+observable EV states (connection status, current SoC, remain-
+ing dwell time, and Target SoC) together with the broadcast
+dispatch signal at timet. The actiona t
+i is the local allocation
+vector of charging/discharging commands for the EV charg-
+ers at stationi. The realized station powerP i(t)is obtained
+by summing the components ofa t
+i , and the fleet power is
+Pagg(t) = P
+i Pi(t). In a deployment-oriented extension, the
+feasible action range at each station would also be bounded
+by a station-specific available-power limit reflecting local
+site capacity and concurrent non-EV demand [1], [2]; in the
+present case study, this consideration is treated as practical
+motivation and is not explicitly modeled.
+2) Rewards
+In this study, the reward is designed with a global compo-
+nent and a local component. The rationale is to separate the
+fleet-wide tracking objective from the station-level charging-
+service objective so that the learning signal is more informa-
+tive than a purely global team reward. This design is intended
+TABLE 2: Summary of reward components and their roles.
+Component Purpose Scope
+Tracking reward Encourage aggregate dispatch
+tracking within the allowable
+band
+Global
+Departure-time SoC reward Encourage satisfaction of
+user-specified Target SoC at
+departure
+Local
+Deficit shaping reward Provide dense intermediate
+learning signal before
+departure events
+Local
+to mitigate the cooperative credit-assignment difficulty that
+arises when user-side charging outcomes and grid-side dis-
+patch tracking must be satisfied simultaneously.
+The global reward is computed from the tracking error
+between the dispatch signal and the aggregate realized power
+of the EV fleet at timet, where the tracking error is defined
+as
+δt =|P set(t)−P agg(t)|.(1)
+The global reward is assigned as a piecewise linear function
+ofδ t : it provides a constant positive reward when the error
+stays within a narrow allowable tracking error band, decreases
+linearly as the error grows up to a wider allowable tracking
+error band, and applies an increasingly negative penalty pro-
+portional to the amount of deviation beyond the wide band.
+The local reward is composed of two terms: (i) a departure-
+time SoC satisfaction reward and (ii) a deficit shaping term.
+The first term captures station-level service quality. For EVs
+that depart at a given step, a fixed positive reward is given
+if the departure SoC meets the Target SoC. If the target is
+not met, the reward is reduced in proportion to the shortfall
+when the shortfall is within a specified band, and a larger
+penalty proportional to the excess shortfall is applied when
+the shortfall exceeds that band.
+The second term provides a dense learning signal between
+departure events. It rewards reductions in per-EV SoC deficit
+over time and penalizes increases, with larger emphasis when
+the deficit is large and when the remaining dwell time is short:
+d t
+i,j = max
+ 
+SoCtar
+i,j −SoC t
+i,j,0
+
+,(2)
+r t
+shape =c def
+NX
+i=1
+X
+j∈Ct
+i
+1
+τ t
+i,j + 1
+
+d t
+i,j−d t+1
+i,j
+
+,(3)
+whereC t
+i is the set of EVs connected at stationiat stept,τ t
+i,j
+is the remaining dwell steps for EVjat stationi, andNis the
+number of stations.
+3) Actor objective and critic updates
+Our method follows the MADDPG framework and updates
+each agent’s actor via deterministic policy gradients. To better
+balance fleet-level tracking and station-level charging objec-
+tives, we introduce (i) an agent-specificlocal criticthat takes
+only local observations as input and (ii) a sharedglobal critic
+that operates on the global state. The actor update direction is
+VOLUME 11, 2023 5
+
+===PAGE===
+
+Hayashiet al.: Hierarchical Multi-Agent Reinforcement Learning Control for EV VPPs
+then defined as a convex combination of the local and global
+policy gradients:
+∇θiJi(θi) = (1−w)∇ θiJ local
+i (θi) +w∇θiJ global
+i (θi),(4)
+where the mixing coefficientwcontinuously interpolates
+from local-dominant learning (w= 0) to global-dominant
+learning (w= 1). The local critic is trained using temporal-
+difference (TD) errors computed from agenti’s local obser-
+vations, whereas the global critic is trained using TD errors
+based on the global reward and global state. This mixed-
+critic design is inspired by the decomposed-critic idea in DE-
+MADDPG [19] and adapted to the dual-objective structure
+of EV VPP control, where the local critic addresses user-side
+credit assignment and the global critic addresses fleet-wide
+tracking.
+C. BASELINES
+We use three baselines: (i) a centralized myopic LP con-
+troller, (ii) a centralized single-agent soft actor-critic (SAC)
+controller, and (iii) a fully decentralized per-station DDPG
+controller.
+The centralized myopic LP baseline assumes full global
+information and solves, at each time step, a centralized
+single-step linear program using the current dispatch sig-
+nal and the full EV state to compute per-charger charg-
+ing/discharging commands. Slack variables represent residual
+dispatch-tracking errors outside an allowable tracking error
+band and unmet departure-time charge requirements, and the
+objective minimizes a weighted sum of these slacks subject to
+dispatch-tracking constraints, battery dynamics and bounds,
+and per-charger power limits. This baseline is used as an
+upper-bound feasibility reference under the simplified setting
+rather than as a directly deployable low-latency architecture.
+The centralized single-agent SAC baseline retains model-
+free learning but removes decentralized execution. A single
+centralized agent observes the full fleet state together with
+the dispatch signal and outputs the joint charging/discharging
+commands for all chargers.
+The fully decentralized DDPG baseline assigns one in-
+dependent DDPG agent to each station. Each station learns
+and executes its own policy from local observations and the
+broadcast dispatch signal only, without any centralized critic
+or inter-station coordination, using a single scalar reward
+formed by adding the model’s global reward directly to its
+local reward.
+D. EVALUATION METRICS
+(i)Target SoC satisfaction rate:The Target SoC satisfaction
+rate is defined as the fraction of departure events for which
+an EV’s state of charge (SoC) at the departure time meets
+or exceeds the user-specified target. Specifically, for each
+EV departing during an episode, let the departure SoC be
+SoCdep and the Target SoC beSoC target; a departure is
+considered successful ifSoC dep≥SoC target, and the Target
+SoC satisfaction rate is the fraction of departing EVs that
+satisfy this condition.
+(ii)Average SoC shortfall:Because a binary success rate
+alone does not indicate the severity of unmet charging de-
+mand, we also evaluate the average SoC shortfall at departure:
+¯sSoC = 1
+Ndep
+NdepX
+k=1
+max
+
+SoCtarget
+k −SoC dep
+k ,0
+
+,(5)
+whereN dep is the number of departure events in the episode.
+(iii)Dispatch tracking rate:The dispatch tracking rate is
+computed as the fraction of all time steps during which the
+EV VPP’s aggregated output remains within an allowable
+tracking error band around the dispatch signal. LetP set(t)
+denote the dispatch signal at time stept, and letP agg(t)
+denote the aggregate charging/discharging power realized by
+the EV fleet. Following the current Japanese product require-
+ments [24], we introduce a fixed allowable tracking error band
+∆Pband equal to0.1times the bid width, and we count a time
+step as successfully tracked if|P agg(t)−P set(t)|≤∆P band.
+The dispatch tracking rate is then defined as the proportion of
+all time steps that satisfy this condition.
+(iv)Latency-related feasibility discussion:Regarding la-
+tency, we examine whether the delay from when the TSO
+transmits a dispatch signal until the aggregated charg-
+ing/discharging output responds within the prescribed track-
+ing band can plausibly be kept within five minutes, con-
+sistent with the response-time requirement of Japan’s S2
+product [24]. We decompose this end-to-end latency into (a)
+communication and processing delays up to the device control
+interface and (b) device-side actuation/settling time, consis-
+tent with the ‘‘model 0’’ decomposition discussed in [26].
+Because the S2-motivated abstraction used here evaluates
+dispatch tracking at the 5-min command interval, sub-step
+latency differences are treated as a practical feasibility issue
+rather than injected directly into the reinforcement-learning
+environment.
+E. IMPLEMENTATION DETAILS
+The proposed method was trained for 1,000 episodes with
+a batch size of 1024 and a discount factorγ= 0.985. The
+target networks were updated using Polyak averaging with
+an update coefficientτ= 0.02. The learning rates were set
+to2×10 −5 for the actor,1×10 −4 for the local critic, and
+5×10 −6 for the global critic. The hidden-layer size for both
+the actor and critics was 256.
+In the actor update, the convex-combination weight was set
+tow= 0.3. This value was selected by preliminary tuning
+as a compromise between user-side charging quality and
+fleet-level dispatch tracking: smaller values overemphasized
+local charging demand and degraded tracking, whereas larger
+values weakened learning of departure-time SoC satisfac-
+tion. For exploration, we used a combination of Ornstein–
+Uhlenbeck (OU) noise andϵ-greedy exploration, and the
+exploration strength was decreased as training progressed.
+The shaping reward was tuned to be approximately half of
+the departure-time reward. The source code used for the sim-
+6 VOLUME 11, 2023
+
+===PAGE===
+
+Hayashiet al.: Hierarchical Multi-Agent Reinforcement Learning Control for EV VPPs
+ulations and benchmark evaluations in this study is publicly
+available in the authors’ public repository [27].
+V. CASE STUDY
+A. SIMULATION ENVIRONMENT
+In this study, we conduct a case study motivated by partic-
+ipation in Japan’s balancing-market Frequency Restoration
+Reserve (FRR) product, hereafter referred to as the Secondary
+2 (S2) product, using an EV VPP [23], [24]. Consistent with
+the market discussion in Section III, S2 is adopted as the
+Japanese target product for evaluating the proposed EV -VPP
+controller. Because publicly reusable Japanese S2 dispatch
+traces are not readily available, we use regulation-signal data
+from PJM Interconnection (PJM) [28] as a fast-balancing
+proxy. The PJM trajectories are linearly scaled to the bid
+range adopted in the S2-motivated case study. Because the
+allowable tracking error band in the S2 product is 10% of the
+bid width [24], we set the allowable tracking error band to
+±150kW.
+This proxy choice preserves operational characteristics
+relevant to the control problem considered here—frequent
+up/down instruction changes, short dispatch intervals, and
+continuous tracking requirements—but it does not imply that
+PJM statistically reproduces Japan’s S2 dispatch signal ex-
+actly. Therefore, the results should be interpreted as an S2-
+motivated evaluation under PJM-derived fast-regulation tra-
+jectories rather than an exact replay of Japanese S2 operation.
+From this 31-day dispatch-signal dataset, 26 days are ran-
+domly selected for training and the remaining 5 days are used
+for testing. For the results reported below, one episode is run
+on each of the five test trajectories, and the reported metrics
+are averaged over these five test episodes.
+Since dispatch signals are issued every 5 minutes under
+the S2-motivated simplified-command abstraction [24], one
+step of the Markov decision process (MDP) used in this
+study corresponds to 5 minutes. One episode consists of
+288 steps (24 hours). Communication/control-plane delay
+and device-side actuation delay are not injected into this
+RL environment; instead, they are evaluated separately as
+feasibility factors at the same market-facing time scale. At
+each step, a dispatch signal is provided, and meanwhile new
+EVs arrive probabilistically at vacant chargers. Because pub-
+licly available Japanese EV charging-session datasets with
+the required fields (arrival SoC, Target SoC, dwell time,
+and battery capacity) are difficult to obtain, we synthesize
+the EV -side stochastic inputs by combining multiple open
+datasets from different regions. No single public dataset used
+here jointly provides all required fields in a form directly
+usable for our simulation; accordingly, the simulation envi-
+ronment does not reproduce real Japanese EV usage patterns
+but instead constructs a plausible EV -charging scenario from
+the best available international open data. Station-specific
+arrival-time distributions are derived from public charging-
+session records of five selected City of Boulder charging lo-
+cations [29] by using the empirical distribution of session start
+times for each station. In this study, these arrival distributions
+are estimated from all available sessions at each station with-
+out conditioning on weekday/weekend or holiday status. The
+arrival SoC is sampled from the empirical distribution ofSOC
+arrivalin the public dataset released by the Distributed
+Electrical Systems Laboratory at Ecole Polytechnique Fed-
+erale de Lausanne (DESL-EPFL) [30]. To construct user-side
+charging demand, we jointly sampleminutesAvailable
+andkWhRequestedfrom theuserInputsrecords of
+the Jet Propulsion Laboratory (JPL) site in the Adap-
+tive Charging Network (ACN) dataset [31]. The sampled
+minutesAvailableis used as the dwell time. Because
+vehicle-specific battery-capacity information required to con-
+vert requested energy into a required SoC increment is
+not consistently available across these sources, a nomi-
+nal capacity of 50 kWh is introduced only for this conver-
+sion. Specifically, the Target SoC is computed by adding
+kWhRequested/50to the sampled arrival SoC, and the
+resulting value is clipped to the range of 20%–80%. This
+50 kWh value is used solely for Target-SoC construction and
+is not the battery-capacity parameter used for the EV model
+in the simulation.
+To focus on the control problem itself, we adopt a par-
+tially simplified simulation environment. Specifically, (i)
+we assume that EV hardware parameters are homoge-
+neous, with battery capacity 100 kWh and maximum charg-
+ing/discharging power 27.5 kW; (ii) each EV departs at its
+prescribed departure time, with no early or delayed depar-
+tures; (iii) we control a total of 50 EV Level 2 chargers, with
+10 chargers installed at each of five stations; and (iv) station-
+level heterogeneity is introduced through station-specific em-
+pirical arrival profiles, while charger counts and EV hard-
+ware parameters are kept identical across stations. The bid
+width is tuned so that the centralized myopic LP reference
+achieves near-100% performance in both dispatch tracking
+and departure-time SoC satisfaction, thereby serving as a
+physically feasible upper-bound reference under the simpli-
+fied assumptions.
+B. RESUL TS
+Fig. 3 illustrates the convergence behavior of the proposed
+method in terms of the local and global training rewards.
+Because the local and global rewards are plotted separately
+and are not summed into a single return in this figure, their
+absolute magnitudes are not directly comparable and are not
+the primary focus here. Instead, the figure is used to confirm
+that both rewards improve during training and gradually ap-
+proach a plateau, indicating that the policy and critics learn
+stable cooperative behavior over training.
+Fig. 4 presents the evolution of the evaluation metrics
+during training. In this figure, the blue curve shows the Target
+SoC satisfaction rate and the red curve shows the dispatch
+tracking rate. As training progresses, the dispatch tracking
+rate improves rapidly and stabilizes around 90% after approx-
+imately episode 400. By contrast, the Target SoC satisfaction
+rate increases more gradually and exhibits occasional drops
+in some episodes, indicating that user-side charging quality
+VOLUME 11, 2023 7
+
+===PAGE===
+
+Hayashiet al.: Hierarchical Multi-Agent Reinforcement Learning Control for EV VPPs
+FIGURE 3: Local and global training rewards over episodes.
+FIGURE 4: Evolution of Target SoC satisfaction rate and
+dispatch tracking rate over training episodes.
+remains the more difficult objective. The results reported
+below are from a single training run. Among all training
+episodes, the actor checkpoint with the highest combined
+performance was selected (episode 840). This actor was then
+evaluated on each of the five held-out test trajectories, and the
+reported metrics are averaged over these five test episodes. At
+this checkpoint, the Target SoC satisfaction rate is 80% and
+the dispatch tracking rate is 97%. Note that all tracking and
+user-satisfaction results reported in this section are obtained
+from simulation without communication or actuation latency
+injection; practical latency feasibility is discussed separately
+in the computation-latency subsection and in Section VI.
+At the individual-charger level, Fig. 5 illustrates, for a rep-
+resentative EV , the SoC trajectory (blue), the dispatch signal
+(red), and the user-specified Target SoC (green dashed line)
+over the connection period. The green and pink background
+bands correspond to charging-command and discharging-
+command intervals, respectively. In this example, the SoC
+at arrival is well below the Target SoC, but the EV charges
+intensively during charging-command intervals and limits
+discharging so that its SoC does not drop much during
+discharging-command intervals. As a result, the SoC at de-
+parture exceeds the Target SoC, and the user requirement is
+FIGURE 5: Example SoC trajectory meeting the target.
+FIGURE 6: Example SoC trajectory missing the target.
+satisfied.
+In contrast, Fig. 6 shows an EV for which the Target SoC
+is not met. In the latter part of the connection period, a
+series of large negative dispatch signals occurs and the EV
+is discharged to help the fleet track the dispatch, causing its
+SoC to drop sharply just before departure and ultimately fall
+short of the Target SoC at departure.
+The Target SoC satisfaction rate of 80% in the represen-
+tative run is a clear limitation: one in five departing EVs
+does not reach its requested SoC. However, the average SoC
+shortfall across all departures is approximately 5%, indicating
+that the magnitude of unmet demand is moderate rather than
+catastrophic—most unsatisfied EVs miss their targets by a
+small margin. The primary failure mode, as illustrated in
+Fig. 6, occurs when sustained discharging commands near
+departure time override the user-side objective. This suggests
+that the current purely learning-based policy lacks a hard
+guarantee on user-side constraints, and that a targeted in-
+tervention mechanism could substantially improve user sat-
+isfaction without sacrificing dispatch tracking. A promising
+direction is a hybrid controller incorporating a rule-based
+safety layer (sometimes called ashieldin safe reinforcement
+learning) [32]: the policy’s output would be overridden to
+command maximum charging whenever the remaining dwell
+time and current SoC indicate that meeting the Target SoC is
+becoming physically infeasible under the current trajectory.
+8 VOLUME 11, 2023
+
+===PAGE===
+
+Hayashiet al.: Hierarchical Multi-Agent Reinforcement Learning Control for EV VPPs
+TABLE 3: Performance comparison of the four controllers.
+Controller
+Target SoC sat.
+(%)
+Dispatch track.
+(%)
+Feasible
+within 3 min?
+Centralized myopic LP∼99∼98 No
+Centralized SAC 59 61 Y es
+Decentralized DDPG∼40∼40 Y es
+Proposed MADDPG80 97Y es
+The feasibility column indicates whether per-step computation can be com-
+pleted within 3 min when scaled to thousands of chargers; see Fig. 7.
+Such a layer operates only near the constraint boundary and
+is therefore expected to have minimal impact on fleet-level
+tracking performance during the majority of time steps.
+C. BASELINE COMPARISON
+Using the centralized myopic LP reference, we ran 10 trials
+to average over dispatch-signal sets and stochastic EV ar-
+rivals/departures. The dispatch tracking rate remained stable
+at around 98%, and the departure-time Target SoC satisfaction
+rate was around 99%. Because this controller assumes full
+global information and centralized optimization at every step,
+we interpret it as an upper-bound reference for the simplified
+setting rather than as a directly deployable low-latency archi-
+tecture.
+We also trained a fully decentralized DDPG baseline.
+Global and local rewards showed little growth; both dis-
+patch tracking and the Target SoC satisfaction rate increased
+slightly during training and then saturated. At test time, the
+controller tracked only small-magnitude signals reliably, the
+dispatch tracking rate remained near 40%, and the average
+departure-time Target SoC satisfaction rate was around 40%.
+For the centralized single-agent SAC comparator, best-
+effort runs were also conducted. The centralized RL con-
+troller achieved 61% dispatch tracking and 59% departure-
+time Target-SoC satisfaction, which remained clearly below
+the proposed MADDPG controller in both metrics.
+Table 3 compares the four controllers in terms of Target-
+SoC satisfaction, dispatch tracking, and computational fea-
+sibility under large-scale deployment. The rightmost column
+indicates whether each controller can complete its per-step
+computation within a 3-minute budget when scaled to thou-
+sands of chargers. This budget is derived from the 5-minute
+S2 response-time requirement after subtracting the commu-
+nication overhead of the simplified command system and the
+device-side actuation time.
+Optimization-based controllers such as LP and MILP have
+clear advantages in constraint handling, interpretability, and
+near-optimal single-step allocation when accurate system in-
+formation is centrally available. However, they require cen-
+tralized state collection and repeated online optimization, and
+switching-aware MILP formulations can become computa-
+tionally expensive as the fleet size increases. In contrast, the
+proposed MARL controller sacrifices hard optimality and
+constraint guarantees, but enables lightweight station-level
+execution after training and reduces the need for online global
+optimization.
+FIGURE 7: Per-step computation time vs. number of stations.
+The dashed line shows the 5-minute S2 limit.
+COMPUTATION-TIME SCALING AND LATENCY
+SEPARATION
+The tracking and user-satisfaction results reported above are
+obtained from the 5-min-resolution control model without
+explicit communication-delay or actuation-delay injection.
+Under the S2-motivated abstraction adopted here, such sub-
+step latency is treated separately as a feasibility issue rather
+than as a reward-shaping element. To assess practical feasi-
+bility, it is therefore useful to separate aggregator-side on-
+line computation from communication/control-plane latency.
+The proposed station-based MARL controller requires one
+forward pass per local actor at runtime and therefore scales
+approximately linearly with the number of stations when the
+actors are evaluated sequentially. By contrast, the centralized
+single-agent RL baseline requires only one monolithic for-
+ward pass. Centralized MILP is fundamentally different: once
+switching-aware binary variables are introduced, the online
+computation is dominated by branch-and-bound search and
+can become prohibitively slow.
+To quantify this difference, Fig. 7 compares the per-step
+computation time of the switching-aware centralized MILP
+controller and the proposed MADDPG controller as the num-
+ber of stations increases (with the number of chargers per
+station held constant). In the present implementation, central-
+ized RL requires only a single GPU forward pass, whereas
+MADDPG requires sequential forward passes ofNlocal
+actors and therefore scales approximately linearly with the
+number of stations. Even so, the MADDPG execution time
+remains on the order of milliseconds at 100 stations. The
+centralized MILP solve time, by contrast, grows rapidly with
+the number of stations and reaches the 5-minute response-
+time limit (300 s, shown as the dashed horizontal line) at
+approximately 30 stations; beyond this point the solver is
+terminated at the time limit, meaning that the solution quality
+degrades or feasibility is lost.
+This result addresses a natural concern regarding the prac-
+VOLUME 11, 2023 9
+
+===PAGE===
+
+Hayashiet al.: Hierarchical Multi-Agent Reinforcement Learning Control for EV VPPs
+tical case study scale (five stations, 50 chargers). Real-world
+EV VPP participation in balancing markets typically requires
+aggregate capacity on the order of 1 MW, implying coordi-
+nation of hundreds of stations and potentially thousands of
+chargers. Although the tracking and user-satisfaction eval-
+uation in this paper is conducted at the five-station scale,
+the computation-time scaling in Fig. 7 demonstrates that
+the proposed controller’s online execution cost remains well
+within the response-time budget even at 100 stations, whereas
+centralized MILP exceeds the budget at a much smaller
+scale. This provides evidence that the proposed architecture
+has a favorablecomputational scalabilityprofile for latency-
+constrained operation.
+However, computational scalability alone does not guaran-
+tee that the learned policies will maintain tracking accuracy
+and user-satisfaction performance at larger fleet sizes. V erify-
+ing control-quality scalability requires training and evaluating
+the MARL controller with hundreds of station-level agents,
+which in turn demands substantially greater computational
+resources for the centralized-training phase (larger replay
+buffers, higher-dimensional joint observation/action spaces,
+and longer training horizons). Such large-scale training ex-
+periments exceed the computational resources available for
+the present study and are therefore left to future work.
+Overall end-to-end response time also depends on the
+communication/control-plane delay from the dispatch source
+to the field devices and on the device-side actuation/settling
+dynamics. Therefore, the field measurements in Section VI
+complement the computation-side argument by reporting
+measured ICT/control-plane latency using a practical cloud-
+mediated DER remote-control architecture. This separation
+avoids conflating the proposed controller’s computation ad-
+vantage with device- and network-dependent latency compo-
+nents that must be evaluated independently.
+VI. FIELD LATENCY MEASUREMENT
+This section reports measured latency values of a practical
+remote-control loop implemented on top of IoT-HUB, a dis-
+tributed energy resource (DER) remote-control platform used
+in Japan [33]. The field demonstrator is a battery system, but
+the same communication/control plane can be used for EV
+charging control because the upstream path (cloud routing
+and gateway communication) remains identical, whereas only
+the final device-side actuation dynamics differ. The mea-
+surable latency components are aligned with the reference
+decomposition of internet-mediated DER ‘‘response time’’
+and ‘‘actuation time’’ discussed in [26].
+A. ARCHITECTURE AND MEASUREMENT SETUP
+IoT-HUB provides an interconnection infrastructure that ex-
+poses a common control interface while mediating hetero-
+geneous device protocols across gateways and field de-
+vices [33]. In the demonstrator used here, the aggregator-side
+control server communicates with the IoT-HUB service and
+sends control commands and state queries to field devices
+through an on-premise IoT router and a device-side gateway.
+FIGURE 8: Remote-control architecture of the field demon-
+strator.
+FIGURE 9: Field demonstrator hardware.
+Figure 8 shows one representative command path, namely
+the dispatch of a control command from the control PC
+application to Battery 1 managed via Driver A. However, the
+system architecture is designed to support the same operation
+for other assets as well, enabling command delivery via other
+drivers to other batteries and controllable devices, including
+EVs, even when they are deployed at geographically separate
+sites. Accordingly, the configuration represents the end-to-
+end ICT/control-plane delay associated with cloud-mediated
+dispatch and monitoring, including message relay, protocol
+translation, and gateway communication.
+The demonstrator battery system is an OMRON KP-BU42-
+A unit with nominal energy capacity 4.3 kWh and a power
+conditioning system (PCS) rated at 2.5 kW. The aggregator-
+10 VOLUME 11, 2023
+
+===PAGE===
+
+Hayashiet al.: Hierarchical Multi-Agent Reinforcement Learning Control for EV VPPs
+TABLE 4: Battery demonstrator configuration used for the
+field latency measurements.
+Item Description
+Distributed energy
+resource (DER)
+Battery system (OMRON KP-BU42-A)
+Energy capacity 4.3 kWh
+PCS rated power 2.5 kW
+Aggregator-side
+controller
+PC (control server / user interface)
+IoT interconnection
+layer
+IoT-HUB service [33]
+On-premise node IoT router (mini PC)
+Device-side
+translation
+Gateway (ECHONET Lite to PCS/battery)
+side controller is a personal computer (PC); messages are
+relayed through an on-premise IoT router (mini PC) and
+translated at the device side through an ECHONET Lite
+gateway. Table 4 summarizes the testbed configuration, and
+Fig. 9 shows the corresponding hardware.
+Although the controlled field asset is a battery system, the
+upstream communication path is the same type of cloud–
+router–gateway control plane that would also be used for
+electric vehicle supply equipment (EVSE) in an EV VPP .
+For this reason, the measured ICT/control-plane latency is
+informative for EV control under the same architecture, while
+the final device-side actuation and power-settling behavior
+remains asset-dependent.
+B. LATENCY DEFINITIONS AND MEASUREMENT
+METHODOLOGY
+We evaluate latency components that are observable and ac-
+tionable for real deployments. In the battery demonstrator,
+the system provides both a control user interface that displays
+instantaneous power and device states and a remote command
+interface that changes operating modes and active power set-
+points. In practical deployments, user-interface updates and
+device logs can include buffering, polling, and asynchronous
+processing. We therefore measure several latencies by direct
+end-to-end observation using the user interface and device
+indicators so as to capture the response as experienced by an
+operator.
+The latency components are defined as follows, consistent
+with a decomposition into communication/processing delay
+and device-side actuation/settling time [26]: state-to-display
+latencyL disp, namely the delay from requesting a state or
+instantaneous value to that value being displayed on the user
+interface; set_mode-to-ack latencyL mode, namely the delay
+from issuing a mode-switch command until its acknowledge-
+ment or reflected state change is observed; state-query round-
+trip time (RTT)L get, namely the delay from issuing aget
+request until the state response is received or visible; and
+set_power-to-reflection latencyL set, namely the delay from
+issuing a power command until the measured output reaches
+the commanded setpoint.
+FIGURE 10: One charge/discharge control cycle in the
+demonstrator.
+TABLE 5: Measured latency metrics in the IoT-HUB-based
+battery demonstrator (mean and maximum).
+Latency metric Mean [s] Max [s]
+State-query RTTL get 4.12 4.83
+set_mode-to-ack latencyL mode 8.58 9.01
+set_power-to-reflection latencyL set (1.5 kW) 12.5 † 13.0
+State-to-display latencyL disp 5.2 7.0
+†Only a typical range (12–13 s) was recorded for this item; the mean is
+approximated by the mid-point.
+C. MEASURED RESUL TS
+Figure 10 summarizes one remote-control cycle in the battery
+demonstrator, consisting of state acquisition, aggregator-side
+decision, command issuance, and post-command verification,
+while Table 5 reports the corresponding latency metrics as
+mean and maximum values. Here,L get denotes the state-
+query round-trip time (RTT),L mode denotes the delay from
+issuing a mode-switch command to its acknowledgement or
+reflected state change,L set denotes the delay from issuing a
+power command to measured power reflection, andL disp de-
+notes the state-to-display latency. In Fig. 10, steps 1–2 corre-
+spond to state acquisition and are associated withL get, step 3
+denotes the aggregator-side decision, steps 4–5 correspond to
+mode-command acknowledgement and are associated with
+Lmode, steps 6–7 correspond to power-command reflection
+and are associated withL set, and steps 8–9 correspond to post-
+command verification.
+The measured response latencies indicate that the end-to-
+end perceived response in the IoT-HUB-based battery control
+loop is on the order of several seconds for state requests and
+around 10–13 s for typical activation or setpoint commands.
+The state-to-display latencyL disp is not shown in Fig. 10
+because it additionally includes the user-interface refresh
+path, whereas the figure focuses on the command/response
+message sequence itself. For a regulation product with a 5-
+min activation requirement such as Japan’s S2 [24], these
+values are small compared with the overall response budget,
+VOLUME 11, 2023 11
+
+===PAGE===
+
+Hayashiet al.: Hierarchical Multi-Agent Reinforcement Learning Control for EV VPPs
+but they are not negligible compared with a 5-min dispatch
+interval.
+When the same control plane is used for EV charging
+control,L disp and the ICT portion ofL mode andL set are
+expected to remain of similar order because they are dom-
+inated by cloud routing and gateway communication rather
+than by the final device physics. By contrast, the device-side
+actuation and power-settling dynamics, which contribute to
+Lset, depend on the EVSE hardware and its local controller.
+For EV VPP operation, the latency model should therefore
+reuse the measured ICT/control-plane baseline in Table 5
+while treating the device-side term separately.
+VII. DISCUSSION
+The main limitation of the present controller is the Target SoC
+satisfaction rate. Although the representative run achieves
+strong dispatch tracking, the 80% Target SoC satisfaction rate
+remains below the level desirable for practical deployment.
+The main failure mode occurs when sustained discharging
+commands near departure time override the user-side charg-
+ing objective. This suggests that the present purely learning-
+based policy should be complemented by a rule-based safety
+layer that enforces charging recovery near the departure-time
+constraint boundary.
+A second limitation is the simplified simulation environ-
+ment. The case study considers only five stations and 50
+chargers; EV battery capacities and charger power ratings
+are treated as homogeneous; station-specific available-power
+ceilings are not explicitly modeled; switching constraints
+are not enforced; and EVs are assumed to depart exactly at
+their scheduled departure times. These simplifications were
+adopted to isolate the core dispatch-tracking problem, but
+richer heterogeneity and operational constraints should be
+incorporated in future work.
+VIII. CONCLUSION
+This paper proposed an aggregator-to-station hierarchical
+MADDPG-based control framework for low-latency EV
+VPP operation in balancing markets. By integrating two
+objectives—dispatch tracking and user charging-demand
+satisfaction—within a CTDE-based multi-agent formulation,
+we demonstrated a control architecture in which the ag-
+gregator relays the TSO dispatch signal and station-level
+agents autonomously determine local charger-level charg-
+ing/discharging commands from station-local observations
+and the broadcast dispatch signal. The aggregate fleet re-
+sponse emerges from these local decisions rather than from an
+explicit online power allocation computed by the aggregator.
+The case study showed that the proposed method can
+achieve high dispatch-tracking performance (97% tracking
+rate), but the Target SoC satisfaction rate of 80% (with an av-
+erage SoC shortfall of approximately 5%) remains a clear lim-
+itation that must be addressed before practical deployment.
+The study also clarified that the main architectural advan-
+tage of the proposed method lies in reducing aggregator-side
+online computation and avoiding online global optimization,
+whereas overall practical response-time feasibility must also
+account for communication/control-plane latency and device-
+side actuation dynamics.
+These results suggest that aggregator-to-station hierarchi-
+cal MARL is a promising pathway for EV VPP control when
+low-latency operation and scalability make fully centralized
+control less attractive.
+Future work will focus on two directions: (i) approaching
+near-100% user satisfaction via a hybrid controller with a
+rule-based safety layer, where the actor output is overridden
+to command maximum charging only when the remaining
+time and current SoC indicate that meeting the Target SoC
+is physically infeasible; and (ii) extending the simulation
+environment to include heterogeneous EV battery capacities
+and charger ratings, broader station characteristics, explicit
+station-level available-power limits, switching constraints,
+stochastic departures, and larger-scale fleet experiments.
+REFERENCES
+[1] Electricity and Gas Market Surveillance Commission, ‘‘Report on
+localized electricity demand growth and transmission/distribution
+networks,’’ News release and linked report, Government of Japan,
+Jun. 2024, in Japanese. Accessed: Mar. 17, 2026. [Online]. Available:
+https://www.egc.meti.go.jp/info/public/news/20240611002.html
+[2] U.S. Department of Energy, ‘‘Managed charging minimizes costs
+in National Laboratory of the Rockies’ parking garage,’’ Federal
+Energy Management Program case study, Jan. 2020, accessed: Mar. 17,
+2026. [Online]. Available: https://www.energy.gov/cmei/femp/managed-
+charging-minimizes-costs-national-laboratory-rockies-parking-garage
+[3] R. J. Bessa and M. A. Matos, ‘‘Optimization models for an EV aggregator
+selling secondary reserve in the electricity market,’’Electric Power Systems
+Research, vol. 106, pp. 36–50, 2014.
+[4] C. P . Guzman Lascano, N. Banol Arias, J. F. Franco Baquero, M. J. Rider,
+and R. Romero, ‘‘Secondary reserve provision through a smart aggregation
+strategy of electric vehicles,’’ in2021 IEEE Madrid PowerTech, 2021.
+[5] J. Wang, F. Li, X. Fang, W. Wang, H. Cui, Q. Zhang, and B. She, ‘‘Electric
+vehicles charging time constrained deliverable provision of secondary
+frequency regulation,’’IEEE Transactions on Smart Grid, vol. 15, no. 4,
+pp. 3892–3903, 2024.
+[6] Y . Shi, H. D. Tuan, A. V . Savkin, T. Q. Duong, and H. V . Poor, ‘‘Model
+predictive control for smart grids with multiple electric-vehicle charging
+stations,’’IEEE Transactions on Smart Grid, vol. 10, no. 2, pp. 2127–2136,
+2019.
+[7] H. Liu, J. Qi, J. Wang, P . Li, C. Li, and H. Wei, ‘‘EV dispatch control
+for supplementary frequency regulation considering the expectation of EV
+owners,’’IEEE Transactions on Smart Grid, vol. 9, no. 4, pp. 3763–3772,
+2018.
+[8] F. Alfaverh, M. Denaï, and Y . Sun, ‘‘Optimal vehicle-to-grid control for
+supplementary frequency regulation using deep reinforcement learning,’’
+Electric Power Systems Research, vol. 214, p. 108949, 2023.
+[9] B. Xu, W. Luan, B. Zhao, and C. Long, ‘‘Frequency regulation provision
+by EV aggregator with dynamic balance between user charging anxiety and
+aggregate flexibility,’’IEEE Transactions on Smart Grid, vol. 16, no. 4, pp.
+2953–2967, 2025.
+[10] J. Chen, Y . Zhang, T. Qian, and M. Wang, ‘‘Optimal ancillary service
+disaggregation for EV charging station aggregators: A hybrid on–off policy
+reinforcement learning framework,’’Expert Systems with Applications, vol.
+316, p. 131763, 2026, art. no. 131763.
+[11] F. Zeng, Z. Wei, G. Sun, M. Wang, and H. Han, ‘‘Frequency regulation of
+electric vehicle aggregator considering user requirements with limited data
+collection,’’Energies, vol. 16, no. 2, p. 848, 2023.
+[12] C. D. Korkas, C. D. Tsaknakis, A. C. Kapoutsis, and E. Kosmatopoulos,
+‘‘Distributed and multi-agent reinforcement learning framework for op-
+timal electric vehicle charging scheduling,’’Energies, vol. 17, no. 15, p.
+3694, 2024.
+[13] M. Shin, D.-H. Choi, and J. Kim, ‘‘Cooperative management for PV/ESS-
+enabled electric vehicle charging stations: A multiagent deep reinforce-
+12 VOLUME 11, 2023
+
+===PAGE===
+
+Hayashiet al.: Hierarchical Multi-Agent Reinforcement Learning Control for EV VPPs
+ment learning approach,’’IEEE Transactions on Industrial Informatics,
+vol. 16, no. 5, pp. 3493–3503, 2020.
+[14] J. Zhang, L. Che, and M. Shahidehpour, ‘‘Distributed training and dis-
+tributed execution-based stackelberg multi-agent reinforcement learning
+for EV charging scheduling,’’IEEE Transactions on Smart Grid, vol. 14,
+no. 6, pp. 4976–4979, 2023.
+[15] H. Wang, H. Jiang, and Y . Sun, ‘‘Multi-agent deep reinforcement learn-
+ing based fully decentralized aggregation frequency regulation of electric
+vehicle,’’Electric Power Systems Research, vol. 234, p. 110555, 2024.
+[16] G. Qu, A. Wierman, and N. Li, ‘‘Scalable reinforcement learning of
+localized policies for multi-agent networked systems,’’ inProceedings
+of the 2nd Conference on Learning for Dynamics and Control, ser.
+Proceedings of Machine Learning Research, vol. 120. PMLR, 2020, pp.
+256–266. [Online]. Available: https://proceedings.mlr.press/v120/qu20a.
+html
+[17] Y . Y ang, J. Hao, G. Chen, H. Tang, Y . Chen, Y . Hu, C. Fan, and
+Z. Wei, ‘‘Q-value path decomposition for deep multiagent reinforcement
+learning,’’ inProceedings of the 37th International Conference on
+Machine Learning, ser. Proceedings of Machine Learning Research,
+vol. 119. PMLR, 2020, pp. 10 706–10 715. [Online]. Available: https:
+//proceedings.mlr.press/v119/yang20d.html
+[18] J. Y ang, T. Liu, H. Wang, Z. Tian, and S. Liu, ‘‘Optimizing the regulation
+of aggregated thermostatically controlled loads by jointly considering con-
+sumer comfort and tracking error,’’Energies, vol. 12, no. 9, p. 1757, 2019.
+[19] H. U. Sheikh and L. Bölöni, ‘‘Multi-agent reinforcement learning
+for problems with combined individual and team reward,’’ 2020,
+arXiv:2003.10598.
+[20] Y . Zheng, Y . Song, D. J. Hill, and K. Meng, ‘‘Online distributed MPC-based
+optimal scheduling for EV charging stations in distribution systems,’’IEEE
+Transactions on Industrial Informatics, vol. 15, no. 2, pp. 638–649, 2019.
+[21] L. Wang, Y . Zhang, Y . Hu, W. Wang, C. Zhang, Y . Gao, J. Hao,
+T. Lv, and C. Fan, ‘‘Individual reward assisted multi-agent reinforcement
+learning,’’ inProceedings of the 39th International Conference on
+Machine Learning, ser. Proceedings of Machine Learning Research,
+vol. 162. PMLR, 2022, pp. 23 417–23 432. [Online]. Available: https:
+//proceedings.mlr.press/v162/wang22ao.html
+[22] J.-M. Clairand, ‘‘Participation of electric vehicle aggregators in ancillary
+services considering users’ preferences,’’Sustainability, vol. 12, no. 1, p. 8,
+2020.
+[23] Electric Power Reserve Exchange (EPRX), ‘‘Overview of the balancing
+market,’’ 2026, in Japanese. Accessed: Mar. 18, 2026. [Online]. Available:
+https://www.eprx.or.jp/outline/outline.html
+[24] Electric Power Reserve Exchange (EPRX), ‘‘Product requirements
+and trading schedule for the balancing market, version 6,’’ Mar.
+2026, in Japanese. Accessed: Mar. 18, 2026. [Online]. Available:
+https://www.eprx.or.jp/outline/docs/shouhin_ver.6_20260313.pdf
+[25] Electric Power Reserve Exchange (EPRX), ‘‘Application for
+communication line construction for the balancing market: Simplified
+command system and dedicated online line,’’ 2026, in Japanese. Accessed:
+Mar. 18, 2026. [Online]. Available: https://www.eprx.or.jp/outline/system_
+construction.html
+[26] M. Imanaka, Y . Ishida, H. Baba, and W. Hirohashi, ‘‘Prototyping a refer-
+ence model for combined behavior of ICT systems and energy equipment
+(Model 0),’’Seisan Kenkyu, vol. 75, no. 4, pp. 333–341, 2023.
+[27] K. Hayashi, S. Xue, and D. Kodaira, ‘‘Hierarchical multi-agent
+reinforcement learning control for EV-VPP in balancing markets,’’
+GitHub repository, 2026, accessed: May 29, 2026. [Online].
+Available: https://github.com/SmartGridLab/Hierarchical-Multi-Agent-
+Reinforcement-Learning-Control-for-EV -VPP-in-Balancing-Markets
+[28] PJM Interconnection, ‘‘PJM regulation signal data, october 2024,’’
+PJM Markets and Operations: Ancillary Services, 2024, accessed:
+Mar. 17, 2026. [Online]. Available: https://www.pjm.com/markets-and-
+operations/ancillary-services.aspx
+[29] City of Boulder, ‘‘Electric vehicle charging station data,’’
+City of Boulder Open Data portal, n.d., accessed: Mar. 17,
+2026. [Online]. Available: https://open-data.bouldercolorado.gov/datasets/
+95992b3938be4622b07f0b05eba95d4c_0
+[30] Distributed Electrical Systems Laboratory, EPFL, ‘‘Level 3 EV charging
+dataset,’’ GitHub repository, 2023, data measured from Apr. 12, 2022
+to Jul. 4, 2023. Accessed: Mar. 17, 2026. [Online]. Available: https:
+//github.com/DESL-EPFL/Level-3-EV -charging-dataset
+[31] Z. J. Lee, T. Li, and S. H. Low, ‘‘ACN-Data: Analysis and applications
+of an open EV charging dataset,’’ inProceedings of the Tenth ACM
+International Conference on Future Energy Systems, ser. e-Energy ’19,
+2019, pp. 139–149, dataset includes the JPL site. [Online]. Available:
+https://ev.caltech.edu/dataset
+[32] H. Li, Z. Wan, and H. He, ‘‘Constrained EV charging scheduling based
+on safe deep reinforcement learning,’’IEEE Transactions on Smart Grid,
+vol. 11, no. 3, pp. 2427–2439, 2020.
+[33] H. Baba and T. Y ashiro, ‘‘Study of challenges and solutions on IoT-HUB
+for practical use as an interconnection infrastructure,’’Seisan Kenkyu,
+vol. 74, no. 2, pp. 175–179, 2022.
+KOSHIN HAYASHI(Graduate Student Member,
+IEEE) received the B.S. degree from the Univer-
+sity of Tsukuba, Tsukuba, Japan, in 2025. He is
+currently pursuing the master’s degree in Engineer-
+ing Mechanics and Energy, Degree Programs in
+Systems and Information Engineering, Graduate
+School of Science and Technology, University of
+Tsukuba, Tsukuba, Japan. As an undergraduate
+student, he worked on the development and field
+demonstration of a remote-control system for bat-
+tery energy storage systems. His current research interests include multi-
+agent reinforcement learning for power systems and electricity-market-
+related applications.
+SIHUI XUE(Graduate Student Member, IEEE)
+received the M.S. degree in computer technology
+from Guangzhou University, Guangzhou, China, in
+2025. She is currently pursuing the Ph.D. degree in
+Engineering Mechanics and Energy, Degree Pro-
+grams in Systems and Information Engineering,
+Graduate School of Science and Technology, Uni-
+versity of Tsukuba, Tsukuba, Japan. Her research
+interests include smart energy management, EV
+home energy management, artificial intelligence
+for smart grids, and large language model applications in energy systems.
+DAISUKE KODAIRA(Member, IEEE) received
+the Ph.D. degree in electrical engineering from
+Kyungpook National University, Daegu, South
+Korea, in 2020. From 2020 to 2022, he was
+an Assistant Professor with Tokyo University of
+Science, Tokyo, Japan. Since 2022, he has been
+an Assistant Professor with the Institute of Sys-
+tems and Information Engineering, University of
+Tsukuba, Tsukuba, Japan. His research interests
+include reinforcement-learning-based battery con-
+trol, electric vehicle charging scheduling, blockchain for energy trading,
+photovoltaic generation forecasting, and energy demand forecasting.
+VOLUME 11, 2023 13

@@ -1,0 +1,21 @@
+﻿{
+    "model":  "prod_elexonplan256_AB_7station",
+    "targetEpisode":  2000,
+    "bidPid":  46352,
+    "gpuJobPids":  [
+                       40144,
+                       44112
+                   ],
+    "cpuRateBasisPoints":  7500,
+    "powerSettingsTouched":  false,
+    "launcherPid":  36504,
+    "startedAt":  "2026-10-02T16:08:15.2274813+09:00",
+    "completedAt":  null,
+    "stage":  "waiting_for_gpu",
+    "pid":  null,
+    "exitCode":  null,
+    "error":  null,
+    "stageStartedAt":  {
+                           "waiting_for_gpu":  "2026-10-02T16:18:45.6288469+09:00"
+                       }
+}

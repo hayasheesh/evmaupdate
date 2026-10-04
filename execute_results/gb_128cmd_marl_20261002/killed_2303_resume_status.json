@@ -1,0 +1,19 @@
+﻿{
+    "modelName":  "prod_elexonplan_AB_7station",
+    "runDir":  "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\archive\\prod_elexonplan_AB_7station_20261002_215844",
+    "sourceDir":  "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\gb_128cmd_marl_20261002\\runtime_source",
+    "startEpisode":  20,
+    "targetEpisode":  2000,
+    "exactResume":  true,
+    "cpuRateBasisPoints":  7500,
+    "powerSettingsTouched":  false,
+    "acBoostModeAtStart":  0,
+    "acBoostModeAtEnd":  null,
+    "startedAt":  "2026-10-02T22:28:32.9831098+09:00",
+    "completedAt":  null,
+    "launcherPid":  28600,
+    "pid":  46748,
+    "stage":  "training",
+    "exitCode":  null,
+    "error":  null
+}

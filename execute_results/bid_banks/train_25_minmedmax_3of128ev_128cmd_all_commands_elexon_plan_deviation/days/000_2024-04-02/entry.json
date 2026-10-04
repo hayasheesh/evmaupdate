@@ -1,0 +1,33 @@
+{
+  "index": 0,
+  "service_date": "2024-04-02",
+  "forecast_seed": 73000,
+  "source_path": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\input.demand_fromPJM\\output_5min\\day_2024-04-02.csv",
+  "bid_path": "days\\000_2024-04-02\\fixed_bid.pkl",
+  "artifact_dir": "days\\000_2024-04-02\\results",
+  "summary": {
+    "service_date": "2024-04-02",
+    "forecast_seed": 73000,
+    "method": "outer_participation_colgen_benders_certified",
+    "activation_mode": "elexon_battery_boa_minus_fpn:elexon_battery_boa_minus_fpn",
+    "activation_scenarios": 128,
+    "bid_status": "outer_participation_colgen_benders_certified",
+    "bid_solved": true,
+    "bid_feasible": true,
+    "bid_objective_capacity_kw_block": 31724.63142981344,
+    "submitted_mean_up_kw": 353.6847407483726,
+    "submitted_mean_down_kw": 307.245080706074,
+    "submitted_participating_blocks": 34,
+    "awarded_mean_up_kw": 353.6847407483726,
+    "awarded_mean_down_kw": 307.245080706074,
+    "bid_mean_baseline_kw": 107.1721587963405,
+    "bid_mean_up_kw": 353.6847407483726,
+    "bid_mean_down_kw": 307.245080706074,
+    "bid_max_up_kw": 720.9000066121419,
+    "bid_max_down_kw": 722.1000061035156,
+    "bid_participating_blocks": 34,
+    "bid_global_tracking_rate": 1.0,
+    "target_min_kw": -456.0970153808594,
+    "target_max_kw": 624.5462036132812
+  }
+}

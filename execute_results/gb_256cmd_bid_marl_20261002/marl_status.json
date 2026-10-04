@@ -1,0 +1,23 @@
+﻿{
+    "model":  "prod_elexonplan256_AB_7station",
+    "targetEpisode":  2000,
+    "bidPid":  0,
+    "gpuJobPids":  [
+                       40144,
+                       44112
+                   ],
+    "cpuRateBasisPoints":  7500,
+    "powerSettingsTouched":  false,
+    "launcherPid":  46336,
+    "startedAt":  "2026-10-02T16:39:21.9341161+09:00",
+    "completedAt":  "2026-10-02T21:53:06.5786141+09:00",
+    "stage":  "complete",
+    "pid":  11360,
+    "exitCode":  0,
+    "error":  null,
+    "stageStartedAt":  {
+                           "waiting_for_gpu":  "2026-10-02T16:39:22.0592195+09:00",
+                           "marl_preflight":  "2026-10-02T16:45:52.2854347+09:00",
+                           "pretrain":  "2026-10-02T16:45:55.3185950+09:00"
+                       }
+}

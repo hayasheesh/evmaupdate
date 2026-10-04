@@ -1,0 +1,4 @@
+# One ERCOT Resource Name per line.
+# Officially identified ADER / Aggregate Load Resource seeds used for this project:
+AR_ALD1
+BOERNE_ALD1

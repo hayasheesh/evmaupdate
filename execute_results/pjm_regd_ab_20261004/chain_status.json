@@ -1,0 +1,30 @@
+﻿{
+    "signalSet":  "pjm_regd_phase_shift",
+    "model":  "prod_pjmregd_AB_7station",
+    "targetEpisode":  2000,
+    "bankCpuRateBasisPoints":  5000,
+    "trainCpuRateBasisPoints":  7500,
+    "powerSettingsTouched":  false,
+    "acBoostModeAtStart":  0,
+    "acBoostModeAtEnd":  0,
+    "launcherPid":  26324,
+    "startedAt":  "2026-10-04T00:43:39.2456761+09:00",
+    "completedAt":  "2026-10-04T10:57:19.3382664+09:00",
+    "stage":  "complete",
+    "stageStartedAt":  {
+                           "bank":  "2026-10-04T00:43:39.2495852+09:00",
+                           "preflight":  "2026-10-04T04:48:22.3544998+09:00",
+                           "training":  "2026-10-04T04:48:27.4492406+09:00"
+                       },
+    "bankPids":  {
+                     "train":  26104,
+                     "test":  44908
+                 },
+    "bankExitCodes":  {
+                          "train":  0,
+                          "test":  0
+                      },
+    "trainPid":  28000,
+    "trainExitCode":  0,
+    "error":  null
+}

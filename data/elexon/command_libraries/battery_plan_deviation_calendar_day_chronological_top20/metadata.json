@@ -1,0 +1,114 @@
+{
+  "build_complete": true,
+  "bank_ready": true,
+  "regime": "elexon_battery_boa_minus_fpn",
+  "source_kind": "GB BM: level of the latest Bid-Offer Acceptance in force minus the unit's FPN",
+  "plan": "Final Physical Notification, fixed at gate closure one hour before the settlement period",
+  "sampling": "spot value at each five-minute point of the London calendar day; DST change days excluded",
+  "reference": "zero deviation from FPN; zero when no acceptance is in force",
+  "acceptances": "all, whatever the SO flag; share of instructed steps with an SO-flagged acceptance recorded",
+  "normalization": "one fixed width per unit: max(generationCapacity, |demandCapacity|) from Elexon reference data",
+  "clipping": false,
+  "interpolation_or_fill": "profiles are linear between Elexon spot points; nothing else is filled",
+  "partition_policy": "whole London calendar dates, chronological 60/20/20",
+  "partition_date_ranges": {
+    "train": [
+      "2025-12-01",
+      "2026-05-21"
+    ],
+    "validation": [
+      "2026-05-22",
+      "2026-07-18"
+    ],
+    "test": [
+      "2026-07-19",
+      "2026-09-14"
+    ]
+  },
+  "partition_counts": {
+    "train": 3420,
+    "validation": 1160,
+    "test": 1160
+  },
+  "excluded_unit_days": {
+    "non_288_slot_day": 20
+  },
+  "steps_beyond_unit_width": 18468,
+  "share_of_steps_under_acceptance": 0.3213928813395277,
+  "share_of_instructed_steps_so_flagged": 0.17385625097637686,
+  "selection": {
+    "candidate_rule": "fuel type OTHER or empty, generation and demand capacity within 0.5x-2x",
+    "candidates": 284,
+    "sampled_train_days": [
+      "2025-12-01",
+      "2025-12-08",
+      "2025-12-15",
+      "2025-12-22",
+      "2025-12-29",
+      "2026-01-05",
+      "2026-01-12",
+      "2026-01-19",
+      "2026-01-26",
+      "2026-02-02",
+      "2026-02-09",
+      "2026-02-16",
+      "2026-02-23",
+      "2026-03-02",
+      "2026-03-09",
+      "2026-03-16",
+      "2026-03-23",
+      "2026-03-31",
+      "2026-04-07",
+      "2026-04-14",
+      "2026-04-21",
+      "2026-04-28",
+      "2026-05-05",
+      "2026-05-12",
+      "2026-05-19"
+    ],
+    "selected": [
+      "2__MCMRO002",
+      "E_SKELB-1",
+      "T_BLHLB-3",
+      "E_FARNB-1",
+      "E_THMRB-1",
+      "E_HAWKB-1",
+      "E_CHAPB-1",
+      "E_ILMEB-1",
+      "T_BLHLB-1",
+      "T_SUNDB-1",
+      "T_BLHLB-2",
+      "E_CLAYB-2",
+      "T_LARKB-1",
+      "E_CLAYB-1",
+      "2__PFLEX002",
+      "T_THURB-3",
+      "T_BLHLB-4",
+      "T_TEBWB-1",
+      "T_THURB-1",
+      "T_COVNB-1"
+    ]
+  },
+  "unit_width_mw": {
+    "2__MCMRO002": 37.093,
+    "E_SKELB-1": 50.642,
+    "T_BLHLB-3": 54.0,
+    "E_FARNB-1": 20.0,
+    "E_THMRB-1": 49.5,
+    "E_HAWKB-1": 20.0,
+    "E_CHAPB-1": 50.21,
+    "E_ILMEB-1": 49.5,
+    "T_BLHLB-1": 51.04,
+    "T_SUNDB-1": 57.0,
+    "T_BLHLB-2": 51.04,
+    "E_CLAYB-2": 49.5,
+    "T_LARKB-1": 52.0,
+    "E_CLAYB-1": 49.5,
+    "2__PFLEX002": 49.0,
+    "T_THURB-3": 100.0,
+    "T_BLHLB-4": 54.82,
+    "T_TEBWB-1": 39.9,
+    "T_THURB-1": 100.0,
+    "T_COVNB-1": 58.257
+  }
+}

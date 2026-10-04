@@ -1,0 +1,17 @@
+﻿{
+    "modelName":  "prod_ercotplan_MADDPGstd_7station",
+    "algorithm":  "maddpg",
+    "runDir":  "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\archive\\prod_ercotplan_MADDPGstd_7station_20261003_224148",
+    "targetEpisode":  2000,
+    "cpuRateBasisPoints":  7500,
+    "powerSettingsTouched":  false,
+    "acBoostModeAtStart":  0,
+    "acBoostModeAtEnd":  0,
+    "startedAt":  "2026-10-03T22:40:04.8837706+09:00",
+    "completedAt":  "2026-10-04T10:57:31.9274618+09:00",
+    "launcherPid":  34656,
+    "pid":  28088,
+    "stage":  "stopped",
+    "exitCode":  0,
+    "error":  null
+}

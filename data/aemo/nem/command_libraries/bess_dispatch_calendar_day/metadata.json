@@ -1,0 +1,46 @@
+{
+  "build_complete": true,
+  "bank_ready": true,
+  "regime": "aemo_bess_zero_based_target_calendar_day_fixed_scale",
+  "source_kind": "AEMO BESS TOTALCLEARED",
+  "source_directory": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\aemo\\nem\\processed_5min\\dense8",
+  "calendar_window": "AEST interval ends 00:05 through next-day 00:00",
+  "reference": "physical zero (idle battery)",
+  "normalization": "one max(abs(target)) scale per scenario",
+  "clipping": false,
+  "interpolation_or_fill": false,
+  "partition_policy": "whole calendar dates; within each calendar month consecutive 60/20/20 blocks",
+  "required_unique_scenarios_per_partition": 128,
+  "resources": [
+    "BBATTERY1",
+    "BRNDBES1",
+    "HPR1",
+    "MREHA1",
+    "ULPBESS1",
+    "VBB1",
+    "WDBESS1",
+    "WTAHB1"
+  ],
+  "written_file_count": 2277,
+  "rejected_file_count": 0,
+  "partition_counts": {
+    "train": 1320,
+    "validation": 465,
+    "test": 492
+  },
+  "partition_date_ranges": {
+    "train": [
+      "2025-08-02",
+      "2026-07-18"
+    ],
+    "validation": [
+      "2025-08-19",
+      "2026-07-24"
+    ],
+    "test": [
+      "2025-08-25",
+      "2026-07-30"
+    ]
+  },
+  "rejected": []
+}

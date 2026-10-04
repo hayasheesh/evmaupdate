@@ -1,0 +1,13 @@
+﻿{
+    "signalSet":  "aemo_plan_deviation",
+    "split":  "test",
+    "dayWorkers":  5,
+    "scenarioWorkersPerDay":  4,
+    "cpuRateBasisPoints":  3125,
+    "powerSettingsTouched":  false,
+    "command":  "python tools/build_training_bid_bank.py --split test --days 5 --train-split-count 25 --paired-train-days 25 --paired-test-days 5 --workers 5 --scenario-workers 4",
+    "startedAt":  "2026-09-25T15:25:02.2617122+09:00",
+    "completedAt":  "2026-09-25T17:33:02.0047775+09:00",
+    "exitCode":  0,
+    "pid":  26428
+}

@@ -1,0 +1,12 @@
+{
+  "stations": 7,
+  "scenario_workers": 32,
+  "seconds": 128.0,
+  "ev_sessions": 117,
+  "minimum_bid_kw": 250.0,
+  "physical_max_kw": 2194.9,
+  "capacity_kw_block": 77410.6,
+  "participating_blocks": 47,
+  "mean_up_kw": 826.0,
+  "mean_down_kw": 786.8
+}

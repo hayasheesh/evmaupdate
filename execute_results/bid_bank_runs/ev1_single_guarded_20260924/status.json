@@ -1,0 +1,20 @@
+{
+  "status": "running",
+  "startedAt": "2026-09-24T01:56:37.0413748+09:00",
+  "originalBoostAC": 2,
+  "originalBoostDC": 2,
+  "boostDuringRun": 0,
+  "cpuHardCapPercent": 75,
+  "scenarioWorkers": 24,
+  "evScenarioCount": 1,
+  "commandCount": 128,
+  "serviceDate": "2024-04-02",
+  "outputDir": "execute_results/bid_banks/probe_aemo_bess_single_ev_2024-04-02_20260924_guarded",
+  "processId": 19172,
+  "completedAt": null,
+  "exitCode": null,
+  "error": null,
+  "updatedAt": "2026-09-24T01:56:37.4209725+09:00",
+  "stdout": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_bank_runs\\ev1_single_guarded_20260924\\probe.stdout.log",
+  "stderr": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_bank_runs\\ev1_single_guarded_20260924\\probe.stderr.log"
+}

@@ -1,0 +1,109 @@
+II. LITERATURE REVIEW
+Related work is summarized in Table 1. Rather than classi-
+fying prior studies by an abstract comparison axis, the table
+groups them into concrete research strands and states, for each
+strand, what has already been achieved and what still remains
+mismatched with the present setting. The detailed discussion
+below follows the same logic: the first three strands are close
+to the present problem setting, whereas the latter three are
+methodologically related but address different problems.
+A. SIMILAR PROBLEM, DIFFERENT METHOD
+Centralized optimization:Problems close to ours have al-
+ready been studied through centralized optimization. Rep-
+resentative examples include day-ahead reserve bidding and
+operation models [3], smart aggregation for secondary re-
+serve [4], charging-time-constrained secondary frequency
+regulation [5], and centralized MPC for multiple EV charging
+stations [6], [20]. These studies show that EV aggregators can
+provide reserve or regulation while accounting for user-side
+charging requirements. The remaining issue is architectural:
+such methods presuppose centralized collection of fleet-wide
+information and repeated online coordination/optimization,
+which becomes increasingly burdensome when low-latency
+response and large fleets must be handled simultaneously.
+Centralized reinforcement learning:Centralized RL has
+also been applied to closely related EV -based regulation prob-
+lems. Existing studies consider dispatch control for supple-
+mentary frequency regulation under user expectations [7],
+deep-RL-based V2G control [8], market-oriented regulation-
+command disaggregation while balancing user charging anx-
+iety and aggregate flexibility [9], and RL-based real-time
+disaggregation of system-operator commands to EV charg-
+ing stations [10]. Hence, it would be inaccurate to claim
+2 VOLUME 11, 2023
+
+===PAGE===
+
+Hayashiet al.: Hierarchical Multi-Agent Reinforcement Learning Control for EV VPPs
+TABLE 1: How the present study is positioned relative to prior work.
+Research strand What is already known What remains missing for this study
+Close problem setting, but different control paradigm
+Centralized optimization
+[3]–[6], [20]
+Accurate reserve/regulation control with
+user-side charging requirements has
+already been demonstrated.
+Requires fleet-wide information aggregation and repeated
+online optimization, which becomes burdensome under
+low-latency large-fleet operation.
+Centralized RL[7]–[10]Dispatch tracking together with
+user-side requirements has been studied,
+with light runtime inference.
+Still depends on centrally observed fleet-wide
+information and a monolithic learner, raising scalability
+and credit-assignment concerns.
+Hand-crafted control[11]Practical low-burden control pipelines
+exist even under limited data collection.
+Depends on manually designed logic and adapts poorly to
+changing dispatch patterns and stochastic EV behavior.
+Methodologically related, but different problem setting
+Distributed MARL for EV
+charging[12]–[15]
+Per-station/per-charger distributed
+learning is already a viable design
+direction for EV charging networks.
+Mainly targets charging scheduling or local energy
+management, rather than fleet-level balancing-market
+dispatch tracking with departure-time fulfillment.
+Global/local reward
+decomposition in MARL[17],
+[19], [21]
+Decomposed global/local learning
+signals help coordination and credit
+assignment in large multi-agent settings.
+These studies do not model the full EV -VPP control
+structure considered here, including fleet-level dispatch
+tracking, EV mobility constraints, and departure-time
+charging obligations.
+Structurally related non-EV
+regulation[18]
+Fleet-level tracking and local service
+quality can be optimized jointly in other
+demand-side resources.
+The structural trade-off is similar, but EV -specific
+mobility constraints and departure-time charging
+obligations are absent.
+This work Station-based CTDE-MARL for
+balancing-market EV-VPP control.
+Jointly addresses per-step fleet-level dispatch tracking
+and departure-time user-side fulfillment under
+station-based execution.
+that existing RL studies do not address tracking and user-
+side objectives. The remaining issue is again architectural.
+These methods still rely on centrally observed fleet-wide
+information, even though practical studies have pointed out
+that complete real-time collection of EV travel, preference,
+and charging data is difficult in deployment [11]. In addition,
+general MARL studies note that the joint state-action space
+can grow exponentially with the number of controlled units
+and that learning from only a shared global reward creates
+a credit-assignment difficulty [16], [17]. Therefore, for a
+problem such as ours, where one fleet-level tracking objective
+must be achieved through many local charging/discharging
+decisions, a single centralized learner may remain attractive
+at runtime but can become disadvantaged from the viewpoint
+of scalability and learning structure.
+Hand-crafted control:Another nearby line of work is hand-
+crafted control. Zenget al.[11] study EV -aggregator fre-
+quency regulation under limited data collection while ac-
+counting for user requirements. Th

@@ -1,0 +1,105 @@
+{
+  "stations": 500,
+  "ev_sessions": 9381,
+  "sampled_commands": 16,
+  "workers": 16,
+  "day": "2024-12-02",
+  "seed": 73000,
+  "activation_mode": "aemo_nem_dispatch_minus_gate_closure_plan",
+  "baseline_mode": "heuristic",
+  "timings": {
+    "activation_load_s": 27.557666300002893,
+    "ev_generation_s": 180.02025880000292,
+    "natural_baseline_s": 0.15626070000143955,
+    "assessment_i_s": 2.4150298000022303,
+    "scenario_assembly_s": 9.860000136541203e-05,
+    "benders_wall_s": 391.170162800001,
+    "total_wall_s": 601.3195388000022
+  },
+  "benders": {
+    "complete": false,
+    "stop_reason": "round_limit",
+    "rounds": 11,
+    "cuts": 72,
+    "objective_kw_block": 5825602.31477573,
+    "round_counts": [
+      {
+        "round": 0,
+        "feasible": 9,
+        "infeasible": 7,
+        "incomplete": 0,
+        "cuts_added": 7
+      },
+      {
+        "round": 1,
+        "feasible": 0,
+        "infeasible": 16,
+        "incomplete": 0,
+        "cuts_added": 10
+      },
+      {
+        "round": 2,
+        "feasible": 0,
+        "infeasible": 16,
+        "incomplete": 0,
+        "cuts_added": 10
+      },
+      {
+        "round": 3,
+        "feasible": 8,
+        "infeasible": 8,
+        "incomplete": 0,
+        "cuts_added": 8
+      },
+      {
+        "round": 4,
+        "feasible": 9,
+        "infeasible": 7,
+        "incomplete": 0,
+        "cuts_added": 7
+      },
+      {
+        "round": 5,
+        "feasible": 0,
+        "infeasible": 16,
+        "incomplete": 0,
+        "cuts_added": 10
+      },
+      {
+        "round": 6,
+        "feasible": 9,
+        "infeasible": 7,
+        "incomplete": 0,
+        "cuts_added": 7
+      },
+      {
+        "round": 7,
+        "feasible": 10,
+        "infeasible": 6,
+        "incomplete": 0,
+        "cuts_added": 6
+      },
+      {
+        "round": 8,
+        "feasible": 11,
+        "infeasible": 5,
+        "incomplete": 0,
+        "cuts_added": 5
+      },
+      {
+        "round": 9,
+        "feasible": 14,
+        "infeasible": 2,
+        "incomplete": 0,
+        "cuts_added": 2
+      },
+      {
+        "round": 10,
+        "feasible": 14,
+        "infeasible": 2,
+        "incomplete": 0,
+        "cuts_added": 0
+      }
+    ]
+  }
+}

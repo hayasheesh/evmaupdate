@@ -1,0 +1,20 @@
+{
+  "status": "restarting_with_single_ev_draw",
+  "startedAt": "2026-09-24T01:39:11.3174143+09:00",
+  "originalBoostAC": 2,
+  "originalBoostDC": 2,
+  "boostDuringRun": 0,
+  "cpuHardCapPercent": 75,
+  "scenarioWorkers": 24,
+  "evScenarioSelection": "median from same 128-candidate pool",
+  "serviceDate": "2024-04-02",
+  "commandCount": 128,
+  "outputDir": "execute_results/bid_banks/probe_aemo_bess_1ev_median_20260924",
+  "processId": 2400,
+  "completedAt": null,
+  "exitCode": null,
+  "error": null,
+  "updatedAt": "2026-09-24T01:49:32.6784933+09:00",
+  "stdout": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_bank_runs\\ev1_probe_20260924\\probe.stdout.log",
+  "stderr": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_bank_runs\\ev1_probe_20260924\\probe.stderr.log"
+}

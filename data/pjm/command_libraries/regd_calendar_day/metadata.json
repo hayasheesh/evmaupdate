@@ -1,0 +1,193 @@
+{
+  "build_complete": true,
+  "bank_ready": false,
+  "regime": "pjm_regd",
+  "source_kind": "PJM RTO regulation signal RegD (Dynamic), normalized to each resource regulation capability",
+  "source": "https://www.pjm.com/-/media/DotCom/markets-ops/ancillary/rto-regulation-signal-data.ashx",
+  "plan": "none; the signal is the deviation from the resource regulation midpoint",
+  "sampling": "value of the 2-second signal at each five-minute point of the local calendar day; DST change days excluded",
+  "reference": "zero",
+  "normalization": "fixed width 1 (the signal is already in units of the resource regulation capability)",
+  "clipping": false,
+  "interpolation_or_fill": "none; days with a missing five-minute point are excluded",
+  "partition_policy": "whole local calendar dates; within each calendar month consecutive 60/20/20 blocks",
+  "partition_date_ranges": {
+    "2024-03": {
+      "train": [
+        "2024-03-01",
+        "2024-03-19"
+      ],
+      "validation": [
+        "2024-03-20",
+        "2024-03-25"
+      ],
+      "test": [
+        "2024-03-26",
+        "2024-03-31"
+      ]
+    },
+    "2024-04": {
+      "train": [
+        "2024-04-01",
+        "2024-04-18"
+      ],
+      "validation": [
+        "2024-04-19",
+        "2024-04-24"
+      ],
+      "test": [
+        "2024-04-25",
+        "2024-04-30"
+      ]
+    },
+    "2024-05": {
+      "train": [
+        "2024-05-01",
+        "2024-05-18"
+      ],
+      "validation": [
+        "2024-05-19",
+        "2024-05-24"
+      ],
+      "test": [
+        "2024-05-25",
+        "2024-05-31"
+      ]
+    },
+    "2024-06": {
+      "train": [
+        "2024-06-01",
+        "2024-06-18"
+      ],
+      "validation": [
+        "2024-06-19",
+        "2024-06-24"
+      ],
+      "test": [
+        "2024-06-25",
+        "2024-06-30"
+      ]
+    },
+    "2024-07": {
+      "train": [
+        "2024-07-01",
+        "2024-07-18"
+      ],
+      "validation": [
+        "2024-07-19",
+        "2024-07-24"
+      ],
+      "test": [
+        "2024-07-25",
+        "2024-07-31"
+      ]
+    },
+    "2024-08": {
+      "train": [
+        "2024-08-01",
+        "2024-08-18"
+      ],
+      "validation": [
+        "2024-08-19",
+        "2024-08-24"
+      ],
+      "test": [
+        "2024-08-25",
+        "2024-08-31"
+      ]
+    },
+    "2024-09": {
+      "train": [
+        "2024-09-01",
+        "2024-09-18"
+      ],
+      "validation": [
+        "2024-09-19",
+        "2024-09-24"
+      ],
+      "test": [
+        "2024-09-25",
+        "2024-09-30"
+      ]
+    },
+    "2024-10": {
+      "train": [
+        "2024-10-01",
+        "2024-10-18"
+      ],
+      "validation": [
+        "2024-10-19",
+        "2024-10-24"
+      ],
+      "test": [
+        "2024-10-25",
+        "2024-10-31"
+      ]
+    },
+    "2024-11": {
+      "train": [
+        "2024-11-01",
+        "2024-11-18"
+      ],
+      "validation": [
+        "2024-11-19",
+        "2024-11-24"
+      ],
+      "test": [
+        "2024-11-25",
+        "2024-11-30"
+      ]
+    },
+    "2024-12": {
+      "train": [
+        "2024-12-01",
+        "2024-12-18"
+      ],
+      "validation": [
+        "2024-12-19",
+        "2024-12-24"
+      ],
+      "test": [
+        "2024-12-25",
+        "2024-12-31"
+      ]
+    },
+    "2025-01": {
+      "train": [
+        "2025-01-01",
+        "2025-01-18"
+      ],
+      "validation": [
+        "2025-01-19",
+        "2025-01-24"
+      ],
+      "test": [
+        "2025-01-25",
+        "2025-01-31"
+      ]
+    },
+    "2025-02": {
+      "train": [
+        "2025-02-01",
+        "2025-02-16"
+      ],
+      "validation": [
+        "2025-02-17",
+        "2025-02-22"
+      ],
+      "test": [
+        "2025-02-23",
+        "2025-02-28"
+      ]
+    }
+  },
+  "files": {
+    "train": 213,
+    "validation": 72,
+    "test": 78
+  },
+  "excluded_days": {
+    "dst_change_day": 2
+  },
+  "steps_beyond_width": 6067
+}

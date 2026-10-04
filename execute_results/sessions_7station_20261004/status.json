@@ -1,0 +1,51 @@
+{
+  "project": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE",
+  "started_at": "2026-10-04T18:45:40",
+  "orchestrator_pid": 18896,
+  "power_settings_touched": false,
+  "banks": {
+    "aemo": {
+      "state": "stopped",
+      "started_at": "2026-10-04T18:45:40",
+      "pids": [
+        39644,
+        4064
+      ]
+    },
+    "ercot": {
+      "state": "stopped",
+      "started_at": "2026-10-04T18:45:40",
+      "pids": [
+        18832,
+        1524
+      ]
+    },
+    "gb": {
+      "state": "pending"
+    },
+    "pjm": {
+      "state": "pending"
+    }
+  },
+  "trainings": {
+    "aemo": {
+      "state": "pending"
+    },
+    "ercot": {
+      "state": "pending"
+    },
+    "gb": {
+      "state": "pending"
+    },
+    "pjm": {
+      "state": "pending"
+    },
+    "ercot_maddpg": {
+      "state": "pending"
+    }
+  },
+  "stage": "stopped",
+  "updated_at": "2026-10-04T20:17:42",
+  "stopped_at": "2026-10-04T20:18:46",
+  "stop_reason": "7-station minimum bid changed from 500 kW to 250 kW; banks built at 500 kW are not used"
+}

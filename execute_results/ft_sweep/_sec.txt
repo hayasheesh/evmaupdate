@@ -1,0 +1,54 @@
+ heterogeneity is treated as a
+deployment motivation and architectural consideration rather
+than as an explicitly enforced closed-loop constraint; never-
+theless, the station-based formulation is designed so that such
+limits can be incorporated naturally in a deployment-oriented
+extension.
+The main contributions of this paper are as follows.
+•Development of aggregator-to-station hierarchical
+MARL control for EV VPPs under mobility con-
+straints, and comparison with alternative control
+methods.We formulate EV VPP control as a two-
+level architecture consisting of an aggregator layer and
+a station layer. The aggregator relays the TSO-issued
+dispatch signal to all stations, and each charging station
+is modeled as an agent whose policy determines charger-
+level charging/discharging commands for its connected
+EVs using only the broadcast dispatch signal and local
+observations. The realized station power and fleet power
+are the sums of these local decisions, enabling decen-
+tralized execution without online global optimization.
+The effectiveness of the proposed method is evaluated
+against a centralized myopic LP controller, a centralized
+single-agent SAC controller, and a fully decentralized
+DDPG controller.
+•A mixed local/global critic design for balancing-
+market tracking and user-side charging demand.
+Inspired by the decomposed-critic idea in DE-
+MADDPG [19], we introduce a mixed-critic design
+in which a local critic evaluates station-level user-side
+charging quality and a global critic evaluates fleet-
+wide dispatch tracking. Their gradient signals are com-
+bined in the actor update to provide a structured credit-
+assignment mechanism for the dual-objective EV VPP
+setting.
+•An S2-motivated case study with separate computation-
+time and field-latency discussion.Using open data
+and a simulation environment with 50 EV chargers, we
+evaluate dispatch tracking and Target SoC satisfaction
+under requirements relevant to the Secondary 2 (S2)
+product in Japan’s balancing market. We then separate
+aggregator-side online computation from information
+and communication technology (ICT) / control-plane
+latency, and discuss practical response-time feasibility
+using field measurements obtained with a practical dis-
+tributed energy resource (DER) remote-control platform
+used in Japan.
+II. LITERATURE REVIEW
+Related work is summarized in Table 1. Rather than classi-
+fying prior studies by an abstract comparison axis, the table
+groups them into concrete research strands and states, for each
+strand, what has already been achieved and what still remains
+mismatched with the present setting. The detailed discussion
+below follows the same logic: the first three strands are close
+t

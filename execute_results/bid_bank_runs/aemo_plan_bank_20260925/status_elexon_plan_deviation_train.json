@@ -1,0 +1,13 @@
+﻿{
+    "signalSet":  "elexon_plan_deviation",
+    "split":  "train",
+    "dayWorkers":  7,
+    "scenarioWorkersPerDay":  4,
+    "cpuRateBasisPoints":  3125,
+    "powerSettingsTouched":  false,
+    "command":  "python tools/build_training_bid_bank.py --split train --days 25 --train-split-count 25 --paired-train-days 25 --paired-test-days 5 --workers 7 --scenario-workers 4",
+    "startedAt":  "2026-09-25T18:46:46.7714365+09:00",
+    "completedAt":  "2026-09-26T02:20:54.0790736+09:00",
+    "exitCode":  0,
+    "pid":  36572
+}

@@ -1,0 +1,10 @@
+この実行結果は利用者の指示により保存する。1000 エピソード未満でも整理・削除の対象にしない。
+
+実行名: prod_aemoplan_AB_rule_floor_7station_20260929_115847
+停止時の学習回数: 872 エピソード
+最終 exact checkpoint: resume/training_state_ep872.pth
+最後の定期検証: TEST860（追従率 86.82%、SoC 達成率 100.00%、合計 186.82）
+872 回時点の行動器は別途検証していない。
+学習回数に関する研究上の分類と、この実行結果を保存する指示は別である。
+
+複製先: C:\Users\admin\Desktop\EVMALOCALUPDATE_PRESERVED\prod_aemoplan_AB_rule_floor_7station_20260929_115847

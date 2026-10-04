@@ -1,0 +1,25 @@
+削除しない実行結果
+
+prod_aemoplan_AB_rule_floor_7station_20260929_115847
+停止時の学習回数: 872 エピソード。1000 エピソード未満でも削除しない。
+原本: C:\Users\admin\Desktop\EVMALOCALUPDATE\archive\prod_aemoplan_AB_rule_floor_7station_20260929_115847
+独立した複製: C:\Users\admin\Desktop\EVMALOCALUPDATE_PRESERVED\prod_aemoplan_AB_rule_floor_7station_20260929_115847
+最終 exact checkpoint: resume\training_state_ep872.pth
+checkpoint SHA-256: 452695f8dbed6cb4a8ad1cb5dd73b486505cd229f31b4ee840193f9daf1a8a68
+
+aemo_256cmd_3ev_20260929_partial
+2026-09-29 22:03 JST に利用者の指示で停止。学習用 25 日のうち 16 日の入札ファイルと完了記録がそろっている。検証用 5 日は未着手。
+原本: C:\Users\admin\Desktop\EVMALOCALUPDATE\execute_results\bid_banks\train_25_minmedmax_3of128ev_256cmd_all_commands_aemo_plan_deviation
+実行記録: C:\Users\admin\Desktop\EVMALOCALUPDATE\execute_results\bid_bank_runs\aemo_256cmd_3ev_20260929
+独立した複製: C:\Users\admin\Desktop\EVMALOCALUPDATE_PRESERVED\bid_256cmd_3ev_20260929_partial
+完了済み 16 日は再開時に再利用する。未完了日の進捗ログも保存している。
+
+aemo_256cmd_3ev_20260930_complete
+2026-09-30 07:30 JST に学習用 25 日・検証用 5 日の入札バンクが完成。
+原本: C:\Users\admin\Desktop\EVMALOCALUPDATE\execute_results\bid_banks\train_25_minmedmax_3of128ev_256cmd_all_commands_aemo_plan_deviation
+原本: C:\Users\admin\Desktop\EVMALOCALUPDATE\execute_results\bid_banks\validation_5_minmedmax_3of128ev_256cmd_all_commands_aemo_plan_deviation
+独立した複製: C:\Users\admin\Desktop\EVMALOCALUPDATE_PRESERVED\bid_256cmd_3ev_20260930_complete
+
+C:\Users\admin\Desktop\EVMALOCALUPDATE_PRESERVED\prod_aemoplan_AB_7station_20260926_210314_ep1940_before_resume2500 : episode 1940 state before resuming to 2500; retain.
+
+C:\Users\admin\Desktop\EVMALOCALUPDATE\archive\prod_aemoplan_AB_7station_20260926_210314 -> C:\Users\admin\Desktop\EVMALOCALUPDATE_PRESERVED\prod_aemoplan_AB_7station_20260926_210314_ep2207_stopped (ep2207, complete hash-verified result and execution audit)

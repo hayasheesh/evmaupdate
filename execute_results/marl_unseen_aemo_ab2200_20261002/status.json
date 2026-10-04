@@ -1,0 +1,18 @@
+﻿{
+    "model":  "prod_aemoplan_AB_7station",
+    "checkpointEpisode":  2200,
+    "evaluationPipeline":  "marl_raw",
+    "bidDays":  5,
+    "commandsPerDay":  24,
+    "evSeedsPerCommand":  3,
+    "excludeCommandsDrawnInPretrain":  true,
+    "cpuRateBasisPoints":  2500,
+    "cudaVisibleDevices":  "-1",
+    "startedAt":  "2026-10-02T00:12:55.2182845+09:00",
+    "completedAt":  "2026-10-02T00:41:44.0977949+09:00",
+    "launcherPid":  36296,
+    "pid":  39444,
+    "stage":  "complete",
+    "exitCode":  0,
+    "error":  null
+}

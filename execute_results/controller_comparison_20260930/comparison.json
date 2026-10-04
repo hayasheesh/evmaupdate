@@ -1,0 +1,80 @@
+{
+  "matched_ev_arrival_statistics": true,
+  "seed": 910000,
+  "ev_summary_records": [
+    107,
+    103,
+    111,
+    98,
+    110
+  ],
+  "departing_evs": 405,
+  "rule_raw_recount": {
+    "assessed": 918,
+    "passed": 886
+  },
+  "rule_by_day": [
+    {
+      "date": "2024-04-01",
+      "assessed": 186,
+      "passed": 185,
+      "tracking_pct": 99.46236559139786
+    },
+    {
+      "date": "2024-04-06",
+      "assessed": 180,
+      "passed": 161,
+      "tracking_pct": 89.44444444444444
+    },
+    {
+      "date": "2024-04-07",
+      "assessed": 198,
+      "passed": 186,
+      "tracking_pct": 93.93939393939394
+    },
+    {
+      "date": "2024-08-01",
+      "assessed": 180,
+      "passed": 180,
+      "tracking_pct": 100.0
+    },
+    {
+      "date": "2024-08-03",
+      "assessed": 174,
+      "passed": 174,
+      "tracking_pct": 100.0
+    }
+  ],
+  "comparison": [
+    {
+      "controller": "MARL raw",
+      "episode": 1940,
+      "force": false,
+      "central": false,
+      "bess": false,
+      "tracking_pct": 96.18736383442265,
+      "soc_pct": 84.05296670250345,
+      "sum": 180.2403305369261
+    },
+    {
+      "controller": "MARL raw",
+      "episode": 2060,
+      "force": false,
+      "central": false,
+      "bess": false,
+      "tracking_pct": 94.98910675381264,
+      "soc_pct": 81.92793165904958,
+      "sum": 176.9170384128622
+    },
+    {
+      "controller": "Actor0 + force + central",
+      "episode": null,
+      "force": true,
+      "central": true,
+      "bess": false,
+      "tracking_pct": 96.51416122004358,
+      "soc_pct": 100.0,
+      "sum": 196.51416122004358
+    }
+  ]
+}

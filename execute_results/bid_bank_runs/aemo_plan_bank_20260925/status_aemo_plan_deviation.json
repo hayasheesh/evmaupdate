@@ -1,0 +1,12 @@
+﻿{
+    "signalSet":  "aemo_plan_deviation",
+    "dayWorkers":  3,
+    "scenarioWorkersPerDay":  8,
+    "cpuRateBasisPoints":  8750,
+    "powerSettingsTouched":  false,
+    "command":  "python tools/build_all_upper_bid_banks.py --workers 3 --activation-signal-set aemo_plan_deviation",
+    "startedAt":  "2026-09-25T10:19:03.2089268+09:00",
+    "completedAt":  "2026-09-25T15:24:53.2864072+09:00",
+    "exitCode":  1,
+    "pid":  25916
+}

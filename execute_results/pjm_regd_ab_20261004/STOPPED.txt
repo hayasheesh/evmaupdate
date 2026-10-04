@@ -1,0 +1,2 @@
+2026-10-04 10:57 に利用者の依頼で学習を止めた（STOP_REQUESTED）。383回目で完全な状態を保存してある（archive/prod_pjmregd_AB_7station_20261004_044902/resume/latest.json）。
+chain_status.json の stage は complete になっているが、2000回には届いていない。学習の処理が終了コード0で終わったため、そう書かれた。

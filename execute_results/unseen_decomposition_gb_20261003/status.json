@@ -1,0 +1,28 @@
+﻿{
+    "cpuRateBasisPoints":  2500,
+    "gbEpisode":  1240,
+    "startedAt":  "2026-10-03T20:29:44.8294814+09:00",
+    "completedAt":  "2026-10-03T21:38:30.1577262+09:00",
+    "tasks":  {
+                  "lp_certify":  {
+                                     "pid":  40556,
+                                     "exitCode":  0
+                                 },
+                  "gb_marl_raw":  {
+                                      "pid":  46356,
+                                      "exitCode":  0
+                                  },
+                  "gb_marl_force":  {
+                                        "pid":  18692,
+                                        "exitCode":  0
+                                    },
+                  "rule":  {
+                               "pid":  36484,
+                               "exitCode":  0
+                           },
+                  "central_lp_force":  {
+                                           "pid":  2964,
+                                           "exitCode":  0
+                                       }
+              }
+}

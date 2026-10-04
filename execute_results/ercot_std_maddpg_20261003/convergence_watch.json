@@ -1,0 +1,23 @@
+{
+  "started_at": "2026-10-03T23:51:36",
+  "slope_limit_per_100": 1.0,
+  "min_episodes": 1000,
+  "window": 400,
+  "stage": "learner_stopped",
+  "alarms": [],
+  "last_check": "2026-10-04T10:52:51",
+  "last_scalars": {
+    "q": [
+      303,
+      -1.0564452409744263
+    ],
+    "loss": [
+      303,
+      1.4910516738891602
+    ]
+  },
+  "last_test_episode": 300,
+  "last_test_sum": 114.161220043573,
+  "slope_per_100": 12.047670920219925,
+  "tests_in_window": 15
+}

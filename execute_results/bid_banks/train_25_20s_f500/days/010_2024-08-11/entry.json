@@ -1,0 +1,33 @@
+{
+  "index": 10,
+  "service_date": "2024-08-11",
+  "forecast_seed": 83090,
+  "source_path": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\input.demand_fromPJM\\output_5min\\day_2024-08-11.csv",
+  "bid_path": "days\\010_2024-08-11\\fixed_bid.pkl",
+  "artifact_dir": "days\\010_2024-08-11\\results",
+  "summary": {
+    "service_date": "2024-08-11",
+    "forecast_seed": 83090,
+    "method": "outer_participation_colgen_benders_certified",
+    "activation_mode": "aemo_nem_dispatch_minus_gate_closure_plan",
+    "activation_scenarios": 256,
+    "bid_status": "outer_participation_colgen_benders_certified",
+    "bid_solved": true,
+    "bid_feasible": true,
+    "bid_objective_capacity_kw_block": 199564.61954067354,
+    "submitted_mean_up_kw": 2135.741839391658,
+    "submitted_mean_down_kw": 2021.8544010390408,
+    "submitted_participating_blocks": 48,
+    "awarded_mean_up_kw": 2135.741839391658,
+    "awarded_mean_down_kw": 2021.8544010390408,
+    "bid_mean_baseline_kw": 256.2049862423061,
+    "bid_mean_up_kw": 2135.741839391658,
+    "bid_mean_down_kw": 2021.8544010390408,
+    "bid_max_up_kw": 3684.4933598836265,
+    "bid_max_down_kw": 3715.100025177002,
+    "bid_participating_blocks": 48,
+    "bid_global_tracking_rate": 1.0,
+    "target_min_kw": -3423.9921875,
+    "target_max_kw": 3906.0732421875
+  }
+}

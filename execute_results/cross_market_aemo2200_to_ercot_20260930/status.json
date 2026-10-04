@@ -1,0 +1,19 @@
+{
+  "model": "prod_aemoplan_AB_7station",
+  "checkpointEpisode": 2200,
+  "trainingMarket": "aemo_plan_deviation",
+  "evaluationMarket": "ercot_plan_deviation",
+  "evaluationPipeline": "marl_raw",
+  "bidDays": 5,
+  "commandsPerDay": 24,
+  "evSeedsPerCommand": 3,
+  "cpuRateBasisPoints": 2500,
+  "cudaVisibleDevices": "",
+  "startedAt": "2026-09-30T23:18:35.3657633+09:00",
+  "completedAt": "2026-09-30T23:23:10.0458757+09:00",
+  "launcherPid": 36832,
+  "pid": 13444,
+  "stage": "failed",
+  "exitCode": 1,
+  "error": "evaluator failed with exit code 1"
+}

@@ -1,0 +1,1 @@
+﻿2026-10-02 16:06 chain.ps1 を止めた（検証用入札の計算 pid 46352 は続行）。AB 学習は start_marl_after_gpu_free.ps1 が、入札の完成と利用者の GPU 作業（okazu_vc.py, pid 40144/44112）の終了を待って始める。status.json は chain.ps1 の最後の状態のまま。

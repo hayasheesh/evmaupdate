@@ -1,0 +1,54 @@
+{
+  "episodes": [
+    20,
+    40
+  ],
+  "local_rewards": [
+    0.06582277813441427,
+    0.06606389862260849
+  ],
+  "global_rewards": [
+    -0.9866000962533084,
+    -0.9416256106521221
+  ],
+  "soc_miss_count": [
+    5.700240008682362,
+    4.581501399857833
+  ],
+  "avg_soc_deficit": [
+    5.717841100709496,
+    12.75295868575191
+  ],
+  "surplus_absorption_rate": [
+    44.126531589840496,
+    46.036314528406436
+  ],
+  "supply_cooperation_rate": [
+    0.0,
+    1.2681159420289854
+  ],
+  "departing_evs": [
+    1352,
+    1352
+  ],
+  "departing_evs_soc_met": [
+    1275,
+    1290
+  ],
+  "surplus_steps": [
+    1283,
+    1283
+  ],
+  "surplus_within_narrow": [
+    564,
+    589
+  ],
+  "shortage_steps": [
+    145,
+    145
+  ],
+  "shortage_within_narrow": [
+    0,
+    2
+  ]
+}

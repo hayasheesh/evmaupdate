@@ -1,0 +1,58 @@
+{
+ "mode": "20s",
+ "stations": 20,
+ "cuda": true,
+ "sections": {
+  "act": {
+   "n": 580,
+   "mean_ms": 12.613,
+   "p50_ms": 12.279,
+   "p99_ms": 19.724,
+   "max_ms": 20.419
+  },
+  "alloc": {
+   "n": 580,
+   "mean_ms": 13.863,
+   "p50_ms": 13.052,
+   "p99_ms": 25.254,
+   "max_ms": 27.224
+  },
+  "bess": {
+   "n": 580,
+   "mean_ms": 0.087,
+   "p50_ms": 0.084,
+   "p99_ms": 0.154,
+   "max_ms": 0.199
+  },
+  "full_step": {
+   "n": 580,
+   "mean_ms": 48.572,
+   "p50_ms": 46.455,
+   "p99_ms": 75.587,
+   "max_ms": 87.582
+  },
+  "begin_step": {
+   "n": 580,
+   "mean_ms": 6.676,
+   "p50_ms": 6.189,
+   "p99_ms": 12.048,
+   "max_ms": 15.151
+  }
+ },
+ "control_path_ms": {
+  "n": 580,
+  "mean": 26.563,
+  "p99": 42.938,
+  "max": 45.095
+ },
+ "mode_flips_per_step": {
+  "n": 579,
+  "mean": 27.25,
+  "p99": 58.0,
+  "max": 60
+ },
+ "active_ev_setpoints_per_step": {
+  "mean": 59.8,
+  "max": 62
+ }
+}

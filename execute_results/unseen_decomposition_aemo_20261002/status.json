@@ -1,0 +1,19 @@
+﻿{
+    "cpuRateBasisPoints":  2500,
+    "startedAt":  "2026-10-02T00:59:14.8277604+09:00",
+    "completedAt":  "2026-10-02T01:43:52.0142976+09:00",
+    "tasks":  {
+                  "lp_certify":  {
+                                     "pid":  38968,
+                                     "exitCode":  1
+                                 },
+                  "rule":  {
+                               "pid":  40440,
+                               "exitCode":  0
+                           },
+                  "central_lp":  {
+                                     "pid":  37524,
+                                     "exitCode":  0
+                                 }
+              }
+}

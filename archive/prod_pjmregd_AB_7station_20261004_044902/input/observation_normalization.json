@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "source": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_minmedmax_3of128ev_128cmd_all_commands_pjm_regd_phase_shift",
+  "quantile": 0.95,
+  "demand_center_kw": 0.0,
+  "demand_scale_kw": 774.501870727539,
+  "instruction_scale_scale_kw": 1076.6800537109375,
+  "sample_counts": {
+    "demand_kw": 921600,
+    "instruction_scale_kw": 921600
+  },
+  "bank_dates": 25,
+  "bank_scenario_episodes": 3200
+}

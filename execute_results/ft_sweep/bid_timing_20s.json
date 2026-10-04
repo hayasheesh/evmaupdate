@@ -1,0 +1,13 @@
+{
+  "stations": 20,
+  "scenario_workers": 32,
+  "seconds": 446.9,
+  "ev_sessions": 367,
+  "minimum_bid_kw": 500.0,
+  "physical_max_kw": 6271.3,
+  "capacity_kw_block": 208005.4,
+  "participating_blocks": 48,
+  "mean_up_kw": 2179.0,
+  "mean_down_kw": 2154.5,
+  "oracle_solver_counts": "summaryに round_rows なし"
+}

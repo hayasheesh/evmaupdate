@@ -1,0 +1,2618 @@
+{
+  "source": "fixed_upper_bid",
+  "method": "outer_participation_colgen_benders_certified",
+  "activation_mode": "aemo_nem_dispatch_minus_gate_closure_plan",
+  "activation_scenarios": 256,
+  "activation_scenario_sources": [
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-11-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-09-16.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-04-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-02-13.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-03-25.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-02-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-06-04.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-03-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-04-13.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-01-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-05-25.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-06-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-05-17.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-01-01.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2025-12-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2025-12-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-03-04.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-04-04.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-06-16.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-01-25.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-10-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-01-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-03-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-06-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-04-17.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-01-15.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-03-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-01-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-02-02.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2025-11-02.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2025-08-25.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-10-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-06-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-05-15.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-03-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-04-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2025-09-07.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-04-13.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2025-11-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-06-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2025-12-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-02-02.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-07-30.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-06-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2025-08-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-04-02.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-12-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2025-12-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-07-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-01-18.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-03-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-01-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-05-15.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-07-15.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-03-03.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2025-10-30.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-05-13.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-08-11.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2025-09-04.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-09-01.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-05-13.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-12-17.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-07-03.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2025-08-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-02-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-07-03.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-02-13.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2025-12-11.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2025-09-28.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-08-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-01-01.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-06-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-05-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-05-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-01-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2025-12-25.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2025-11-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-04-04.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2025-09-07.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-02-18.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-05-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-07-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2025-09-01.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-07-03.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-06-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2025-08-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-05-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-07-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2025-08-11.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-10-15.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-06-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2025-09-11.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-05-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2025-12-30.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-02-02.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-06-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-06-14.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-06-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-03-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2025-11-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-05-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-06-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2025-10-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-03-18.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2025-12-04.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2025-12-30.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-03-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-05-04.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-03-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2025-11-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-06-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-11-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-01-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-04-13.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-07-15.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2025-11-11.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2025-12-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-07-14.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-06-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2025-11-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-01-02.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2025-12-30.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-06-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-06-03.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-12-04.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-05-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-02-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2025-08-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-10-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2025-12-04.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-02-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-04-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-02-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-01-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2025-09-28.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-06-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-08-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-01-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2025-11-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-06-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-10-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2025-11-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2025-12-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2025-11-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-07-30.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-11-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-06-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-03-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-05-17.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2025-10-04.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-05-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-06-23.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2025-12-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-06-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-06-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2025-11-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-03-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2025-11-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-06-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-03-23.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-01-18.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-05-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-03-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2025-12-11.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-08-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-01-02.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-07-03.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-06-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-06-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-01-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-01-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-02-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-01-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2025-09-28.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-02-13.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-02-02.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-03-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-04-13.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-04-13.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-05-17.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-11-01.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-11-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-03-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-08-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-02-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-02-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-04-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-03-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-04-11.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-07-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-05-04.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-06-23.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2025-09-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-06-16.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-11-02.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-07-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2025-12-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-11-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-02-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-06-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-05-17.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-06-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-04-16.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-02-18.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-06-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-04-02.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2025-09-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-03-15.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-04-13.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2025-09-16.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-07-30.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-05-11.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-02-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-02-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-01-02.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2025-08-08.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2025-09-01.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-03-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2025-11-01.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-12-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-08-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-04-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-11-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-03-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-02-18.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-06-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-12-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2025-09-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-02-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2025-11-14.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-03-25.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-01-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-03-04.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-01-01.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-12-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-07-14.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2025-12-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-03-15.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-06-28.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-05-07.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-01-02.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-05-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2025-08-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2025-12-17.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-06-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2025-12-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-09-28.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2025-12-17.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-07-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2025-11-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-03-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2025-11-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-03-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-11-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-10-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2025-09-11.csv"
+  ],
+  "forecast_seed": 82081,
+  "bid_solved": true,
+  "bid_feasible": true,
+  "bid_status": "outer_participation_colgen_benders_certified",
+  "bid_objective_capacity_kw_block": 27694.416829751404,
+  "submitted_mean_up_kw": 292.0538085826492,
+  "submitted_mean_down_kw": 284.9132087038384,
+  "submitted_max_up_kw": 716.0879987080891,
+  "submitted_max_down_kw": 767.7000045776367,
+  "submitted_participating_blocks": 27,
+  "awarded_mean_up_kw": 292.0538085826492,
+  "awarded_mean_down_kw": 284.9132087038384,
+  "awarded_max_up_kw": 716.0879987080891,
+  "awarded_max_down_kw": 767.7000045776367,
+  "market_award": {
+    "method": "full_award_assumption",
+    "submitted_blocks": 27,
+    "awarded_blocks": 27,
+    "sampled_awarded_block_rate": 1.0,
+    "sampled_awarded_quantity_rate": 1.0,
+    "awarded_block_indices": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ]
+  },
+  "bid_mean_baseline_kw": -867.6684368347496,
+  "bid_mean_up_kw": 292.0538085826492,
+  "bid_mean_down_kw": 284.9132087038384,
+  "bid_max_up_kw": 716.0879987080891,
+  "bid_max_down_kw": 767.7000045776367,
+  "bid_participating_blocks": 27,
+  "bid_participating_block_indices": [
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47
+  ],
+  "bid_global_tracking_rate": 1.0,
+  "target_min_kw": -514.75634765625,
+  "target_max_kw": 692.847412109375,
+  "regulation_abs_mean_kw": 14.268805503845215,
+  "activation_scenario_index": 0,
+  "activation_scenario_name": "aemo_nem_dispatch_minus_gate_closure_plan_00",
+  "activation_scenario_source": "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-11-24.csv",
+  "activation_scenario_source_date": "2025-11-24",
+  "activation_scenario_source_bmu": "HPR1",
+  "service_date": "2024-08-10",
+  "result": {
+    "awarded_bid_method": "outer_participation_colgen_benders_certified",
+    "awarded_bid_solved": true,
+    "awarded_bid_feasible": true,
+    "awarded_bid_status": "outer_participation_colgen_benders_certified",
+    "awarded_bid_objective_capacity_kw_block": 27694.416829751404,
+    "awarded_bid_n_scenarios": 256,
+    "awarded_bid_mean_baseline_kw": -867.6684368347496,
+    "awarded_bid_mean_up_kw": 292.0538085826492,
+    "awarded_bid_mean_down_kw": 284.9132087038384,
+    "awarded_bid_up_pass_rate": 1.0,
+    "awarded_bid_down_pass_rate": 1.0,
+    "awarded_bid_global_tracking_rate": 1.0,
+    "awarded_bid_soc_hit_rate": 1.0
+  },
+  "award_metadata": {
+    "method": "full_award_assumption",
+    "submitted_blocks": 27,
+    "awarded_blocks": 27,
+    "sampled_awarded_block_rate": 1.0,
+    "sampled_awarded_quantity_rate": 1.0,
+    "awarded_block_indices": [
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ]
+  },
+  "bid_feasibility": {
+    "method": "outer_participation_colgen_benders_certified",
+    "condition": "outer_participation_colgen_benders",
+    "minimum_bid_quantity_kw": 500.0,
+    "minimum_bid_quantity_mode": "configured_floor",
+    "award_assumption": "full_award",
+    "assessment_band_fraction": 0.1,
+    "ev_information_regime": "clairvoyant",
+    "all_command_scenarios": true,
+    "allowed_command_failures": 0,
+    "assessment_i_capability_policy": "reviewed_fixed_ev_bank_30min",
+    "assessment_i_capability_ev_scenarios": 1,
+    "assessment_i_capability_duration_minutes": 30.0,
+    "apply_transition_band": false,
+    "per_block_baseline_search": true,
+    "per_block_delta_kw_quantity_search": true,
+    "directional_participation_search": true,
+    "initial_search_validation": {
+      "all_scenarios_ok": false,
+      "soc_all_ok": false,
+      "min_global_step_pass_rate": 0.0,
+      "reason": "uncertified outer-participation seed"
+    },
+    "initial_search_scenarios": 256,
+    "initial_search_ev_scenarios": 1,
+    "initial_search_activation_scenarios_per_ev": 256,
+    "initial_search_solver": "outer-participation-seed",
+    "initial_search_status": "optimal",
+    "initial_search_tracking_contract": "uncertified_seed",
+    "initial_search_n_binary_vars": 0,
+    "initial_search_runtime_s": 0.0,
+    "initial_search_stop_reason": "outer_participation_seed",
+    "initial_search_wall_clock_bound_result": false,
+    "submitted_up_participating_blocks": 25,
+    "submitted_down_participating_blocks": 24,
+    "submitted_up_nonzero_min_kw": 500.0,
+    "submitted_up_nonzero_max_kw": 716.0879987080891,
+    "submitted_down_nonzero_min_kw": 500.0,
+    "submitted_down_nonzero_max_kw": 767.7000045776367,
+    "bid_quantity_upper_bound": "configured_physical_limit",
+    "offered_capacity_kw_block": 27694.416829751404,
+    "mean_offered_capacity_kw": 576.9670172864876,
+    "initial_offered_capacity_kw_block": 39660.55131098429,
+    "joint_certification": {
+      "scenarios": 256,
+      "validation": {
+        "all_scenarios_ok": true,
+        "soc_all_ok": true,
+        "scenarios_without_a_dispatch": 0,
+        "scenarios_without_a_dispatch_names": [],
+        "min_global_step_pass_rate": 1.0,
+        "mean_global_step_pass_rate": 1.0,
+        "p10_global_step_pass_rate": 1.0,
+        "aggregate_global_step_pass_rate": 1.0,
+        "battery_peak_kw": 2.2737367544323206e-13,
+        "battery_energy_kwh": 0.0,
+        "battery_throughput_kwh_mean": 7.208354283842292e-14,
+        "min_up_step_pass_rate": 1.0,
+        "min_down_step_pass_rate": 1.0,
+        "min_idle_step_pass_rate": 1.0,
+        "participating_block_count": 27,
+        "participating_block_indices": [
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47
+        ],
+        "failed_block_frequency": {},
+        "up_delivery_ratio_by_block": {
+          "21": 0.7999999999999999,
+          "22": 0.7811629811629812,
+          "23": 1.0,
+          "24": 0.9000000000000001,
+          "25": 0.8535627526795642,
+          "26": 0.7588235292131487,
+          "27": 0.7714619882223603,
+          "28": 0.6869999999086499,
+          "29": 0.651328255570525,
+          "30": 0.8177524368694764,
+          "31": 0.768421052729086,
+          "32": 0.48333333333333334,
+          "33": 1.0,
+          "34": 1.0,
+          "37": 0.8564334904133333,
+          "38": 0.44340327611251285,
+          "39": 0.27915517551370117,
+          "40": 0.9,
+          "41": 0.8869281045751634,
+          "42": 0.8828367455287086,
+          "43": 0.5580000007031184,
+          "44": 0.31224137872951147,
+          "45": 0.8201754386043784,
+          "46": 0.7880904183679581,
+          "47": 0.32050000141373336
+        },
+        "down_delivery_ratio_by_block": {
+          "21": 0.28000000057599983,
+          "22": 0.18412087633368274,
+          "24": 0.24531182559796819,
+          "25": 0.20000000000000004,
+          "26": 0.29556650246305405,
+          "27": 0.19483870967741918,
+          "28": 0.3959356946726524,
+          "29": 0.15085402142020815,
+          "30": 0.20065187323976394,
+          "31": 0.12068965365636089,
+          "32": 0.39015151515151514,
+          "35": 0.5565753844454615,
+          "36": 0.35400000126719977,
+          "37": 0.33365384658934893,
+          "38": 0.38173076923076876,
+          "39": 0.3162162148671291,
+          "40": 0.45969107654741226,
+          "41": 0.2721212119256566,
+          "42": 0.21842105397127431,
+          "43": 0.28862068923705886,
+          "44": 0.4437888186529036,
+          "45": 0.2349978097559185,
+          "46": 0.22915729951501798,
+          "47": 0.2153846129704141
+        },
+        "mean_delivered_capacity_kw_block": 27694.4168297514,
+        "min_delivered_capacity_kw_block": 27694.416829751404,
+        "offered_capacity_kw_block": 27694.416829751404
+      },
+      "feedback": {
+        "enabled": true,
+        "method": "outer_participation_colgen_benders",
+        "scenario_feedback_complete": true,
+        "hard_lp_refit": {
+          "enabled": true,
+          "method": "outer_participation_colgen_benders_active_set",
+          "complete": true,
+          "stop_reason": "strict_pattern_certified",
+          "allowed_command_failures": 0,
+          "certification_scorer": "strict_frozen_bid_recourse",
+          "rounds": [
+            {
+              "round": 0,
+              "strict": {
+                "complete": false,
+                "stop_reason": "master_infeasible",
+                "cuts": 720,
+                "runtime_s": 180.2808512999909,
+                "oracle_runtime_s": 1323.7649132030201,
+                "scenario_oracle_time_limit_s": 180.0,
+                "scenario_oracle_timeouts": 0,
+                "colgen_cache_columns_per_ev": 12,
+                "direct_oracle_max_evs": 300,
+                "cached_columns_dropped": 0,
+                "cut_runtime_s": 0.0001460999483242631,
+                "exact_oracle_slowest_runtime_s": 0.7111508999951184,
+                "round_oracle_breakdown": [
+                  {
+                    "round": 0,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.7111508999951184
+                  },
+                  {
+                    "round": 1,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0793503999884706
+                  },
+                  {
+                    "round": 2,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07552290000603534
+                  },
+                  {
+                    "round": 3,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09643309999955818
+                  },
+                  {
+                    "round": 4,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08796860001166351
+                  },
+                  {
+                    "round": 5,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08971000000019558
+                  },
+                  {
+                    "round": 6,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09209349998855032
+                  },
+                  {
+                    "round": 7,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09251269997912459
+                  },
+                  {
+                    "round": 8,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08934690000023693
+                  },
+                  {
+                    "round": 9,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08952680000220425
+                  },
+                  {
+                    "round": 10,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.1548864000069443
+                  },
+                  {
+                    "round": 11,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09105439999257214
+                  },
+                  {
+                    "round": 12,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09194650000426918
+                  },
+                  {
+                    "round": 13,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09333560001687147
+                  },
+                  {
+                    "round": 14,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09293110002181493
+                  },
+                  {
+                    "round": 15,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09658510002191179
+                  },
+                  {
+                    "round": 16,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09532309998758137
+                  },
+                  {
+                    "round": 17,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08917439999640919
+                  },
+                  {
+                    "round": 18,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08957670000381768
+                  },
+                  {
+                    "round": 19,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08325190001050942
+                  },
+                  {
+                    "round": 20,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.1374292999971658
+                  },
+                  {
+                    "round": 21,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09321130000171252
+                  },
+                  {
+                    "round": 22,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0926632999908179
+                  },
+                  {
+                    "round": 23,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09050079999724403
+                  },
+                  {
+                    "round": 24,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09063500000047497
+                  },
+                  {
+                    "round": 25,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0868903000082355
+                  },
+                  {
+                    "round": 26,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09132200002204627
+                  },
+                  {
+                    "round": 27,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09033480001380667
+                  },
+                  {
+                    "round": 28,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09110920000239275
+                  },
+                  {
+                    "round": 29,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09567519999109209
+                  },
+                  {
+                    "round": 30,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.15329560000100173
+                  },
+                  {
+                    "round": 31,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08728969999356195
+                  },
+                  {
+                    "round": 32,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0916960000176914
+                  },
+                  {
+                    "round": 33,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09679619999951683
+                  },
+                  {
+                    "round": 34,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09168179999687709
+                  },
+                  {
+                    "round": 35,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08298899998771958
+                  },
+                  {
+                    "round": 36,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08723190001910552
+                  },
+                  {
+                    "round": 37,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08741060001193546
+                  },
+                  {
+                    "round": 38,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.089269999996759
+                  },
+                  {
+                    "round": 39,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08987070000148378
+                  },
+                  {
+                    "round": 40,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.14211380001506768
+                  },
+                  {
+                    "round": 41,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08520810000482015
+                  },
+                  {
+                    "round": 42,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09145099998568185
+                  },
+                  {
+                    "round": 43,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09006550000049174
+                  },
+                  {
+                    "round": 44,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08897000001161359
+                  },
+                  {
+                    "round": 45,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08706249998067506
+                  },
+                  {
+                    "round": 46,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0859745999914594
+                  },
+                  {
+                    "round": 47,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09139290000894107
+                  },
+                  {
+                    "round": 48,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0855722000123933
+                  },
+                  {
+                    "round": 49,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08559540001442656
+                  },
+                  {
+                    "round": 50,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.12912949998280965
+                  },
+                  {
+                    "round": 51,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09492030000546947
+                  },
+                  {
+                    "round": 52,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09183719998691231
+                  },
+                  {
+                    "round": 53,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0798903000249993
+                  },
+                  {
+                    "round": 54,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0777337999898009
+                  },
+                  {
+                    "round": 55,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07728299999143928
+                  },
+                  {
+                    "round": 56,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07774720000452362
+                  },
+                  {
+                    "round": 57,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07737919999635778
+                  },
+                  {
+                    "round": 58,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0748916000011377
+                  },
+                  {
+                    "round": 59,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08380580000812188
+                  },
+                  {
+                    "round": 60,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.13010530002065934
+                  },
+                  {
+                    "round": 61,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08429530001012608
+                  },
+                  {
+                    "round": 62,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08885229998850264
+                  },
+                  {
+                    "round": 63,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08550479999394156
+                  },
+                  {
+                    "round": 64,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08812910001142882
+                  },
+                  {
+                    "round": 65,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09029600000940263
+                  },
+                  {
+                    "round": 66,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08507020000251941
+                  },
+                  {
+                    "round": 67,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09349410000140779
+                  },
+                  {
+                    "round": 68,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08770989999175072
+                  },
+                  {
+                    "round": 69,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08772080001654103
+                  },
+                  {
+                    "round": 70,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.10438369997427799
+                  },
+                  {
+                    "round": 71,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.10507219997816719
+                  }
+                ],
+                "master_time_limit_scope": "",
+                "active_up_directions": 27,
+                "active_down_directions": 27,
+                "enforce_minimum_active_width": true,
+                "last_round_counts": {
+                  "feasible": 207,
+                  "infeasible": 49,
+                  "incomplete": 0
+                },
+                "incomplete_scenarios": []
+              },
+              "floor_relaxed_source": "strict_master_cuts",
+              "floor_relaxed": {
+                "complete": false,
+                "stop_reason": "reused_strict_feasibility_cuts",
+                "cuts": 720,
+                "runtime_s": 0.013174699997762218,
+                "oracle_runtime_s": 0.0,
+                "scenario_oracle_time_limit_s": null,
+                "scenario_oracle_timeouts": 0,
+                "colgen_cache_columns_per_ev": 0,
+                "direct_oracle_max_evs": 0,
+                "cached_columns_dropped": 0,
+                "cut_runtime_s": 0.0,
+                "exact_oracle_slowest_runtime_s": 0.0,
+                "round_oracle_breakdown": [],
+                "master_time_limit_scope": "",
+                "active_up_directions": 0,
+                "active_down_directions": 0,
+                "enforce_minimum_active_width": false,
+                "last_round_counts": {
+                  "feasible": 0,
+                  "infeasible": 0,
+                  "incomplete": 0
+                },
+                "incomplete_scenarios": []
+              },
+              "retired_directions": [
+                {
+                  "direction": "down",
+                  "block": 23,
+                  "previous_kw": 581.4000053405762,
+                  "floor_relaxed_kw": 0.0,
+                  "offered_capacity_loss_kw": 581.4000053405762,
+                  "loss_per_released_kw": 1.1628000106811522
+                }
+              ],
+              "retirement_candidate_count": 13,
+              "other_directions_reseeded_at_floor": 12
+            },
+            {
+              "round": 1,
+              "strict": {
+                "complete": false,
+                "stop_reason": "master_infeasible",
+                "cuts": 272,
+                "runtime_s": 66.3057669000118,
+                "oracle_runtime_s": 466.1597858018358,
+                "scenario_oracle_time_limit_s": 180.0,
+                "scenario_oracle_timeouts": 0,
+                "colgen_cache_columns_per_ev": 12,
+                "direct_oracle_max_evs": 300,
+                "cached_columns_dropped": 0,
+                "cut_runtime_s": 6.240009679459035e-05,
+                "exact_oracle_slowest_runtime_s": 0.7051365999795962,
+                "round_oracle_breakdown": [
+                  {
+                    "round": 0,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.7051365999795962
+                  },
+                  {
+                    "round": 1,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08784009999362752
+                  },
+                  {
+                    "round": 2,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08155149998492561
+                  },
+                  {
+                    "round": 3,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08467599999858066
+                  },
+                  {
+                    "round": 4,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08731259999331087
+                  },
+                  {
+                    "round": 5,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08565429999725893
+                  },
+                  {
+                    "round": 6,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08483269999851473
+                  },
+                  {
+                    "round": 7,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08874149998882785
+                  },
+                  {
+                    "round": 8,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08541810000315309
+                  },
+                  {
+                    "round": 9,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08023049999610521
+                  },
+                  {
+                    "round": 10,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.12243950000265613
+                  },
+                  {
+                    "round": 11,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.087353200011421
+                  },
+                  {
+                    "round": 12,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08023759999196045
+                  },
+                  {
+                    "round": 13,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08614260001922958
+                  },
+                  {
+                    "round": 14,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08016189999761991
+                  },
+                  {
+                    "round": 15,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08237170000211336
+                  },
+                  {
+                    "round": 16,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08092550002038479
+                  },
+                  {
+                    "round": 17,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08256849998724647
+                  },
+                  {
+                    "round": 18,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08014000000548549
+                  },
+                  {
+                    "round": 19,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08713840000564232
+                  },
+                  {
+                    "round": 20,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.11265630001435056
+                  },
+                  {
+                    "round": 21,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09788109999499284
+                  },
+                  {
+                    "round": 22,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09433709998847917
+                  },
+                  {
+                    "round": 23,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08944380001048557
+                  },
+                  {
+                    "round": 24,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09591030000592582
+                  },
+                  {
+                    "round": 25,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.090623099997174
+                  },
+                  {
+                    "round": 26,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08640640001976863
+                  },
+                  {
+                    "round": 27,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07191719999536872
+                  }
+                ],
+                "master_time_limit_scope": "",
+                "active_up_directions": 27,
+                "active_down_directions": 26,
+                "enforce_minimum_active_width": true,
+                "last_round_counts": {
+                  "feasible": 254,
+                  "infeasible": 2,
+                  "incomplete": 0
+                },
+                "incomplete_scenarios": []
+              },
+              "floor_relaxed_source": "strict_master_cuts",
+              "floor_relaxed": {
+                "complete": false,
+                "stop_reason": "reused_strict_feasibility_cuts",
+                "cuts": 272,
+                "runtime_s": 0.0044818999886047095,
+                "oracle_runtime_s": 0.0,
+                "scenario_oracle_time_limit_s": null,
+                "scenario_oracle_timeouts": 0,
+                "colgen_cache_columns_per_ev": 0,
+                "direct_oracle_max_evs": 0,
+                "cached_columns_dropped": 0,
+                "cut_runtime_s": 0.0,
+                "exact_oracle_slowest_runtime_s": 0.0,
+                "round_oracle_breakdown": [],
+                "master_time_limit_scope": "",
+                "active_up_directions": 0,
+                "active_down_directions": 0,
+                "enforce_minimum_active_width": false,
+                "last_round_counts": {
+                  "feasible": 0,
+                  "infeasible": 0,
+                  "incomplete": 0
+                },
+                "incomplete_scenarios": []
+              },
+              "retired_directions": [
+                {
+                  "direction": "down",
+                  "block": 34,
+                  "previous_kw": 500.0,
+                  "floor_relaxed_kw": 0.0,
+                  "offered_capacity_loss_kw": 500.0,
+                  "loss_per_released_kw": 1.0
+                }
+              ],
+              "retirement_candidate_count": 12,
+              "other_directions_reseeded_at_floor": 11
+            },
+            {
+              "round": 2,
+              "strict": {
+                "complete": false,
+                "stop_reason": "master_infeasible",
+                "cuts": 468,
+                "runtime_s": 119.31720059999498,
+                "oracle_runtime_s": 870.8460882977233,
+                "scenario_oracle_time_limit_s": 180.0,
+                "scenario_oracle_timeouts": 0,
+                "colgen_cache_columns_per_ev": 12,
+                "direct_oracle_max_evs": 300,
+                "cached_columns_dropped": 0,
+                "cut_runtime_s": 9.81000775936991e-05,
+                "exact_oracle_slowest_runtime_s": 0.6681363999960013,
+                "round_oracle_breakdown": [
+                  {
+                    "round": 0,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.6681363999960013
+                  },
+                  {
+                    "round": 1,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07318950002081692
+                  },
+                  {
+                    "round": 2,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07172529998933896
+                  },
+                  {
+                    "round": 3,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.06986720001441427
+                  },
+                  {
+                    "round": 4,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07561289999284782
+                  },
+                  {
+                    "round": 5,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0759437000087928
+                  },
+                  {
+                    "round": 6,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08042469999054447
+                  },
+                  {
+                    "round": 7,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07821360000525601
+                  },
+                  {
+                    "round": 8,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07943230000091717
+                  },
+                  {
+                    "round": 9,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08244860000559129
+                  },
+                  {
+                    "round": 10,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.12198440000065602
+                  },
+                  {
+                    "round": 11,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09879789999104105
+                  },
+                  {
+                    "round": 12,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09483600000385195
+                  },
+                  {
+                    "round": 13,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0935536999895703
+                  },
+                  {
+                    "round": 14,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09708090001367964
+                  },
+                  {
+                    "round": 15,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09658300000592135
+                  },
+                  {
+                    "round": 16,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09744420001516119
+                  },
+                  {
+                    "round": 17,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09791090001817793
+                  },
+                  {
+                    "round": 18,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09876179997809231
+                  },
+                  {
+                    "round": 19,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09650220000185072
+                  },
+                  {
+                    "round": 20,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.14828880000277422
+                  },
+                  {
+                    "round": 21,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09623170000850223
+                  },
+                  {
+                    "round": 22,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09343000000808388
+                  },
+                  {
+                    "round": 23,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0908062000235077
+                  },
+                  {
+                    "round": 24,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09534459997667
+                  },
+                  {
+                    "round": 25,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0951084999833256
+                  },
+                  {
+                    "round": 26,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09720910000032745
+                  },
+                  {
+                    "round": 27,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09499050001613796
+                  },
+                  {
+                    "round": 28,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09224039997207001
+                  },
+                  {
+                    "round": 29,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09611459998995997
+                  },
+                  {
+                    "round": 30,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.12601720000384375
+                  },
+                  {
+                    "round": 31,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09196970000630245
+                  },
+                  {
+                    "round": 32,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09153439998044632
+                  },
+                  {
+                    "round": 33,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09270370000740513
+                  },
+                  {
+                    "round": 34,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09551620000274852
+                  },
+                  {
+                    "round": 35,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0937469000054989
+                  },
+                  {
+                    "round": 36,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09288799998466857
+                  },
+                  {
+                    "round": 37,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09337230000528507
+                  },
+                  {
+                    "round": 38,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09865759999956936
+                  },
+                  {
+                    "round": 39,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08945889997994527
+                  },
+                  {
+                    "round": 40,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.12735629998496734
+                  },
+                  {
+                    "round": 41,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09412160000647418
+                  },
+                  {
+                    "round": 42,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09178320001228712
+                  },
+                  {
+                    "round": 43,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0903933999943547
+                  },
+                  {
+                    "round": 44,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07683979999274015
+                  },
+                  {
+                    "round": 45,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.075893899978837
+                  },
+                  {
+                    "round": 46,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0781505000195466
+                  }
+                ],
+                "master_time_limit_scope": "",
+                "active_up_directions": 27,
+                "active_down_directions": 25,
+                "enforce_minimum_active_width": true,
+                "last_round_counts": {
+                  "feasible": 243,
+                  "infeasible": 13,
+                  "incomplete": 0
+                },
+                "incomplete_scenarios": []
+              },
+              "floor_relaxed_source": "strict_master_cuts",
+              "floor_relaxed": {
+                "complete": false,
+                "stop_reason": "reused_strict_feasibility_cuts",
+                "cuts": 468,
+                "runtime_s": 0.007760699983919039,
+                "oracle_runtime_s": 0.0,
+                "scenario_oracle_time_limit_s": null,
+                "scenario_oracle_timeouts": 0,
+                "colgen_cache_columns_per_ev": 0,
+                "direct_oracle_max_evs": 0,
+                "cached_columns_dropped": 0,
+                "cut_runtime_s": 0.0,
+                "exact_oracle_slowest_runtime_s": 0.0,
+                "round_oracle_breakdown": [],
+                "master_time_limit_scope": "",
+                "active_up_directions": 0,
+                "active_down_directions": 0,
+                "enforce_minimum_active_width": false,
+                "last_round_counts": {
+                  "feasible": 0,
+                  "infeasible": 0,
+                  "incomplete": 0
+                },
+                "incomplete_scenarios": []
+              },
+              "retired_directions": [
+                {
+                  "direction": "down",
+                  "block": 33,
+                  "previous_kw": 500.0,
+                  "floor_relaxed_kw": 0.0,
+                  "offered_capacity_loss_kw": 500.0,
+                  "loss_per_released_kw": 1.0
+                }
+              ],
+              "retirement_candidate_count": 12,
+              "other_directions_reseeded_at_floor": 11
+            },
+            {
+              "round": 3,
+              "strict": {
+                "complete": false,
+                "stop_reason": "master_infeasible",
+                "cuts": 773,
+                "runtime_s": 195.03288340001018,
+                "oracle_runtime_s": 1436.9603223000886,
+                "scenario_oracle_time_limit_s": 180.0,
+                "scenario_oracle_timeouts": 0,
+                "colgen_cache_columns_per_ev": 12,
+                "direct_oracle_max_evs": 300,
+                "cached_columns_dropped": 0,
+                "cut_runtime_s": 0.00016820026212371886,
+                "exact_oracle_slowest_runtime_s": 0.6413494999869727,
+                "round_oracle_breakdown": [
+                  {
+                    "round": 0,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.6413494999869727
+                  },
+                  {
+                    "round": 1,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07125350000569597
+                  },
+                  {
+                    "round": 2,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08206340001197532
+                  },
+                  {
+                    "round": 3,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07880509999813512
+                  },
+                  {
+                    "round": 4,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08085980001487769
+                  },
+                  {
+                    "round": 5,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08478490001289174
+                  },
+                  {
+                    "round": 6,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07855450001079589
+                  },
+                  {
+                    "round": 7,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07811629999196157
+                  },
+                  {
+                    "round": 8,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09629250000580214
+                  },
+                  {
+                    "round": 9,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.14819740000530146
+                  },
+                  {
+                    "round": 10,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.14302639997913502
+                  },
+                  {
+                    "round": 11,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0928227000113111
+                  },
+                  {
+                    "round": 12,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09360219998052344
+                  },
+                  {
+                    "round": 13,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09388900001067668
+                  },
+                  {
+                    "round": 14,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0896686999767553
+                  },
+                  {
+                    "round": 15,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09491860002162866
+                  },
+                  {
+                    "round": 16,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09116139999241568
+                  },
+                  {
+                    "round": 17,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0880036000162363
+                  },
+                  {
+                    "round": 18,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09694459999445826
+                  },
+                  {
+                    "round": 19,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.11537770001450554
+                  },
+                  {
+                    "round": 20,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.14247670001350343
+                  },
+                  {
+                    "round": 21,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0918703000061214
+                  },
+                  {
+                    "round": 22,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09416759997839108
+                  },
+                  {
+                    "round": 23,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08897049998631701
+                  },
+                  {
+                    "round": 24,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09253920000628568
+                  },
+                  {
+                    "round": 25,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0939854999887757
+                  },
+                  {
+                    "round": 26,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09418569999979809
+                  },
+                  {
+                    "round": 27,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09088070000871085
+                  },
+                  {
+                    "round": 28,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08574939999380149
+                  },
+                  {
+                    "round": 29,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09275219999835826
+                  },
+                  {
+                    "round": 30,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.1527483999961987
+                  },
+                  {
+                    "round": 31,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09165789998951368
+                  },
+                  {
+                    "round": 32,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09390350000467151
+                  },
+                  {
+                    "round": 33,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09196890000021085
+                  },
+                  {
+                    "round": 34,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09341059997677803
+                  },
+                  {
+                    "round": 35,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09309169999323785
+                  },
+                  {
+                    "round": 36,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08908320000045933
+                  },
+                  {
+                    "round": 37,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09122950001619756
+                  },
+                  {
+                    "round": 38,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09275420001358725
+                  },
+                  {
+                    "round": 39,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09377669999958016
+                  },
+                  {
+                    "round": 40,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.1533144999993965
+                  },
+                  {
+                    "round": 41,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08744890001253225
+                  },
+                  {
+                    "round": 42,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09354130001156591
+                  },
+                  {
+                    "round": 43,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09101449997979216
+                  },
+                  {
+                    "round": 44,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0956927000079304
+                  },
+                  {
+                    "round": 45,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08894660000805743
+                  },
+                  {
+                    "round": 46,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08549939998192713
+                  },
+                  {
+                    "round": 47,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08946820002165623
+                  },
+                  {
+                    "round": 48,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09204200000385754
+                  },
+                  {
+                    "round": 49,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09607450000476092
+                  },
+                  {
+                    "round": 50,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.1255300999910105
+                  },
+                  {
+                    "round": 51,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08667910000076517
+                  },
+                  {
+                    "round": 52,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08655030000954866
+                  },
+                  {
+                    "round": 53,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08912570000393316
+                  },
+                  {
+                    "round": 54,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09476680000079796
+                  },
+                  {
+                    "round": 55,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0888318000070285
+                  },
+                  {
+                    "round": 56,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07765429999562912
+                  },
+                  {
+                    "round": 57,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07942140000523068
+                  },
+                  {
+                    "round": 58,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0772399999841582
+                  },
+                  {
+                    "round": 59,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07699170001433231
+                  },
+                  {
+                    "round": 60,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.11685409999336116
+                  },
+                  {
+                    "round": 61,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07565790001535788
+                  },
+                  {
+                    "round": 62,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07985079998616129
+                  },
+                  {
+                    "round": 63,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08519620000151917
+                  },
+                  {
+                    "round": 64,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07998189999489114
+                  },
+                  {
+                    "round": 65,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.090165799978422
+                  },
+                  {
+                    "round": 66,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08886819999315776
+                  },
+                  {
+                    "round": 67,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09124329997575842
+                  },
+                  {
+                    "round": 68,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08715619999566115
+                  },
+                  {
+                    "round": 69,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08863260000362061
+                  },
+                  {
+                    "round": 70,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.12737649999326095
+                  },
+                  {
+                    "round": 71,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.11539329998777248
+                  },
+                  {
+                    "round": 72,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0901601999939885
+                  },
+                  {
+                    "round": 73,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09135949998744763
+                  },
+                  {
+                    "round": 74,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08527159999357536
+                  },
+                  {
+                    "round": 75,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08933459999389015
+                  },
+                  {
+                    "round": 76,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0894086999760475
+                  },
+                  {
+                    "round": 77,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07873500001733191
+                  }
+                ],
+                "master_time_limit_scope": "",
+                "active_up_directions": 27,
+                "active_down_directions": 24,
+                "enforce_minimum_active_width": true,
+                "last_round_counts": {
+                  "feasible": 253,
+                  "infeasible": 3,
+                  "incomplete": 0
+                },
+                "incomplete_scenarios": []
+              },
+              "floor_relaxed_source": "strict_master_cuts",
+              "floor_relaxed": {
+                "complete": false,
+                "stop_reason": "reused_strict_feasibility_cuts",
+                "cuts": 773,
+                "runtime_s": 0.01299970000400208,
+                "oracle_runtime_s": 0.0,
+                "scenario_oracle_time_limit_s": null,
+                "scenario_oracle_timeouts": 0,
+                "colgen_cache_columns_per_ev": 0,
+                "direct_oracle_max_evs": 0,
+                "cached_columns_dropped": 0,
+                "cut_runtime_s": 0.0,
+                "exact_oracle_slowest_runtime_s": 0.0,
+                "round_oracle_breakdown": [],
+                "master_time_limit_scope": "",
+                "active_up_directions": 0,
+                "active_down_directions": 0,
+                "enforce_minimum_active_width": false,
+                "last_round_counts": {
+                  "feasible": 0,
+                  "infeasible": 0,
+                  "incomplete": 0
+                },
+                "incomplete_scenarios": []
+              },
+              "retired_directions": [
+                {
+                  "direction": "up",
+                  "block": 35,
+                  "previous_kw": 500.0,
+                  "floor_relaxed_kw": 0.0,
+                  "offered_capacity_loss_kw": 500.0,
+                  "loss_per_released_kw": 1.0
+                }
+              ],
+              "retirement_candidate_count": 10,
+              "other_directions_reseeded_at_floor": 9
+            },
+            {
+              "round": 4,
+              "strict": {
+                "complete": false,
+                "stop_reason": "master_infeasible",
+                "cuts": 410,
+                "runtime_s": 102.50139929997385,
+                "oracle_runtime_s": 741.0383159000485,
+                "scenario_oracle_time_limit_s": 180.0,
+                "scenario_oracle_timeouts": 0,
+                "colgen_cache_columns_per_ev": 12,
+                "direct_oracle_max_evs": 300,
+                "cached_columns_dropped": 0,
+                "cut_runtime_s": 9.839996346272528e-05,
+                "exact_oracle_slowest_runtime_s": 0.7038482000061776,
+                "round_oracle_breakdown": [
+                  {
+                    "round": 0,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.7038482000061776
+                  },
+                  {
+                    "round": 1,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08508719998644665
+                  },
+                  {
+                    "round": 2,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08509390000835992
+                  },
+                  {
+                    "round": 3,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08067819999996573
+                  },
+                  {
+                    "round": 4,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08084549999330193
+                  },
+                  {
+                    "round": 5,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0822786999924574
+                  },
+                  {
+                    "round": 6,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07825679998495616
+                  },
+                  {
+                    "round": 7,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08270769999944605
+                  },
+                  {
+                    "round": 8,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08403870000620373
+                  },
+                  {
+                    "round": 9,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07919220000621863
+                  },
+                  {
+                    "round": 10,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.14831640000920743
+                  },
+                  {
+                    "round": 11,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09822719998192042
+                  },
+                  {
+                    "round": 12,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09781680000014603
+                  },
+                  {
+                    "round": 13,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.10339929998735897
+                  },
+                  {
+                    "round": 14,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09400459998869337
+                  },
+                  {
+                    "round": 15,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09528619999764487
+                  },
+                  {
+                    "round": 16,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0977333000046201
+                  },
+                  {
+                    "round": 17,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08242260001134127
+                  },
+                  {
+                    "round": 18,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07672109999111854
+                  },
+                  {
+                    "round": 19,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08363690000260249
+                  },
+                  {
+                    "round": 20,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.12244040000950918
+                  },
+                  {
+                    "round": 21,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0835940999968443
+                  },
+                  {
+                    "round": 22,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08610340001177974
+                  },
+                  {
+                    "round": 23,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08824179999646731
+                  },
+                  {
+                    "round": 24,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08758379999198951
+                  },
+                  {
+                    "round": 25,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09151729999575764
+                  },
+                  {
+                    "round": 26,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08905650000087917
+                  },
+                  {
+                    "round": 27,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0884012000169605
+                  },
+                  {
+                    "round": 28,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0931175000150688
+                  },
+                  {
+                    "round": 29,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0891387999872677
+                  },
+                  {
+                    "round": 30,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.13810290000401437
+                  },
+                  {
+                    "round": 31,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08748429999104701
+                  },
+                  {
+                    "round": 32,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09059720000368543
+                  },
+                  {
+                    "round": 33,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08865779999177903
+                  },
+                  {
+                    "round": 34,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08819489998859353
+                  },
+                  {
+                    "round": 35,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08889149999595247
+                  },
+                  {
+                    "round": 36,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09153750000405125
+                  },
+                  {
+                    "round": 37,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08870239998213947
+                  },
+                  {
+                    "round": 38,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09115640001255088
+                  },
+                  {
+                    "round": 39,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08881849999306723
+                  },
+                  {
+                    "round": 40,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.12164150000899099
+                  }
+                ],
+                "master_time_limit_scope": "",
+                "active_up_directions": 26,
+                "active_down_directions": 24,
+                "enforce_minimum_active_width": true,
+                "last_round_counts": {
+                  "feasible": 241,
+                  "infeasible": 15,
+                  "incomplete": 0
+                },
+                "incomplete_scenarios": []
+              },
+              "floor_relaxed_source": "strict_master_cuts",
+              "floor_relaxed": {
+                "complete": false,
+                "stop_reason": "reused_strict_feasibility_cuts",
+                "cuts": 410,
+                "runtime_s": 0.007485600013751537,
+                "oracle_runtime_s": 0.0,
+                "scenario_oracle_time_limit_s": null,
+                "scenario_oracle_timeouts": 0,
+                "colgen_cache_columns_per_ev": 0,
+                "direct_oracle_max_evs": 0,
+                "cached_columns_dropped": 0,
+                "cut_runtime_s": 0.0,
+                "exact_oracle_slowest_runtime_s": 0.0,
+                "round_oracle_breakdown": [],
+                "master_time_limit_scope": "",
+                "active_up_directions": 0,
+                "active_down_directions": 0,
+                "enforce_minimum_active_width": false,
+                "last_round_counts": {
+                  "feasible": 0,
+                  "infeasible": 0,
+                  "incomplete": 0
+                },
+                "incomplete_scenarios": []
+              },
+              "retired_directions": [
+                {
+                  "direction": "up",
+                  "block": 36,
+                  "previous_kw": 500.0,
+                  "floor_relaxed_kw": 0.0,
+                  "offered_capacity_loss_kw": 500.0,
+                  "loss_per_released_kw": 1.0
+                }
+              ],
+              "retirement_candidate_count": 9,
+              "other_directions_reseeded_at_floor": 8
+            },
+            {
+              "round": 5,
+              "strict": {
+                "complete": true,
+                "stop_reason": "pool_certified",
+                "cuts": 616,
+                "runtime_s": 179.41177860001335,
+                "oracle_runtime_s": 1244.0828171997273,
+                "scenario_oracle_time_limit_s": 180.0,
+                "scenario_oracle_timeouts": 0,
+                "colgen_cache_columns_per_ev": 12,
+                "direct_oracle_max_evs": 300,
+                "cached_columns_dropped": 0,
+                "cut_runtime_s": 0.00014609991922043264,
+                "exact_oracle_slowest_runtime_s": 0.7326272999926005,
+                "round_oracle_breakdown": [
+                  {
+                    "round": 0,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.7326272999926005
+                  },
+                  {
+                    "round": 1,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08801489998586476
+                  },
+                  {
+                    "round": 2,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08124759999918751
+                  },
+                  {
+                    "round": 3,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08298249999643303
+                  },
+                  {
+                    "round": 4,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08457830001134425
+                  },
+                  {
+                    "round": 5,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07860320000327192
+                  },
+                  {
+                    "round": 6,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09441819999483414
+                  },
+                  {
+                    "round": 7,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.10642699999152683
+                  },
+                  {
+                    "round": 8,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.10093139999662526
+                  },
+                  {
+                    "round": 9,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.10183359999791719
+                  },
+                  {
+                    "round": 10,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.13960289998794906
+                  },
+                  {
+                    "round": 11,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.093092399998568
+                  },
+                  {
+                    "round": 12,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09556509999674745
+                  },
+                  {
+                    "round": 13,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09760959999402985
+                  },
+                  {
+                    "round": 14,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09440849997918122
+                  },
+                  {
+                    "round": 15,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0955530000210274
+                  },
+                  {
+                    "round": 16,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09348129999125376
+                  },
+                  {
+                    "round": 17,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09528320000390522
+                  },
+                  {
+                    "round": 18,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09248029999434948
+                  },
+                  {
+                    "round": 19,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09292269998695701
+                  },
+                  {
+                    "round": 20,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.14566440001362935
+                  },
+                  {
+                    "round": 21,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09433679998619482
+                  },
+                  {
+                    "round": 22,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09126210000249557
+                  },
+                  {
+                    "round": 23,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09514210000634193
+                  },
+                  {
+                    "round": 24,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09752739997929893
+                  },
+                  {
+                    "round": 25,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09549730000435375
+                  },
+                  {
+                    "round": 26,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.10002730000996962
+                  },
+                  {
+                    "round": 27,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09852299999329261
+                  },
+                  {
+                    "round": 28,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09687840001424775
+                  },
+                  {
+                    "round": 29,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08834740001475438
+                  },
+                  {
+                    "round": 30,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.14126830000896007
+                  },
+                  {
+                    "round": 31,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09647389999008738
+                  },
+                  {
+                    "round": 32,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.084510600019712
+                  },
+                  {
+                    "round": 33,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09283229999709874
+                  },
+                  {
+                    "round": 34,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09224019999965094
+                  },
+                  {
+                    "round": 35,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.088903299998492
+                  },
+                  {
+                    "round": 36,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09306480002123863
+                  },
+                  {
+                    "round": 37,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08780700000352226
+                  },
+                  {
+                    "round": 38,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09562799998093396
+                  },
+                  {
+                    "round": 39,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0944139999919571
+                  },
+                  {
+                    "round": 40,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.1253846000181511
+                  },
+                  {
+                    "round": 41,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09701289999065921
+                  },
+                  {
+                    "round": 42,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08834119999664836
+                  },
+                  {
+                    "round": 43,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0838268999941647
+                  },
+                  {
+                    "round": 44,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09295180000481196
+                  },
+                  {
+                    "round": 45,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08905740000773221
+                  },
+                  {
+                    "round": 46,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08823470000061207
+                  },
+                  {
+                    "round": 47,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08993349998490885
+                  },
+                  {
+                    "round": 48,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09504119999473915
+                  },
+                  {
+                    "round": 49,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09193649998633191
+                  },
+                  {
+                    "round": 50,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.13785620001726784
+                  },
+                  {
+                    "round": 51,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09013229998527095
+                  },
+                  {
+                    "round": 52,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08439689999795519
+                  },
+                  {
+                    "round": 53,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09256429999368265
+                  },
+                  {
+                    "round": 54,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.09146999998483807
+                  },
+                  {
+                    "round": 55,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08419700001832098
+                  },
+                  {
+                    "round": 56,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08471900000586174
+                  },
+                  {
+                    "round": 57,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0815903999900911
+                  },
+                  {
+                    "round": 58,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0864984999934677
+                  },
+                  {
+                    "round": 59,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08202220001840033
+                  },
+                  {
+                    "round": 60,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.10842390000470914
+                  },
+                  {
+                    "round": 61,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07579709999845363
+                  },
+                  {
+                    "round": 62,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07563110001501627
+                  },
+                  {
+                    "round": 63,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.08310770001844503
+                  },
+                  {
+                    "round": 64,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07981359999394044
+                  },
+                  {
+                    "round": 65,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.07389870000770316
+                  },
+                  {
+                    "round": 66,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 0.0773332999960985
+                  }
+                ],
+                "master_time_limit_scope": "",
+                "active_up_directions": 25,
+                "active_down_directions": 24,
+                "enforce_minimum_active_width": true,
+                "last_round_counts": {
+                  "feasible": 256,
+                  "infeasible": 0,
+                  "incomplete": 0
+                },
+                "incomplete_scenarios": []
+              }
+            }
+          ],
+          "retired_direction_count": 5,
+          "retirement_round_count": 5
+        },
+        "required_rate_solver_all_solved": true,
+        "allowed_command_failures": 0,
+        "certified_capacity_kw_block": 27694.416829751404,
+        "capacity_contract_ok": true,
+        "certification_scorer": "strict_frozen_bid_recourse",
+        "complete": true
+      },
+      "in_sample": true
+    },
+    "searched": true,
+    "search_objective": "maximize_total_ev_regulation_capacity_kw_block",
+    "block_allocation_rule": "unit capacity weights; physical Assessment-I, EV availability, SoC and all command-scenario recourse decide placement; L1 stabilization preserves the prior feasible shape among equal-capacity optima",
+    "participation_rule": "for each block and direction independently: binary participate, then optimize quantity continuously between the non-zero floor and the configured market-facing limit; sampled command recourse and departure SoC determine EV feasibility"
+  },
+  "upper_bid_progress_log": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_7s_f500_dense8\\days\\009_2024-08-10\\upper_bid_progress.log"
+}

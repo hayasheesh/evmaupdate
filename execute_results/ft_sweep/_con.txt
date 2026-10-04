@@ -1,0 +1,73 @@
+ed departure times. These simplifications were
+adopted to isolate the core dispatch-tracking problem, but
+richer heterogeneity and operational constraints should be
+incorporated in future work.
+VIII. CONCLUSION
+This paper proposed an aggregator-to-station hierarchical
+MADDPG-based control framework for low-latency EV
+VPP operation in balancing markets. By integrating two
+objectives—dispatch tracking and user charging-demand
+satisfaction—within a CTDE-based multi-agent formulation,
+we demonstrated a control architecture in which the ag-
+gregator relays the TSO dispatch signal and station-level
+agents autonomously determine local charger-level charg-
+ing/discharging commands from station-local observations
+and the broadcast dispatch signal. The aggregate fleet re-
+sponse emerges from these local decisions rather than from an
+explicit online power allocation computed by the aggregator.
+The case study showed that the proposed method can
+achieve high dispatch-tracking performance (97% tracking
+rate), but the Target SoC satisfaction rate of 80% (with an av-
+erage SoC shortfall of approximately 5%) remains a clear lim-
+itation that must be addressed before practical deployment.
+The study also clarified that the main architectural advan-
+tage of the proposed method lies in reducing aggregator-side
+online computation and avoiding online global optimization,
+whereas overall practical response-time feasibility must also
+account for communication/control-plane latency and device-
+side actuation dynamics.
+These results suggest that aggregator-to-station hierarchi-
+cal MARL is a promising pathway for EV VPP control when
+low-latency operation and scalability make fully centralized
+control less attractive.
+Future work will focus on two directions: (i) approaching
+near-100% user satisfaction via a hybrid controller with a
+rule-based safety layer, where the actor output is overridden
+to command maximum charging only when the remaining
+time and current SoC indicate that meeting the Target SoC
+is physically infeasible; and (ii) extending the simulation
+environment to include heterogeneous EV battery capacities
+and charger ratings, broader station characteristics, explicit
+station-level available-power limits, switching constraints,
+stochastic departures, and larger-scale fleet experiments.
+REFERENCES
+[1] Electricity and Gas Market Surveillance Commission, ‘‘Report on
+localized electricity demand growth and transmission/distribution
+networks,’’ News release and linked report, Government of Japan,
+Jun. 2024, in Japanese. Accessed: Mar. 17, 2026. [Online]. Available:
+https://www.egc.meti.go.jp/info/public/news/20240611002.html
+[2] U.S. Department of Energy, ‘‘Managed charging minimizes costs
+in National Laboratory of the Rockies’ parking garage,’’ Federal
+Energy Management Program case study, Jan. 2020, accessed: Mar. 17,
+2026. [Online]. Available: https://www.energy.gov/cmei/femp/managed-
+charging-minimizes-costs-national-laboratory-rockies-parking-garage
+[3] R. J. Bessa and M. A. Matos, ‘‘Optimization models for an EV aggregator
+selling secondary reserve in the electricity market,’’Electric Power Systems
+Research, vol. 106, pp. 36–50, 2014.
+[4] C. P . Guzman Lascano, N. Banol Arias, J. F. Franco Baquero, M. J. Rider,
+and R. Romero, ‘‘Secondary reserve provision through a smart aggregation
+strategy of electric vehicles,’’ in2021 IEEE Madrid PowerTech, 2021.
+[5] J. Wang, F. Li, X. Fang, W. Wang, H. Cui, Q. Zhang, and B. She, ‘‘Electric
+vehicles charging time constrained deliverable provision of secondary
+frequency regulation,’’IEEE Transactions on Smart Grid, vol. 15, no. 4,
+pp. 3892–3903, 2024.
+[6] Y . Shi, H. D. Tuan, A. V . Savkin, T. Q. Duong, and H. V . Poor, ‘‘Model
+predictive control for smart grids with multiple electric-vehicle charging
+stations,’’IEEE Transactions on Smart Grid, vol. 10, no. 2, pp. 2127–2136,
+2019.
+[7] H. Liu, J. Qi, J. Wang, P . Li, C. Li, and H. Wei, ‘‘EV dispatch control
+for supplementary frequency regulation considering the expectation of EV
+owners,’’IEEE Transactions on Smart Grid, vol. 9, no. 4, pp. 3763–3772,
+2018.
+[8] F. Alfaverh, M. Denaï, and Y . Sun, ‘‘Optimal vehicle-to-grid control for
+supplementary freque

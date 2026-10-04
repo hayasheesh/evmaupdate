@@ -1,0 +1,540 @@
+{
+  "bank": "execute_results/bid_banks/train_25_20s_f500",
+  "stations": 20,
+  "n_days": 25,
+  "days": [
+    {
+      "day": "2024-04-02",
+      "participating": 48,
+      "cert_sessions": 355,
+      "draw_sessions_min": 330,
+      "draw_sessions_max": 374,
+      "up": {
+        "award_percentile_median": 39.583333333333336,
+        "cv_median": 0.08589671545342228,
+        "dayof_median_over_award": 1.0260644646666095,
+        "short_fraction": 0.4010416666666667,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 37.5,
+        "cv_median": 0.086789920137018,
+        "dayof_median_over_award": 1.0251932926424825,
+        "short_fraction": 0.3463541666666667,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-04-03",
+      "participating": 48,
+      "cert_sessions": 359,
+      "draw_sessions_min": 331,
+      "draw_sessions_max": 375,
+      "up": {
+        "award_percentile_median": 22.916666666666668,
+        "cv_median": 0.08580282492325386,
+        "dayof_median_over_award": 1.0587369446596713,
+        "short_fraction": 0.4479166666666667,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 14.583333333333332,
+        "cv_median": 0.0863521275879468,
+        "dayof_median_over_award": 1.072691723572123,
+        "short_fraction": 0.3671875,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-04-13",
+      "participating": 48,
+      "cert_sessions": 352,
+      "draw_sessions_min": 324,
+      "draw_sessions_max": 371,
+      "up": {
+        "award_percentile_median": 62.5,
+        "cv_median": 0.08409661173744765,
+        "dayof_median_over_award": 0.9806057928439892,
+        "short_fraction": 0.5399305555555556,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 50.0,
+        "cv_median": 0.08277474946200178,
+        "dayof_median_over_award": 0.9956155183871471,
+        "short_fraction": 0.41394927536231885,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-04-14",
+      "participating": 48,
+      "cert_sessions": 346,
+      "draw_sessions_min": 324,
+      "draw_sessions_max": 371,
+      "up": {
+        "award_percentile_median": 47.916666666666664,
+        "cv_median": 0.0833452427745518,
+        "dayof_median_over_award": 1.0082730813921734,
+        "short_fraction": 0.4157986111111111,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 37.5,
+        "cv_median": 0.08329579708411897,
+        "dayof_median_over_award": 1.0312391035532602,
+        "short_fraction": 0.3689236111111111,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-04-20",
+      "participating": 48,
+      "cert_sessions": 331,
+      "draw_sessions_min": 323,
+      "draw_sessions_max": 368,
+      "up": {
+        "award_percentile_median": 45.83333333333333,
+        "cv_median": 0.08286523091829298,
+        "dayof_median_over_award": 1.007313605440613,
+        "short_fraction": 0.4895833333333333,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 45.833333333333336,
+        "cv_median": 0.08175264123208847,
+        "dayof_median_over_award": 0.99977636784079,
+        "short_fraction": 0.4609375,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-04-21",
+      "participating": 46,
+      "cert_sessions": 308,
+      "draw_sessions_min": 323,
+      "draw_sessions_max": 371,
+      "up": {
+        "award_percentile_median": 6.249999999999999,
+        "cv_median": 0.07949158318573366,
+        "dayof_median_over_award": 1.2553994892494065,
+        "short_fraction": 0.18478260869565216,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 0.0,
+        "cv_median": 0.07933540526337032,
+        "dayof_median_over_award": 1.2558849625274968,
+        "short_fraction": 0.15307971014492755,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-08-02",
+      "participating": 48,
+      "cert_sessions": 356,
+      "draw_sessions_min": 329,
+      "draw_sessions_max": 373,
+      "up": {
+        "award_percentile_median": 72.91666666666667,
+        "cv_median": 0.08599608456104771,
+        "dayof_median_over_award": 0.9432760506382967,
+        "short_fraction": 0.6085069444444444,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 70.83333333333333,
+        "cv_median": 0.0848612302022878,
+        "dayof_median_over_award": 0.9497141211188089,
+        "short_fraction": 0.5842013888888888,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-08-04",
+      "participating": 48,
+      "cert_sessions": 296,
+      "draw_sessions_min": 324,
+      "draw_sessions_max": 371,
+      "up": {
+        "award_percentile_median": 4.166666666666666,
+        "cv_median": 0.08345215301307432,
+        "dayof_median_over_award": 1.2256897355123404,
+        "short_fraction": 0.0546875,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 4.166666666666666,
+        "cv_median": 0.08273238249135559,
+        "dayof_median_over_award": 1.2106256274744747,
+        "short_fraction": 0.05295138888888889,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-08-05",
+      "participating": 48,
+      "cert_sessions": 362,
+      "draw_sessions_min": 330,
+      "draw_sessions_max": 374,
+      "up": {
+        "award_percentile_median": 50.0,
+        "cv_median": 0.08543017084327834,
+        "dayof_median_over_award": 1.0023216537508928,
+        "short_fraction": 0.40625,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 45.83333333333333,
+        "cv_median": 0.08362220664631552,
+        "dayof_median_over_award": 1.0111808100740993,
+        "short_fraction": 0.3880208333333333,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-08-10",
+      "participating": 48,
+      "cert_sessions": 367,
+      "draw_sessions_min": 327,
+      "draw_sessions_max": 371,
+      "up": {
+        "award_percentile_median": 62.5,
+        "cv_median": 0.08682887218739976,
+        "dayof_median_over_award": 0.9661898957254716,
+        "short_fraction": 0.5329861111111112,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 45.83333333333333,
+        "cv_median": 0.08593193555105781,
+        "dayof_median_over_award": 1.0094231566655454,
+        "short_fraction": 0.4357638888888889,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-08-11",
+      "participating": 48,
+      "cert_sessions": 395,
+      "draw_sessions_min": 324,
+      "draw_sessions_max": 371,
+      "up": {
+        "award_percentile_median": 81.25,
+        "cv_median": 0.0841886699526437,
+        "dayof_median_over_award": 0.9351929718978352,
+        "short_fraction": 0.6579861111111112,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 66.66666666666666,
+        "cv_median": 0.08361900692597625,
+        "dayof_median_over_award": 0.9690076161423222,
+        "short_fraction": 0.5052083333333334,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-08-17",
+      "participating": 48,
+      "cert_sessions": 337,
+      "draw_sessions_min": 324,
+      "draw_sessions_max": 368,
+      "up": {
+        "award_percentile_median": 58.333333333333336,
+        "cv_median": 0.08399892077971394,
+        "dayof_median_over_award": 0.9534412974702697,
+        "short_fraction": 0.4947916666666667,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 29.166666666666668,
+        "cv_median": 0.08359836320577449,
+        "dayof_median_over_award": 1.0347673502570662,
+        "short_fraction": 0.3428819444444444,
+        "cert_over_award_median": 1.0417094077116045
+      }
+    },
+    {
+      "day": "2024-10-01",
+      "participating": 48,
+      "cert_sessions": 346,
+      "draw_sessions_min": 331,
+      "draw_sessions_max": 374,
+      "up": {
+        "award_percentile_median": 35.416666666666664,
+        "cv_median": 0.0852956708849208,
+        "dayof_median_over_award": 1.0392604518089332,
+        "short_fraction": 0.4088541666666667,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 27.083333333333336,
+        "cv_median": 0.08471195403729004,
+        "dayof_median_over_award": 1.053959009359654,
+        "short_fraction": 0.3376736111111111,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-10-02",
+      "participating": 48,
+      "cert_sessions": 332,
+      "draw_sessions_min": 330,
+      "draw_sessions_max": 375,
+      "up": {
+        "award_percentile_median": 43.75,
+        "cv_median": 0.08454782214853754,
+        "dayof_median_over_award": 1.023286520496343,
+        "short_fraction": 0.3984375,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 37.5,
+        "cv_median": 0.08548764675280296,
+        "dayof_median_over_award": 1.0291737856099572,
+        "short_fraction": 0.3559027777777778,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-10-03",
+      "participating": 48,
+      "cert_sessions": 346,
+      "draw_sessions_min": 330,
+      "draw_sessions_max": 375,
+      "up": {
+        "award_percentile_median": 47.91666666666667,
+        "cv_median": 0.08371353241879786,
+        "dayof_median_over_award": 1.0037882292231464,
+        "short_fraction": 0.453125,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 70.83333333333334,
+        "cv_median": 0.08452128026656047,
+        "dayof_median_over_award": 0.9618600888603225,
+        "short_fraction": 0.5243055555555556,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-10-05",
+      "participating": 44,
+      "cert_sessions": 345,
+      "draw_sessions_min": 324,
+      "draw_sessions_max": 371,
+      "up": {
+        "award_percentile_median": 47.916666666666664,
+        "cv_median": 0.08144415898274865,
+        "dayof_median_over_award": 1.0017359985652843,
+        "short_fraction": 0.5378787878787878,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 45.83333333333333,
+        "cv_median": 0.08090420042378915,
+        "dayof_median_over_award": 1.0177195395441228,
+        "short_fraction": 0.5189393939393939,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-10-06",
+      "participating": 48,
+      "cert_sessions": 338,
+      "draw_sessions_min": 326,
+      "draw_sessions_max": 371,
+      "up": {
+        "award_percentile_median": 54.166666666666664,
+        "cv_median": 0.08447303009040924,
+        "dayof_median_over_award": 0.9851308649587376,
+        "short_fraction": 0.4774305555555556,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 52.08333333333333,
+        "cv_median": 0.08357258523943838,
+        "dayof_median_over_award": 0.9963506067638703,
+        "short_fraction": 0.4444444444444444,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-10-12",
+      "participating": 48,
+      "cert_sessions": 306,
+      "draw_sessions_min": 323,
+      "draw_sessions_max": 371,
+      "up": {
+        "award_percentile_median": 14.583333333333332,
+        "cv_median": 0.08349775268400961,
+        "dayof_median_over_award": 1.0976037242926104,
+        "short_fraction": 0.2326388888888889,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 4.166666666666666,
+        "cv_median": 0.08344426627137072,
+        "dayof_median_over_award": 1.1726536044949776,
+        "short_fraction": 0.1892361111111111,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-10-13",
+      "participating": 48,
+      "cert_sessions": 334,
+      "draw_sessions_min": 324,
+      "draw_sessions_max": 371,
+      "up": {
+        "award_percentile_median": 20.833333333333336,
+        "cv_median": 0.08000125848715968,
+        "dayof_median_over_award": 1.0501107628063258,
+        "short_fraction": 0.3102836879432624,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 4.166666666666666,
+        "cv_median": 0.08033510932112797,
+        "dayof_median_over_award": 1.1795392591373344,
+        "short_fraction": 0.16927083333333334,
+        "cert_over_award_median": 1.19897322370218
+      }
+    },
+    {
+      "day": "2024-12-01",
+      "participating": 43,
+      "cert_sessions": 327,
+      "draw_sessions_min": 323,
+      "draw_sessions_max": 371,
+      "up": {
+        "award_percentile_median": 25.0,
+        "cv_median": 0.0790001298434404,
+        "dayof_median_over_award": 1.0604791387801267,
+        "short_fraction": 0.3062015503875969,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 20.833333333333336,
+        "cv_median": 0.07712860292588358,
+        "dayof_median_over_award": 1.0709395133233641,
+        "short_fraction": 0.26453488372093026,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-12-02",
+      "participating": 46,
+      "cert_sessions": 328,
+      "draw_sessions_min": 329,
+      "draw_sessions_max": 373,
+      "up": {
+        "award_percentile_median": 8.333333333333332,
+        "cv_median": 0.08435760981880876,
+        "dayof_median_over_award": 1.1706771319293519,
+        "short_fraction": 0.12590579710144928,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 4.166666666666666,
+        "cv_median": 0.08421534106442014,
+        "dayof_median_over_award": 1.2179921971578405,
+        "short_fraction": 0.06521739130434782,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-12-03",
+      "participating": 48,
+      "cert_sessions": 353,
+      "draw_sessions_min": 329,
+      "draw_sessions_max": 373,
+      "up": {
+        "award_percentile_median": 50.0,
+        "cv_median": 0.0862151508687263,
+        "dayof_median_over_award": 0.9976095978191595,
+        "short_fraction": 0.5555555555555556,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 45.833333333333336,
+        "cv_median": 0.08693425387894413,
+        "dayof_median_over_award": 1.0034574608245852,
+        "short_fraction": 0.5486111111111112,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-12-07",
+      "participating": 48,
+      "cert_sessions": 323,
+      "draw_sessions_min": 323,
+      "draw_sessions_max": 371,
+      "up": {
+        "award_percentile_median": 16.666666666666664,
+        "cv_median": 0.08100771592871721,
+        "dayof_median_over_award": 1.1164957331574135,
+        "short_fraction": 0.23697916666666666,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 10.416666666666666,
+        "cv_median": 0.0802659933712003,
+        "dayof_median_over_award": 1.1517411318353064,
+        "short_fraction": 0.2378472222222222,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-12-08",
+      "participating": 48,
+      "cert_sessions": 350,
+      "draw_sessions_min": 323,
+      "draw_sessions_max": 371,
+      "up": {
+        "award_percentile_median": 72.91666666666666,
+        "cv_median": 0.08143407670444677,
+        "dayof_median_over_award": 0.9383088032132351,
+        "short_fraction": 0.6154513888888888,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 66.66666666666666,
+        "cv_median": 0.08097148543472643,
+        "dayof_median_over_award": 0.9458427522068953,
+        "short_fraction": 0.6041666666666666,
+        "cert_over_award_median": 1.0
+      }
+    },
+    {
+      "day": "2024-12-14",
+      "participating": 48,
+      "cert_sessions": 332,
+      "draw_sessions_min": 323,
+      "draw_sessions_max": 370,
+      "up": {
+        "award_percentile_median": 41.66666666666667,
+        "cv_median": 0.08155280482112708,
+        "dayof_median_over_award": 1.0235323233874043,
+        "short_fraction": 0.4392361111111111,
+        "cert_over_award_median": 1.0
+      },
+      "down": {
+        "award_percentile_median": 43.75,
+        "cv_median": 0.08186118862325444,
+        "dayof_median_over_award": 1.0116771687798902,
+        "short_fraction": 0.4470486111111111,
+        "cert_over_award_median": 1.0
+      }
+    }
+  ],
+  "up_award_percentile_median": 45.83333333333333,
+  "up_cv_median": 0.08399892077971394,
+  "up_dayof_median_over_award": 1.0082730813921734,
+  "up_short_fraction": 0.4392361111111111,
+  "down_award_percentile_median": 37.5,
+  "down_cv_median": 0.08357258523943838,
+  "down_dayof_median_over_award": 1.0251932926424825,
+  "down_short_fraction": 0.3689236111111111
+}

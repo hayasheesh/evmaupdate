@@ -1,0 +1,22 @@
+{
+  "central_lp_only": {
+    "up_pass_rate": 0.5304699322978894,
+    "down_pass_rate": 0.5304699322978894,
+    "idle_pass_rate": 0.8620238095238095,
+    "global_tracking_rate": 0.7644620688202677,
+    "controller_pre_system_tracking_rate": 0.7644620688202677,
+    "soc_hit_rate": 0.880452241005837,
+    "post_bess_mae_kw": 98.02684894024756,
+    "seconds": 468.5
+  },
+  "central_lp_bess": {
+    "up_pass_rate": 0.5947010078730509,
+    "down_pass_rate": 0.5947010078730509,
+    "idle_pass_rate": 0.8864682539682539,
+    "global_tracking_rate": 0.8023027142113165,
+    "controller_pre_system_tracking_rate": 0.7644620688202677,
+    "soc_hit_rate": 0.880452241005837,
+    "post_bess_mae_kw": 83.29703466552947,
+    "seconds": 441.8
+  }
+}

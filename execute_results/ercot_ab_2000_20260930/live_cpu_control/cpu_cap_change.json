@@ -1,0 +1,12 @@
+{
+  "launcherPid": 292,
+  "learnerPid": 6240,
+  "beforeCpuRateBasisPoints": 7500,
+  "afterCpuRateBasisPoints": 10000,
+  "controlFlags": 5,
+  "targetMembershipVerified": true,
+  "changedAt": "2026-10-01T00:20:20.0864715+09:00",
+  "lastTrainingLineBeforeChange": "train32  | SoC actor/physical: 19.5/19.5% | Surplus: 26/143 (18.2%) | Supply: 13/49 (26.5%) | MARL/Central: 20.3/20.3% (MAE 177.0->177.0 kW) | Central: corrected=3415 EV-steps, max=0.0kW | Duration=41.1s",
+  "cpuBoostModeDuringRun": 0,
+  "mode": "live_job_object_update_without_training_restart"
+}

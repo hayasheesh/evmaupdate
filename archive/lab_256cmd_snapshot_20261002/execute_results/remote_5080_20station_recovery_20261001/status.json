@@ -1,0 +1,48 @@
+{
+  "stage": "failed",
+  "started_at_utc": "2026-10-01T13:47:37.433719+00:00",
+  "completed_at_utc": "2026-10-01T22:23:04.651740+00:00",
+  "error": "RuntimeError('A bid-bank stage failed')",
+  "children": {
+    "retry_train_day": {
+      "pid": 120520,
+      "started_at_utc": "2026-10-01T13:47:38.041991+00:00",
+      "exit_code": 1,
+      "completed_at_utc": "2026-10-01T13:47:38.063217+00:00"
+    },
+    "validation_bank": {
+      "pid": 120521,
+      "started_at_utc": "2026-10-01T13:47:38.042501+00:00",
+      "exit_code": 0,
+      "completed_at_utc": "2026-10-01T22:23:04.651393+00:00"
+    }
+  },
+  "reused_train_days": 24,
+  "retry_train_index": 9,
+  "retry_train_date": "2024-08-10",
+  "retry_bid_source_sha256": "ce96f1a3be8fcdb6cf34f6b6d7c3a1e8858d3e5d85af00cf70fffc3455bfef9c",
+  "original_bid_source_sha256": "724deeca27dbdbe0a2d09ced32017a09ad1450759b8be6a842ecccd0c43ea6ef",
+  "validation_days": 5,
+  "cpu_affinity": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19
+  ]
+}

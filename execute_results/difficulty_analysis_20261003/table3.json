@@ -1,0 +1,253 @@
+{
+  "AEMO": {
+    "cases": 360,
+    "lp_feasible_pct_range": [
+      73.33333333333333,
+      74.72222222222223
+    ],
+    "lp_unknown": 5,
+    "methods": {
+      "MARL + force（AEMOで学習）": {
+        "cases": 360,
+        "day_pass_pct": 1.3888888888888888,
+        "tracking_pct": 86.10354635681433,
+        "soc_pct": 100.0,
+        "block_pass_pct": 74.31009440813362,
+        "forced_ev_steps_mean": 261.35,
+        "on_lp_feasible": {
+          "cases": 264,
+          "day_pass_pct": 1.893939393939394,
+          "tracking_pct": 87.08228905597326,
+          "soc_pct": 100.0,
+          "block_pass_pct": 75.15037593984962,
+          "forced_ev_steps_mean": 239.77272727272728
+        },
+        "missed_reachable_share_pct": 83.10288513881328
+      },
+      "ルールベース（中央観測、forceあり）": {
+        "cases": 360,
+        "day_pass_pct": 47.5,
+        "tracking_pct": 96.5958605664488,
+        "soc_pct": 100.0,
+        "block_pass_pct": 94.05410312273057,
+        "forced_ev_steps_mean": 641.2888888888889,
+        "on_lp_feasible": {
+          "cases": 264,
+          "day_pass_pct": 64.77272727272727,
+          "tracking_pct": 98.25187969924812,
+          "soc_pct": 100.0,
+          "block_pass_pct": 96.66666666666667,
+          "forced_ev_steps_mean": 602.625
+        },
+        "missed_reachable_share_pct": 0.0
+      },
+      "中央LP + force": {
+        "cases": 360,
+        "day_pass_pct": 0.0,
+        "tracking_pct": 79.91255144032922,
+        "soc_pct": 100.0,
+        "block_pass_pct": 69.9074074074074,
+        "forced_ev_steps_mean": 133.59722222222223,
+        "on_lp_feasible": {
+          "cases": 264,
+          "day_pass_pct": 0.0,
+          "tracking_pct": 81.26775271512113,
+          "soc_pct": 100.0,
+          "block_pass_pct": 72.10526315789474,
+          "forced_ev_steps_mean": 133.7159090909091
+        },
+        "missed_reachable_share_pct": 91.01453641635912
+      },
+      "参考: MARL（forceなし）": {
+        "cases": 360,
+        "day_pass_pct": 0.2777777777777778,
+        "tracking_pct": 90.47143548777535,
+        "soc_pct": 82.8097762282543,
+        "block_pass_pct": 80.71895424836602,
+        "forced_ev_steps_mean": 0.0,
+        "on_lp_feasible": {
+          "cases": 264,
+          "day_pass_pct": 0.3787878787878788,
+          "tracking_pct": 91.624895572264,
+          "soc_pct": 84.08893185113581,
+          "block_pass_pct": 81.96741854636592,
+          "forced_ev_steps_mean": 0.0
+        },
+        "missed_reachable_share_pct": 78.07240393775803
+      }
+    }
+  },
+  "ERCOT": {
+    "cases": 360,
+    "lp_feasible_pct_range": [
+      80.83333333333333,
+      81.66666666666667
+    ],
+    "lp_unknown": 3,
+    "methods": {
+      "MARL + force（ERCOTで学習）": {
+        "cases": 360,
+        "day_pass_pct": 0.0,
+        "tracking_pct": 69.95884773662551,
+        "soc_pct": 100.0,
+        "block_pass_pct": 56.545025417574436,
+        "forced_ev_steps_mean": 534.2944444444445,
+        "on_lp_feasible": {
+          "cases": 291,
+          "day_pass_pct": 0.0,
+          "tracking_pct": 69.37069813176008,
+          "soc_pct": 100.0,
+          "block_pass_pct": 55.47991831177672,
+          "forced_ev_steps_mean": 545.7766323024055
+        },
+        "missed_reachable_share_pct": 90.59730056406124
+      },
+      "MARL + force（AEMOで学習）": {
+        "cases": 360,
+        "day_pass_pct": 0.0,
+        "tracking_pct": 74.29950375211813,
+        "soc_pct": 100.0,
+        "block_pass_pct": 60.95679012345679,
+        "forced_ev_steps_mean": 466.28333333333336,
+        "on_lp_feasible": {
+          "cases": 291,
+          "day_pass_pct": 0.0,
+          "tracking_pct": 74.13773542092126,
+          "soc_pct": 100.0,
+          "block_pass_pct": 60.36986612207851,
+          "forced_ev_steps_mean": 478.2852233676976
+        },
+        "missed_reachable_share_pct": 88.27927238476482
+      },
+      "ルールベース（中央観測、forceあり）": {
+        "cases": 360,
+        "day_pass_pct": 25.0,
+        "tracking_pct": 92.87248850157347,
+        "soc_pct": 100.0,
+        "block_pass_pct": 89.20660856935366,
+        "forced_ev_steps_mean": 1203.6166666666666,
+        "on_lp_feasible": {
+          "cases": 291,
+          "day_pass_pct": 30.927835051546392,
+          "tracking_pct": 93.0754103320475,
+          "soc_pct": 100.0,
+          "block_pass_pct": 89.51667801225324,
+          "forced_ev_steps_mean": 1246.9621993127148
+        },
+        "missed_reachable_share_pct": 0.0
+      },
+      "中央LP + force": {
+        "cases": 360,
+        "day_pass_pct": 0.0,
+        "tracking_pct": 65.56221253933673,
+        "soc_pct": 100.0,
+        "block_pass_pct": 56.000363108206244,
+        "forced_ev_steps_mean": 139.31666666666666,
+        "on_lp_feasible": {
+          "cases": 291,
+          "day_pass_pct": 0.0,
+          "tracking_pct": 65.96513123061796,
+          "soc_pct": 100.0,
+          "block_pass_pct": 56.64851372815975,
+          "forced_ev_steps_mean": 138.44329896907217
+        },
+        "missed_reachable_share_pct": 95.14981108865653
+      },
+      "参考: MARL（forceなし、ERCOTで学習）": {
+        "cases": 360,
+        "day_pass_pct": 0.0,
+        "tracking_pct": 88.74515855725006,
+        "soc_pct": 65.76541321284998,
+        "block_pass_pct": 80.29230210602759,
+        "forced_ev_steps_mean": 0.0,
+        "on_lp_feasible": {
+          "cases": 291,
+          "day_pass_pct": 0.0,
+          "tracking_pct": 89.19332879509871,
+          "soc_pct": 65.09367886534757,
+          "block_pass_pct": 80.75788518266394,
+          "forced_ev_steps_mean": 0.0
+        },
+        "missed_reachable_share_pct": 80.06452480172067
+      }
+    }
+  },
+  "GB": {
+    "cases": 360,
+    "lp_feasible_pct_range": [
+      65.55555555555556,
+      67.22222222222223
+    ],
+    "lp_unknown": 6,
+    "methods": {
+      "MARL + force（GBで学習、ep1240）": {
+        "cases": 360,
+        "day_pass_pct": 0.0,
+        "tracking_pct": 77.63857607607608,
+        "soc_pct": 100.0,
+        "block_pass_pct": 63.79504504504504,
+        "forced_ev_steps_mean": 243.91666666666666,
+        "on_lp_feasible": {
+          "cases": 236,
+          "day_pass_pct": 0.0,
+          "tracking_pct": 78.69300170690076,
+          "soc_pct": 100.0,
+          "block_pass_pct": 65.0329188002926,
+          "forced_ev_steps_mean": 233.4915254237288
+        },
+        "missed_reachable_share_pct": 84.89892984542212
+      },
+      "ルールベース（中央観測、forceあり）": {
+        "cases": 360,
+        "day_pass_pct": 34.44444444444444,
+        "tracking_pct": 94.28490990990991,
+        "soc_pct": 100.0,
+        "block_pass_pct": 90.67192192192192,
+        "forced_ev_steps_mean": 653.4638888888888,
+        "on_lp_feasible": {
+          "cases": 236,
+          "day_pass_pct": 52.54237288135593,
+          "tracking_pct": 96.43257742014143,
+          "soc_pct": 100.0,
+          "block_pass_pct": 94.03072421360643,
+          "forced_ev_steps_mean": 634.8559322033898
+        },
+        "missed_reachable_share_pct": 0.0
+      },
+      "中央LP + force": {
+        "cases": 360,
+        "day_pass_pct": 0.0,
+        "tracking_pct": 74.24455705705705,
+        "soc_pct": 100.0,
+        "block_pass_pct": 62.42492492492492,
+        "forced_ev_steps_mean": 104.36111111111111,
+        "on_lp_feasible": {
+          "cases": 236,
+          "day_pass_pct": 0.0,
+          "tracking_pct": 75.54986588636918,
+          "soc_pct": 100.0,
+          "block_pass_pct": 64.68178493050476,
+          "forced_ev_steps_mean": 105.12288135593221
+        },
+        "missed_reachable_share_pct": 70.15242606424971
+      },
+      "参考: MARL（forceなし、GBで学習、ep1240）": {
+        "cases": 360,
+        "day_pass_pct": 0.0,
+        "tracking_pct": 83.16285035035035,
+        "soc_pct": 78.94980255434203,
+        "block_pass_pct": 71.98761261261261,
+        "forced_ev_steps_mean": 0.0,
+        "on_lp_feasible": {
+          "cases": 236,
+          "day_pass_pct": 0.0,
+          "tracking_pct": 84.04535479151427,
+          "soc_pct": 79.44561517263737,
+          "block_pass_pct": 73.18215069495245,
+          "forced_ev_steps_mean": 0.0
+        },
+        "missed_reachable_share_pct": 80.22294472828611
+      }
+    }
+  }
+}

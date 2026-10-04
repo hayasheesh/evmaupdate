@@ -1,0 +1,629 @@
+{
+  "groups": {
+    "low_below_85pct": {
+      "days": 8,
+      "dates": [
+        "2024-04-20",
+        "2024-04-21",
+        "2024-08-02",
+        "2024-08-04",
+        "2024-08-05",
+        "2024-08-10",
+        "2024-12-02",
+        "2024-12-07"
+      ],
+      "means": {
+        "pass_pct": 79.67122395833334,
+        "ev_mean_eval": 98.25,
+        "ev_eval_to_design_median": 0.97887083641823,
+        "mean_width_kw": 788.4438605366272,
+        "mean_width_per_design_ev_kw": 7.855196763235656,
+        "live_hours": 17.0625,
+        "baseline_net_kwh": 2511.7345069588537,
+        "baseline_charge_kwh": 2538.6679766287357,
+        "baseline_discharge_kwh": 26.933469669881973,
+        "max_abs_baseline_kw": 597.4421315694412,
+        "baseline_total_variation_kw": 3902.611106737459,
+        "command_mean_up_normalized_hours": 0.939210067953418,
+        "command_mean_down_normalized_hours": 0.8705469122633962,
+        "command_mean_absolute_normalized_hours": 1.8097569802168143,
+        "command_mean_max_abs_activation_kw": 595.4028643532778,
+        "command_mean_longest_up_minutes": 46.3720703125,
+        "command_mean_longest_down_minutes": 44.86572265625
+      }
+    },
+    "high_at_least_95pct": {
+      "days": 10,
+      "dates": [
+        "2024-04-13",
+        "2024-08-17",
+        "2024-10-02",
+        "2024-10-03",
+        "2024-10-05",
+        "2024-10-06",
+        "2024-10-12",
+        "2024-10-13",
+        "2024-12-01",
+        "2024-12-08"
+      ],
+      "means": {
+        "pass_pct": 98.65885416666666,
+        "ev_mean_eval": 102.13333333333333,
+        "ev_eval_to_design_median": 1.020715708701839,
+        "mean_width_kw": 675.1330107486415,
+        "mean_width_per_design_ev_kw": 6.74688864162061,
+        "live_hours": 15.5,
+        "baseline_net_kwh": 1827.6453789538784,
+        "baseline_charge_kwh": 1834.280180625937,
+        "baseline_discharge_kwh": 6.63480167205837,
+        "max_abs_baseline_kw": 461.5380094901125,
+        "baseline_total_variation_kw": 2341.612086637288,
+        "command_mean_up_normalized_hours": 0.8257017667141089,
+        "command_mean_down_normalized_hours": 0.8168499378216236,
+        "command_mean_absolute_normalized_hours": 1.6425517045357325,
+        "command_mean_max_abs_activation_kw": 539.0693375961375,
+        "command_mean_longest_up_minutes": 43.787109375,
+        "command_mean_longest_down_minutes": 45.787109375
+      }
+    }
+  },
+  "daily_correlations_with_pass_pct": {
+    "ev_mean_eval": 0.431922902411575,
+    "ev_eval_to_design_median": 0.46853831141835145,
+    "mean_width_kw": -0.5152006992569803,
+    "mean_width_per_design_ev_kw": -0.48779639808554176,
+    "live_hours": -0.4946818657263451,
+    "baseline_net_kwh": -0.3927476005441407,
+    "baseline_charge_kwh": -0.4073365737857598,
+    "baseline_discharge_kwh": -0.3954747519846288,
+    "max_abs_baseline_kw": -0.3543926417319693,
+    "baseline_total_variation_kw": -0.42209086919832156,
+    "command_mean_up_normalized_hours": -0.5318197061312475,
+    "command_mean_down_normalized_hours": -0.3613368105557292,
+    "command_mean_absolute_normalized_hours": -0.4852417606220519,
+    "command_mean_max_abs_activation_kw": -0.36077086006675135,
+    "command_mean_longest_up_minutes": -0.3916711653085926,
+    "command_mean_longest_down_minutes": 0.2078251584451747
+  },
+  "ev_draws_outside_design_count_range": 0,
+  "by_month": {
+    "4": {
+      "days": 6,
+      "pass_pct": 88.8671875
+    },
+    "8": {
+      "days": 6,
+      "pass_pct": 82.53038194444444
+    },
+    "10": {
+      "days": 7,
+      "pass_pct": 97.74925595238095
+    },
+    "12": {
+      "days": 6,
+      "pass_pct": 91.29774305555556
+    }
+  },
+  "ev_count_correlation_with_seed_pass_pct_within_day": 0.2544682546590044,
+  "command_features_by_trial_outcome": {
+    "passed": {
+      "trials": 17360,
+      "means": {
+        "up_normalized_hours": 0.8292118451308805,
+        "down_normalized_hours": 0.7901478654137634,
+        "net_normalized_hours": -0.039063979717117135,
+        "absolute_normalized_hours": 1.619359710544644,
+        "absolute_net_normalized_hours": 0.5371301726695773,
+        "active_instruction_points": 65.13214285714285,
+        "direction_reversals": 11.500921658986176,
+        "absolute_activation_kwh": 906.0485576541142,
+        "net_activation_kwh": -24.781380674683362,
+        "net_target_kwh": 2147.129255126672,
+        "longest_up_minutes": 45.25086405529954,
+        "longest_down_minutes": 45.26526497695853,
+        "longest_up_over_10pct_minutes": 35.38652073732719,
+        "longest_down_over_10pct_minutes": 33.00777649769585,
+        "max_abs_activation_kw": 550.8641971913863,
+        "max_target_change_kw": 693.9474577621105,
+        "target_total_variation_kw": 11029.71352454211
+      },
+      "mean_difference_from_daily_pool": {
+        "up_normalized_hours": -0.05538953755833257,
+        "down_normalized_hours": -0.0599924679279289,
+        "net_normalized_hours": -0.004602930369596328,
+        "absolute_normalized_hours": -0.11538200548626149,
+        "absolute_net_normalized_hours": -0.03811379839692556,
+        "active_instruction_points": -0.5298126080069124,
+        "direction_reversals": -0.08582859302995392,
+        "absolute_activation_kwh": -62.88438717808762,
+        "net_activation_kwh": -1.821850627959673,
+        "net_target_kwh": -1.8218506279596451,
+        "longest_up_minutes": -0.011736751152073732,
+        "longest_down_minutes": -0.17642591625864054,
+        "longest_up_over_10pct_minutes": -0.44227818080357145,
+        "longest_down_over_10pct_minutes": -0.6127007128456221,
+        "max_abs_activation_kw": -17.711854533286733,
+        "max_target_change_kw": -17.541620847132993,
+        "target_total_variation_kw": -581.6407336091403
+      }
+    },
+    "failed": {
+      "trials": 1810,
+      "means": {
+        "up_normalized_hours": 1.3955797383331197,
+        "down_normalized_hours": 1.44516480153912,
+        "net_normalized_hours": 0.049585063206000424,
+        "absolute_normalized_hours": 2.8407445398722397,
+        "absolute_net_normalized_hours": 0.8861938866639388,
+        "active_instruction_points": 72.44917127071824,
+        "direction_reversals": 12.93646408839779,
+        "absolute_activation_kwh": 1593.7989292558607,
+        "net_activation_kwh": 15.77450679659073,
+        "net_target_kwh": 2455.6227665367783,
+        "longest_up_minutes": 44.52486187845304,
+        "longest_down_minutes": 46.80110497237569,
+        "longest_up_over_10pct_minutes": 39.50276243093923,
+        "longest_down_over_10pct_minutes": 39.34254143646409,
+        "max_abs_activation_kw": 756.1068599590013,
+        "max_target_change_kw": 906.805908456013,
+        "target_total_variation_kw": 18099.905935133193
+      },
+      "mean_difference_from_daily_pool": {
+        "up_normalized_hours": 0.4621724731179421,
+        "down_normalized_hours": 0.5704509969437059,
+        "net_normalized_hours": 0.1082785238257639,
+        "absolute_normalized_hours": 1.0326234700616481,
+        "absolute_net_normalized_hours": 0.2993566681000917,
+        "active_instruction_points": 4.5316622064917125,
+        "direction_reversals": 0.8778034357734806,
+        "absolute_activation_kwh": 561.671424414395,
+        "net_activation_kwh": 56.09114543337032,
+        "net_target_kwh": 56.091145433370365,
+        "longest_up_minutes": -1.9084297306629834,
+        "longest_down_minutes": 1.8207765020718232,
+        "longest_up_over_10pct_minutes": 2.642491799033149,
+        "longest_down_over_10pct_minutes": 5.867629920580111,
+        "max_abs_activation_kw": 165.52295348366306,
+        "max_target_change_kw": 163.46364391955697,
+        "target_total_variation_kw": 5389.961215773003
+      }
+    }
+  },
+  "within_day_feature_correlation_with_failure": {
+    "up_normalized_hours": 0.20734930048835823,
+    "down_normalized_hours": 0.29096725481398755,
+    "net_normalized_hours": 0.042590532851826096,
+    "absolute_normalized_hours": 0.30098200641016204,
+    "absolute_net_normalized_hours": 0.17211520652163165,
+    "active_instruction_points": 0.04412405191964798,
+    "direction_reversals": 0.0342619185832406,
+    "absolute_activation_kwh": 0.29094951258817425,
+    "net_activation_kwh": 0.03704369952315756,
+    "net_target_kwh": 0.03704369952315755,
+    "longest_up_minutes": -0.0186232303056174,
+    "longest_down_minutes": 0.018860943001969607,
+    "longest_up_over_10pct_minutes": 0.03319092055103994,
+    "longest_down_over_10pct_minutes": 0.08168872477139716,
+    "max_abs_activation_kw": 0.24150252590802834,
+    "max_target_change_kw": 0.22282522741775815,
+    "target_total_variation_kw": 0.29190440555649394
+  },
+  "within_day_command_quartiles": {
+    "absolute_normalized_hours": {
+      "smallest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 77,
+        "unknown": 0,
+        "failure_pct": 1.6041666666666667,
+        "feature_mean": 0.4774221278545515
+      },
+      "largest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 980,
+        "unknown": 30,
+        "failure_pct": 20.416666666666668,
+        "feature_mean": 3.347827171681273
+      }
+    },
+    "absolute_activation_kwh": {
+      "smallest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 87,
+        "unknown": 0,
+        "failure_pct": 1.8125,
+        "feature_mean": 264.9995828404685
+      },
+      "largest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 952,
+        "unknown": 30,
+        "failure_pct": 19.833333333333332,
+        "feature_mean": 1876.6240094496989
+      }
+    },
+    "max_abs_activation_kw": {
+      "smallest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 47,
+        "unknown": 0,
+        "failure_pct": 0.9791666666666666,
+        "feature_mean": 243.99471876007365
+      },
+      "largest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 918,
+        "unknown": 27,
+        "failure_pct": 19.125,
+        "feature_mean": 826.156806314598
+      }
+    },
+    "target_total_variation_kw": {
+      "smallest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 82,
+        "unknown": 0,
+        "failure_pct": 1.7083333333333333,
+        "feature_mean": 5190.816067138499
+      },
+      "largest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 973,
+        "unknown": 18,
+        "failure_pct": 20.270833333333332,
+        "feature_mean": 20284.004168288335
+      }
+    },
+    "longest_down_minutes": {
+      "smallest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 336,
+        "unknown": 10,
+        "failure_pct": 7.0,
+        "feature_mean": 17.15625
+      },
+      "largest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 469,
+        "unknown": 5,
+        "failure_pct": 9.770833333333334,
+        "feature_mean": 87.86875
+      }
+    },
+    "longest_up_minutes": {
+      "smallest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 448,
+        "unknown": 1,
+        "failure_pct": 9.333333333333334,
+        "feature_mean": 15.8375
+      },
+      "largest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 385,
+        "unknown": 21,
+        "failure_pct": 8.020833333333334,
+        "feature_mean": 90.6875
+      }
+    },
+    "absolute_net_normalized_hours": {
+      "smallest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 247,
+        "unknown": 0,
+        "failure_pct": 5.145833333333333,
+        "feature_mean": 0.07142539744566498
+      },
+      "largest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 712,
+        "unknown": 29,
+        "failure_pct": 14.833333333333334,
+        "feature_mean": 1.3949502402753597
+      }
+    },
+    "active_instruction_points": {
+      "smallest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 326,
+        "unknown": 0,
+        "failure_pct": 6.791666666666667,
+        "feature_mean": 24.0025
+      },
+      "largest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 478,
+        "unknown": 12,
+        "failure_pct": 9.958333333333334,
+        "feature_mean": 113.665
+      }
+    },
+    "direction_reversals": {
+      "smallest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 310,
+        "unknown": 11,
+        "failure_pct": 6.458333333333333,
+        "feature_mean": 2.659375
+      },
+      "largest_quarter": {
+        "commands": 1600,
+        "trials": 4800,
+        "infeasible": 480,
+        "unknown": 3,
+        "failure_pct": 10.0,
+        "feature_mean": 23.7975
+      }
+    }
+  },
+  "command_failure_count_histogram": {
+    "0": 5220,
+    "1": 693,
+    "2": 344,
+    "3": 143
+  },
+  "failed_trials_where_another_ev_draw_passed": 1369,
+  "by_source_bmu": {
+    "BALB1": {
+      "trials": 534,
+      "failed": 82,
+      "failure_pct": 15.355805243445692
+    },
+    "SNB01": {
+      "trials": 291,
+      "failed": 6,
+      "failure_pct": 2.0618556701030926
+    },
+    "RESS1": {
+      "trials": 390,
+      "failed": 23,
+      "failure_pct": 5.897435897435898
+    },
+    "TEMPB1": {
+      "trials": 414,
+      "failed": 83,
+      "failure_pct": 20.04830917874396
+    },
+    "RANGEB1": {
+      "trials": 536,
+      "failed": 81,
+      "failure_pct": 15.111940298507463
+    },
+    "HBESS1": {
+      "trials": 459,
+      "failed": 40,
+      "failure_pct": 8.714596949891067
+    },
+    "WTAHB1": {
+      "trials": 471,
+      "failed": 2,
+      "failure_pct": 0.42462845010615713
+    },
+    "TIB1": {
+      "trials": 522,
+      "failed": 1,
+      "failure_pct": 0.19157088122605365
+    },
+    "MREHA3": {
+      "trials": 344,
+      "failed": 86,
+      "failure_pct": 25.0
+    },
+    "WALGRV1": {
+      "trials": 552,
+      "failed": 76,
+      "failure_pct": 13.768115942028986
+    },
+    "TB2B1": {
+      "trials": 537,
+      "failed": 45,
+      "failure_pct": 8.379888268156424
+    },
+    "BRNDBES1": {
+      "trials": 429,
+      "failed": 45,
+      "failure_pct": 10.48951048951049
+    },
+    "NESBESS2": {
+      "trials": 69,
+      "failed": 0,
+      "failure_pct": 0.0
+    },
+    "HPR1": {
+      "trials": 614,
+      "failed": 53,
+      "failure_pct": 8.631921824104234
+    },
+    "VBB1": {
+      "trials": 594,
+      "failed": 8,
+      "failure_pct": 1.3468013468013469
+    },
+    "BBATTERY1": {
+      "trials": 645,
+      "failed": 53,
+      "failure_pct": 8.217054263565892
+    },
+    "KESSB1": {
+      "trials": 588,
+      "failed": 25,
+      "failure_pct": 4.2517006802721085
+    },
+    "MANNUMB1": {
+      "trials": 572,
+      "failed": 60,
+      "failure_pct": 10.48951048951049
+    },
+    "RIVNB2": {
+      "trials": 366,
+      "failed": 50,
+      "failure_pct": 13.66120218579235
+    },
+    "CAPBES1": {
+      "trials": 582,
+      "failed": 63,
+      "failure_pct": 10.824742268041238
+    },
+    "GANNB1": {
+      "trials": 390,
+      "failed": 86,
+      "failure_pct": 22.05128205128205
+    },
+    "CGBESS01": {
+      "trials": 72,
+      "failed": 25,
+      "failure_pct": 34.72222222222222
+    },
+    "CHBESS1": {
+      "trials": 576,
+      "failed": 13,
+      "failure_pct": 2.2569444444444446
+    },
+    "MREHA1": {
+      "trials": 336,
+      "failed": 5,
+      "failure_pct": 1.4880952380952381
+    },
+    "WDBESS2": {
+      "trials": 519,
+      "failed": 88,
+      "failure_pct": 16.95568400770713
+    },
+    "TARBESS1": {
+      "trials": 270,
+      "failed": 0,
+      "failure_pct": 0.0
+    },
+    "SMTHBES1": {
+      "trials": 447,
+      "failed": 77,
+      "failure_pct": 17.225950782997764
+    },
+    "GREENB1": {
+      "trials": 354,
+      "failed": 8,
+      "failure_pct": 2.2598870056497176
+    },
+    "ERB01": {
+      "trials": 279,
+      "failed": 6,
+      "failure_pct": 2.150537634408602
+    },
+    "BRDDBES1": {
+      "trials": 78,
+      "failed": 2,
+      "failure_pct": 2.5641025641025643
+    },
+    "LBB1": {
+      "trials": 573,
+      "failed": 85,
+      "failure_pct": 14.834205933682373
+    },
+    "BHB1": {
+      "trials": 429,
+      "failed": 1,
+      "failure_pct": 0.2331002331002331
+    },
+    "BULBES1": {
+      "trials": 450,
+      "failed": 124,
+      "failure_pct": 27.555555555555557
+    },
+    "DALNTH1": {
+      "trials": 477,
+      "failed": 3,
+      "failure_pct": 0.6289308176100629
+    },
+    "WDBESS1": {
+      "trials": 534,
+      "failed": 33,
+      "failure_pct": 6.179775280898877
+    },
+    "SWANBBF1": {
+      "trials": 231,
+      "failed": 14,
+      "failure_pct": 6.0606060606060606
+    },
+    "TRGBESS1": {
+      "trials": 30,
+      "failed": 0,
+      "failure_pct": 0.0
+    },
+    "DPNTB1": {
+      "trials": 486,
+      "failed": 74,
+      "failure_pct": 15.22633744855967
+    },
+    "MREHA2": {
+      "trials": 375,
+      "failed": 12,
+      "failure_pct": 3.2
+    },
+    "BLYTHB1": {
+      "trials": 497,
+      "failed": 55,
+      "failure_pct": 11.066398390342052
+    },
+    "LVES1": {
+      "trials": 513,
+      "failed": 73,
+      "failure_pct": 14.230019493177387
+    },
+    "WANDB1": {
+      "trials": 615,
+      "failed": 5,
+      "failure_pct": 0.8130081300813008
+    },
+    "SNB02": {
+      "trials": 162,
+      "failed": 1,
+      "failure_pct": 0.6172839506172839
+    },
+    "ULPBESS1": {
+      "trials": 447,
+      "failed": 46,
+      "failure_pct": 10.29082774049217
+    },
+    "ORABESS1": {
+      "trials": 102,
+      "failed": 9,
+      "failure_pct": 8.823529411764707
+    },
+    "NESBESS1": {
+      "trials": 69,
+      "failed": 5,
+      "failure_pct": 7.246376811594203
+    },
+    "BUNGAMB1": {
+      "trials": 150,
+      "failed": 15,
+      "failure_pct": 10.0
+    },
+    "LIMBESS1": {
+      "trials": 170,
+      "failed": 63,
+      "failure_pct": 37.05882352941177
+    },
+    "LDBESS1": {
+      "trials": 30,
+      "failed": 0,
+      "failure_pct": 0.0
+    }
+  }
+}

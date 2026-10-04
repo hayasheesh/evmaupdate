@@ -1,0 +1,41 @@
+{
+  "method": "raw_dispatch_target_plus_constant_offset_relative_view",
+  "scenario_reference": "first target in each complete 288-step daily window",
+  "transformations": {
+    "raw_target_mw": "copied from market target without modification",
+    "relative_up_positive_mw": "direction_sign * (target_mw - first target_mw)",
+    "delta_up_positive_mw": "first difference in native MW; first value is missing",
+    "predispatch_subtraction": false,
+    "availability_or_width_division": false,
+    "clipping": false,
+    "interpolation": false
+  },
+  "sign_convention": {
+    "AEMO BESS": "positive means increasing net injection",
+    "ERCOT CLR": "positive means reduced MW consumption"
+  },
+  "source_time_conventions": {
+    "AEMO NEM": "TOTALCLEARED target at 5-minute interval end; trading day starts 04:05 NEM",
+    "ERCOT": "causally sampled SCED Base Point on a five-minute local grid"
+  },
+  "days": [
+    "2026-07-22",
+    "2026-07-23",
+    "2026-07-24"
+  ],
+  "aemo": {
+    "resource": "BBATTERY1",
+    "input_directory": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\aemo\\nem\\processed_5min\\archive",
+    "source_column": "dispatch_target_mw"
+  },
+  "ercot": {
+    "resource": "AR_ALD1",
+    "input_csv": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\ercot_waveforms_ar_ald1_20260923\\AR_ALD1_three_actual_days.csv",
+    "source_column": "base_point_mw",
+    "resource_kind": "CLR"
+  },
+  "outputs": [
+    "raw_command_waveforms.csv",
+    "market_command_waveforms.png"
+  ]
+}

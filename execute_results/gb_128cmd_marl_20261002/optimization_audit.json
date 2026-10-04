@@ -1,0 +1,18 @@
+{
+  "saved_episode": 128,
+  "target_episode": 2000,
+  "archive": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\archive\\prod_elexonplan_AB_7station_20261002_215844",
+  "source": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\gb_128cmd_marl_20261002\\runtime_source",
+  "source_sha256": "d9d2fa921887cc0929513906a0c1c052a0b93c1b1c5ff1f1c08156d08bf654dd",
+  "training_bank": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_minmedmax_3of128ev_128cmd_all_commands_elexon_plan_deviation",
+  "test_bank": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\validation_5_minmedmax_3of128ev_128cmd_all_commands_elexon_plan_deviation",
+  "recorded_library_signature": {
+    "activation_signal_mode": "elexon_battery_boa_minus_fpn:elexon_battery_boa_minus_fpn",
+    "activation_signal_regime": "elexon_battery_boa_minus_fpn",
+    "activation_source_dir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\elexon\\command_libraries\\battery_plan_deviation_calendar_day",
+    "activation_library_file_count": 4305,
+    "activation_library_sha256": "297086287ab095dee3709ae0b5c25ffa72ed9062cd4ee69b6d39b3854a92945e"
+  },
+  "optimization": "reuse recorded library metadata; omit per-episode CSV fingerprint and header scan",
+  "model_state_restoration": "exact optimizer, replay buffer, RNG and episode cursor"
+}

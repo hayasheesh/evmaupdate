@@ -1,0 +1,19 @@
+{
+  "model": "prod_aemoplan_AB_7station",
+  "checkpointEpisode": 2200,
+  "trainingMarket": "aemo_plan_deviation",
+  "evaluationMarket": "ercot_plan_deviation",
+  "evaluationPipeline": "marl_raw",
+  "bidDays": 5,
+  "commandsPerDay": 24,
+  "evSeedsPerCommand": 3,
+  "cpuRateBasisPoints": 2500,
+  "cudaVisibleDevices": "-1",
+  "startedAt": "2026-09-30T23:26:55.1545269+09:00",
+  "completedAt": "2026-09-30T23:54:44.1053516+09:00",
+  "launcherPid": 13428,
+  "pid": 33116,
+  "stage": "complete",
+  "exitCode": 0,
+  "error": null
+}

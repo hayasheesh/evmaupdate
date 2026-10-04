@@ -1,0 +1,13 @@
+﻿{
+    "waitPids":  [
+                     39436
+                 ],
+    "waitCommandPattern":  "ft_all\\.sh|ft_regen\\.py",
+    "quietMinutes":  5,
+    "launcherPid":  7460,
+    "startedAt":  "2026-10-03T00:17:23.4435387+09:00",
+    "stage":  "resume_exited",
+    "stageAt":  "2026-10-03T22:31:37.2466810+09:00",
+    "resumeFromEpisode":  128,
+    "error":  null
+}

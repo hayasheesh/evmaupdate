@@ -1,0 +1,2712 @@
+{
+  "result_version": 2,
+  "market": "ERCOT",
+  "service_date": "2024-10-03",
+  "bid_path": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_minmedmax_3of128ev_128cmd_all_commands_ercot_plan_deviation\\days\\014_2024-10-03\\fixed_bid.pkl",
+  "bid_sha256": "8f4f404dce3dfa4f87ec3393535e5f753d28788aec90a8e49162a3107f26578d",
+  "design_commands": 128,
+  "unseen_commands": 128,
+  "ev_sampling": "independent_forecast_error",
+  "ev_seeds": [
+    10087126,
+    10097133,
+    10107140
+  ],
+  "ev_counts": [
+    95,
+    111,
+    102
+  ],
+  "solver_time_limit_s": 20.0,
+  "elapsed_s": 765.9547711000014,
+  "rows": [
+    {
+      "source_date": "2026-05-19",
+      "source_bmu": "CEDRVALE_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-23",
+      "source_bmu": "DCSES_ESR4",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-21",
+      "source_bmu": "MU_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-23",
+      "source_bmu": "MAYBERRY_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-23",
+      "source_bmu": "RTLSNAKE_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-22",
+      "source_bmu": "STRG_SLR_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-23",
+      "source_bmu": "PALE_ESS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-21",
+      "source_bmu": "N_MERCED_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-19",
+      "source_bmu": "TBWF_ESS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-20",
+      "source_bmu": "PHO_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-23",
+      "source_bmu": "ANDMDSLR_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-22",
+      "source_bmu": "NOBLESLR_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-17",
+      "source_bmu": "RVRVLYS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-22",
+      "source_bmu": "PLATINUM_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-20",
+      "source_bmu": "LON_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-21",
+      "source_bmu": "BLUEJAY_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-21",
+      "source_bmu": "PYOTE_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-18",
+      "source_bmu": "LFSTH_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-20",
+      "source_bmu": "DAN_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-20",
+      "source_bmu": "MYR_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-23",
+      "source_bmu": "GZ_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-21",
+      "source_bmu": "CROSSETT_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-25",
+      "source_bmu": "CR_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-20",
+      "source_bmu": "TDWLPR_1_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-18",
+      "source_bmu": "N_MERCED_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-24",
+      "source_bmu": "PIRATE_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-19",
+      "source_bmu": "SANDLAKE_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-21",
+      "source_bmu": "JUNCTION_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-24",
+      "source_bmu": "NF_BRP_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-23",
+      "source_bmu": "BLACKSPR_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-20",
+      "source_bmu": "CORALSLR_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-24",
+      "source_bmu": "DKNS_ESS_ESR4",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-24",
+      "source_bmu": "ZIER_SLR_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-23",
+      "source_bmu": "S_SNROSA_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-20",
+      "source_bmu": "BR_ARROW_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-23",
+      "source_bmu": "AE_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-23",
+      "source_bmu": "MILTON_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-20",
+      "source_bmu": "MUSTNGCK_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-21",
+      "source_bmu": "ZAPATA_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-22",
+      "source_bmu": "PRCRK_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-19",
+      "source_bmu": "ELM_ST_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-23",
+      "source_bmu": "BLACKSPR_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-24",
+      "source_bmu": "PAVO_ESS_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-22",
+      "source_bmu": "PHO_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-19",
+      "source_bmu": "RVRVLYS_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-18",
+      "source_bmu": "JUNCTION_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-19",
+      "source_bmu": "PAVO_ESS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-18",
+      "source_bmu": "PEARSALL_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-20",
+      "source_bmu": "N_ALAMO_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-22",
+      "source_bmu": "BOCO_ESS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-17",
+      "source_bmu": "MAYBERRY_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-22",
+      "source_bmu": "PHO_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-19",
+      "source_bmu": "BOCO_ESS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-22",
+      "source_bmu": "ANOL_ESS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-20",
+      "source_bmu": "HYDR_ESS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-20",
+      "source_bmu": "ZAPATA_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-18",
+      "source_bmu": "N_ALAMO_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-23",
+      "source_bmu": "BLSUMMIT_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-23",
+      "source_bmu": "GRDNE_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-19",
+      "source_bmu": "SLCNHLS_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-19",
+      "source_bmu": "SUNVASLR_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-20",
+      "source_bmu": "ANGLETON_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-19",
+      "source_bmu": "NCO_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-17",
+      "source_bmu": "PAVO_ESS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-22",
+      "source_bmu": "BYRDR_ES_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-22",
+      "source_bmu": "BATCAVE_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-22",
+      "source_bmu": "WFTANK_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-21",
+      "source_bmu": "STAM_SLR_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-22",
+      "source_bmu": "SWOOSEII_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-19",
+      "source_bmu": "ALAMO_ST_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-21",
+      "source_bmu": "ZAPATA_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-23",
+      "source_bmu": "ZAPATA_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-17",
+      "source_bmu": "LBRA_ESS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-19",
+      "source_bmu": "W_HARLIN_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-22",
+      "source_bmu": "ZAPATA_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-22",
+      "source_bmu": "BCNV_ESS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-20",
+      "source_bmu": "STADIUM_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-24",
+      "source_bmu": "ENDPARKS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-20",
+      "source_bmu": "DKNS_ESS_ESR3",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-24",
+      "source_bmu": "SANDLAKE_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-19",
+      "source_bmu": "POTEETS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-24",
+      "source_bmu": "CITRUSCY_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-21",
+      "source_bmu": "SWTWR_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-18",
+      "source_bmu": "MADERO_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-19",
+      "source_bmu": "L_FRESNO_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-23",
+      "source_bmu": "GRDNE_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-21",
+      "source_bmu": "JUNCTION_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-21",
+      "source_bmu": "TDWLPR_1_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-24",
+      "source_bmu": "RRC_WIND_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-21",
+      "source_bmu": "SGAL_BES_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-22",
+      "source_bmu": "DAN_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-20",
+      "source_bmu": "ROSELAND_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-23",
+      "source_bmu": "DKNS_ESS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-20",
+      "source_bmu": "SMTH_ESS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-20",
+      "source_bmu": "SLCNHLS_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-23",
+      "source_bmu": "GEORSO_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-18",
+      "source_bmu": "WORSHAM_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-21",
+      "source_bmu": "MV_VALV4_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-20",
+      "source_bmu": "DKNS_ESS_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-23",
+      "source_bmu": "ELSA_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-22",
+      "source_bmu": "HYDR_ESS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-21",
+      "source_bmu": "PRCRK_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-17",
+      "source_bmu": "SWOOSEII_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-20",
+      "source_bmu": "ZAPATA_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-19",
+      "source_bmu": "HYDR_ESS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-19",
+      "source_bmu": "HEARN_RD_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-18",
+      "source_bmu": "BLSUMMIT_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-20",
+      "source_bmu": "JAG_SLR_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-23",
+      "source_bmu": "BYRDR_ES_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-22",
+      "source_bmu": "DESN_ESS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-20",
+      "source_bmu": "MAGNO_TN_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-20",
+      "source_bmu": "SEVNF_ES_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-19",
+      "source_bmu": "DAN_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-20",
+      "source_bmu": "LILY_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-21",
+      "source_bmu": "UTOPIA_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-22",
+      "source_bmu": "HEIGHTTN_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-19",
+      "source_bmu": "EUNICE_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-19",
+      "source_bmu": "SP_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-19",
+      "source_bmu": "ANOL_ESS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-21",
+      "source_bmu": "DKNS_ESS_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-19",
+      "source_bmu": "BEXAR_ES_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-24",
+      "source_bmu": "ANDMDSLR_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-23",
+      "source_bmu": "RIO_GRAN_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-20",
+      "source_bmu": "CTW_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-19",
+      "source_bmu": "FLAT_TOP_ESR2",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-23",
+      "source_bmu": "MYR_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-24",
+      "source_bmu": "PALE_ESS_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-21",
+      "source_bmu": "DAN_ESR1",
+      "trials": [
+        {
+          "ev_seed": 10087126,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10097133,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10107140,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    }
+  ]
+}

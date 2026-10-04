@@ -1,0 +1,22 @@
+{
+  "central_lp_only": {
+    "global_tracking_rate": 0.7736406619385342,
+    "controller_pre_system_tracking_rate": 0.7736406619385342,
+    "up_pass_rate": 0.5735815602836879,
+    "down_pass_rate": 0.5735815602836879,
+    "soc_hit_rate": 0.9074262461851476,
+    "controller_pre_system_mae_kw": null,
+    "post_bess_mae_kw": 89.90996536028068,
+    "seconds": 300.5
+  },
+  "central_lp_bess": {
+    "global_tracking_rate": 0.8091016548463356,
+    "controller_pre_system_tracking_rate": 0.7736406619385342,
+    "up_pass_rate": 0.6205673758865249,
+    "down_pass_rate": 0.6205673758865249,
+    "soc_hit_rate": 0.9074262461851476,
+    "controller_pre_system_mae_kw": null,
+    "post_bess_mae_kw": 76.65585115776133,
+    "seconds": 296.5
+  }
+}

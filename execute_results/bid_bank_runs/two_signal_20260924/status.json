@@ -1,0 +1,36 @@
+{
+  "startedAt": "2026-09-24T00:08:18.541474+09:00",
+  "updatedAt": "2026-09-24T01:13:49.9959153+09:00",
+  "status": "stopped_by_user",
+  "activePowerScheme": "8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c",
+  "originalBoostAC": 2,
+  "originalBoostDC": 2,
+  "boostDuringBuild": 0,
+  "cpuHardCapPercent": 75,
+  "dayWorkers": 1,
+  "scenarioWorkers": 8,
+  "signals": [
+    "aemo_bess_dispatch",
+    "ercot"
+  ],
+  "steps": [
+    {
+      "name": "aemo_bess_dispatch_bank",
+      "pid": 35176,
+      "command": "tools/build_all_upper_bid_banks.py --train-split-count 25 --train-days 25 --test-days 5 --workers 1 --activation-signal-set aemo_bess_dispatch",
+      "status": "cancelled_by_user",
+      "startedAt": "2026-09-24T00:08:18.8706517+09:00",
+      "completedAt": "2026-09-24T01:13:33.8033947+09:00",
+      "exitCode": null,
+      "stdout": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_bank_runs\\two_signal_20260924\\aemo_bess_dispatch_bank.stdout.log",
+      "stderr": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_bank_runs\\two_signal_20260924\\aemo_bess_dispatch_bank.stderr.log",
+      "cpuHardCapPercent": 75,
+      "boostMode": "disabled"
+    }
+  ],
+  "selectedErcotBoundaries": null,
+  "completedAt": "2026-09-24T01:13:33.8033947+09:00",
+  "error": null,
+  "cancelledByUser": true,
+  "stopNote": "User requested stopping the current run; no bid-bank day had completed."
+}

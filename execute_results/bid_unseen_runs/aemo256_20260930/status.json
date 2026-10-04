@@ -1,0 +1,21 @@
+{
+  "market": "AEMO",
+  "bankDir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_minmedmax_3of128ev_256cmd_all_commands_aemo_plan_deviation",
+  "outputDir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_unseen_realized_ev_aemo_256_20260930",
+  "bidDays": 25,
+  "unseenCommandsPerDay": 256,
+  "independentEvSeedsPerCommand": 3,
+  "solverTimeLimitS": 20,
+  "workers": 16,
+  "cpuRateBasisPoints": 7500,
+  "powerSchemeGuid": "8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c",
+  "originalAcBoostMode": 2,
+  "acBoostModeDuringRun": 0,
+  "powerSettingsRestored": true,
+  "startedAt": "2026-09-30T11:29:23.1632778+09:00",
+  "completedAt": "2026-09-30T12:52:08.9903463+09:00",
+  "stage": "complete",
+  "pid": 8400,
+  "exitCode": 0,
+  "error": null
+}

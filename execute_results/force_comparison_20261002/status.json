@@ -1,0 +1,31 @@
+﻿{
+    "cpuRateBasisPoints":  2500,
+    "startedAt":  "2026-10-02T15:33:34.6822009+09:00",
+    "completedAt":  "2026-10-02T16:15:16.2388430+09:00",
+    "tasks":  {
+                  "aemo_marl_force":  {
+                                          "pid":  45244,
+                                          "exitCode":  0
+                                      },
+                  "aemo_central_lp_force":  {
+                                                "pid":  26416,
+                                                "exitCode":  0
+                                            },
+                  "ercot_marl_force":  {
+                                           "pid":  35660,
+                                           "exitCode":  0
+                                       },
+                  "ercot_aemomodel_marl_force":  {
+                                                     "pid":  30440,
+                                                     "exitCode":  0
+                                                 },
+                  "ercot_rule":  {
+                                     "pid":  46964,
+                                     "exitCode":  0
+                                 },
+                  "ercot_central_lp_force":  {
+                                                 "pid":  26828,
+                                                 "exitCode":  0
+                                             }
+              }
+}

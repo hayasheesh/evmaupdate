@@ -1,0 +1,30 @@
+{
+  "model_dir": "archive/prod_f500_dense8_ABG_7station_20260922_112241",
+  "episode": 200,
+  "bid_bank_dir": "execute_results/bid_banks/validation_5_7s_f500_dense8",
+  "pipeline": "marl_force_bess",
+  "rollouts": 1,
+  "reproduced_rollouts": 1,
+  "participating_blocks": 31,
+  "system_failed_blocks": 10,
+  "lp_joint_failed_blocks": 1,
+  "failed_blocks_lp_joint_passes": 9,
+  "failed_blocks_lp_isolated_passes": 9,
+  "failed_blocks_lp_isolated_fails": 1,
+  "failed_blocks_lp_unsolved": 0,
+  "run_env": {
+    "EVMA_USE_CENTRAL_EV_RESIDUAL_ALLOCATOR": "0",
+    "EVMA_ACTOR_EV_COUNT": "1",
+    "EVMA_GLOBAL_BALANCE_REWARD_MODE": "bounded_absolute_error",
+    "EVMA_GLOBAL_BALANCE_REWARD_ERROR_SCALE_KW": "150",
+    "EVMA_GLOBAL_BALANCE_REWARD_LINEAR_TAIL_KW": "60",
+    "EVMA_LOCAL_FLEET_RESIDUAL_OBS": "1",
+    "EVMA_ACTIVATION_SCENARIO_DIR": "data/aemo/nem/processed_5min/dense8",
+    "EVMA_LOWER_TRAIN_RESEARCH_MINIMUM_BID_QUANTITY_KW": "500",
+    "EVMA_LOWER_BID_CONTEXT_OBS": "1",
+    "EVMA_USE_RESIDUAL_BESS": "1",
+    "OMP_NUM_THREADS": "1",
+    "MKL_NUM_THREADS": "1",
+    "OPENBLAS_NUM_THREADS": "1"
+  }
+}

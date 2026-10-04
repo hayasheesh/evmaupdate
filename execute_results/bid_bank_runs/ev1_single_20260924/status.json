@@ -1,0 +1,22 @@
+{
+  "status": "stopped_for_spawn_guard_fix",
+  "startedAt": "2026-09-24T01:51:30.9427535+09:00",
+  "originalBoostAC": 2,
+  "originalBoostDC": 2,
+  "boostDuringRun": 0,
+  "cpuHardCapPercent": 75,
+  "scenarioWorkers": 24,
+  "candidateDraws": 1,
+  "evScenarioSelection": "single seeded realization (seed 73000)",
+  "serviceDate": "2024-04-02",
+  "commandCount": 128,
+  "outputDir": "execute_results/bid_banks/probe_aemo_bess_single_ev_2024-04-02_20260924",
+  "processId": 26336,
+  "completedAt": "2026-09-24T01:55:13.1096341+09:00",
+  "exitCode": null,
+  "error": null,
+  "updatedAt": "2026-09-24T01:55:13.1096341+09:00",
+  "stdout": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_bank_runs\\ev1_single_20260924\\probe.stdout.log",
+  "stderr": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_bank_runs\\ev1_single_20260924\\probe.stderr.log",
+  "stopNote": "Diagnostic script was stopped after repeated top-level solve messages indicated Windows spawn re-entry."
+}

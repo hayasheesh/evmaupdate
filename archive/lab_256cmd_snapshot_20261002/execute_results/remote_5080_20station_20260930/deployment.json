@@ -1,0 +1,15 @@
+{
+  "source": "pinned AB resume runtime",
+  "file_count": 11226,
+  "archive_bytes": 72356493,
+  "archive_sha256": "21951151ae3202206a87ab01ecf73c16284191a214b6305910b35e447405203c",
+  "project_remote": "/workspace/EVMALOCALUPDATE",
+  "stations": 20,
+  "design_commands": 256,
+  "ev_cases": 3,
+  "ev_candidates": 128,
+  "train_days": 25,
+  "validation_days": 5,
+  "marl": "AB hybrid",
+  "episodes": 2000
+}

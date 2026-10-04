@@ -1,0 +1,51 @@
+{
+  "scope": "one 500-station day, fixed EV realization, 256 command scenarios, 16 workers, one participation pattern",
+  "measured": {
+    "ev_sessions": 9381,
+    "exact_baseline_lp_s": 33.96520760000567,
+    "preprocessing_s": 273.0563703999942,
+    "sample_commands": 16,
+    "sample_benders_rounds": 10,
+    "sample_benders_complete": true,
+    "sample_total_s": 559.6025235999987,
+    "estimated_256_wave_central_s": 324.9466592999888,
+    "estimated_256_wave_conservative_s": 458.4738451200072,
+    "peak_memory_gb_observed_approx": 2.0
+  },
+  "projected_one_pattern": {
+    "10": {
+      "benders_rounds": 10,
+      "includes_dispatch_recovery_wave": true,
+      "central_s": 3847.4696226998713,
+      "conservative_s": 5316.268666720073,
+      "central_h": 1.0687415618610754,
+      "conservative_h": 1.4767412963111315
+    },
+    "15": {
+      "benders_rounds": 15,
+      "includes_dispatch_recovery_wave": true,
+      "central_s": 5472.202919199815,
+      "conservative_s": 7608.637892320109,
+      "central_h": 1.5200563664443931,
+      "conservative_h": 2.113510525644475
+    },
+    "20": {
+      "benders_rounds": 20,
+      "includes_dispatch_recovery_wave": true,
+      "central_s": 7096.9362156997595,
+      "conservative_s": 9901.007117920146,
+      "central_h": 1.9713711710277109,
+      "conservative_h": 2.7502797549778184
+    }
+  },
+  "notes": [
+    "The production path needs one additional oracle wave to recover dispatch trajectories after certification.",
+    "Each outer participation retirement starts another fixed-pattern Benders solve and can add roughly another projected pattern runtime.",
+    "The 256-command pool can require a different number of rounds than the 16-command sample."
+  ],
+  "sources": [
+    "runtime_probe_500s_exact_baseline.json",
+    "runtime_probe_500s_16c_16w.json",
+    "runtime_probe_500s_16c_exact_benders.json"
+  ]
+}

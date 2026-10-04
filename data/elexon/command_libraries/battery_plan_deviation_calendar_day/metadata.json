@@ -1,0 +1,261 @@
+{
+  "build_complete": true,
+  "bank_ready": true,
+  "regime": "elexon_battery_boa_minus_fpn",
+  "source_kind": "GB BM: level of the latest Bid-Offer Acceptance in force minus the unit's FPN",
+  "plan": "Final Physical Notification, fixed at gate closure one hour before the settlement period",
+  "sampling": "spot value at each five-minute point of the London calendar day; DST change days excluded",
+  "reference": "zero deviation from FPN; zero when no acceptance is in force",
+  "acceptances": "all, whatever the SO flag; units whose instructed points are mostly SO-flagged are not selected",
+  "normalization": "one fixed width per unit: max(generationCapacity, |demandCapacity|) from Elexon reference data",
+  "clipping": false,
+  "interpolation_or_fill": "profiles are linear between Elexon spot points; nothing else is filled",
+  "partition_policy": "whole London calendar dates; within each calendar month consecutive 60/20/20 blocks",
+  "partition_date_ranges": {
+    "2025-12": {
+      "train": [
+        "2025-12-01",
+        "2025-12-18"
+      ],
+      "validation": [
+        "2025-12-19",
+        "2025-12-24"
+      ],
+      "test": [
+        "2025-12-25",
+        "2025-12-31"
+      ]
+    },
+    "2026-01": {
+      "train": [
+        "2026-01-01",
+        "2026-01-18"
+      ],
+      "validation": [
+        "2026-01-19",
+        "2026-01-24"
+      ],
+      "test": [
+        "2026-01-25",
+        "2026-01-31"
+      ]
+    },
+    "2026-02": {
+      "train": [
+        "2026-02-01",
+        "2026-02-16"
+      ],
+      "validation": [
+        "2026-02-17",
+        "2026-02-22"
+      ],
+      "test": [
+        "2026-02-23",
+        "2026-02-28"
+      ]
+    },
+    "2026-03": {
+      "train": [
+        "2026-03-01",
+        "2026-03-18"
+      ],
+      "validation": [
+        "2026-03-19",
+        "2026-03-24"
+      ],
+      "test": [
+        "2026-03-25",
+        "2026-03-31"
+      ]
+    },
+    "2026-04": {
+      "train": [
+        "2026-04-01",
+        "2026-04-18"
+      ],
+      "validation": [
+        "2026-04-19",
+        "2026-04-24"
+      ],
+      "test": [
+        "2026-04-25",
+        "2026-04-30"
+      ]
+    },
+    "2026-05": {
+      "train": [
+        "2026-05-01",
+        "2026-05-18"
+      ],
+      "validation": [
+        "2026-05-19",
+        "2026-05-24"
+      ],
+      "test": [
+        "2026-05-25",
+        "2026-05-31"
+      ]
+    },
+    "2026-06": {
+      "train": [
+        "2026-06-01",
+        "2026-06-18"
+      ],
+      "validation": [
+        "2026-06-19",
+        "2026-06-24"
+      ],
+      "test": [
+        "2026-06-25",
+        "2026-06-30"
+      ]
+    },
+    "2026-07": {
+      "train": [
+        "2026-07-01",
+        "2026-07-18"
+      ],
+      "validation": [
+        "2026-07-19",
+        "2026-07-24"
+      ],
+      "test": [
+        "2026-07-25",
+        "2026-07-31"
+      ]
+    },
+    "2026-08": {
+      "train": [
+        "2026-08-01",
+        "2026-08-18"
+      ],
+      "validation": [
+        "2026-08-19",
+        "2026-08-24"
+      ],
+      "test": [
+        "2026-08-25",
+        "2026-08-31"
+      ]
+    },
+    "2026-09": {
+      "train": [
+        "2026-09-01",
+        "2026-09-08"
+      ],
+      "validation": [
+        "2026-09-09",
+        "2026-09-11"
+      ],
+      "test": [
+        "2026-09-12",
+        "2026-09-14"
+      ]
+    }
+  },
+  "partition_counts": {
+    "train": 2520,
+    "validation": 855,
+    "test": 930
+  },
+  "excluded_unit_days": {
+    "non_288_slot_day": 15
+  },
+  "steps_beyond_unit_width": 15238,
+  "share_of_steps_under_acceptance": 0.33278971480190994,
+  "share_of_instructed_steps_so_flagged": 0.001548692941934921,
+  "selection": {
+    "candidate_rule": "fuel type OTHER or empty, generation and demand capacity within 0.5x-2x",
+    "candidates": 284,
+    "max_so_flagged_share": 0.5,
+    "sampled_train_days": [
+      "2025-12-01",
+      "2025-12-08",
+      "2025-12-15",
+      "2026-01-04",
+      "2026-01-11",
+      "2026-01-18",
+      "2026-02-07",
+      "2026-02-14",
+      "2026-03-05",
+      "2026-03-12",
+      "2026-04-01",
+      "2026-04-08",
+      "2026-04-15",
+      "2026-05-04",
+      "2026-05-11",
+      "2026-05-18",
+      "2026-06-07",
+      "2026-06-14",
+      "2026-07-03",
+      "2026-07-10",
+      "2026-07-17",
+      "2026-08-06",
+      "2026-08-13",
+      "2026-09-02"
+    ],
+    "top": [
+      "E_SKELB-1",
+      "E_ILMEB-1",
+      "2__MCMRO002",
+      "E_FARNB-1",
+      "E_THMRB-1",
+      "E_CHAPB-1",
+      "2__GCMRO001",
+      "2__GCMRO002",
+      "T_BLHLB-3",
+      "E_HAWKB-1",
+      "E_CLAYB-2",
+      "T_LARKB-1",
+      "T_BLHLB-1",
+      "T_SUNDB-1",
+      "T_BLHLB-2",
+      "E_JAMBB-1",
+      "2__FBPGM001",
+      "E_JAMBB-2",
+      "E_DOLLB-1",
+      "E_PILLB-1"
+    ],
+    "excluded_so_dominated": [
+      "T_BLHLB-3",
+      "T_BLHLB-1",
+      "T_BLHLB-2",
+      "E_JAMBB-1",
+      "E_JAMBB-2"
+    ],
+    "selected": [
+      "E_SKELB-1",
+      "E_ILMEB-1",
+      "2__MCMRO002",
+      "E_FARNB-1",
+      "E_THMRB-1",
+      "E_CHAPB-1",
+      "2__GCMRO001",
+      "2__GCMRO002",
+      "E_HAWKB-1",
+      "E_CLAYB-2",
+      "T_LARKB-1",
+      "T_SUNDB-1",
+      "2__FBPGM001",
+      "E_DOLLB-1",
+      "E_PILLB-1"
+    ]
+  },
+  "unit_width_mw": {
+    "E_SKELB-1": 50.642,
+    "E_ILMEB-1": 49.5,
+    "2__MCMRO002": 37.093,
+    "E_FARNB-1": 20.0,
+    "E_THMRB-1": 49.5,
+    "E_CHAPB-1": 50.21,
+    "2__GCMRO001": 16.941,
+    "2__GCMRO002": 14.311,
+    "E_HAWKB-1": 20.0,
+    "E_CLAYB-2": 49.5,
+    "T_LARKB-1": 52.0,
+    "T_SUNDB-1": 57.0,
+    "2__FBPGM001": 40.0,
+    "E_DOLLB-1": 102.0,
+    "E_PILLB-1": 49.9
+  }
+}

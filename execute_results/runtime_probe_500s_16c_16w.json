@@ -1,0 +1,40 @@
+{
+  "stations": 500,
+  "ev_sessions": 9381,
+  "sampled_commands": 16,
+  "workers": 16,
+  "day": "2024-12-02",
+  "seed": 73000,
+  "activation_mode": "aemo_nem_dispatch_minus_gate_closure_plan",
+  "baseline_mode": "heuristic",
+  "candidate": "natural_baseline_plus_assessment_i_max_widths",
+  "status_counts": {
+    "feasible": 9,
+    "infeasible": 7,
+    "incomplete": 0
+  },
+  "solver_counts": {
+    "prefix_circulation": 9,
+    "prefix_circulation_cut": 7
+  },
+  "scenario_runtime_s": {
+    "mean": 19.97266059374897,
+    "p50": 17.99894299999869,
+    "p95": 24.446465875000285,
+    "max": 24.70475649999571,
+    "sum": 319.5625694999835
+  },
+  "timings": {
+    "activation_load_s": 26.60346959999879,
+    "ev_generation_s": 177.2575724999988,
+    "natural_baseline_s": 0.14724310000019614,
+    "assessment_i_s": 2.378582599994843,
+    "scenario_assembly_s": 7.77000022935681e-05,
+    "oracle_wave_wall_s": 30.088846300001023,
+    "total_wall_s": 236.47583170000144
+  },
+  "estimated_256_command_wave_s": {
+    "central": 324.9466592999888,
+    "p95_conservative": 396.5275438000099
+  }
+}

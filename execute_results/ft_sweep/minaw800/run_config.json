@@ -1,0 +1,25 @@
+{
+  "model_dir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\archive\\prod_hobomatch_7station_20260918_040210",
+  "episode": 2000,
+  "bid_bank_dir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\validation_5_fixed_ev_256_all_commands",
+  "command_scenarios": 6,
+  "ev_seeds": 1,
+  "base_seed": 1422090,
+  "force_slack_kwh": 0.1,
+  "max_days": 0,
+  "output_dir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\ft_sweep\\minaw800",
+  "observation_normalization": {
+    "version": 1,
+    "source": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_fixed_ev_256_all_commands",
+    "quantile": 0.95,
+    "demand_center_kw": 0.0,
+    "demand_scale_kw": 573.3035278320312,
+    "instruction_scale_scale_kw": 1410.1956787109375,
+    "sample_counts": {
+      "demand_kw": 1843200,
+      "instruction_scale_kw": 1843200
+    },
+    "bank_dates": 25,
+    "bank_scenario_episodes": 6400
+  }
+}

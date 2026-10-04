@@ -1,0 +1,2444 @@
+{
+  "market": "GB",
+  "service_date": "2024-08-10",
+  "bid_path": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_minmedmax_3of128ev_128cmd_all_commands_elexon_plan_deviation\\days\\009_2024-08-10\\fixed_bid.pkl",
+  "bid_sha256": "30bba65408b448fb53ff1823f8eb35df4867422a691f11d9c0856cef3eefbfdb",
+  "design_commands": 128,
+  "unseen_commands": 128,
+  "ev_cases": 3,
+  "elapsed_s": 1034.3542192000004,
+  "rows": [
+    {
+      "source_date": "2026-04-22",
+      "source_bmu": "E_PILLB-1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-03-20",
+      "source_bmu": "E_HAWKB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-22",
+      "source_bmu": "2__GCMRO001",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-19",
+      "source_bmu": "2__GCMRO001",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-18",
+      "source_bmu": "E_CHAPB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-20",
+      "source_bmu": "E_CLAYB-2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-22",
+      "source_bmu": "E_CHAPB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-20",
+      "source_bmu": "2__GCMRO002",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-24",
+      "source_bmu": "E_PILLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-20",
+      "source_bmu": "2__GCMRO001",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-09-09",
+      "source_bmu": "E_CLAYB-2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-20",
+      "source_bmu": "2__GCMRO001",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-21",
+      "source_bmu": "E_CHAPB-1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-07-20",
+      "source_bmu": "E_ILMEB-1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-08-21",
+      "source_bmu": "E_PILLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-20",
+      "source_bmu": "E_HAWKB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-24",
+      "source_bmu": "T_SUNDB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-19",
+      "source_bmu": "E_ILMEB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-21",
+      "source_bmu": "E_HAWKB-1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-02-18",
+      "source_bmu": "2__MCMRO002",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-22",
+      "source_bmu": "E_DOLLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-22",
+      "source_bmu": "E_THMRB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-24",
+      "source_bmu": "E_FARNB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-17",
+      "source_bmu": "E_DOLLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-09-09",
+      "source_bmu": "T_SUNDB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-23",
+      "source_bmu": "E_THMRB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-19",
+      "source_bmu": "E_CLAYB-2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-20",
+      "source_bmu": "E_FARNB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-23",
+      "source_bmu": "E_DOLLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-20",
+      "source_bmu": "E_CHAPB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-21",
+      "source_bmu": "E_HAWKB-1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-04-22",
+      "source_bmu": "E_CLAYB-2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-21",
+      "source_bmu": "2__FBPGM001",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-23",
+      "source_bmu": "2__FBPGM001",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-23",
+      "source_bmu": "E_THMRB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-19",
+      "source_bmu": "E_CLAYB-2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-20",
+      "source_bmu": "2__GCMRO002",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-19",
+      "source_bmu": "2__MCMRO002",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-21",
+      "source_bmu": "E_SKELB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-19",
+      "source_bmu": "E_HAWKB-1",
+      "ev_cases": [
+        {
+          "feasible": null,
+          "reason": "oracle time limit reached pricing vehicle 11: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-06-23",
+      "source_bmu": "2__MCMRO002",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-23",
+      "source_bmu": "E_CHAPB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-21",
+      "source_bmu": "E_CHAPB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-24",
+      "source_bmu": "2__FBPGM001",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-19",
+      "source_bmu": "2__FBPGM001",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-23",
+      "source_bmu": "E_CHAPB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-21",
+      "source_bmu": "E_DOLLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-23",
+      "source_bmu": "E_PILLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-19",
+      "source_bmu": "T_SUNDB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-23",
+      "source_bmu": "E_PILLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-09-09",
+      "source_bmu": "E_PILLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-19",
+      "source_bmu": "E_THMRB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-24",
+      "source_bmu": "E_SKELB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-23",
+      "source_bmu": "2__GCMRO002",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-19",
+      "source_bmu": "E_SKELB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-23",
+      "source_bmu": "2__MCMRO002",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-09-11",
+      "source_bmu": "E_FARNB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-19",
+      "source_bmu": "2__GCMRO001",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-19",
+      "source_bmu": "E_THMRB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-19",
+      "source_bmu": "E_DOLLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-20",
+      "source_bmu": "T_SUNDB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-24",
+      "source_bmu": "2__MCMRO002",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-09-11",
+      "source_bmu": "E_DOLLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-20",
+      "source_bmu": "E_HAWKB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-17",
+      "source_bmu": "E_SKELB-1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-06-20",
+      "source_bmu": "E_SKELB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-20",
+      "source_bmu": "E_THMRB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-20",
+      "source_bmu": "E_CHAPB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-20",
+      "source_bmu": "2__GCMRO002",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-19",
+      "source_bmu": "2__GCMRO001",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2025-12-19",
+      "source_bmu": "E_FARNB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-22",
+      "source_bmu": "2__GCMRO001",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-03-23",
+      "source_bmu": "E_ILMEB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-23",
+      "source_bmu": "T_SUNDB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-21",
+      "source_bmu": "E_DOLLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-19",
+      "source_bmu": "E_HAWKB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-23",
+      "source_bmu": "E_DOLLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-22",
+      "source_bmu": "2__FBPGM001",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-21",
+      "source_bmu": "E_ILMEB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-19",
+      "source_bmu": "2__GCMRO002",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-24",
+      "source_bmu": "2__GCMRO002",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-21",
+      "source_bmu": "E_DOLLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-19",
+      "source_bmu": "2__MCMRO002",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-03-23",
+      "source_bmu": "E_FARNB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-19",
+      "source_bmu": "E_CLAYB-2",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-05-21",
+      "source_bmu": "E_CHAPB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-20",
+      "source_bmu": "E_THMRB-1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-08-19",
+      "source_bmu": "E_SKELB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-23",
+      "source_bmu": "T_SUNDB-1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-07-19",
+      "source_bmu": "E_SKELB-1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-08-20",
+      "source_bmu": "2__FBPGM001",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-24",
+      "source_bmu": "E_DOLLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-17",
+      "source_bmu": "T_LARKB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-24",
+      "source_bmu": "E_PILLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-23",
+      "source_bmu": "T_SUNDB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-22",
+      "source_bmu": "2__GCMRO002",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-19",
+      "source_bmu": "E_DOLLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-20",
+      "source_bmu": "E_CHAPB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-24",
+      "source_bmu": "E_HAWKB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-21",
+      "source_bmu": "T_SUNDB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-17",
+      "source_bmu": "E_THMRB-1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-07-23",
+      "source_bmu": "E_PILLB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-24",
+      "source_bmu": "E_HAWKB-1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-06-20",
+      "source_bmu": "T_SUNDB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-24",
+      "source_bmu": "E_THMRB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-21",
+      "source_bmu": "T_LARKB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-23",
+      "source_bmu": "2__GCMRO001",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-23",
+      "source_bmu": "2__MCMRO002",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-22",
+      "source_bmu": "E_HAWKB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-22",
+      "source_bmu": "E_FARNB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-19",
+      "source_bmu": "T_LARKB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-21",
+      "source_bmu": "E_ILMEB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-19",
+      "source_bmu": "E_CHAPB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-19",
+      "source_bmu": "T_SUNDB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-23",
+      "source_bmu": "E_HAWKB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-20",
+      "source_bmu": "T_LARKB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-21",
+      "source_bmu": "E_ILMEB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-21",
+      "source_bmu": "2__GCMRO002",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-23",
+      "source_bmu": "E_HAWKB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-08-23",
+      "source_bmu": "E_CLAYB-2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-19",
+      "source_bmu": "2__GCMRO001",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-21",
+      "source_bmu": "2__MCMRO002",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-19",
+      "source_bmu": "T_SUNDB-1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-02-17",
+      "source_bmu": "E_CHAPB-1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2025-12-23",
+      "source_bmu": "E_HAWKB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-02-19",
+      "source_bmu": "2__FBPGM001",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-19",
+      "source_bmu": "E_HAWKB-1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-09-09",
+      "source_bmu": "2__MCMRO002",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    }
+  ]
+}

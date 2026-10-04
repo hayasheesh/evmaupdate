@@ -1,0 +1,38 @@
+{
+  "AEMO": {
+    "commands": 3200,
+    "trials": 9600,
+    "feasible": 7786,
+    "infeasible": 1804,
+    "unknown": 10,
+    "bid_days": 25,
+    "ev_seeds_per_command": 3,
+    "success_rate": null,
+    "success_rate_lower_bound": 0.8110416666666667,
+    "success_rate_upper_bound": 0.8120833333333334
+  },
+  "ERCOT": {
+    "commands": 3200,
+    "trials": 9600,
+    "feasible": 8605,
+    "infeasible": 972,
+    "unknown": 23,
+    "bid_days": 25,
+    "ev_seeds_per_command": 3,
+    "success_rate": null,
+    "success_rate_lower_bound": 0.8963541666666667,
+    "success_rate_upper_bound": 0.89875
+  },
+  "GB": {
+    "commands": 3200,
+    "trials": 9600,
+    "feasible": 7881,
+    "infeasible": 1676,
+    "unknown": 43,
+    "bid_days": 25,
+    "ev_seeds_per_command": 3,
+    "success_rate": null,
+    "success_rate_lower_bound": 0.8209375,
+    "success_rate_upper_bound": 0.8254166666666667
+  }
+}

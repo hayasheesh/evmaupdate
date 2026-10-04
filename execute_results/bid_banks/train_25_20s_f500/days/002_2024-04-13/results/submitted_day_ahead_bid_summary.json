@@ -1,0 +1,2061 @@
+{
+  "source": "fixed_upper_bid",
+  "method": "outer_participation_colgen_benders_certified",
+  "activation_mode": "aemo_nem_dispatch_minus_gate_closure_plan",
+  "activation_scenarios": 256,
+  "activation_scenario_sources": [
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_GREENB1_2025-10-01.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_SNB02_2026-07-11.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2025-12-11.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_RIVNB2_2026-01-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_RESS1_2026-03-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_DALNTH1_2025-10-03.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_DALNTH1_2025-12-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_LBB1_2025-09-08.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA2_2025-12-08.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BLYTHB1_2026-03-03.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_LVES1_2026-07-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-07-15.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HBESS1_2025-08-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-04-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-01-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-11-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_KESSB1_2026-04-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TEMPB1_2026-02-13.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA3_2026-02-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_RANGEB1_2026-07-15.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_DPNTB1_2026-05-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MRNBESS1_2026-07-30.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BALB1_2026-05-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-06-17.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BALB1_2026-07-17.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_GANNB1_2025-12-08.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WALGRV1_2026-04-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-02-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_LVES1_2025-10-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-06-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_DPNTB1_2026-07-18.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_SNB01_2026-03-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BALB1_2025-12-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TEMPB1_2025-11-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA2_2026-04-18.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TEMPB1_2025-10-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_GANNB1_2025-10-28.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2025-12-30.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TB2B1_2025-08-23.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_KESSB1_2025-09-23.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_CAPBES1_2025-10-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-07-17.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS2_2026-05-01.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TB2B1_2026-05-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BULBES1_2025-12-08.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-04-03.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-05-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TIB1_2025-09-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ERB01_2026-03-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_GANNB1_2025-08-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-05-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-12-16.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA3_2026-03-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-10-01.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2026-01-08.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TIB1_2025-08-14.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_CAPBES1_2026-05-23.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MANNUMB1_2026-07-15.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_DPNTB1_2026-04-08.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_CAPBES1_2025-10-01.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TB2B1_2026-03-13.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_LVES1_2026-03-03.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TRGBESS1_2026-05-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_DPNTB1_2025-09-15.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BULBES1_2026-03-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_DALNTH1_2026-01-25.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2025-10-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_LVES1_2026-06-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_KESSB1_2026-06-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_CHBESS1_2025-09-11.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TARBESS1_2026-06-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MANNUMB1_2026-04-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WALGRV1_2026-07-17.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-05-23.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TIB1_2026-06-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_GANNB1_2025-12-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BLYTHB1_2026-02-07.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-01-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2025-11-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TIB1_2026-03-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-02-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2025-10-02.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_RIVNB2_2025-09-15.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_LBB1_2026-01-25.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WANDB1_2025-08-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_RIVNB2_2025-08-25.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_KESSB1_2026-01-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-06-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_LBB1_2026-01-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WALGRV1_2025-08-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_KESSB1_2026-04-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_SNB01_2026-05-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2025-12-16.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HBESS1_2025-09-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TARBESS1_2026-03-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ERB01_2026-06-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_DPNTB1_2025-10-02.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2025-08-13.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BHB1_2026-03-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_GANNB1_2025-10-18.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WANDB1_2026-03-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BUNGAMB1_2026-06-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_NESBESS1_2026-05-15.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WALGRV1_2025-09-28.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BLYTHB1_2026-07-17.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HBESS1_2025-09-28.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-08-18.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_DPNTB1_2026-01-08.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS2_2026-03-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_SNB02_2026-07-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS2_2026-05-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BALB1_2026-07-07.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_KESSB1_2025-11-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-07-15.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TARBESS1_2026-06-23.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_LVES1_2026-04-14.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_CAPBES1_2025-08-28.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_RANGEB1_2025-10-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BALB1_2025-09-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TARBESS1_2026-07-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TB2B1_2025-10-02.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HBESS1_2026-02-07.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TARBESS1_2025-12-08.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-12-08.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_LBB1_2026-01-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_LVES1_2026-05-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_DALNTH1_2026-05-23.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BUNGAMB1_2026-06-03.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TB2B1_2026-03-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-07-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TB2B1_2025-11-25.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WALGRV1_2026-01-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-09-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-07-01.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA3_2026-04-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BHB1_2026-07-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_SNB01_2026-02-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-05-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_CHBESS1_2025-08-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_RANGEB1_2026-05-15.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_SMTHBES1_2025-10-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2025-12-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS2_2026-05-23.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA3_2026-01-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-09-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-03-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TARBESS1_2026-06-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_NESBESS2_2026-07-01.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-05-19.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_GREENB1_2026-07-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_RIVNB2_2026-03-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TARBESS1_2026-03-28.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2025-09-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HBESS1_2025-09-17.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2025-09-04.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_CHBESS1_2025-09-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_CHBESS1_2026-05-30.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA3_2026-04-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-07-24.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2025-09-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_GANNB1_2026-04-07.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-04-08.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WANDB1_2026-03-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BALB1_2026-01-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_GREENB1_2026-03-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_RESS1_2026-02-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2025-08-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WANDB1_2025-10-16.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-04-23.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WALGRV1_2026-06-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WANDB1_2026-02-17.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TIB1_2026-02-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA2_2026-06-07.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BULBES1_2025-12-11.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_RESS1_2026-06-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_CAPBES1_2026-04-18.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_KESSB1_2026-04-18.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS2_2026-03-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MANNUMB1_2026-03-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_CHBESS1_2026-02-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-05-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_CAPBES1_2026-01-25.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TIB1_2025-10-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-03-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2026-07-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-08-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_DALNTH1_2025-08-13.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BLYTHB1_2026-06-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_GREENB1_2026-03-17.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-07-01.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TIB1_2026-04-07.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-04-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BUNGAMB1_2026-06-17.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_GANNB1_2025-10-02.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2025-09-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WALGRV1_2025-11-16.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-06-23.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_SNB01_2026-03-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_CHBESS1_2025-11-28.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ULPBESS1_2025-11-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_RANGEB1_2026-06-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-02-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS2_2026-01-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_ERB01_2026-03-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BLYTHB1_2026-03-28.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BBATTERY1_2026-03-23.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_RESS1_2026-05-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BLYTHB1_2026-05-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BRNDBES1_2026-05-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2025-08-23.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BULBES1_2025-11-23.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2025-12-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_CAPBES1_2025-09-04.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TARBESS1_2026-05-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BALB1_2026-03-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WALGRV1_2025-10-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BLYTHB1_2026-05-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_CAPBES1_2026-04-14.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_LBB1_2026-05-30.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_RANGEB1_2026-06-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-08-14.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MANNUMB1_2026-05-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TEMPB1_2026-04-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA2_2025-12-16.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-06-05.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_SMTHBES1_2026-03-21.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_GANNB1_2025-09-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_KESSB1_2026-05-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-04-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BUNGAMB1_2026-05-23.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WANDB1_2026-06-28.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2026-05-29.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BLYTHB1_2026-06-07.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_LBB1_2025-11-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_RIVNB2_2026-03-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_RESS1_2026-02-13.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_CHBESS1_2025-11-25.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_LIMBESS1_2026-07-15.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BUNGAMB1_2026-05-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BALB1_2026-07-10.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_MREHA1_2025-09-11.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2026-04-08.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_GANNB1_2026-01-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS1_2025-11-20.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_DPNTB1_2026-04-23.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BALB1_2026-06-07.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_VBB1_2025-08-12.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_TARBESS1_2026-04-18.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WDBESS2_2026-06-22.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_LDBESS1_2026-03-26.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_BLYTHB1_2026-03-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WTAHB1_2026-05-09.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_KESSB1_2025-12-06.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_HPR1_2026-03-27.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_DALNTH1_2025-08-25.csv",
+    "aemo_nem_dispatch_minus_gate_closure_plan:nem_WANDB1_2025-09-15.csv"
+  ],
+  "forecast_seed": 75018,
+  "bid_solved": true,
+  "bid_feasible": true,
+  "bid_status": "outer_participation_colgen_benders_certified",
+  "bid_objective_capacity_kw_block": 201238.6206788938,
+  "submitted_mean_up_kw": 2205.1499049627337,
+  "submitted_mean_down_kw": 1987.3213591808872,
+  "submitted_max_up_kw": 3559.1333669026694,
+  "submitted_max_down_kw": 3594.800033569336,
+  "submitted_participating_blocks": 48,
+  "awarded_mean_up_kw": 2205.1499049627337,
+  "awarded_mean_down_kw": 1987.3213591808872,
+  "awarded_max_up_kw": 3559.1333669026694,
+  "awarded_max_down_kw": 3594.800033569336,
+  "market_award": {
+    "method": "full_award_assumption",
+    "submitted_blocks": 48,
+    "awarded_blocks": 48,
+    "sampled_awarded_block_rate": 1.0,
+    "sampled_awarded_quantity_rate": 1.0,
+    "awarded_block_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ]
+  },
+  "bid_mean_baseline_kw": 257.91506896387904,
+  "bid_mean_up_kw": 2205.1499049627337,
+  "bid_mean_down_kw": 1987.3213591808872,
+  "bid_max_up_kw": 3559.1333669026694,
+  "bid_max_down_kw": 3594.800033569336,
+  "bid_participating_blocks": 48,
+  "bid_participating_block_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47
+  ],
+  "bid_global_tracking_rate": 1.0,
+  "target_min_kw": -1253.1910400390625,
+  "target_max_kw": 2696.672119140625,
+  "regulation_abs_mean_kw": 391.44219970703125,
+  "activation_scenario_index": 0,
+  "activation_scenario_name": "aemo_nem_dispatch_minus_gate_closure_plan_00",
+  "activation_scenario_source": "aemo_nem_dispatch_minus_gate_closure_plan:nem_GREENB1_2025-10-01.csv",
+  "activation_scenario_source_date": "2025-10-01",
+  "activation_scenario_source_bmu": "GREENB1",
+  "service_date": "2024-04-13",
+  "result": {
+    "awarded_bid_method": "outer_participation_colgen_benders_certified",
+    "awarded_bid_solved": true,
+    "awarded_bid_feasible": true,
+    "awarded_bid_status": "outer_participation_colgen_benders_certified",
+    "awarded_bid_objective_capacity_kw_block": 201238.6206788938,
+    "awarded_bid_n_scenarios": 256,
+    "awarded_bid_mean_baseline_kw": 257.91506896387904,
+    "awarded_bid_mean_up_kw": 2205.1499049627337,
+    "awarded_bid_mean_down_kw": 1987.3213591808872,
+    "awarded_bid_up_pass_rate": 1.0,
+    "awarded_bid_down_pass_rate": 1.0,
+    "awarded_bid_global_tracking_rate": 1.0,
+    "awarded_bid_soc_hit_rate": 1.0
+  },
+  "award_metadata": {
+    "method": "full_award_assumption",
+    "submitted_blocks": 48,
+    "awarded_blocks": 48,
+    "sampled_awarded_block_rate": 1.0,
+    "sampled_awarded_quantity_rate": 1.0,
+    "awarded_block_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ]
+  },
+  "bid_feasibility": {
+    "method": "outer_participation_colgen_benders_certified",
+    "condition": "outer_participation_colgen_benders",
+    "minimum_bid_quantity_kw": 500.0,
+    "minimum_bid_quantity_mode": "configured_floor",
+    "award_assumption": "full_award",
+    "assessment_band_fraction": 0.1,
+    "ev_information_regime": "clairvoyant",
+    "all_command_scenarios": true,
+    "allowed_command_failures": 0,
+    "assessment_i_capability_policy": "reviewed_fixed_ev_bank_30min",
+    "assessment_i_capability_ev_scenarios": 1,
+    "assessment_i_capability_duration_minutes": 30.0,
+    "apply_transition_band": false,
+    "per_block_baseline_search": true,
+    "per_block_delta_kw_quantity_search": true,
+    "directional_participation_search": true,
+    "initial_search_validation": {
+      "all_scenarios_ok": false,
+      "soc_all_ok": false,
+      "min_global_step_pass_rate": 0.0,
+      "reason": "uncertified outer-participation seed"
+    },
+    "initial_search_scenarios": 256,
+    "initial_search_ev_scenarios": 1,
+    "initial_search_activation_scenarios_per_ev": 256,
+    "initial_search_solver": "outer-participation-seed",
+    "initial_search_status": "optimal",
+    "initial_search_tracking_contract": "uncertified_seed",
+    "initial_search_n_binary_vars": 0,
+    "initial_search_runtime_s": 0.0,
+    "initial_search_stop_reason": "outer_participation_seed",
+    "initial_search_wall_clock_bound_result": false,
+    "submitted_up_participating_blocks": 48,
+    "submitted_down_participating_blocks": 46,
+    "submitted_up_nonzero_min_kw": 500.0,
+    "submitted_up_nonzero_max_kw": 3559.1333669026694,
+    "submitted_down_nonzero_min_kw": 500.0,
+    "submitted_down_nonzero_max_kw": 3594.800033569336,
+    "bid_quantity_upper_bound": "configured_physical_limit",
+    "offered_capacity_kw_block": 201238.6206788938,
+    "mean_offered_capacity_kw": 4192.471264143621,
+    "initial_offered_capacity_kw_block": 218383.66931559244,
+    "joint_certification": {
+      "scenarios": 256,
+      "validation": {
+        "all_scenarios_ok": true,
+        "soc_all_ok": true,
+        "scenarios_without_a_dispatch": 0,
+        "scenarios_without_a_dispatch_names": [],
+        "min_global_step_pass_rate": 1.0,
+        "mean_global_step_pass_rate": 1.0,
+        "p10_global_step_pass_rate": 1.0,
+        "aggregate_global_step_pass_rate": 1.0,
+        "battery_peak_kw": 1.1368683772161603e-12,
+        "battery_energy_kwh": 0.0,
+        "battery_throughput_kwh_mean": 5.025042881801056e-13,
+        "min_up_step_pass_rate": 1.0,
+        "min_down_step_pass_rate": 1.0,
+        "min_idle_step_pass_rate": 1.0,
+        "participating_block_count": 48,
+        "participating_block_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47
+        ],
+        "failed_block_frequency": {},
+        "up_delivery_ratio_by_block": {
+          "0": 1.0,
+          "1": 0.9,
+          "2": 0.8382608695506996,
+          "3": 0.8923076923573965,
+          "4": 0.8769701689568669,
+          "5": 0.8873239436619719,
+          "6": 0.8454497395786039,
+          "7": 0.7304943398133565,
+          "8": 0.734782799980777,
+          "9": 0.6457118642195796,
+          "10": 0.4609066564696339,
+          "11": 0.8204225351796519,
+          "12": 0.8214285714285716,
+          "13": 0.8706626406851636,
+          "14": 0.8999999999999999,
+          "15": 0.9,
+          "16": 0.9000000000000001,
+          "17": 0.8217454489954243,
+          "18": 0.9000000000000001,
+          "19": 0.9000000000000001,
+          "20": 0.8788617886612201,
+          "21": 0.9000000000000001,
+          "22": 0.9,
+          "23": 0.8998305084711289,
+          "24": 0.9,
+          "25": 0.8999999999999999,
+          "26": 0.8996503496728838,
+          "27": 0.8,
+          "28": 0.7426837807028714,
+          "29": 0.7357883178276303,
+          "30": 0.6747499998987501,
+          "31": 0.4913324249282807,
+          "32": 0.3766865238515684,
+          "33": 0.4000000012,
+          "34": 0.4105882354141176,
+          "35": 0.4999999999999999,
+          "36": 0.3428571426693876,
+          "37": 0.5714492754914368,
+          "38": 0.2000000000000001,
+          "39": 0.38682648169301154,
+          "40": 0.3846153846153845,
+          "41": 0.3384475552192242,
+          "42": 0.2571428564982994,
+          "43": 0.16388888869753063,
+          "44": 0.27499999746249987,
+          "45": 0.28176190593199957,
+          "46": 0.19999999999999998,
+          "47": 0.17101951567991777
+        },
+        "down_delivery_ratio_by_block": {
+          "0": 0.45181818175148775,
+          "1": 0.38130642481538846,
+          "2": 0.28571428571428603,
+          "4": 0.6978495161451287,
+          "5": 0.5673083061444989,
+          "6": 0.23333333563333364,
+          "7": 0.498400000154432,
+          "9": 0.4651169321246757,
+          "10": 0.6,
+          "11": 0.44777777810777797,
+          "12": 0.5000000000000001,
+          "13": 0.25092592423842597,
+          "14": 0.30689598532506224,
+          "15": 0.4000000012000012,
+          "16": 0.3886363630080183,
+          "17": 0.40000000119999984,
+          "18": 0.3195402298850567,
+          "19": 0.33333333333333315,
+          "20": 0.30960591044229424,
+          "21": 0.2,
+          "22": 0.2848181820445261,
+          "23": 0.2557061984593588,
+          "24": 0.24999999812499535,
+          "25": 0.23076922892196755,
+          "26": 0.34139753556829777,
+          "27": 0.2931034501040427,
+          "28": 0.36374999964140625,
+          "29": 0.4740001506107192,
+          "30": 0.5,
+          "31": 0.51135345807828,
+          "32": 0.544696049957583,
+          "33": 0.34979394970266053,
+          "34": 0.6522105263157897,
+          "35": 0.6,
+          "36": 0.7645172341235064,
+          "37": 0.7680000001299202,
+          "38": 0.583857326316613,
+          "39": 0.5717955426485218,
+          "40": 0.6442709595382051,
+          "41": 0.7872340425531918,
+          "42": 0.8,
+          "43": 0.8113207547169812,
+          "44": 0.8575714285671857,
+          "45": 0.8036971055306403,
+          "46": 0.8772510193872171,
+          "47": 0.8473772243022029
+        },
+        "mean_delivered_capacity_kw_block": 201238.62067889379,
+        "min_delivered_capacity_kw_block": 201238.6206788938,
+        "offered_capacity_kw_block": 201238.6206788938
+      },
+      "feedback": {
+        "enabled": true,
+        "method": "outer_participation_colgen_benders",
+        "scenario_feedback_complete": true,
+        "hard_lp_refit": {
+          "enabled": true,
+          "method": "outer_participation_colgen_benders_active_set",
+          "complete": true,
+          "stop_reason": "strict_pattern_certified",
+          "allowed_command_failures": 0,
+          "certification_scorer": "strict_frozen_bid_recourse",
+          "rounds": [
+            {
+              "round": 0,
+              "strict": {
+                "complete": false,
+                "stop_reason": "master_infeasible",
+                "cuts": 439,
+                "runtime_s": 355.7575574999937,
+                "oracle_runtime_s": 9849.585591899915,
+                "scenario_oracle_time_limit_s": 180.0,
+                "scenario_oracle_timeouts": 0,
+                "colgen_cache_columns_per_ev": 12,
+                "direct_oracle_max_evs": 400,
+                "cached_columns_dropped": 0,
+                "cut_runtime_s": 0.00012419999984558672,
+                "exact_oracle_slowest_runtime_s": 4.209254800000053,
+                "round_oracle_breakdown": [
+                  {
+                    "round": 0,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 4.209254800000053
+                  },
+                  {
+                    "round": 1,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5107172999996692
+                  },
+                  {
+                    "round": 2,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5023322999986704
+                  },
+                  {
+                    "round": 3,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3801946999956272
+                  },
+                  {
+                    "round": 4,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.409291399999347
+                  },
+                  {
+                    "round": 5,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.472522600000957
+                  },
+                  {
+                    "round": 6,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6070353999966756
+                  },
+                  {
+                    "round": 7,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6195742999989307
+                  },
+                  {
+                    "round": 8,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5612668999965535
+                  },
+                  {
+                    "round": 9,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4586104000045452
+                  },
+                  {
+                    "round": 10,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4345921999993152
+                  },
+                  {
+                    "round": 11,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.412380599998869
+                  },
+                  {
+                    "round": 12,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4159928000008222
+                  },
+                  {
+                    "round": 13,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4676050999987638
+                  },
+                  {
+                    "round": 14,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.564832199997909
+                  },
+                  {
+                    "round": 15,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4613642999975127
+                  },
+                  {
+                    "round": 16,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5706176000021514
+                  },
+                  {
+                    "round": 17,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4500571000025957
+                  },
+                  {
+                    "round": 18,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.649643400000059
+                  },
+                  {
+                    "round": 19,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.468433299996832
+                  },
+                  {
+                    "round": 20,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5416299999997136
+                  },
+                  {
+                    "round": 21,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.50778100000025
+                  },
+                  {
+                    "round": 22,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4546760000012
+                  },
+                  {
+                    "round": 23,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5481272000033641
+                  },
+                  {
+                    "round": 24,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4361925999983214
+                  },
+                  {
+                    "round": 25,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5351209999935236
+                  },
+                  {
+                    "round": 26,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3418547999972361
+                  },
+                  {
+                    "round": 27,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3444969999982277
+                  },
+                  {
+                    "round": 28,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.436437600001227
+                  },
+                  {
+                    "round": 29,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4687658000038937
+                  },
+                  {
+                    "round": 30,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.401860799996939
+                  },
+                  {
+                    "round": 31,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3474648999981582
+                  },
+                  {
+                    "round": 32,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5969631999978446
+                  },
+                  {
+                    "round": 33,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4091662999999244
+                  },
+                  {
+                    "round": 34,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5040227999998024
+                  },
+                  {
+                    "round": 35,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4540523999967263
+                  },
+                  {
+                    "round": 36,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4618922999943607
+                  },
+                  {
+                    "round": 37,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.382102000003215
+                  },
+                  {
+                    "round": 38,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3291903999997885
+                  },
+                  {
+                    "round": 39,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3054938999994192
+                  },
+                  {
+                    "round": 40,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.1634369000021252
+                  },
+                  {
+                    "round": 41,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.49562820000574
+                  },
+                  {
+                    "round": 42,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4717619999937597
+                  },
+                  {
+                    "round": 43,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3123176999943098
+                  },
+                  {
+                    "round": 44,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.0790592999983346
+                  }
+                ],
+                "master_time_limit_scope": "",
+                "active_up_directions": 48,
+                "active_down_directions": 48,
+                "enforce_minimum_active_width": true,
+                "last_round_counts": {
+                  "feasible": 253,
+                  "infeasible": 3,
+                  "incomplete": 0
+                },
+                "incomplete_scenarios": []
+              },
+              "floor_relaxed_source": "strict_master_cuts",
+              "floor_relaxed": {
+                "complete": false,
+                "stop_reason": "reused_strict_feasibility_cuts",
+                "cuts": 439,
+                "runtime_s": 0.010017200002039317,
+                "oracle_runtime_s": 0.0,
+                "scenario_oracle_time_limit_s": null,
+                "scenario_oracle_timeouts": 0,
+                "colgen_cache_columns_per_ev": 0,
+                "direct_oracle_max_evs": 0,
+                "cached_columns_dropped": 0,
+                "cut_runtime_s": 0.0,
+                "exact_oracle_slowest_runtime_s": 0.0,
+                "round_oracle_breakdown": [],
+                "master_time_limit_scope": "",
+                "active_up_directions": 0,
+                "active_down_directions": 0,
+                "enforce_minimum_active_width": false,
+                "last_round_counts": {
+                  "feasible": 0,
+                  "infeasible": 0,
+                  "incomplete": 0
+                },
+                "incomplete_scenarios": []
+              },
+              "retired_directions": [
+                {
+                  "direction": "down",
+                  "block": 3,
+                  "previous_kw": 856.700008392334,
+                  "floor_relaxed_kw": 0.0,
+                  "offered_capacity_loss_kw": 856.700008392334,
+                  "loss_per_released_kw": 1.713400016784668
+                }
+              ],
+              "retirement_candidate_count": 10,
+              "other_directions_reseeded_at_floor": 9
+            },
+            {
+              "round": 1,
+              "strict": {
+                "complete": false,
+                "stop_reason": "master_infeasible",
+                "cuts": 949,
+                "runtime_s": 749.9862990999973,
+                "oracle_runtime_s": 22042.94594279969,
+                "scenario_oracle_time_limit_s": 180.0,
+                "scenario_oracle_timeouts": 0,
+                "colgen_cache_columns_per_ev": 12,
+                "direct_oracle_max_evs": 400,
+                "cached_columns_dropped": 0,
+                "cut_runtime_s": 0.0002604999754112214,
+                "exact_oracle_slowest_runtime_s": 3.3079454000035184,
+                "round_oracle_breakdown": [
+                  {
+                    "round": 0,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 3.3079454000035184
+                  },
+                  {
+                    "round": 1,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.2596334999980172
+                  },
+                  {
+                    "round": 2,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.2289633999971556
+                  },
+                  {
+                    "round": 3,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.2614189999949303
+                  },
+                  {
+                    "round": 4,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4235601000036695
+                  },
+                  {
+                    "round": 5,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3488302000041585
+                  },
+                  {
+                    "round": 6,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3666709000026458
+                  },
+                  {
+                    "round": 7,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.382591699999466
+                  },
+                  {
+                    "round": 8,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3535889999984647
+                  },
+                  {
+                    "round": 9,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5214567000002717
+                  },
+                  {
+                    "round": 10,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.28033829999913
+                  },
+                  {
+                    "round": 11,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3096851000009337
+                  },
+                  {
+                    "round": 12,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.1588760999948136
+                  },
+                  {
+                    "round": 13,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3214712999979383
+                  },
+                  {
+                    "round": 14,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.2826964000050793
+                  },
+                  {
+                    "round": 15,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4946376999942004
+                  },
+                  {
+                    "round": 16,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.535592500003986
+                  },
+                  {
+                    "round": 17,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4888492000027327
+                  },
+                  {
+                    "round": 18,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.423312300001271
+                  },
+                  {
+                    "round": 19,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3662477000034414
+                  },
+                  {
+                    "round": 20,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3991085000016028
+                  },
+                  {
+                    "round": 21,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4882566000014776
+                  },
+                  {
+                    "round": 22,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4846966999975848
+                  },
+                  {
+                    "round": 23,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4831227999966359
+                  },
+                  {
+                    "round": 24,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.399003000005905
+                  },
+                  {
+                    "round": 25,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6258971999995993
+                  },
+                  {
+                    "round": 26,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.573647000004712
+                  },
+                  {
+                    "round": 27,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.344464900001185
+                  },
+                  {
+                    "round": 28,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.431007999999565
+                  },
+                  {
+                    "round": 29,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.406763500002853
+                  },
+                  {
+                    "round": 30,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3221537999997963
+                  },
+                  {
+                    "round": 31,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6424741000009817
+                  },
+                  {
+                    "round": 32,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6808087999961572
+                  },
+                  {
+                    "round": 33,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.9794392000039807
+                  },
+                  {
+                    "round": 34,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.9332606999960262
+                  },
+                  {
+                    "round": 35,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.9370852000065497
+                  },
+                  {
+                    "round": 36,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5644859000021825
+                  },
+                  {
+                    "round": 37,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.7980104000016581
+                  },
+                  {
+                    "round": 38,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.7771608999973978
+                  },
+                  {
+                    "round": 39,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.7197109999979148
+                  },
+                  {
+                    "round": 40,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5540717000039876
+                  },
+                  {
+                    "round": 41,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5472044999987702
+                  },
+                  {
+                    "round": 42,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6811273999992409
+                  },
+                  {
+                    "round": 43,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6477499000029638
+                  },
+                  {
+                    "round": 44,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6787254999944707
+                  },
+                  {
+                    "round": 45,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6587556999947992
+                  },
+                  {
+                    "round": 46,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.7857674000042607
+                  },
+                  {
+                    "round": 47,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.7638957999952254
+                  },
+                  {
+                    "round": 48,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6039965000018128
+                  },
+                  {
+                    "round": 49,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6756267000018852
+                  },
+                  {
+                    "round": 50,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.7345161000048392
+                  },
+                  {
+                    "round": 51,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.688128499998129
+                  },
+                  {
+                    "round": 52,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.7208211999968626
+                  },
+                  {
+                    "round": 53,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.680434600006265
+                  },
+                  {
+                    "round": 54,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6610137000025134
+                  },
+                  {
+                    "round": 55,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.9514325000054669
+                  },
+                  {
+                    "round": 56,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6678150000007008
+                  },
+                  {
+                    "round": 57,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6793347999991965
+                  },
+                  {
+                    "round": 58,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6411241000023438
+                  },
+                  {
+                    "round": 59,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5654501000026357
+                  },
+                  {
+                    "round": 60,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5664394999985234
+                  },
+                  {
+                    "round": 61,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.585918099997798
+                  },
+                  {
+                    "round": 62,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5929026000012527
+                  },
+                  {
+                    "round": 63,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6511250999974436
+                  },
+                  {
+                    "round": 64,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6799530999996932
+                  },
+                  {
+                    "round": 65,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5535748999973293
+                  },
+                  {
+                    "round": 66,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.64107939999667
+                  },
+                  {
+                    "round": 67,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5698479000056977
+                  },
+                  {
+                    "round": 68,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 2.4556603000019095
+                  },
+                  {
+                    "round": 69,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.7859673999992083
+                  },
+                  {
+                    "round": 70,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5721052000008058
+                  },
+                  {
+                    "round": 71,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.45035949999874
+                  },
+                  {
+                    "round": 72,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.322366399996099
+                  },
+                  {
+                    "round": 73,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.44029700000101
+                  },
+                  {
+                    "round": 74,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4273967999979504
+                  },
+                  {
+                    "round": 75,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4013896999967983
+                  },
+                  {
+                    "round": 76,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4301806000003126
+                  },
+                  {
+                    "round": 77,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4107308999955421
+                  },
+                  {
+                    "round": 78,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3550826999999117
+                  },
+                  {
+                    "round": 79,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4890349999986938
+                  },
+                  {
+                    "round": 80,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4480474000010872
+                  },
+                  {
+                    "round": 81,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3785358000022825
+                  },
+                  {
+                    "round": 82,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3735684999992372
+                  },
+                  {
+                    "round": 83,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5183035000009113
+                  },
+                  {
+                    "round": 84,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4545878000062658
+                  },
+                  {
+                    "round": 85,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3694147999995039
+                  },
+                  {
+                    "round": 86,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4887006999997539
+                  },
+                  {
+                    "round": 87,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4674801000001025
+                  },
+                  {
+                    "round": 88,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.283213100003195
+                  },
+                  {
+                    "round": 89,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.0063724999999977
+                  },
+                  {
+                    "round": 90,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4992993999985629
+                  },
+                  {
+                    "round": 91,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3061602999950992
+                  },
+                  {
+                    "round": 92,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3449182999975164
+                  },
+                  {
+                    "round": 93,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.2858740000010584
+                  },
+                  {
+                    "round": 94,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.2403536999991047
+                  },
+                  {
+                    "round": 95,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.0576492999971379
+                  }
+                ],
+                "master_time_limit_scope": "",
+                "active_up_directions": 48,
+                "active_down_directions": 47,
+                "enforce_minimum_active_width": true,
+                "last_round_counts": {
+                  "feasible": 253,
+                  "infeasible": 3,
+                  "incomplete": 0
+                },
+                "incomplete_scenarios": []
+              },
+              "floor_relaxed_source": "strict_master_cuts",
+              "floor_relaxed": {
+                "complete": false,
+                "stop_reason": "reused_strict_feasibility_cuts",
+                "cuts": 949,
+                "runtime_s": 0.02151179999782471,
+                "oracle_runtime_s": 0.0,
+                "scenario_oracle_time_limit_s": null,
+                "scenario_oracle_timeouts": 0,
+                "colgen_cache_columns_per_ev": 0,
+                "direct_oracle_max_evs": 0,
+                "cached_columns_dropped": 0,
+                "cut_runtime_s": 0.0,
+                "exact_oracle_slowest_runtime_s": 0.0,
+                "round_oracle_breakdown": [],
+                "master_time_limit_scope": "",
+                "active_up_directions": 0,
+                "active_down_directions": 0,
+                "enforce_minimum_active_width": false,
+                "last_round_counts": {
+                  "feasible": 0,
+                  "infeasible": 0,
+                  "incomplete": 0
+                },
+                "incomplete_scenarios": []
+              },
+              "retired_directions": [
+                {
+                  "direction": "down",
+                  "block": 8,
+                  "previous_kw": 500.0,
+                  "floor_relaxed_kw": 0.0,
+                  "offered_capacity_loss_kw": 500.0,
+                  "loss_per_released_kw": 1.0
+                }
+              ],
+              "retirement_candidate_count": 9,
+              "other_directions_reseeded_at_floor": 8
+            },
+            {
+              "round": 2,
+              "strict": {
+                "complete": true,
+                "stop_reason": "pool_certified",
+                "cuts": 896,
+                "runtime_s": 820.724842699994,
+                "oracle_runtime_s": 20994.896771299675,
+                "scenario_oracle_time_limit_s": 180.0,
+                "scenario_oracle_timeouts": 0,
+                "colgen_cache_columns_per_ev": 12,
+                "direct_oracle_max_evs": 400,
+                "cached_columns_dropped": 0,
+                "cut_runtime_s": 0.0002678999662748538,
+                "exact_oracle_slowest_runtime_s": 3.4390099000011105,
+                "round_oracle_breakdown": [
+                  {
+                    "round": 0,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 3.4390099000011105
+                  },
+                  {
+                    "round": 1,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3767204000032507
+                  },
+                  {
+                    "round": 2,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3719905999969342
+                  },
+                  {
+                    "round": 3,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4333102999953553
+                  },
+                  {
+                    "round": 4,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.2915269000004628
+                  },
+                  {
+                    "round": 5,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3558281000005081
+                  },
+                  {
+                    "round": 6,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.2885441999969771
+                  },
+                  {
+                    "round": 7,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3571871999956784
+                  },
+                  {
+                    "round": 8,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3545549999980722
+                  },
+                  {
+                    "round": 9,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.408391400000255
+                  },
+                  {
+                    "round": 10,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.341773000000103
+                  },
+                  {
+                    "round": 11,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3887660000036703
+                  },
+                  {
+                    "round": 12,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3604352000038489
+                  },
+                  {
+                    "round": 13,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.379719999997178
+                  },
+                  {
+                    "round": 14,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4095872999969288
+                  },
+                  {
+                    "round": 15,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3344454000034602
+                  },
+                  {
+                    "round": 16,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4005625999998301
+                  },
+                  {
+                    "round": 17,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5033655000006547
+                  },
+                  {
+                    "round": 18,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5772017999988748
+                  },
+                  {
+                    "round": 19,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4288121999998111
+                  },
+                  {
+                    "round": 20,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4192209000029834
+                  },
+                  {
+                    "round": 21,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4288585999966017
+                  },
+                  {
+                    "round": 22,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.450943299998471
+                  },
+                  {
+                    "round": 23,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3307129000022542
+                  },
+                  {
+                    "round": 24,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.334206900006393
+                  },
+                  {
+                    "round": 25,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.508480900003633
+                  },
+                  {
+                    "round": 26,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6134973000007449
+                  },
+                  {
+                    "round": 27,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.459546300000511
+                  },
+                  {
+                    "round": 28,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5632514000026276
+                  },
+                  {
+                    "round": 29,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4333776999992551
+                  },
+                  {
+                    "round": 30,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.652673999997205
+                  },
+                  {
+                    "round": 31,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.494661000004271
+                  },
+                  {
+                    "round": 32,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.7653166000018246
+                  },
+                  {
+                    "round": 33,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.541019200005394
+                  },
+                  {
+                    "round": 34,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6546474999995553
+                  },
+                  {
+                    "round": 35,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4897348000013153
+                  },
+                  {
+                    "round": 36,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5025402000028407
+                  },
+                  {
+                    "round": 37,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5485639000035007
+                  },
+                  {
+                    "round": 38,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5597207000027993
+                  },
+                  {
+                    "round": 39,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5170358999966993
+                  },
+                  {
+                    "round": 40,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4901586000050884
+                  },
+                  {
+                    "round": 41,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.650174499998684
+                  },
+                  {
+                    "round": 42,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4616509999978007
+                  },
+                  {
+                    "round": 43,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5139225000020815
+                  },
+                  {
+                    "round": 44,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5788164999976289
+                  },
+                  {
+                    "round": 45,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.6112907999995514
+                  },
+                  {
+                    "round": 46,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5354136000023573
+                  },
+                  {
+                    "round": 47,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5260600999972667
+                  },
+                  {
+                    "round": 48,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4492955999958212
+                  },
+                  {
+                    "round": 49,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5056059999988065
+                  },
+                  {
+                    "round": 50,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5467735999991419
+                  },
+                  {
+                    "round": 51,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5029612999933306
+                  },
+                  {
+                    "round": 52,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.5191271000003326
+                  },
+                  {
+                    "round": 53,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.514503300000797
+                  },
+                  {
+                    "round": 54,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4842014000023482
+                  },
+                  {
+                    "round": 55,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4803562999950373
+                  },
+                  {
+                    "round": 56,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4608330000046408
+                  },
+                  {
+                    "round": 57,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.418824600004882
+                  },
+                  {
+                    "round": 58,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4792290000041248
+                  },
+                  {
+                    "round": 59,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4347654000011971
+                  },
+                  {
+                    "round": 60,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.363639700000931
+                  },
+                  {
+                    "round": 61,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4723903999984032
+                  },
+                  {
+                    "round": 62,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3766095000028145
+                  },
+                  {
+                    "round": 63,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.504850900004385
+                  },
+                  {
+                    "round": 64,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4954264999978477
+                  },
+                  {
+                    "round": 65,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.441411399995559
+                  },
+                  {
+                    "round": 66,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4814344000042183
+                  },
+                  {
+                    "round": 67,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.461387499999546
+                  },
+                  {
+                    "round": 68,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4217878999988898
+                  },
+                  {
+                    "round": 69,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3615357000016957
+                  },
+                  {
+                    "round": 70,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3911726000005729
+                  },
+                  {
+                    "round": 71,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3830259000023943
+                  },
+                  {
+                    "round": 72,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4377114000017173
+                  },
+                  {
+                    "round": 73,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4135051999983261
+                  },
+                  {
+                    "round": 74,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3237124000006588
+                  },
+                  {
+                    "round": 75,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4898822000031942
+                  },
+                  {
+                    "round": 76,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4277570999984164
+                  },
+                  {
+                    "round": 77,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4549882999999681
+                  },
+                  {
+                    "round": 78,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4912514000025112
+                  },
+                  {
+                    "round": 79,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3695308000023942
+                  },
+                  {
+                    "round": 80,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3099402000007103
+                  },
+                  {
+                    "round": 81,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3267470999999205
+                  },
+                  {
+                    "round": 82,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3621889999994892
+                  },
+                  {
+                    "round": 83,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4283223999955226
+                  },
+                  {
+                    "round": 84,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.4594321999975364
+                  },
+                  {
+                    "round": 85,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3064362000004621
+                  },
+                  {
+                    "round": 86,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.0905185999945388
+                  },
+                  {
+                    "round": 87,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3157198000044446
+                  },
+                  {
+                    "round": 88,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.3632761999979266
+                  },
+                  {
+                    "round": 89,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.2369460000045365
+                  },
+                  {
+                    "round": 90,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.0319287000020267
+                  },
+                  {
+                    "round": 91,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.0331722999981139
+                  },
+                  {
+                    "round": 92,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.0507423999952152
+                  },
+                  {
+                    "round": 93,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.0403899000011734
+                  },
+                  {
+                    "round": 94,
+                    "exact": 256,
+                    "exact_slowest_runtime_s": 1.0134133999963524
+                  }
+                ],
+                "master_time_limit_scope": "",
+                "active_up_directions": 48,
+                "active_down_directions": 46,
+                "enforce_minimum_active_width": true,
+                "last_round_counts": {
+                  "feasible": 256,
+                  "infeasible": 0,
+                  "incomplete": 0
+                },
+                "incomplete_scenarios": []
+              }
+            }
+          ],
+          "retired_direction_count": 2,
+          "retirement_round_count": 2
+        },
+        "required_rate_solver_all_solved": true,
+        "allowed_command_failures": 0,
+        "certified_capacity_kw_block": 201238.6206788938,
+        "capacity_contract_ok": true,
+        "certification_scorer": "strict_frozen_bid_recourse",
+        "complete": true
+      },
+      "in_sample": true
+    },
+    "searched": true,
+    "search_objective": "maximize_total_ev_regulation_capacity_kw_block",
+    "block_allocation_rule": "unit capacity weights; physical Assessment-I, EV availability, SoC and all command-scenario recourse decide placement; L1 stabilization preserves the prior feasible shape among equal-capacity optima",
+    "participation_rule": "for each block and direction independently: binary participate, then optimize quantity continuously between the non-zero floor and the configured market-facing limit; sampled command recourse and departure SoC determine EV feasibility"
+  },
+  "upper_bid_progress_log": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_20s_f500\\days\\002_2024-04-13\\upper_bid_progress.log"
+}

@@ -1,0 +1,87 @@
+{
+  "source_sha256": "d9d2fa921887cc0929513906a0c1c052a0b93c1b1c5ff1f1c08156d08bf654dd",
+  "model": "prod_elexonplan256_AB_7station",
+  "stations": 7,
+  "target_episodes": 2000,
+  "algorithm": "hybrid",
+  "q_mix_global": 0.5,
+  "force": false,
+  "central": false,
+  "bess": false,
+  "global_correlated_noise_gain": 0.0,
+  "train_bank": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_minmedmax_3of128ev_256cmd_all_commands_elexon_plan_deviation",
+  "test_bank": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\validation_5_minmedmax_3of128ev_256cmd_all_commands_elexon_plan_deviation",
+  "design_commands": 256,
+  "ev_cases": 3,
+  "banks_checked": true,
+  "differences_from_reference": {
+    "EnvConfig": {
+      "PROJECT_ROOT": {
+        "reference": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE",
+        "current": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\gb_256cmd_bid_marl_20261002\\runtime_source"
+      },
+      "ACTIVATION_SIGNAL_SET": {
+        "reference": "aemo_plan_deviation",
+        "current": "elexon_plan_deviation"
+      },
+      "ACTIVATION_SCENARIO_DIR": {
+        "reference": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\aemo\\nem\\command_libraries\\plan_deviation_calendar_day",
+        "current": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\elexon\\command_libraries\\battery_plan_deviation_calendar_day"
+      },
+      "LOWER_TRAIN_UPPER_BID_ACTIVATION_SOURCE_DIR": {
+        "reference": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\aemo\\nem\\command_libraries\\plan_deviation_calendar_day",
+        "current": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\elexon\\command_libraries\\battery_plan_deviation_calendar_day"
+      },
+      "LOWER_TRAIN_UPPER_BID_ACTIVATION_SCENARIOS": {
+        "reference": 128,
+        "current": 256
+      },
+      "LOWER_TRAIN_UPPER_BID_BANK_DIR": {
+        "reference": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_minmedmax_3of128ev_128cmd_all_commands_aemo_plan_deviation",
+        "current": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_minmedmax_3of128ev_256cmd_all_commands_elexon_plan_deviation"
+      },
+      "LOWER_TRAIN_UPPER_BID_TEST_BANK_DIR": {
+        "reference": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\validation_5_minmedmax_3of128ev_128cmd_all_commands_aemo_plan_deviation",
+        "current": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\validation_5_minmedmax_3of128ev_256cmd_all_commands_elexon_plan_deviation"
+      },
+      "LOWER_TRAIN_UPPER_BID_MODEL_NAME": {
+        "reference": "direct_bid_aemo_plan_deviation_2000ep_7station",
+        "current": "prod_elexonplan256_AB_7station"
+      }
+    },
+    "Config": {
+      "PROJECT_ROOT": {
+        "reference": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE",
+        "current": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\gb_256cmd_bid_marl_20261002\\runtime_source"
+      },
+      "ACTIVATION_SIGNAL_SET": {
+        "reference": "aemo_plan_deviation",
+        "current": "elexon_plan_deviation"
+      },
+      "ACTIVATION_SCENARIO_DIR": {
+        "reference": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\aemo\\nem\\command_libraries\\plan_deviation_calendar_day",
+        "current": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\elexon\\command_libraries\\battery_plan_deviation_calendar_day"
+      },
+      "LOWER_TRAIN_UPPER_BID_ACTIVATION_SOURCE_DIR": {
+        "reference": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\aemo\\nem\\command_libraries\\plan_deviation_calendar_day",
+        "current": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\elexon\\command_libraries\\battery_plan_deviation_calendar_day"
+      },
+      "LOWER_TRAIN_UPPER_BID_ACTIVATION_SCENARIOS": {
+        "reference": 128,
+        "current": 256
+      },
+      "LOWER_TRAIN_UPPER_BID_BANK_DIR": {
+        "reference": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_minmedmax_3of128ev_128cmd_all_commands_aemo_plan_deviation",
+        "current": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_minmedmax_3of128ev_256cmd_all_commands_elexon_plan_deviation"
+      },
+      "LOWER_TRAIN_UPPER_BID_TEST_BANK_DIR": {
+        "reference": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\validation_5_minmedmax_3of128ev_128cmd_all_commands_aemo_plan_deviation",
+        "current": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\validation_5_minmedmax_3of128ev_256cmd_all_commands_elexon_plan_deviation"
+      },
+      "LOWER_TRAIN_UPPER_BID_MODEL_NAME": {
+        "reference": "direct_bid_aemo_plan_deviation_2000ep_7station",
+        "current": "prod_elexonplan256_AB_7station"
+      }
+    }
+  }
+}

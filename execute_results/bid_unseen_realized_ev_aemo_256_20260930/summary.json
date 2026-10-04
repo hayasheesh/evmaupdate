@@ -1,0 +1,14 @@
+{
+  "AEMO": {
+    "commands": 6400,
+    "trials": 19200,
+    "feasible": 17360,
+    "infeasible": 1810,
+    "unknown": 30,
+    "bid_days": 25,
+    "ev_seeds_per_command": 3,
+    "success_rate": null,
+    "success_rate_lower_bound": 0.9041666666666667,
+    "success_rate_upper_bound": 0.9057291666666667
+  }
+}

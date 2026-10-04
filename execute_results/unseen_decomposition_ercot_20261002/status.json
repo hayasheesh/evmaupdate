@@ -1,0 +1,19 @@
+﻿{
+    "cpuRateBasisPoints":  2500,
+    "startedAt":  "2026-10-02T12:22:55.1089091+09:00",
+    "completedAt":  "2026-10-02T13:03:30.7553666+09:00",
+    "tasks":  {
+                  "lp_certify":  {
+                                     "pid":  41328,
+                                     "exitCode":  0
+                                 },
+                  "model_aemo":  {
+                                     "pid":  42220,
+                                     "exitCode":  0
+                                 },
+                  "model_ercot":  {
+                                      "pid":  28248,
+                                      "exitCode":  0
+                                  }
+              }
+}

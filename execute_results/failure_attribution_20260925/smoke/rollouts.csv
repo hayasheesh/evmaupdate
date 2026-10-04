@@ -1,0 +1,2 @@
+rollout,bid_day_index,service_date,scenario,realized_seed,participating_blocks,system_failed_recorded,system_failed_recomputed,reproduced,lp_joint_failed,joint_status,joint_objective_kw_steps,sessions,seconds
+0,0,2024-04-01,0,1422090,31,10,10,True,1,complete,122.90839008178716,103,4.4

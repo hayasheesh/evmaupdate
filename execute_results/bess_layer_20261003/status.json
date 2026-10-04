@@ -1,0 +1,19 @@
+﻿{
+    "cpuRateBasisPoints":  2500,
+    "startedAt":  "2026-10-03T22:55:26.1130746+09:00",
+    "completedAt":  "2026-10-04T00:01:46.5184169+09:00",
+    "tasks":  {
+                  "aemo":  {
+                               "pid":  28624,
+                               "exitCode":  0
+                           },
+                  "ercot":  {
+                                "pid":  31792,
+                                "exitCode":  0
+                            },
+                  "gb":  {
+                             "pid":  38872,
+                             "exitCode":  0
+                         }
+              }
+}

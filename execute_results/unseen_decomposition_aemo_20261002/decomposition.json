@@ -1,0 +1,119 @@
+{
+  "cases": 360,
+  "lp_feasible_pct_range": [
+    73.33333333333333,
+    74.72222222222223
+  ],
+  "lp_unknown": 5,
+  "lp_band_max_diff_kw": 6.0587438611037214e-05,
+  "lp_assessed_mask_equal_all": true,
+  "methods": {
+    "MARL（分散、行動器だけ）": {
+      "cases": 360,
+      "day_pass_pct": 0.2777777777777778,
+      "day_pass_tracking_only_pct": 1.9444444444444444,
+      "day_pass_soc_only_pct": 3.3333333333333335,
+      "tracking_pct": 90.47143548777535,
+      "soc_pct": 82.8097762282543,
+      "block_pass_pct": 80.71895424836602,
+      "control_loss_pt_range": [
+        73.05555555555556,
+        74.44444444444446
+      ],
+      "on_lp_feasible": {
+        "cases": 264,
+        "day_pass_pct": 0.3787878787878788,
+        "day_pass_tracking_only_pct": 2.6515151515151514,
+        "day_pass_soc_only_pct": 3.409090909090909,
+        "tracking_pct": 91.624895572264,
+        "soc_pct": 84.08893185113581,
+        "block_pass_pct": 81.96741854636592
+      },
+      "on_lp_infeasible": {
+        "cases": 91,
+        "day_pass_pct": 0.0,
+        "day_pass_tracking_only_pct": 0.0,
+        "day_pass_soc_only_pct": 3.2967032967032965,
+        "tracking_pct": 88.5171058714748,
+        "soc_pct": 82.01254275940707,
+        "block_pass_pct": 79.36893203883496
+      }
+    },
+    "ルールベース（中央観測）": {
+      "cases": 360,
+      "day_pass_pct": 47.5,
+      "day_pass_tracking_only_pct": 47.5,
+      "day_pass_soc_only_pct": 100.0,
+      "tracking_pct": 96.5958605664488,
+      "soc_pct": 100.0,
+      "block_pass_pct": 94.05410312273057,
+      "control_loss_pt_range": [
+        25.83333333333333,
+        27.22222222222223
+      ],
+      "on_lp_feasible": {
+        "cases": 264,
+        "day_pass_pct": 64.77272727272727,
+        "day_pass_tracking_only_pct": 64.77272727272727,
+        "day_pass_soc_only_pct": 100.0,
+        "tracking_pct": 98.25187969924812,
+        "soc_pct": 100.0,
+        "block_pass_pct": 96.66666666666667
+      },
+      "on_lp_infeasible": {
+        "cases": 91,
+        "day_pass_pct": 0.0,
+        "day_pass_tracking_only_pct": 0.0,
+        "day_pass_soc_only_pct": 100.0,
+        "tracking_pct": 93.82223763291725,
+        "soc_pct": 100.0,
+        "block_pass_pct": 89.73647711511789
+      }
+    },
+    "中央LP（各時刻）": {
+      "cases": 360,
+      "day_pass_pct": 0.2777777777777778,
+      "day_pass_tracking_only_pct": 0.8333333333333334,
+      "day_pass_soc_only_pct": 80.83333333333333,
+      "tracking_pct": 84.84779714354877,
+      "soc_pct": 99.72606638443203,
+      "block_pass_pct": 77.42374727668846,
+      "control_loss_pt_range": [
+        73.05555555555556,
+        74.44444444444446
+      ],
+      "on_lp_feasible": {
+        "cases": 264,
+        "day_pass_pct": 0.3787878787878788,
+        "day_pass_tracking_only_pct": 1.1363636363636365,
+        "day_pass_soc_only_pct": 82.1969696969697,
+        "tracking_pct": 86.61445279866332,
+        "soc_pct": 99.75350410826486,
+        "block_pass_pct": 80.11278195488721
+      },
+      "on_lp_infeasible": {
+        "cases": 91,
+        "day_pass_pct": 0.0,
+        "day_pass_tracking_only_pct": 0.0,
+        "day_pass_soc_only_pct": 78.02197802197803,
+        "tracking_pct": 81.18354137771614,
+        "soc_pct": 99.67217787913341,
+        "block_pass_pct": 71.63661581137309
+      }
+    }
+  },
+  "ev_match_checks": {
+    "MARL（分散、行動器だけ）": {
+      "departing_evs_equals_lp_target_required": 360,
+      "departing_evs_equal_to_marl": 360
+    },
+    "ルールベース（中央観測）": {
+      "departing_evs_equals_lp_target_required": 360,
+      "departing_evs_equal_to_marl": 360
+    },
+    "中央LP（各時刻）": {
+      "departing_evs_equals_lp_target_required": 360,
+      "departing_evs_equal_to_marl": 360
+    }
+  }
+}

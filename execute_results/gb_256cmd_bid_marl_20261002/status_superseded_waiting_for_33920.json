@@ -1,0 +1,27 @@
+﻿{
+    "signalSet":  "elexon_plan_deviation",
+    "activationScenarios":  256,
+    "fixedEvScenarios":  3,
+    "evScenarioCandidateCount":  128,
+    "trainDays":  25,
+    "validationDays":  5,
+    "dayWorkers":  6,
+    "scenarioWorkersPerDay":  4,
+    "cpuRateBasisPoints":  7500,
+    "powerSettingsTouched":  false,
+    "trainBank":  "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_minmedmax_3of128ev_256cmd_all_commands_elexon_plan_deviation",
+    "validationBank":  "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\validation_5_minmedmax_3of128ev_256cmd_all_commands_elexon_plan_deviation",
+    "model":  "prod_elexonplan256_AB_7station",
+    "targetEpisode":  2000,
+    "waitForPid":  33920,
+    "launcherPid":  40732,
+    "startedAt":  "2026-10-02T00:26:07.7190857+09:00",
+    "completedAt":  null,
+    "stage":  "waiting",
+    "pid":  null,
+    "exitCode":  null,
+    "error":  null,
+    "stageStartedAt":  {
+
+                       }
+}

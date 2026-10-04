@@ -1,0 +1,2444 @@
+{
+  "market": "ERCOT",
+  "service_date": "2024-08-04",
+  "bid_path": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_minmedmax_3of128ev_128cmd_all_commands_ercot_plan_deviation\\days\\007_2024-08-04\\fixed_bid.pkl",
+  "bid_sha256": "43e10b5c892476d6e2dbf8cce8320fa72c4a3873ceb49191cdcd96d3ef7f10ca",
+  "design_commands": 128,
+  "unseen_commands": 128,
+  "ev_cases": 3,
+  "elapsed_s": 750.2829133000014,
+  "rows": [
+    {
+      "source_date": "2026-01-23",
+      "source_bmu": "RIO_GRAN_ESR2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-22",
+      "source_bmu": "PEARSALL_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-21",
+      "source_bmu": "GARCENO_ESR1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-02-21",
+      "source_bmu": "WORSHAM_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-21",
+      "source_bmu": "RPUBRDS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-22",
+      "source_bmu": "FRMRSVLW_ESR2",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-03-22",
+      "source_bmu": "CR_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-22",
+      "source_bmu": "CROSSTRL_ESR1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-05-22",
+      "source_bmu": "RRANCHES_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-22",
+      "source_bmu": "RIO_GRAN_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-22",
+      "source_bmu": "DKNS_ESS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-05-19",
+      "source_bmu": "WORSHAM_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-20",
+      "source_bmu": "MUSTNGCK_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-23",
+      "source_bmu": "MYR_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-24",
+      "source_bmu": "TANZ_ESS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-21",
+      "source_bmu": "GRDNE_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-23",
+      "source_bmu": "MIDP_SLR_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-22",
+      "source_bmu": "FIVEWSLR_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-21",
+      "source_bmu": "BLUEJAY_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-21",
+      "source_bmu": "STRG_SLR_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-17",
+      "source_bmu": "DKNS_ESS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-19",
+      "source_bmu": "SGSA_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-22",
+      "source_bmu": "JUNORTH_ESR1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-07-16",
+      "source_bmu": "FTDUNCAN_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-21",
+      "source_bmu": "AVIL_ESS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-21",
+      "source_bmu": "COYOTSPR_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-18",
+      "source_bmu": "CS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-19",
+      "source_bmu": "FLAT_TOP_ESR2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-24",
+      "source_bmu": "SGAL_BES_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-19",
+      "source_bmu": "CROSSETT_ESR2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-22",
+      "source_bmu": "JUNCTION_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-17",
+      "source_bmu": "EBNY_ESS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-18",
+      "source_bmu": "CNTRY_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-20",
+      "source_bmu": "CNLY_ESS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-24",
+      "source_bmu": "CARTWHL_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-22",
+      "source_bmu": "MOORE_FL_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-23",
+      "source_bmu": "MAYBERRY_ESR2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-22",
+      "source_bmu": "SADLBACK_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-19",
+      "source_bmu": "BYRDR_ES_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-22",
+      "source_bmu": "DCSES_ESR2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-23",
+      "source_bmu": "LON_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-21",
+      "source_bmu": "ZIER_SLR_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-19",
+      "source_bmu": "GZ_ESR2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-20",
+      "source_bmu": "BELD_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-23",
+      "source_bmu": "GEORSO_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-20",
+      "source_bmu": "POTEETS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-22",
+      "source_bmu": "NOBLESLR_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-19",
+      "source_bmu": "L_463S_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-24",
+      "source_bmu": "ALP_BESS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-24",
+      "source_bmu": "ANDMDSLR_ESR2",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-06-21",
+      "source_bmu": "ANOL_ESS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-18",
+      "source_bmu": "CLO_ESR2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-20",
+      "source_bmu": "EMPCT_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-20",
+      "source_bmu": "SUNVASLR_ESR2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-21",
+      "source_bmu": "MUSTNGCK_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-19",
+      "source_bmu": "CEDRVALE_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-24",
+      "source_bmu": "BLVN_SLR_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-20",
+      "source_bmu": "WIG_ESS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-24",
+      "source_bmu": "MNWLE_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-23",
+      "source_bmu": "COYOTSPR_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-21",
+      "source_bmu": "CARRIZO_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-21",
+      "source_bmu": "BLUEJAY_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-20",
+      "source_bmu": "GARCENO_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-22",
+      "source_bmu": "SLCNHLS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-20",
+      "source_bmu": "LYSSY_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-20",
+      "source_bmu": "PYR_ESR3",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-20",
+      "source_bmu": "GKS_BESS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-22",
+      "source_bmu": "OLNEYTN_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-24",
+      "source_bmu": "JADE_SLR_ESR2",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-07-16",
+      "source_bmu": "BATCAVE_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-23",
+      "source_bmu": "GRDNE_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-23",
+      "source_bmu": "LON_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-24",
+      "source_bmu": "BLSUMMIT_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-20",
+      "source_bmu": "AE_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-23",
+      "source_bmu": "FALFUR_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-22",
+      "source_bmu": "DCSES_ESR4",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-24",
+      "source_bmu": "TV_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-20",
+      "source_bmu": "ANCHOR_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-23",
+      "source_bmu": "PRTLAVS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-19",
+      "source_bmu": "ANDMDSLR_ESR1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-03-22",
+      "source_bmu": "AE_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-20",
+      "source_bmu": "GREGORY_ESR1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-06-21",
+      "source_bmu": "MESQUITE_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-19",
+      "source_bmu": "WAL_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-22",
+      "source_bmu": "GOMZ_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-19",
+      "source_bmu": "NOBLESLR_ESR2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-19",
+      "source_bmu": "PRCRK_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-03-20",
+      "source_bmu": "MILTON_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-18",
+      "source_bmu": "RIO_GRAN_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-19",
+      "source_bmu": "ANG_SLR_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-18",
+      "source_bmu": "MUSTNGCK_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-19",
+      "source_bmu": "BCK_ESR2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-25",
+      "source_bmu": "FRMRSVLW_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-22",
+      "source_bmu": "JOHNCI_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-21",
+      "source_bmu": "PHO_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-21",
+      "source_bmu": "ROSELAND_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-21",
+      "source_bmu": "PRTLAVS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-22",
+      "source_bmu": "RTLSNAKE_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-24",
+      "source_bmu": "MESQUITE_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-21",
+      "source_bmu": "JAG_SLR_ESR2",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-02-20",
+      "source_bmu": "DCSES_ESR3",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-02-21",
+      "source_bmu": "CASL_GAP_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-20",
+      "source_bmu": "CNLY_ESS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-23",
+      "source_bmu": "LONESTAR_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-23",
+      "source_bmu": "SP_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-24",
+      "source_bmu": "N_MERCED_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-19",
+      "source_bmu": "MAINLAND_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-19",
+      "source_bmu": "BLACKSPR_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-19",
+      "source_bmu": "PYR_ESR2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-24",
+      "source_bmu": "FIVEWSLR_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-21",
+      "source_bmu": "MAYBERRY_ESR2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-19",
+      "source_bmu": "BKSL_ESS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2025-12-23",
+      "source_bmu": "PEARSALL_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-19",
+      "source_bmu": "TYNAN_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-23",
+      "source_bmu": "NF_BRP_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-24",
+      "source_bmu": "NCO_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-05-22",
+      "source_bmu": "DCSES_ESR2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-19",
+      "source_bmu": "TDWLPR_1_ESR2",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-07-18",
+      "source_bmu": "CARTWHL_ESR1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-04-23",
+      "source_bmu": "DCSES_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-19",
+      "source_bmu": "ANEM_ESS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-23",
+      "source_bmu": "SWOOSEII_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-01-21",
+      "source_bmu": "WOVER_ESR1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-06-20",
+      "source_bmu": "PAD1_ESS_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-06-24",
+      "source_bmu": "HEADCAMP_ESR1",
+      "ev_cases": [
+        {
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": false
+    },
+    {
+      "source_date": "2026-07-16",
+      "source_bmu": "SANDLAKE_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2026-04-19",
+      "source_bmu": "DIBOL_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    },
+    {
+      "source_date": "2025-12-21",
+      "source_bmu": "ELSA_ESR1",
+      "ev_cases": [
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "feasible": true,
+          "reason": null
+        }
+      ],
+      "all_three_feasible": true
+    }
+  ]
+}

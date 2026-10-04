@@ -1,0 +1,11 @@
+{
+  "cases": 360,
+  "feasible": 189,
+  "infeasible": 171,
+  "unknown": 0,
+  "assessed_mask_equal_all": true,
+  "band_max_diff_kw": 6.394075353455264e-05,
+  "solver_time_limit_s": 20.0,
+  "pinned_source_sha256": "d9d2fa921887cc0929513906a0c1c052a0b93c1b1c5ff1f1c08156d08bf654dd",
+  "elapsed_s": 1769.9526498999912
+}

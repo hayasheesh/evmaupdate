@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "source": "/workspace/EVMALOCALUPDATE/execute_results/bid_banks/train_25_20station_256cmd_3ev_aemo_plan_deviation",
+  "quantile": 0.95,
+  "demand_center_kw": 0.0,
+  "demand_scale_kw": 2085.59912109375,
+  "instruction_scale_scale_kw": 3937.72998046875,
+  "sample_counts": {
+    "demand_kw": 1843200,
+    "instruction_scale_kw": 1843200
+  },
+  "bank_dates": 25,
+  "bank_scenario_episodes": 6400
+}

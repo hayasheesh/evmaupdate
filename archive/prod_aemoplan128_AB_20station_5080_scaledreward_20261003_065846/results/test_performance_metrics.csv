@@ -1,0 +1,3 @@
+Episode,SoC_Hit_Rate_%,Dispatch_Tracking_Rate_%,Avg_SoC_Deficit_kWh,SoC_Departing_EVs,SoC_Hit_EVs,Surplus_Steps,Surplus_Steps_Within_Narrow,Shortage_Steps,Shortage_Steps_Within_Narrow,Central_Tracking_Rate_%,System_Tracking_Rate_%,Raw_Actor_MAE_kW,Pre_BESS_MAE_kW,Post_BESS_MAE_kW,Central_Corrected_EV_Steps,Central_Corrected_Station_Steps,Central_Max_Corrected_Stations_Per_Step,Central_Max_Station_Target_Error_kW,Central_Absolute_Correction_kWh,BESS_Throughput_kWh
+1,94.29975999131764,39.49579831932773,5.717841100709496,1352,1275,1283,564,145,0,,,,,,,,,,,
+2,95.41849860014217,41.38655462184874,12.75295868575191,1352,1290,1283,589,145,2,,,,,,,,,,,

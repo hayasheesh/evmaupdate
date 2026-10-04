@@ -1,0 +1,431 @@
+{
+  "aemo_matched_episodes": {
+    "episodes": [
+      1175,
+      1274
+    ],
+    "metrics": {
+      "Gradient/actor_source_local_raw_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 3.4976710367202757,
+        "min": 3.272462844848633,
+        "max": 3.8006694316864014
+      },
+      "Gradient/actor_source_global_raw_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 9.290854740142823,
+        "min": 6.505270004272461,
+        "max": 13.221512794494629
+      },
+      "Gradient/actor_source_global_ratio_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.6846294039487839,
+        "min": 0.6260557770729065,
+        "max": 0.7385207414627075
+      },
+      "Gradient/actor_source_cos_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": -0.2726481224223971,
+        "min": -0.5694023966789246,
+        "max": 0.022940296679735184
+      },
+      "Gradient/actor_source_cos_valid_fraction_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "Gradient/global_critic_raw": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 4.6111280679702755,
+        "min": 4.127358913421631,
+        "max": 5.1525774002075195
+      },
+      "Clipping/global_critic": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.2989655163139105,
+        "min": 0.06896551698446274,
+        "max": 0.5517241358757019
+      },
+      "GlobalCritic/current_q_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 7.173407273292542,
+        "min": 6.621140480041504,
+        "max": 7.843369960784912
+      },
+      "GlobalCritic/target_q_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 7.591547632217408,
+        "min": 6.97438907623291,
+        "max": 8.186172485351562
+      },
+      "GlobalCritic/td_error_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.362225488871336,
+        "min": 0.24793274700641632,
+        "max": 0.5190067887306213
+      },
+      "GlobalCritic/reward_scale": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "GlobalCritic/reward_baseline": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "GlobalCritic/reward_raw_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.5887653630971909,
+        "min": 0.5109690427780151,
+        "max": 0.7010985612869263
+      },
+      "GlobalCritic/reward_term_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.5887653630971909,
+        "min": 0.5109690427780151,
+        "max": 0.7010985612869263
+      },
+      "GlobalCritic/td_target_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 7.129880352020264,
+        "min": 6.606700897216797,
+        "max": 7.775062561035156
+      }
+    },
+    "actor_clip_fraction": 0.301280787342361,
+    "actor_clip_fraction_by_agent": [
+      0.30206896498799324,
+      0.5113793055713177,
+      0.42482758417725563,
+      0.26793103467673063,
+      0.3189655178040266,
+      0.24206896603107453,
+      0.04172413814812899
+    ],
+    "local_critic_clip_fraction": 0.0,
+    "local_critic_clip_fraction_by_agent": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "global_ratio_by_agent": [
+      0.6692899203300476,
+      0.6826083654165268,
+      0.6311678349971771,
+      0.6527085387706757,
+      0.6496811991930008,
+      0.7557503306865692,
+      0.7511996424198151
+    ],
+    "recorded_nonfinite": 0
+  },
+  "ercot_matched_episodes": {
+    "episodes": [
+      1175,
+      1274
+    ],
+    "metrics": {
+      "Gradient/actor_source_local_raw_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 5.700389575958252,
+        "min": 5.141987323760986,
+        "max": 6.315034866333008
+      },
+      "Gradient/actor_source_global_raw_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 11.319226441383362,
+        "min": 7.6682515144348145,
+        "max": 15.896684646606445
+      },
+      "Gradient/actor_source_global_ratio_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.6233406770229339,
+        "min": 0.5556312203407288,
+        "max": 0.6859337091445923
+      },
+      "Gradient/actor_source_cos_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": -0.3558825783804059,
+        "min": -0.56236332654953,
+        "max": 0.03655046224594116
+      },
+      "Gradient/actor_source_cos_valid_fraction_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "Gradient/global_critic_raw": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 7.5636098146438595,
+        "min": 6.756883144378662,
+        "max": 8.469243049621582
+      },
+      "Clipping/global_critic": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.9686206889152527,
+        "min": 0.8965517282485962,
+        "max": 1.0
+      },
+      "GlobalCritic/current_q_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 6.766856174468995,
+        "min": 6.303008079528809,
+        "max": 7.300920486450195
+      },
+      "GlobalCritic/target_q_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 7.121955161094665,
+        "min": 6.626560211181641,
+        "max": 7.668291091918945
+      },
+      "GlobalCritic/td_error_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.39914676010608674,
+        "min": 0.23528537154197693,
+        "max": 0.5367149710655212
+      },
+      "GlobalCritic/reward_scale": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "GlobalCritic/reward_baseline": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "GlobalCritic/reward_raw_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.5526153188943863,
+        "min": 0.4732075333595276,
+        "max": 0.6437186598777771
+      },
+      "GlobalCritic/reward_term_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.5526153188943863,
+        "min": 0.4732075333595276,
+        "max": 0.6437186598777771
+      },
+      "GlobalCritic/td_target_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 6.739733052253723,
+        "min": 6.255122184753418,
+        "max": 7.26050329208374
+      }
+    },
+    "actor_clip_fraction": 0.3834482738269227,
+    "actor_clip_fraction_by_agent": [
+      0.4162068934738636,
+      0.5679310283064842,
+      0.4624137911200523,
+      0.4399999983608723,
+      0.39862068876624107,
+      0.2955172398686409,
+      0.10344827689230442
+    ],
+    "local_critic_clip_fraction": 0.0,
+    "local_critic_clip_fraction_by_agent": [
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0,
+      0.0
+    ],
+    "global_ratio_by_agent": [
+      0.6061238193511963,
+      0.5879476967453957,
+      0.563161709010601,
+      0.6304181206226349,
+      0.6073075950145721,
+      0.6876375591754913,
+      0.6807882231473923
+    ],
+    "recorded_nonfinite": 0
+  },
+  "aemo_last_100": {
+    "episodes": [
+      2108,
+      2207
+    ],
+    "metrics": {
+      "Gradient/actor_source_local_raw_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 10.326703004837036,
+        "min": 9.685518264770508,
+        "max": 11.117974281311035
+      },
+      "Gradient/actor_source_global_raw_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 23.54299786567688,
+        "min": 15.863497734069824,
+        "max": 36.9270133972168
+      },
+      "Gradient/actor_source_global_ratio_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.6602789682149887,
+        "min": 0.5855659246444702,
+        "max": 0.7333018779754639
+      },
+      "Gradient/actor_source_cos_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": -0.34353410482406616,
+        "min": -0.5502070784568787,
+        "max": -0.12900310754776
+      },
+      "Gradient/actor_source_cos_valid_fraction_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "Gradient/global_critic_raw": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 5.2174467277526855,
+        "min": 4.446688652038574,
+        "max": 6.201412200927734
+      },
+      "Clipping/global_critic": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.4834482727944851,
+        "min": 0.17241379618644714,
+        "max": 0.8275862336158752
+      },
+      "GlobalCritic/current_q_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 8.295043601989747,
+        "min": 7.669670104980469,
+        "max": 8.902334213256836
+      },
+      "GlobalCritic/target_q_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 8.418893914222718,
+        "min": 7.706978797912598,
+        "max": 9.090920448303223
+      },
+      "GlobalCritic/td_error_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.3498124074935913,
+        "min": 0.2313319742679596,
+        "max": 0.4968089461326599
+      },
+      "GlobalCritic/reward_scale": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 1.0,
+        "min": 1.0,
+        "max": 1.0
+      },
+      "GlobalCritic/reward_baseline": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.0,
+        "min": 0.0,
+        "max": 0.0
+      },
+      "GlobalCritic/reward_raw_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.46633893609046934,
+        "min": 0.4293045699596405,
+        "max": 0.5431908965110779
+      },
+      "GlobalCritic/reward_term_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 0.46633893609046934,
+        "min": 0.4293045699596405,
+        "max": 0.5431908965110779
+      },
+      "GlobalCritic/td_target_abs_mean": {
+        "count": 100,
+        "nonfinite": 0,
+        "mean": 8.250951457023621,
+        "min": 7.638501167297363,
+        "max": 8.910175323486328
+      }
+    },
+    "actor_clip_fraction": 0.7201477810527597,
+    "actor_clip_fraction_by_agent": [
+      0.7358620619773865,
+      0.8993103468418121,
+      0.8420689660310745,
+      0.7506896534562111,
+      0.7703448235988617,
+      0.6699999949336052,
+      0.3727586205303669
+    ],
+    "local_critic_clip_fraction": 0.003201970436743328,
+    "local_critic_clip_fraction_by_agent": [
+      0.0,
+      0.016206896491348745,
+      0.0003448275849223137,
+      0.005172413811087608,
+      0.0006896551698446274,
+      0.0,
+      0.0
+    ],
+    "global_ratio_by_agent": [
+      0.6500425463914872,
+      0.6265324658155441,
+      0.6154882752895355,
+      0.6854170906543732,
+      0.6107074010372162,
+      0.6825291150808335,
+      0.7512358808517456
+    ],
+    "recorded_nonfinite": 0
+  }
+}

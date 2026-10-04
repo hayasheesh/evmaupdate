@@ -1,0 +1,29 @@
+{
+  "marl_raw": {
+    "global_tracking_rate": 0.8278664302600474,
+    "controller_pre_system_tracking_rate": 0.8278664302600474,
+    "up_pass_rate": 0.6728723404255318,
+    "down_pass_rate": 0.6728723404255318,
+    "soc_hit_rate": 0.7583926754832147,
+    "post_bess_mae_kw": 62.056044266833304,
+    "seconds": 113.9
+  },
+  "central_lp_bess": {
+    "global_tracking_rate": 0.8504728132387708,
+    "controller_pre_system_tracking_rate": 0.8278664302600474,
+    "up_pass_rate": 0.6994680851063831,
+    "down_pass_rate": 0.6994680851063831,
+    "soc_hit_rate": 0.7583926754832147,
+    "post_bess_mae_kw": 50.46250792020854,
+    "seconds": 111.6
+  },
+  "system": {
+    "global_tracking_rate": 0.9536052009456264,
+    "controller_pre_system_tracking_rate": 0.8102836879432624,
+    "up_pass_rate": 0.8803191489361701,
+    "down_pass_rate": 0.8803191489361701,
+    "soc_hit_rate": 1.0,
+    "post_bess_mae_kw": 12.486332970857708,
+    "seconds": 163.7
+  }
+}

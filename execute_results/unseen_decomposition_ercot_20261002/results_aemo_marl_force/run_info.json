@@ -1,0 +1,23 @@
+{
+  "controller": "aemo",
+  "pipeline": "marl_force",
+  "model_dir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\archive\\prod_aemoplan_AB_7station_20260926_210314",
+  "checkpoint_dir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\archive\\prod_aemoplan_AB_7station_20260926_210314\\results\\TEST2200",
+  "episode": 2200,
+  "observation_normalization": {
+    "version": 1,
+    "source": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_minmedmax_3of128ev_128cmd_all_commands_aemo_plan_deviation",
+    "quantile": 0.95,
+    "demand_center_kw": 0.0,
+    "demand_scale_kw": 488.51666259765625,
+    "instruction_scale_scale_kw": 1245.6300048828125,
+    "sample_counts": {
+      "demand_kw": 921600,
+      "instruction_scale_kw": 921600
+    },
+    "bank_dates": 25,
+    "bank_scenario_episodes": 3200
+  },
+  "pinned_source_sha256": "d9d2fa921887cc0929513906a0c1c052a0b93c1b1c5ff1f1c08156d08bf654dd",
+  "excluded_commands": 1696
+}

@@ -1,0 +1,12 @@
+{
+  "A0_設計指令": {
+    "feasible": 24,
+    "total": 24,
+    "seconds": 71.2
+  },
+  "A1_holdout指令": {
+    "feasible": 24,
+    "total": 24,
+    "seconds": 37.3
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "cases": 360,
+  "lp_feasible_pct_range": [
+    80.83333333333333,
+    81.66666666666667
+  ],
+  "lp_unknown": 3,
+  "lp_band_max_diff_kw": 101.07000312805168,
+  "lp_assessed_mask_equal_all": true,
+  "methods": {
+    "AEMOで学習したAB（ep2200）": {
+      "cases": 360,
+      "day_pass_pct": 0.0,
+      "day_pass_tracking_only_pct": 2.5,
+      "day_pass_soc_only_pct": 0.0,
+      "tracking_pct": 87.70576131687243,
+      "soc_pct": 70.02383578213383,
+      "block_pass_pct": 78.8035584604212,
+      "control_loss_pt_range": [
+        80.83333333333333,
+        81.66666666666667
+      ],
+      "on_lp_feasible": {
+        "cases": 291,
+        "day_pass_pct": 0.0,
+        "day_pass_tracking_only_pct": 3.0927835051546393,
+        "day_pass_soc_only_pct": 0.0,
+        "tracking_pct": 88.16466227970653,
+        "soc_pct": 69.38802311329015,
+        "block_pass_pct": 79.14681189017472
+      },
+      "on_lp_infeasible": {
+        "cases": 66,
+        "day_pass_pct": 0.0,
+        "day_pass_tracking_only_pct": 0.0,
+        "day_pass_soc_only_pct": 0.0,
+        "tracking_pct": 86.69985775248934,
+        "soc_pct": 73.92772041302621,
+        "block_pass_pct": 78.4257942152679
+      }
+    },
+    "ERCOTで学習したAB（ep1760）": {
+      "cases": 360,
+      "day_pass_pct": 0.0,
+      "day_pass_tracking_only_pct": 5.277777777777778,
+      "day_pass_soc_only_pct": 0.0,
+      "tracking_pct": 88.74515855725006,
+      "soc_pct": 65.76541321284998,
+      "block_pass_pct": 80.29230210602759,
+      "control_loss_pt_range": [
+        80.83333333333333,
+        81.66666666666667
+      ],
+      "on_lp_feasible": {
+        "cases": 291,
+        "day_pass_pct": 0.0,
+        "day_pass_tracking_only_pct": 6.529209621993127,
+        "day_pass_soc_only_pct": 0.0,
+        "tracking_pct": 89.19332879509871,
+        "soc_pct": 65.09367886534757,
+        "block_pass_pct": 80.75788518266394
+      },
+      "on_lp_infeasible": {
+        "cases": 66,
+        "day_pass_pct": 0.0,
+        "day_pass_tracking_only_pct": 0.0,
+        "day_pass_soc_only_pct": 0.0,
+        "tracking_pct": 87.37158210842422,
+        "soc_pct": 69.8173153296267,
+        "block_pass_pct": 79.04220009483167
+      }
+    }
+  },
+  "ev_match_checks": {
+    "AEMOで学習したAB（ep2200）": {
+      "departing_evs_equals_lp_target_required": 360,
+      "departing_evs_equal_to_marl": 360
+    },
+    "ERCOTで学習したAB（ep1760）": {
+      "departing_evs_equals_lp_target_required": 360,
+      "departing_evs_equal_to_marl": 360
+    }
+  }
+}

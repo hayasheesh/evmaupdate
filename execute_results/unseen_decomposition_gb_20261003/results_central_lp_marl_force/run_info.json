@@ -1,0 +1,23 @@
+{
+  "controller": "central_lp",
+  "pipeline": "marl_force",
+  "model_dir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\archive\\prod_elexonplan_AB_7station_20261002_215844",
+  "checkpoint_dir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\archive\\prod_elexonplan_AB_7station_20261002_215844\\results\\TEST1240",
+  "episode": 1240,
+  "observation_normalization": {
+    "version": 1,
+    "source": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_minmedmax_3of128ev_128cmd_all_commands_elexon_plan_deviation",
+    "quantile": 0.95,
+    "demand_center_kw": 0.0,
+    "demand_scale_kw": 532.3562622070312,
+    "instruction_scale_scale_kw": 1409.7928466796875,
+    "sample_counts": {
+      "demand_kw": 921600,
+      "instruction_scale_kw": 921600
+    },
+    "bank_dates": 25,
+    "bank_scenario_episodes": 3200
+  },
+  "pinned_source_sha256": "d9d2fa921887cc0929513906a0c1c052a0b93c1b1c5ff1f1c08156d08bf654dd",
+  "excluded_commands": 1215
+}

@@ -1,0 +1,195 @@
+{
+  "stations": 20,
+  "bank": "/workspace/EVMALOCALUPDATE/execute_results/bid_banks/train_25_20station_256cmd_3ev_aemo_plan_deviation",
+  "evaluator_source_sha256": "ff8a860d67c1c0f47093d35833187bad3d9c997dd96f6c1315fcfdc998861aa5",
+  "solver_time_limit_s": 20.0,
+  "AEMO": {
+    "commands": 6400,
+    "trials": 19200,
+    "feasible": 17214,
+    "infeasible": 1810,
+    "unknown": 176,
+    "bid_days": 25,
+    "ev_seeds_per_command": 3,
+    "success_rate": null,
+    "success_rate_lower_bound": 0.8965625,
+    "success_rate_upper_bound": 0.9057291666666667
+  },
+  "by_day": {
+    "2024-04-02": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 756,
+      "infeasible": 8,
+      "unknown": 4
+    },
+    "2024-04-03": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 656,
+      "infeasible": 107,
+      "unknown": 5
+    },
+    "2024-04-13": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 662,
+      "infeasible": 94,
+      "unknown": 12
+    },
+    "2024-04-14": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 715,
+      "infeasible": 36,
+      "unknown": 17
+    },
+    "2024-04-20": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 420,
+      "infeasible": 336,
+      "unknown": 12
+    },
+    "2024-04-21": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 602,
+      "infeasible": 158,
+      "unknown": 8
+    },
+    "2024-08-02": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 653,
+      "infeasible": 99,
+      "unknown": 16
+    },
+    "2024-08-04": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 738,
+      "infeasible": 30,
+      "unknown": 0
+    },
+    "2024-08-05": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 715,
+      "infeasible": 46,
+      "unknown": 7
+    },
+    "2024-08-10": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 634,
+      "infeasible": 122,
+      "unknown": 12
+    },
+    "2024-08-11": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 747,
+      "infeasible": 21,
+      "unknown": 0
+    },
+    "2024-08-17": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 585,
+      "infeasible": 175,
+      "unknown": 8
+    },
+    "2024-10-01": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 757,
+      "infeasible": 8,
+      "unknown": 3
+    },
+    "2024-10-02": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 706,
+      "infeasible": 58,
+      "unknown": 4
+    },
+    "2024-10-03": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 642,
+      "infeasible": 118,
+      "unknown": 8
+    },
+    "2024-10-05": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 694,
+      "infeasible": 66,
+      "unknown": 8
+    },
+    "2024-10-06": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 753,
+      "infeasible": 4,
+      "unknown": 11
+    },
+    "2024-10-12": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 764,
+      "infeasible": 1,
+      "unknown": 3
+    },
+    "2024-10-13": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 716,
+      "infeasible": 50,
+      "unknown": 2
+    },
+    "2024-12-01": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 768,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "2024-12-02": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 697,
+      "infeasible": 63,
+      "unknown": 8
+    },
+    "2024-12-03": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 677,
+      "infeasible": 85,
+      "unknown": 6
+    },
+    "2024-12-07": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 736,
+      "infeasible": 19,
+      "unknown": 13
+    },
+    "2024-12-08": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 736,
+      "infeasible": 31,
+      "unknown": 1
+    },
+    "2024-12-14": {
+      "commands": 256,
+      "trials": 768,
+      "feasible": 685,
+      "infeasible": 75,
+      "unknown": 8
+    }
+  }
+}

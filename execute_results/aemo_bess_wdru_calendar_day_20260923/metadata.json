@@ -1,0 +1,40 @@
+{
+  "method": "native_interval_end_targets_and_constant_offset_relative_curves",
+  "calendar_window": "AEST 00:05 on source date through 00:00 on the next date (24:00), 288 interval-ending samples",
+  "transformations": {
+    "BESS target": "raw dispatch_target_mw retained in native MW",
+    "WDRU target": "sum totalcleared_mw across a complete, fixed candidate-resource panel at each timestamp",
+    "relative_curve": "direction_sign * (target_mw - first target_mw)",
+    "scaling": false,
+    "clipping": false,
+    "interpolation_or_zero_fill": false
+  },
+  "bess": {
+    "source_directory": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\aemo\\nem\\processed_5min\\dense8",
+    "calendar_date": "2025-12-18",
+    "resources": [
+      "BBATTERY1",
+      "BRNDBES1",
+      "HPR1",
+      "MREHA1",
+      "ULPBESS1",
+      "VBB1",
+      "WDBESS1",
+      "WTAHB1"
+    ],
+    "input_archive_segments": [
+      "2025-12-17",
+      "2025-12-18"
+    ]
+  },
+  "wdru": {
+    "source_csv": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\aemo\\nem\\wdru_dispatch\\2025Q2\\wdru_q2_2025_event_day_targets.csv",
+    "calendar_date": "2025-06-12",
+    "candidate_resources": 44,
+    "maximum_active_resources": 9
+  },
+  "outputs": [
+    "aemo_bess_wdru_calendar_waveforms.csv",
+    "aemo_bess_wdru_calendar_waveforms.png"
+  ]
+}

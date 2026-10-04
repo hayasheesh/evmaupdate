@@ -1,0 +1,9 @@
+# Runtime dependencies for Python 3.10
+torch>=2.0.0
+numpy<2.0,>=1.26.4      # PyTorch 2.3 official wheel built with NumPy 1.x
+pandas>=2.0.0           # mixed-format SCED timestamps and timezone-aware resampling
+openpyxl>=3.1.0
+matplotlib>=3.5.0
+tensorboard>=2.0.0
+scipy>=1.11.0
+igraph

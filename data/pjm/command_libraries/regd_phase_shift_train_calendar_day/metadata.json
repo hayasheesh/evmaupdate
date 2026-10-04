@@ -1,0 +1,228 @@
+{
+  "build_complete": true,
+  "bank_ready": true,
+  "regime": "pjm_regd_phase_shift",
+  "source_kind": "PJM RTO regulation signal RegD (Dynamic), normalized to each resource regulation capability",
+  "source": "https://www.pjm.com/-/media/DotCom/markets-ops/ancillary/rto-regulation-signal-data.ashx",
+  "plan": "none; the signal is the deviation from the resource regulation midpoint",
+  "reference": "zero",
+  "normalization": "fixed width 1 (the signal is already in units of the resource regulation capability)",
+  "clipping": false,
+  "interpolation_or_fill": "none; series with a missing five-minute point are excluded",
+  "partition_policy": "whole local calendar dates; within each calendar month consecutive 60/20/20 blocks",
+  "partition_date_ranges": {
+    "2024-03": {
+      "train": [
+        "2024-03-01",
+        "2024-03-11"
+      ],
+      "validation": [
+        "2024-03-12",
+        "2024-03-15"
+      ],
+      "test": [
+        "2024-03-16",
+        "2024-03-19"
+      ]
+    },
+    "2024-04": {
+      "train": [
+        "2024-04-01",
+        "2024-04-10"
+      ],
+      "validation": [
+        "2024-04-11",
+        "2024-04-14"
+      ],
+      "test": [
+        "2024-04-15",
+        "2024-04-18"
+      ]
+    },
+    "2024-05": {
+      "train": [
+        "2024-05-01",
+        "2024-05-10"
+      ],
+      "validation": [
+        "2024-05-11",
+        "2024-05-14"
+      ],
+      "test": [
+        "2024-05-15",
+        "2024-05-18"
+      ]
+    },
+    "2024-06": {
+      "train": [
+        "2024-06-01",
+        "2024-06-10"
+      ],
+      "validation": [
+        "2024-06-11",
+        "2024-06-14"
+      ],
+      "test": [
+        "2024-06-15",
+        "2024-06-18"
+      ]
+    },
+    "2024-07": {
+      "train": [
+        "2024-07-01",
+        "2024-07-10"
+      ],
+      "validation": [
+        "2024-07-11",
+        "2024-07-14"
+      ],
+      "test": [
+        "2024-07-15",
+        "2024-07-18"
+      ]
+    },
+    "2024-08": {
+      "train": [
+        "2024-08-01",
+        "2024-08-10"
+      ],
+      "validation": [
+        "2024-08-11",
+        "2024-08-14"
+      ],
+      "test": [
+        "2024-08-15",
+        "2024-08-18"
+      ]
+    },
+    "2024-09": {
+      "train": [
+        "2024-09-01",
+        "2024-09-10"
+      ],
+      "validation": [
+        "2024-09-11",
+        "2024-09-14"
+      ],
+      "test": [
+        "2024-09-15",
+        "2024-09-18"
+      ]
+    },
+    "2024-10": {
+      "train": [
+        "2024-10-01",
+        "2024-10-10"
+      ],
+      "validation": [
+        "2024-10-11",
+        "2024-10-14"
+      ],
+      "test": [
+        "2024-10-15",
+        "2024-10-18"
+      ]
+    },
+    "2024-11": {
+      "train": [
+        "2024-11-01",
+        "2024-11-11"
+      ],
+      "validation": [
+        "2024-11-12",
+        "2024-11-14"
+      ],
+      "test": [
+        "2024-11-15",
+        "2024-11-18"
+      ]
+    },
+    "2024-12": {
+      "train": [
+        "2024-12-01",
+        "2024-12-10"
+      ],
+      "validation": [
+        "2024-12-11",
+        "2024-12-14"
+      ],
+      "test": [
+        "2024-12-15",
+        "2024-12-18"
+      ]
+    },
+    "2025-01": {
+      "train": [
+        "2025-01-01",
+        "2025-01-10"
+      ],
+      "validation": [
+        "2025-01-11",
+        "2025-01-14"
+      ],
+      "test": [
+        "2025-01-15",
+        "2025-01-18"
+      ]
+    },
+    "2025-02": {
+      "train": [
+        "2025-02-01",
+        "2025-02-09"
+      ],
+      "validation": [
+        "2025-02-10",
+        "2025-02-12"
+      ],
+      "test": [
+        "2025-02-13",
+        "2025-02-16"
+      ]
+    }
+  },
+  "files": {
+    "train": 3570,
+    "validation": 1380,
+    "test": 1440
+  },
+  "excluded_days": {
+    "dst_change_day": 2
+  },
+  "steps_beyond_width": 126249,
+  "sampling": "value of the 2-second signal at 00:00+s, 00:05+s, ... for offsets s = 0, 10, ..., 290 seconds",
+  "source_days": "train days of pjm_regd only; validation and test days of pjm_regd are never read",
+  "partition_note": "source train days re-split by calendar month into consecutive 60/20/20 blocks: train = bid design commands, validation and test = commands the lower controller draws",
+  "offset_seconds": [
+    0,
+    10,
+    20,
+    30,
+    40,
+    50,
+    60,
+    70,
+    80,
+    90,
+    100,
+    110,
+    120,
+    130,
+    140,
+    150,
+    160,
+    170,
+    180,
+    190,
+    200,
+    210,
+    220,
+    230,
+    240,
+    250,
+    260,
+    270,
+    280,
+    290
+  ],
+  "skipped_series_with_missing_points": 0
+}

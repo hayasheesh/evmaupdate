@@ -1,0 +1,324 @@
+{
+  "columns": {
+    "source_session_id": "session identifier in the source",
+    "local_date": "local calendar date of the arrival",
+    "day_class": "weekday, or holiday (weekend or public holiday of the source country)",
+    "arrival_minute": "local arrival time, minutes after midnight",
+    "dwell_minutes": "plug-in to plug-out time",
+    "energy_kwh": "energy delivered in the session",
+    "arrival_soc_pct": "plug-in SoC, residential stations only (Norway Dataset3 SoC_start)"
+  },
+  "sources": {
+    "boulder": "City of Boulder Open Data, Electric Vehicle Charging Station Data (dataset 95992b3938be4622b07f0b05eba95d4c_0), CC0 1.0",
+    "acn": "ACN-Data (Lee, Li and Low, e-Energy 2019), https://ev.caltech.edu/dataset; license not stated, citation required",
+    "norway": "Zenodo 10.5281/zenodo.12730566 (Norwegian residential EV charging), CC BY 4.0"
+  },
+  "stations": {
+    "COMM VITALITY _ 1400 WALNUT1": {
+      "source": "boulder",
+      "source_key": "COMM VITALITY / 1400 WALNUT1",
+      "source_rows": 3196,
+      "duplicates_removed": 1599,
+      "ports": 2,
+      "port_definition": "two Level 2 ports per Boulder station",
+      "first_date": "2018-01-25",
+      "last_date": "2023-05-01",
+      "port_days": {
+        "weekday": 2642,
+        "holiday": 1204
+      },
+      "file": "COMM VITALITY _ 1400 WALNUT1.csv",
+      "sessions": {
+        "weekday": 1171,
+        "holiday": 426
+      },
+      "sessions_per_port_day": {
+        "weekday": 0.443224829674489,
+        "holiday": 0.3538205980066445
+      },
+      "mean_dwell_hours": {
+        "weekday": 3.3310713492741244,
+        "holiday": 1.7525965571205009
+      },
+      "mean_energy_kwh": {
+        "weekday": 16.030194705380016,
+        "holiday": 8.333962441314554
+      },
+      "has_arrival_soc": false
+    },
+    "COMM VITALITY _ 1104 SPRUCE1": {
+      "source": "boulder",
+      "source_key": "COMM VITALITY / 1104 SPRUCE1",
+      "source_rows": 7802,
+      "duplicates_removed": 3902,
+      "ports": 2,
+      "port_definition": "two Level 2 ports per Boulder station",
+      "first_date": "2018-01-25",
+      "last_date": "2023-05-02",
+      "port_days": {
+        "weekday": 2644,
+        "holiday": 1204
+      },
+      "file": "COMM VITALITY _ 1104 SPRUCE1.csv",
+      "sessions": {
+        "weekday": 2529,
+        "holiday": 1371
+      },
+      "sessions_per_port_day": {
+        "weekday": 0.9565052950075643,
+        "holiday": 1.138704318936877
+      },
+      "mean_dwell_hours": {
+        "weekday": 1.8233385725583235,
+        "holiday": 1.5700886943836614
+      },
+      "mean_energy_kwh": {
+        "weekday": 8.095251087386318,
+        "holiday": 6.782231947483588
+      },
+      "has_arrival_soc": false
+    },
+    "COMM VITALITY _ 1500PEARL1": {
+      "source": "boulder",
+      "source_key": "COMM VITALITY / 1500PEARL1",
+      "source_rows": 3432,
+      "duplicates_removed": 1725,
+      "ports": 2,
+      "port_definition": "two Level 2 ports per Boulder station",
+      "first_date": "2018-01-18",
+      "last_date": "2023-03-20",
+      "port_days": {
+        "weekday": 2592,
+        "holiday": 1184
+      },
+      "file": "COMM VITALITY _ 1500PEARL1.csv",
+      "sessions": {
+        "weekday": 1024,
+        "holiday": 683
+      },
+      "sessions_per_port_day": {
+        "weekday": 0.3950617283950617,
+        "holiday": 0.5768581081081081
+      },
+      "mean_dwell_hours": {
+        "weekday": 1.8804721516927083,
+        "holiday": 1.9689721327476817
+      },
+      "mean_energy_kwh": {
+        "weekday": 7.8783818359375,
+        "holiday": 6.705472913616398
+      },
+      "has_arrival_soc": false
+    },
+    "ACN_JPL_ARROYO1": {
+      "source": "acn",
+      "source_key": "acn_api_sessions_jpl_2018.json",
+      "source_rows": 5099,
+      "site": [
+        "0001"
+      ],
+      "cluster": [
+        "0001"
+      ],
+      "ports": 52,
+      "port_definition": "distinct EVSE stationID in the export",
+      "first_date": "2018-09-06",
+      "last_date": "2019-01-08",
+      "partial_edge_dates_dropped": [
+        "2018-09-05",
+        "2019-01-09"
+      ],
+      "port_days": {
+        "weekday": 4368,
+        "holiday": 2132
+      },
+      "file": "ACN_JPL_ARROYO1.csv",
+      "sessions": {
+        "weekday": 4800,
+        "holiday": 253
+      },
+      "sessions_per_port_day": {
+        "weekday": 1.098901098901099,
+        "holiday": 0.11866791744840526
+      },
+      "mean_dwell_hours": {
+        "weekday": 7.196041072916667,
+        "holiday": 6.156086824769433
+      },
+      "mean_energy_kwh": {
+        "weekday": 12.084602270833335,
+        "holiday": 12.479608695652173
+      },
+      "has_arrival_soc": false
+    },
+    "ACN_CALTECH_GARAGE1": {
+      "source": "acn",
+      "source_key": "acn_api_sessions_caltech_2018.json",
+      "source_rows": 7099,
+      "site": [
+        "0002"
+      ],
+      "cluster": [
+        "0039"
+      ],
+      "ports": 53,
+      "port_definition": "distinct EVSE stationID in the export",
+      "first_date": "2018-04-26",
+      "last_date": "2018-08-15",
+      "partial_edge_dates_dropped": [
+        "2018-04-25",
+        "2018-08-16"
+      ],
+      "port_days": {
+        "weekday": 4134,
+        "holiday": 1802
+      },
+      "file": "ACN_CALTECH_GARAGE1.csv",
+      "sessions": {
+        "weekday": 5728,
+        "holiday": 1283
+      },
+      "sessions_per_port_day": {
+        "weekday": 1.3855829704886309,
+        "holiday": 0.7119866814650389
+      },
+      "mean_dwell_hours": {
+        "weekday": 6.321546976838919,
+        "holiday": 4.656368862042089
+      },
+      "mean_energy_kwh": {
+        "weekday": 8.76179441340782,
+        "holiday": 10.145538425565082
+      },
+      "has_arrival_soc": false
+    },
+    "RESIDENTIAL NORWAY _ OSL_S": {
+      "source": "norway",
+      "source_key": "OSL_S",
+      "source_rows": 9757,
+      "rows_without_soc": 602,
+      "ports": 27,
+      "port_definition": "one home charger per user, exposed from the user's first to last session date",
+      "first_date": "2018-02-06",
+      "last_date": "2020-02-03",
+      "port_days": {
+        "weekday": 10651,
+        "holiday": 4869
+      },
+      "file": "RESIDENTIAL NORWAY _ OSL_S.csv",
+      "sessions": {
+        "weekday": 6123,
+        "holiday": 3032
+      },
+      "sessions_per_port_day": {
+        "weekday": 0.5748755985353488,
+        "holiday": 0.6227151365783529
+      },
+      "mean_dwell_hours": {
+        "weekday": 10.797435897435896,
+        "holiday": 11.291589676781003
+      },
+      "mean_energy_kwh": {
+        "weekday": 12.626934509227503,
+        "holiday": 13.006807387862796
+      },
+      "has_arrival_soc": true
+    },
+    "RESIDENTIAL NORWAY _ TRO_R": {
+      "source": "norway",
+      "source_key": "TRO_R",
+      "source_rows": 6706,
+      "rows_without_soc": 30,
+      "ports": 76,
+      "port_definition": "one home charger per user, exposed from the user's first to last session date",
+      "first_date": "2018-12-21",
+      "last_date": "2020-01-31",
+      "port_days": {
+        "weekday": 10096,
+        "holiday": 4535
+      },
+      "file": "RESIDENTIAL NORWAY _ TRO_R.csv",
+      "sessions": {
+        "weekday": 4753,
+        "holiday": 1896
+      },
+      "sessions_per_port_day": {
+        "weekday": 0.47078050713153724,
+        "holiday": 0.4180815876515987
+      },
+      "mean_dwell_hours": {
+        "weekday": 10.94012826635809,
+        "holiday": 12.556174393459916
+      },
+      "mean_energy_kwh": {
+        "weekday": 12.47623185356617,
+        "holiday": 13.98851793248945
+      },
+      "has_arrival_soc": true
+    },
+    "BOULDER _ CARPENTER PARK1": {
+      "source": "boulder",
+      "source_key": "BOULDER / CARPENTER PARK1",
+      "source_rows": 11823,
+      "duplicates_removed": 4765,
+      "ports": 2,
+      "port_definition": "two Level 2 ports per Boulder station",
+      "first_date": "2020-07-30",
+      "last_date": "2023-11-30",
+      "port_days": {
+        "weekday": 1670,
+        "holiday": 768
+      },
+      "file": "BOULDER _ CARPENTER PARK1.csv",
+      "sessions": {
+        "weekday": 4915,
+        "holiday": 2142
+      },
+      "sessions_per_port_day": {
+        "weekday": 2.94311377245509,
+        "holiday": 2.7890625
+      },
+      "mean_dwell_hours": {
+        "weekday": 1.9796452661919295,
+        "holiday": 1.6518823685029567
+      },
+      "mean_energy_kwh": {
+        "weekday": 7.782560122075281,
+        "holiday": 6.618003734827264
+      },
+      "has_arrival_soc": false
+    },
+    "BOULDER _ N BOULDER REC 1": {
+      "source": "boulder",
+      "source_key": "BOULDER / N BOULDER REC 1",
+      "source_rows": 16278,
+      "duplicates_removed": 7150,
+      "ports": 2,
+      "port_definition": "two Level 2 ports per Boulder station",
+      "first_date": "2018-08-22",
+      "last_date": "2023-11-30",
+      "port_days": {
+        "weekday": 2642,
+        "holiday": 1212
+      },
+      "file": "BOULDER _ N BOULDER REC 1.csv",
+      "sessions": {
+        "weekday": 6733,
+        "holiday": 2395
+      },
+      "sessions_per_port_day": {
+        "weekday": 2.548448145344436,
+        "holiday": 1.976072607260726
+      },
+      "mean_dwell_hours": {
+        "weekday": 2.4705136665181446,
+        "holiday": 2.7003210160055673
+      },
+      "mean_energy_kwh": {
+        "weekday": 8.486729244021982,
+        "holiday": 9.54919331941545
+      },
+      "has_arrival_soc": false
+    }
+  }
+}

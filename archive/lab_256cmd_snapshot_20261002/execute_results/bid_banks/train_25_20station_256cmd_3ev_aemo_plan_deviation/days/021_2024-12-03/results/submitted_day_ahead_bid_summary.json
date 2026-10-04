@@ -1,0 +1,1462 @@
+{
+  "source": "fixed_upper_bid",
+  "method": "outer_participation_colgen_benders_certified",
+  "activation_mode": "aemo_storage_plan_deviation_shape:aemo_storage_dispatch_minus_own_plan_calendar_day_unit_width",
+  "activation_scenarios": 256,
+  "activation_scenario_sources": [
+    "aemo_storage_plan_deviation_shape:aemo_plan_CHBESS1_2025-12-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CAPBES1_2026-06-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CAPBES1_2025-11-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BALB1_2026-01-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LVES1_2025-10-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WDBESS1_2026-01-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RANGEB1_2025-10-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MREHA3_2026-06-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BBATTERY1_2026-07-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_ERB01_2026-02-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_SNB01_2026-04-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TIB1_2026-02-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_ULPBESS1_2025-11-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RESS1_2026-04-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_ORABESS1_2026-06-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_ULPBESS1_2026-06-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_KESSB1_2025-11-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BBATTERY1_2026-07-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_DPNTB1_2026-02-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BULBES1_2025-08-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TB2B1_2026-06-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_ULPBESS1_2025-11-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WANDB1_2026-01-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WANDB1_2026-05-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BRNDBES1_2026-06-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CAPBES1_2026-06-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BALB1_2026-02-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TEMPB1_2026-04-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LVES1_2025-08-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_SMTHBES1_2026-04-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BHB1_2025-11-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BHB1_2025-10-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CHBESS1_2026-03-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LVES1_2025-10-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WANDB1_2026-07-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TIB1_2026-06-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_GREENB1_2026-06-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WALGRV1_2025-12-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BULBES1_2026-03-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BLYTHB1_2026-01-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_KESSB1_2025-11-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BULBES1_2026-03-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MANNUMB1_2026-04-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CHBESS1_2026-02-17.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BLYTHB1_2025-08-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BALB1_2026-06-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BRNDBES1_2026-05-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WDBESS2_2026-06-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BALB1_2026-07-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BLYTHB1_2026-02-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_GREENB1_2026-01-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RANGEB1_2026-04-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BALB1_2026-07-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_GREENB1_2026-07-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MREHA2_2026-06-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WANDB1_2026-06-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_VBB1_2026-07-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_HPR1_2025-10-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CHBESS1_2026-07-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_NESBESS1_2026-06-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WDBESS2_2026-06-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RANGEB1_2026-01-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LVES1_2026-04-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WDBESS1_2026-04-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WANDB1_2026-01-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LVES1_2025-09-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BBATTERY1_2025-09-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_SWANBBF1_2026-07-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_HPR1_2026-05-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_HPR1_2026-07-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BRNDBES1_2025-11-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WDBESS1_2026-02-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WALGRV1_2025-11-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BLYTHB1_2025-09-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_DALNTH1_2026-02-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RANGEB1_2026-02-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BRDDBES1_2026-07-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MANNUMB1_2026-02-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_VBB1_2026-05-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_ORABESS1_2026-07-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LIMBESS1_2026-06-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CHBESS1_2026-03-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_DPNTB1_2025-08-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BULBES1_2026-01-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_VBB1_2026-06-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BLYTHB1_2025-09-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MANNUMB1_2025-12-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RIVNB2_2025-08-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BRNDBES1_2026-07-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WALGRV1_2025-08-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_HPR1_2026-07-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CAPBES1_2026-03-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BALB1_2026-04-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WANDB1_2026-01-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RIVNB2_2026-05-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_KESSB1_2026-02-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WANDB1_2026-02-17.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WDBESS1_2025-11-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BRNDBES1_2026-01-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MANNUMB1_2025-11-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LIMBESS1_2026-04-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CHBESS1_2026-06-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WALGRV1_2026-03-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MANNUMB1_2026-01-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WANDB1_2025-12-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MREHA1_2026-03-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MREHA1_2025-12-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LVES1_2025-11-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TIB1_2026-01-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TIB1_2026-03-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_DALNTH1_2026-01-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_HPR1_2025-10-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BRNDBES1_2025-11-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BHB1_2025-12-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BRDDBES1_2026-06-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CAPBES1_2026-04-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TEMPB1_2026-05-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LVES1_2026-01-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_HPR1_2026-05-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WTAHB1_2026-07-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TEMPB1_2026-06-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WTAHB1_2025-08-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BRNDBES1_2026-04-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TIB1_2026-01-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_DPNTB1_2026-06-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BULBES1_2026-04-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BHB1_2026-07-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_SMTHBES1_2026-05-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_ERB01_2026-07-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_NESBESS1_2026-07-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TEMPB1_2026-04-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TIB1_2025-12-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LDBESS1_2026-02-17.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BBATTERY1_2025-08-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TIB1_2025-08-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MANNUMB1_2026-01-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MANNUMB1_2026-02-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_HPR1_2026-03-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TARBESS1_2026-07-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_NESBESS2_2026-07-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_GREENB1_2026-01-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BLYTHB1_2025-11-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RESS1_2026-07-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LVES1_2025-11-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RESS1_2026-01-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_HPR1_2025-12-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_SMTHBES1_2026-07-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TIB1_2025-11-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_ORABESS1_2026-06-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BHB1_2025-11-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WDBESS2_2025-12-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RANGEB1_2025-09-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_KESSB1_2026-07-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BHB1_2026-04-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BRNDBES1_2026-05-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WALGRV1_2026-06-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WDBESS2_2026-04-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BBATTERY1_2025-11-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TB2B1_2025-08-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WANDB1_2026-06-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_SNB01_2026-02-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_VBB1_2026-03-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CGBESS01_2026-03-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_SMTHBES1_2026-04-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WALGRV1_2026-07-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LBB1_2025-11-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BALB1_2025-08-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_GANNB1_2025-08-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BHB1_2025-12-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WDBESS2_2025-11-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MANNUMB1_2026-04-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_HPR1_2025-11-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_GANNB1_2026-01-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_HBESS1_2025-10-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MREHA1_2026-07-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CAPBES1_2025-08-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_ULPBESS1_2026-05-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_KESSB1_2025-11-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MREHA2_2026-04-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CAPBES1_2025-08-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BLYTHB1_2026-05-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_GREENB1_2026-01-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TB2B1_2026-01-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_KESSB1_2026-06-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RANGEB1_2025-08-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RANGEB1_2025-10-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CAPBES1_2025-12-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_HPR1_2026-03-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LVES1_2026-02-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RESS1_2026-05-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WALGRV1_2025-08-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LVES1_2026-05-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WDBESS2_2026-03-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_HPR1_2026-07-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BHB1_2025-10-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RANGEB1_2026-03-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_GANNB1_2025-11-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BULBES1_2025-08-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LIMBESS1_2026-07-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CHBESS1_2026-02-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_SNB01_2026-04-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MREHA2_2026-03-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CAPBES1_2025-09-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WDBESS1_2026-05-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_SNB01_2026-03-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BULBES1_2025-10-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RIVNB2_2026-06-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_SNB01_2026-01-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MANNUMB1_2026-05-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TEMPB1_2025-12-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_KESSB1_2026-04-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BLYTHB1_2026-04-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LBB1_2025-08-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TRGBESS1_2026-06-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MANNUMB1_2026-02-17.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RANGEB1_2025-11-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LBB1_2026-07-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_HBESS1_2025-08-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TARBESS1_2026-05-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CAPBES1_2025-08-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LBB1_2025-09-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_SNB02_2026-07-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CHBESS1_2025-11-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LDBESS1_2026-03-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_GANNB1_2025-11-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BLYTHB1_2026-02-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_VBB1_2025-12-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WDBESS2_2026-01-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_GANNB1_2026-04-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TIB1_2026-04-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_HBESS1_2026-03-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TEMPB1_2026-06-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_ULPBESS1_2026-06-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LVES1_2026-07-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BLYTHB1_2025-11-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_SMTHBES1_2026-06-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BULBES1_2025-11-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_SNB01_2026-05-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_SMTHBES1_2026-07-24.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_TEMPB1_2026-03-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_MREHA2_2026-02-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RIVNB2_2026-01-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_RIVNB2_2025-11-18.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_ULPBESS1_2026-05-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_WDBESS1_2025-12-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BHB1_2026-01-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BRNDBES1_2026-07-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CAPBES1_2025-12-20.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_DPNTB1_2025-11-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_BHB1_2026-02-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CHBESS1_2026-01-19.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_ULPBESS1_2026-07-21.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_DALNTH1_2026-04-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LBB1_2025-11-23.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_CAPBES1_2025-09-22.csv",
+    "aemo_storage_plan_deviation_shape:aemo_plan_LVES1_2026-05-20.csv"
+  ],
+  "forecast_seed": 94189,
+  "bid_solved": true,
+  "bid_feasible": true,
+  "bid_status": "outer_participation_colgen_benders_certified",
+  "bid_objective_capacity_kw_block": 139911.6289075058,
+  "submitted_mean_up_kw": 1354.598355692787,
+  "submitted_mean_down_kw": 1560.227246546917,
+  "submitted_max_up_kw": 2911.0552200317384,
+  "submitted_max_down_kw": 2912.800018310547,
+  "submitted_participating_blocks": 48,
+  "awarded_mean_up_kw": 1354.598355692787,
+  "awarded_mean_down_kw": 1560.227246546917,
+  "awarded_max_up_kw": 2911.0552200317384,
+  "awarded_max_down_kw": 2912.800018310547,
+  "market_award": {
+    "method": "full_award_assumption",
+    "submitted_blocks": 48,
+    "awarded_blocks": 48,
+    "sampled_awarded_block_rate": 1.0,
+    "sampled_awarded_quantity_rate": 1.0,
+    "awarded_block_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ]
+  },
+  "bid_mean_baseline_kw": 525.7998479457474,
+  "bid_mean_up_kw": 1354.598355692787,
+  "bid_mean_down_kw": 1560.227246546917,
+  "bid_max_up_kw": 2911.0552200317384,
+  "bid_max_down_kw": 2912.800018310547,
+  "bid_participating_blocks": 48,
+  "bid_participating_block_indices": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9,
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17,
+    18,
+    19,
+    20,
+    21,
+    22,
+    23,
+    24,
+    25,
+    26,
+    27,
+    28,
+    29,
+    30,
+    31,
+    32,
+    33,
+    34,
+    35,
+    36,
+    37,
+    38,
+    39,
+    40,
+    41,
+    42,
+    43,
+    44,
+    45,
+    46,
+    47
+  ],
+  "bid_global_tracking_rate": 1.0,
+  "target_min_kw": -523.31201171875,
+  "target_max_kw": 2429.3583984375,
+  "regulation_abs_mean_kw": 35.014625549316406,
+  "activation_scenario_index": 0,
+  "activation_scenario_name": "aemo_storage_plan_deviation_shape_00",
+  "activation_scenario_source": "aemo_storage_plan_deviation_shape:aemo_plan_CHBESS1_2025-12-19.csv",
+  "activation_scenario_source_date": "2025-12-19",
+  "activation_scenario_source_bmu": "CHBESS1",
+  "service_date": "2024-12-03",
+  "result": {
+    "awarded_bid_method": "outer_participation_colgen_benders_certified",
+    "awarded_bid_solved": true,
+    "awarded_bid_feasible": true,
+    "awarded_bid_status": "outer_participation_colgen_benders_certified",
+    "awarded_bid_objective_capacity_kw_block": 139911.6289075058,
+    "awarded_bid_n_scenarios": 768,
+    "awarded_bid_mean_baseline_kw": 525.7998479457474,
+    "awarded_bid_mean_up_kw": 1354.598355692787,
+    "awarded_bid_mean_down_kw": 1560.227246546917,
+    "awarded_bid_up_pass_rate": 1.0,
+    "awarded_bid_down_pass_rate": 1.0,
+    "awarded_bid_global_tracking_rate": 1.0,
+    "awarded_bid_soc_hit_rate": 1.0
+  },
+  "award_metadata": {
+    "method": "full_award_assumption",
+    "submitted_blocks": 48,
+    "awarded_blocks": 48,
+    "sampled_awarded_block_rate": 1.0,
+    "sampled_awarded_quantity_rate": 1.0,
+    "awarded_block_indices": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ]
+  },
+  "bid_feasibility": {
+    "method": "outer_participation_colgen_benders_certified",
+    "condition": "outer_participation_colgen_benders",
+    "minimum_bid_quantity_kw": 250.0,
+    "minimum_bid_quantity_mode": "configured_floor",
+    "award_assumption": "full_award",
+    "assessment_band_fraction": 0.1,
+    "ev_information_regime": "clairvoyant",
+    "all_command_scenarios": true,
+    "allowed_command_failures": 0,
+    "assessment_i_capability_policy": "reviewed_fixed_ev_bank_30min",
+    "assessment_i_capability_ev_scenarios": 3,
+    "ev_scenario_candidate_count": 128,
+    "ev_scenario_selection": [
+      {
+        "label": "minimum",
+        "candidate_index": 100,
+        "rank_zero_based": 0,
+        "candidate_count": 128,
+        "ev_count": 296
+      },
+      {
+        "label": "median",
+        "candidate_index": 111,
+        "rank_zero_based": 63,
+        "candidate_count": 128,
+        "ev_count": 348
+      },
+      {
+        "label": "maximum",
+        "candidate_index": 48,
+        "rank_zero_based": 127,
+        "candidate_count": 128,
+        "ev_count": 419
+      }
+    ],
+    "assessment_i_capability_duration_minutes": 30.0,
+    "apply_transition_band": false,
+    "per_block_baseline_search": true,
+    "per_block_delta_kw_quantity_search": true,
+    "directional_participation_search": true,
+    "observed_up_activation_blocks": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ],
+    "observed_down_activation_blocks": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8,
+      9,
+      10,
+      11,
+      12,
+      13,
+      14,
+      15,
+      16,
+      17,
+      18,
+      19,
+      20,
+      21,
+      22,
+      23,
+      24,
+      25,
+      26,
+      27,
+      28,
+      29,
+      30,
+      31,
+      32,
+      33,
+      34,
+      35,
+      36,
+      37,
+      38,
+      39,
+      40,
+      41,
+      42,
+      43,
+      44,
+      45,
+      46,
+      47
+    ],
+    "initial_search_validation": {
+      "all_scenarios_ok": false,
+      "soc_all_ok": false,
+      "min_global_step_pass_rate": 0.0,
+      "reason": "uncertified outer-participation seed"
+    },
+    "initial_search_scenarios": 768,
+    "initial_search_ev_scenarios": 3,
+    "initial_search_activation_scenarios_per_ev": 256,
+    "initial_search_solver": "outer-participation-seed",
+    "initial_search_status": "optimal",
+    "initial_search_tracking_contract": "uncertified_seed",
+    "initial_search_n_binary_vars": 0,
+    "initial_search_runtime_s": 0.0,
+    "initial_search_stop_reason": "outer_participation_seed",
+    "initial_search_wall_clock_bound_result": false,
+    "submitted_up_participating_blocks": 48,
+    "submitted_down_participating_blocks": 48,
+    "submitted_up_nonzero_min_kw": 250.0,
+    "submitted_up_nonzero_max_kw": 2911.0552200317384,
+    "submitted_down_nonzero_min_kw": 250.0,
+    "submitted_down_nonzero_max_kw": 2912.800018310547,
+    "bid_quantity_upper_bound": "configured_physical_limit",
+    "offered_capacity_kw_block": 139911.6289075058,
+    "mean_offered_capacity_kw": 2914.825602239704,
+    "initial_offered_capacity_kw_block": 181623.64120117825,
+    "initial_bid": {
+      "rule": "assessment_i_caps",
+      "aggregate_energy_seed": "no_aggregate_feasible_pattern"
+    },
+    "joint_certification": {
+      "scenarios": 768,
+      "validation": {
+        "all_scenarios_ok": true,
+        "soc_all_ok": true,
+        "scenarios_without_a_dispatch": 0,
+        "scenarios_without_a_dispatch_names": [],
+        "min_global_step_pass_rate": 1.0,
+        "mean_global_step_pass_rate": 1.0,
+        "p10_global_step_pass_rate": 1.0,
+        "aggregate_global_step_pass_rate": 1.0,
+        "battery_peak_kw": 7.7350705396384e-08,
+        "battery_energy_kwh": 9.866748011215046e-09,
+        "battery_throughput_kwh_mean": 1.606383293257293e-10,
+        "min_up_step_pass_rate": 1.0,
+        "min_down_step_pass_rate": 1.0,
+        "min_idle_step_pass_rate": 1.0,
+        "participating_block_count": 48,
+        "participating_block_indices": [
+          0,
+          1,
+          2,
+          3,
+          4,
+          5,
+          6,
+          7,
+          8,
+          9,
+          10,
+          11,
+          12,
+          13,
+          14,
+          15,
+          16,
+          17,
+          18,
+          19,
+          20,
+          21,
+          22,
+          23,
+          24,
+          25,
+          26,
+          27,
+          28,
+          29,
+          30,
+          31,
+          32,
+          33,
+          34,
+          35,
+          36,
+          37,
+          38,
+          39,
+          40,
+          41,
+          42,
+          43,
+          44,
+          45,
+          46,
+          47
+        ],
+        "failed_block_frequency": {},
+        "up_delivery_ratio_by_block": {
+          "0": 0.8138477871625389,
+          "1": 0.7800900230214691,
+          "2": 0.714285714285715,
+          "3": 0.7916666666666666,
+          "4": 0.7552740246671366,
+          "5": 0.6666666666672827,
+          "6": 0.7639867776647461,
+          "7": 0.7493200331870769,
+          "8": 0.7720686038656991,
+          "9": 0.7727272727272713,
+          "10": 0.8015953992606647,
+          "11": 0.8006035174375331,
+          "12": 0.8823529411764686,
+          "13": 0.870107962213418,
+          "14": 0.8717948717949036,
+          "15": 0.8750000000000133,
+          "16": 0.8838077528784046,
+          "17": 0.8809523809523816,
+          "18": 0.8989898989898994,
+          "19": 0.9756375828190922,
+          "20": 0.8999999999999999,
+          "21": 0.8999999999999999,
+          "22": 0.6999999999997031,
+          "23": 0.8999999999999998,
+          "24": 0.6666666666666645,
+          "25": 0.851428545959111,
+          "26": 0.9000000000000057,
+          "27": 0.8918185620812346,
+          "28": 0.9,
+          "29": 0.9456447478190357,
+          "30": 0.8999999999999424,
+          "31": 0.8999999999999981,
+          "32": 0.8999999999999999,
+          "33": 0.6318333286527751,
+          "34": 0.5999999999999907,
+          "35": 0.6428571428571473,
+          "36": 0.545454545454548,
+          "37": 0.8999999999999994,
+          "38": 0.9161081927654335,
+          "39": 0.5999948479052004,
+          "40": 0.8999999999999975,
+          "41": 0.6117018868911913,
+          "42": 0.8999999999999991,
+          "43": 0.7142857142857213,
+          "44": 0.8757728929203324,
+          "45": 0.8176470588234759,
+          "46": 0.8810996668096549,
+          "47": 0.8893731101506123
+        },
+        "down_delivery_ratio_by_block": {
+          "0": 0.3882724430780536,
+          "1": 0.5859730207278376,
+          "2": 0.43396226415201117,
+          "3": 0.4793293367869544,
+          "4": 0.5000000000000002,
+          "5": 0.3547018538841036,
+          "6": 0.3750000000000023,
+          "7": 0.4444444444444419,
+          "8": 0.43174603174603354,
+          "9": 0.2809523809538287,
+          "10": 0.6,
+          "11": 0.36778025214277876,
+          "12": 0.5508918180782535,
+          "13": 0.49999999999999967,
+          "14": 0.4070608621307327,
+          "15": 0.49999999999999933,
+          "16": 0.49999999999999983,
+          "17": 0.49523462927834194,
+          "18": 0.41093185845444635,
+          "19": 0.4341657509582836,
+          "20": 0.4189405477287762,
+          "21": 0.4444444444444412,
+          "22": 0.4266081348250747,
+          "23": 0.45881925726731315,
+          "24": 0.3939393939393939,
+          "25": 0.3891032587010743,
+          "26": 0.3017992580113627,
+          "27": 0.4000000000012001,
+          "28": 0.33333333333338794,
+          "29": 0.3538956452001123,
+          "30": 0.3750000000000012,
+          "31": 0.4090909090917152,
+          "32": 0.3904514966168102,
+          "33": 0.4456521739138275,
+          "34": 0.5000000000000011,
+          "35": 0.44444444444444764,
+          "36": 0.4390478749664071,
+          "37": 0.5239710309236156,
+          "38": 0.4682584966549296,
+          "39": 0.39716312056673486,
+          "40": 0.47210427418692824,
+          "41": 0.3833898277221321,
+          "42": 0.425001178747584,
+          "43": 0.49999999999999994,
+          "44": 0.5558994197286048,
+          "45": 0.5238095238095237,
+          "46": 0.45999999999909735,
+          "47": 0.545454545454545
+        },
+        "mean_delivered_capacity_kw_block": 139911.62890750583,
+        "min_delivered_capacity_kw_block": 139911.6289075058,
+        "offered_capacity_kw_block": 139911.6289075058
+      },
+      "feedback": {
+        "enabled": true,
+        "method": "outer_participation_colgen_benders",
+        "scenario_feedback_complete": true,
+        "hard_lp_refit": {
+          "enabled": true,
+          "method": "outer_participation_colgen_benders_active_set",
+          "complete": true,
+          "stop_reason": "strict_pattern_certified",
+          "allowed_command_failures": 0,
+          "certification_scorer": "strict_frozen_bid_recourse",
+          "rounds": [
+            {
+              "round": 0,
+              "strict": {
+                "complete": true,
+                "stop_reason": "pool_certified",
+                "cuts": 1105,
+                "runtime_s": 4942.745631976053,
+                "oracle_runtime_s": 18165.48772913916,
+                "scenario_oracle_time_limit_s": 180.0,
+                "scenario_oracle_timeouts": 0,
+                "colgen_cache_columns_per_ev": 12,
+                "direct_oracle_max_evs": 300,
+                "cached_columns_dropped": 0,
+                "cut_runtime_s": 0.00016791489906609058,
+                "exact_oracle_slowest_runtime_s": 0.513644398888573,
+                "round_oracle_breakdown": [
+                  {
+                    "round": 0,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.37792549189180136
+                  },
+                  {
+                    "round": 1,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3471738761290908
+                  },
+                  {
+                    "round": 2,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.333379594841972
+                  },
+                  {
+                    "round": 3,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3397799450904131
+                  },
+                  {
+                    "round": 4,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3116837199777365
+                  },
+                  {
+                    "round": 5,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.35261144395917654
+                  },
+                  {
+                    "round": 6,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.29235057602636516
+                  },
+                  {
+                    "round": 7,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.31827396620064974
+                  },
+                  {
+                    "round": 8,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.31658920901827514
+                  },
+                  {
+                    "round": 9,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.31118782004341483
+                  },
+                  {
+                    "round": 10,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3516146941110492
+                  },
+                  {
+                    "round": 11,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3755317328032106
+                  },
+                  {
+                    "round": 12,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3431192571297288
+                  },
+                  {
+                    "round": 13,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.34432733710855246
+                  },
+                  {
+                    "round": 14,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.31041002715937793
+                  },
+                  {
+                    "round": 15,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.32418020186014473
+                  },
+                  {
+                    "round": 16,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3237312100827694
+                  },
+                  {
+                    "round": 17,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3887999961152673
+                  },
+                  {
+                    "round": 18,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.43528963485732675
+                  },
+                  {
+                    "round": 19,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3428104920312762
+                  },
+                  {
+                    "round": 20,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.36712450394406915
+                  },
+                  {
+                    "round": 21,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.4072503049392253
+                  },
+                  {
+                    "round": 22,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.31607949803583324
+                  },
+                  {
+                    "round": 23,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.31400756095536053
+                  },
+                  {
+                    "round": 24,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.32676297798752785
+                  },
+                  {
+                    "round": 25,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.34112568106502295
+                  },
+                  {
+                    "round": 26,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3827312318608165
+                  },
+                  {
+                    "round": 27,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.34697310999035835
+                  },
+                  {
+                    "round": 28,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3422692120075226
+                  },
+                  {
+                    "round": 29,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3074255990795791
+                  },
+                  {
+                    "round": 30,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.513644398888573
+                  },
+                  {
+                    "round": 31,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.4306150390766561
+                  },
+                  {
+                    "round": 32,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3678944611456245
+                  },
+                  {
+                    "round": 33,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.39061136497184634
+                  },
+                  {
+                    "round": 34,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.35393987596035004
+                  },
+                  {
+                    "round": 35,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.36004586494527757
+                  },
+                  {
+                    "round": 36,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.36914193187840283
+                  },
+                  {
+                    "round": 37,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.37412537494674325
+                  },
+                  {
+                    "round": 38,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3965809817891568
+                  },
+                  {
+                    "round": 39,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.41006370983086526
+                  },
+                  {
+                    "round": 40,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.4161887529771775
+                  },
+                  {
+                    "round": 41,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.36901057697832584
+                  },
+                  {
+                    "round": 42,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.31172268209047616
+                  },
+                  {
+                    "round": 43,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3572078568395227
+                  },
+                  {
+                    "round": 44,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.43863257695920765
+                  },
+                  {
+                    "round": 45,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.2998538420069963
+                  },
+                  {
+                    "round": 46,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3093899469822645
+                  },
+                  {
+                    "round": 47,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.2977298949845135
+                  },
+                  {
+                    "round": 48,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.32382125593721867
+                  },
+                  {
+                    "round": 49,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3277380149811506
+                  },
+                  {
+                    "round": 50,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3635423539672047
+                  },
+                  {
+                    "round": 51,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.35700131207704544
+                  },
+                  {
+                    "round": 52,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.39930497691966593
+                  },
+                  {
+                    "round": 53,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.35306696593761444
+                  },
+                  {
+                    "round": 54,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.36674497718922794
+                  },
+                  {
+                    "round": 55,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3655625800602138
+                  },
+                  {
+                    "round": 56,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3743558069691062
+                  },
+                  {
+                    "round": 57,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.36226695496588945
+                  },
+                  {
+                    "round": 58,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3932580151595175
+                  },
+                  {
+                    "round": 59,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.30734272999688983
+                  },
+                  {
+                    "round": 60,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.2951726960018277
+                  },
+                  {
+                    "round": 61,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3097150169778615
+                  },
+                  {
+                    "round": 62,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3090989168267697
+                  },
+                  {
+                    "round": 63,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3159558221232146
+                  },
+                  {
+                    "round": 64,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.2769513379316777
+                  },
+                  {
+                    "round": 65,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3113286979496479
+                  },
+                  {
+                    "round": 66,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3699203389696777
+                  },
+                  {
+                    "round": 67,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.31894965399987996
+                  },
+                  {
+                    "round": 68,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3648720169439912
+                  },
+                  {
+                    "round": 69,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.31639054021798074
+                  },
+                  {
+                    "round": 70,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.34309585904702544
+                  },
+                  {
+                    "round": 71,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.30938525311648846
+                  },
+                  {
+                    "round": 72,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3379650029819459
+                  },
+                  {
+                    "round": 73,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3107895669527352
+                  },
+                  {
+                    "round": 74,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.30406166706234217
+                  },
+                  {
+                    "round": 75,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.27477704803459346
+                  },
+                  {
+                    "round": 76,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3072597640566528
+                  },
+                  {
+                    "round": 77,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.35010286211036146
+                  },
+                  {
+                    "round": 78,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.2694016918540001
+                  },
+                  {
+                    "round": 79,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.39170115487650037
+                  },
+                  {
+                    "round": 80,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.267365287989378
+                  },
+                  {
+                    "round": 81,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.33425951609387994
+                  },
+                  {
+                    "round": 82,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3637761219870299
+                  },
+                  {
+                    "round": 83,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3328335229307413
+                  },
+                  {
+                    "round": 84,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.2805498989764601
+                  },
+                  {
+                    "round": 85,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.2979149369057268
+                  },
+                  {
+                    "round": 86,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.28020411008037627
+                  },
+                  {
+                    "round": 87,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.2917018241714686
+                  },
+                  {
+                    "round": 88,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.25671433797106147
+                  },
+                  {
+                    "round": 89,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.26770064095035195
+                  },
+                  {
+                    "round": 90,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.29749943502247334
+                  },
+                  {
+                    "round": 91,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.31715979892760515
+                  },
+                  {
+                    "round": 92,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.274559783982113
+                  },
+                  {
+                    "round": 93,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.2540329520124942
+                  },
+                  {
+                    "round": 94,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.2607570649124682
+                  },
+                  {
+                    "round": 95,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.26571876695379615
+                  },
+                  {
+                    "round": 96,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.2672559160273522
+                  },
+                  {
+                    "round": 97,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.2595027540810406
+                  },
+                  {
+                    "round": 98,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.2550660988781601
+                  },
+                  {
+                    "round": 99,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.262982940999791
+                  },
+                  {
+                    "round": 100,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.24502711417153478
+                  },
+                  {
+                    "round": 101,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.28133170981891453
+                  },
+                  {
+                    "round": 102,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.2828945890069008
+                  },
+                  {
+                    "round": 103,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.26507346401922405
+                  },
+                  {
+                    "round": 104,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.27548687206581235
+                  },
+                  {
+                    "round": 105,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.32031008088961244
+                  },
+                  {
+                    "round": 106,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3662816451396793
+                  },
+                  {
+                    "round": 107,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.33265427593141794
+                  },
+                  {
+                    "round": 108,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.34860736783593893
+                  },
+                  {
+                    "round": 109,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3037010671105236
+                  },
+                  {
+                    "round": 110,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.321837121155113
+                  },
+                  {
+                    "round": 111,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3717586030252278
+                  },
+                  {
+                    "round": 112,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.2953925540205091
+                  },
+                  {
+                    "round": 113,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.3056581870187074
+                  },
+                  {
+                    "round": 114,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.35918949102051556
+                  },
+                  {
+                    "round": 115,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.31432031095027924
+                  },
+                  {
+                    "round": 116,
+                    "exact": 768,
+                    "exact_slowest_runtime_s": 0.344749819021672
+                  }
+                ],
+                "master_time_limit_scope": "",
+                "active_up_directions": 48,
+                "active_down_directions": 48,
+                "enforce_minimum_active_width": true,
+                "last_round_counts": {
+                  "feasible": 768,
+                  "infeasible": 0,
+                  "incomplete": 0
+                },
+                "incomplete_scenarios": []
+              }
+            }
+          ],
+          "retired_direction_count": 0,
+          "retirement_round_count": 0
+        },
+        "required_rate_solver_all_solved": true,
+        "allowed_command_failures": 0,
+        "certified_capacity_kw_block": 139911.6289075058,
+        "capacity_contract_ok": true,
+        "certification_scorer": "strict_frozen_bid_recourse",
+        "complete": true
+      },
+      "in_sample": true
+    },
+    "searched": true,
+    "search_objective": "maximize_total_ev_regulation_capacity_kw_block",
+    "block_allocation_rule": "unit capacity weights; physical Assessment-I, EV availability, SoC and all command-scenario recourse decide placement; L1 stabilization preserves the prior feasible shape among equal-capacity optima",
+    "participation_rule": "for each block and direction independently: binary participate, then optimize quantity continuously between the non-zero floor and the configured market-facing limit; sampled command recourse and departure SoC determine EV feasibility"
+  },
+  "upper_bid_progress_log": "/workspace/EVMALOCALUPDATE/execute_results/bid_banks/train_25_20station_256cmd_3ev_aemo_plan_deviation/days/021_2024-12-03/upper_bid_progress.log"
+}

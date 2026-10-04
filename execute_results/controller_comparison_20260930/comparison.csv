@@ -1,0 +1,4 @@
+﻿controller,episode,force,central,bess,tracking_pct,soc_pct,sum
+MARL raw,1940,False,False,False,96.18736383442265,84.05296670250345,180.2403305369261
+MARL raw,2060,False,False,False,94.98910675381264,81.92793165904958,176.9170384128622
+Actor0 + force + central,,True,True,False,96.51416122004358,100.0,196.51416122004358

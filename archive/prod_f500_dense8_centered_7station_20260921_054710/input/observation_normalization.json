@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "source": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_7s_f500_dense8",
+  "quantile": 0.95,
+  "demand_center_kw": 0.0,
+  "demand_scale_kw": 572.3678588867188,
+  "instruction_scale_scale_kw": 1478.8399658203125,
+  "sample_counts": {
+    "demand_kw": 1843200,
+    "instruction_scale_kw": 1843200
+  },
+  "bank_dates": 25,
+  "bank_scenario_episodes": 6400
+}

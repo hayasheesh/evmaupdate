@@ -1,0 +1,133 @@
+{
+  "version": 1,
+  "created_at": "2026-09-30T06:12:24",
+  "updated_at": "2026-09-30T07:29:22",
+  "complete": true,
+  "expected_days": 1,
+  "completed_days": 1,
+  "base_forecast_seed": 1073003,
+  "settings": {
+    "split": "test",
+    "train_split_count": 25,
+    "base_forecast_seed": 1073003,
+    "day_selection_mode": "stratified",
+    "selected_dates": [
+      "2024-04-01",
+      "2024-04-06",
+      "2024-04-07",
+      "2024-08-01",
+      "2024-08-03"
+    ],
+    "arrival_model": {
+      "source": "empirical_future_station_profile",
+      "profile_files": [
+        "Arrival__COMM VITALITY _ 1400 WALNUT1.csv",
+        "Arrival__COMM VITALITY _ 1104 SPRUCE1.csv",
+        "Arrival__COMM VITALITY _ 1500PEARL1.csv",
+        "Arrival__ACN_JPL_ARROYO1.csv",
+        "Arrival__ACN_CALTECH_GARAGE1.csv",
+        "Arrival__RESIDENTIAL NORWAY _ OSL_S.csv",
+        "Arrival__RESIDENTIAL NORWAY _ TRO_R.csv"
+      ],
+      "daily_arrival_attempts_by_station": [
+        12.3556942278,
+        30.1949064449,
+        13.4189618644,
+        21.1357052097,
+        18.6906019007,
+        14.3597919937,
+        6.4194773286
+      ],
+      "future_growth_multiplier": 3.0,
+      "arrival_scale": 1.0,
+      "context_modulation": true,
+      "context_modulation_strength": 1.0,
+      "context_multiplier_bounds": [
+        0.7,
+        1.3
+      ],
+      "include_weather": true,
+      "weather_csv": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\weather\\open_meteo_boulder_forecast_2024_demand_days.csv",
+      "forecast_error": {
+        "enabled": true,
+        "day_sigma": 0.08,
+        "station_sigma": 0.06,
+        "block_sigma": 0.04,
+        "surprise_probability": 0.08,
+        "surprise_bounds": [
+          0.8,
+          1.2
+        ]
+      }
+    },
+    "upper_bid_contract_version": 28,
+    "activation_signal_mode": "aemo_storage_plan_deviation_shape:aemo_storage_dispatch_minus_own_plan_calendar_day_unit_width",
+    "activation_signal_regime": "aemo_storage_dispatch_minus_own_plan_calendar_day_unit_width",
+    "activation_source_dir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\aemo\\nem\\command_libraries\\plan_deviation_calendar_day",
+    "activation_library_file_count": 10905,
+    "activation_library_sha256": "b37b5d9dcd2cf0a3cb87000090144743be0aedb5f3e4a5c25e696c1d26660ce4",
+    "builder_kind": "outer_participation_colgen_benders",
+    "bid_objective": "total_ev_regulation_capacity_kw_block",
+    "award_assumption": "full_award",
+    "activation_scenarios": 256,
+    "bank_bid_contract": "fixed_min_median_max_ev_all_commands_k0",
+    "ev_information_regime": "clairvoyant",
+    "fixed_ev_scenarios": 3,
+    "ev_scenario_candidate_count": 128,
+    "ev_scenario_selection": "minimum_lower_median_maximum_by_session_count",
+    "all_command_scenarios": true,
+    "allowed_command_failures": 0,
+    "physical_lp_tracking_contract": "all_assessed_blocks_hard",
+    "idle_baseline_kw": 0.0,
+    "initial_bid_rule": "aggregate_energy_robust_lp",
+    "physical_lp_min_direction_bid_kw": 0.0,
+    "solver": "outer_participation_colgen_benders",
+    "research_minimum_bid_quantity_kw_fraction": 0.12,
+    "research_minimum_bid_quantity_kw": "250.0",
+    "physical_lp_time_limit_s": 180.0,
+    "baseline_min_kw": -2194.9375,
+    "baseline_max_kw": 2194.9375,
+    "up_max_kw": 2194.9375,
+    "down_max_kw": 2194.9375,
+    "reward_band_frac": 0.1,
+    "five_minute_response_band": true,
+    "scenario_workers_per_day": 4,
+    "selected_days": 5
+  },
+  "entries": [
+    {
+      "index": 0,
+      "service_date": "2024-04-01",
+      "forecast_seed": 1073003,
+      "source_path": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\data\\input.demand_fromPJM\\output_5min\\day_2024-04-01.csv",
+      "bid_path": "days\\000_2024-04-01\\fixed_bid.pkl",
+      "artifact_dir": "days\\000_2024-04-01\\results",
+      "summary": {
+        "service_date": "2024-04-01",
+        "forecast_seed": 1073003,
+        "method": "outer_participation_colgen_benders_certified",
+        "activation_mode": "aemo_storage_plan_deviation_shape:aemo_storage_dispatch_minus_own_plan_calendar_day_unit_width",
+        "activation_scenarios": 256,
+        "bid_status": "outer_participation_colgen_benders_certified",
+        "bid_solved": true,
+        "bid_feasible": true,
+        "bid_objective_capacity_kw_block": 43660.99937990517,
+        "submitted_mean_up_kw": 485.5927645519405,
+        "submitted_mean_down_kw": 424.01138919608405,
+        "submitted_participating_blocks": 31,
+        "awarded_mean_up_kw": 485.5927645519405,
+        "awarded_mean_down_kw": 424.01138919608405,
+        "bid_mean_baseline_kw": 121.27055336051176,
+        "bid_mean_up_kw": 485.5927645519405,
+        "bid_mean_down_kw": 424.01138919608405,
+        "bid_max_up_kw": 991.3749478658041,
+        "bid_max_down_kw": 975.3000106811523,
+        "bid_participating_blocks": 31,
+        "bid_global_tracking_rate": 1.0,
+        "target_min_kw": -387.9200134277344,
+        "target_max_kw": 776.1000366210938
+      }
+    }
+  ],
+  "failures": []
+}

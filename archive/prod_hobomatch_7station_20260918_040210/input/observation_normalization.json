@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "source": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\train_25_fixed_ev_256_all_commands",
+  "quantile": 0.95,
+  "demand_center_kw": 0.0,
+  "demand_scale_kw": 573.3035278320312,
+  "instruction_scale_scale_kw": 1410.1956787109375,
+  "sample_counts": {
+    "demand_kw": 1843200,
+    "instruction_scale_kw": 1843200
+  },
+  "bank_dates": 25,
+  "bank_scenario_episodes": 6400
+}

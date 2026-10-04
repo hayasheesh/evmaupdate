@@ -1,0 +1,12 @@
+{
+  "A_予測EV": {
+    "feasible": 5,
+    "total": 24,
+    "seconds": 53.6
+  },
+  "B_評価EV": {
+    "feasible": 1,
+    "total": 24,
+    "seconds": 44.5
+  }
+}
