@@ -954,17 +954,13 @@ def build_blockwise_bid_for_day(
     rng_state = lbt._capture_rng_state()
     try:
         candidate_count = int(LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES)
-        ev_candidates = lbt._sample_ev_scenario_bank(
+        ev_bank, ev_scenario_selection, ev_bank_key = lbt._selected_ev_scenario_bank(
             count=candidate_count,
             seed=seed,
-            seed_offset=0,
             arrival_probs=arrival_probs,
-            label=f"blockwise bid candidate {name}",
             service_date=service_date,
+            label=f"blockwise bid candidate {name}",
             workers=cfg.scenario_workers,
-        )
-        ev_bank, ev_scenario_selection = lbt._select_ev_scenarios_by_count(
-            ev_candidates
         )
         for selected in ev_scenario_selection:
             lbt._bid_build_log(
@@ -974,8 +970,9 @@ def build_blockwise_bid_for_day(
                 f"rank={selected['rank_zero_based'] + 1}/{candidate_count} "
                 f"evs={selected['ev_count']}"
             )
-        baseline_plan = lbt._mean_natural_baseline(
+        baseline_plan = lbt._natural_baseline_for_bank(
             ev_bank=ev_bank,
+            bank_key=ev_bank_key,
             config=cfg,
             baseline_min_kw=float(LOWER_TRAIN_UPPER_BID_BASELINE_MIN_KW),
             baseline_max_kw=float(LOWER_TRAIN_UPPER_BID_BASELINE_MAX_KW),

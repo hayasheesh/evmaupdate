@@ -29,6 +29,8 @@ python tools/build_all_upper_bid_banks.py --workers 2
 
 `--preflight-only` を付けると、指令の区分と本数だけ確認して止まる。
 
+EV実現の3本（128本から選んだもの）と、そこから解く基準値の初期値（指令なしで出発時SoCを満たす充電のLP）は、`execute_results/ev_scenario_cache/` に保存する。指令集合や最低入札量を変えて同じ日のbankを作り直すときは、128本を引き直さずにここから読む。EVの生成が読むコード・設定・データファイルのどれかが変わっていれば、読まずに作り直す。`EVMA_BID_SOLVE_CACHE=0` を付けると、入札の保存分（`execute_results/bid_solve_cache/`）も使わず、すべて計算し直す。
+
 MARLの事前学習。train・testのbankが揃っていないとき、またはbankの入札設定が今のコードと違うときは止まる:
 
 ```powershell

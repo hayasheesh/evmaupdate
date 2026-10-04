@@ -3,8 +3,12 @@
 from __future__ import annotations
 
 from concurrent.futures import ProcessPoolExecutor
-from dataclasses import dataclass, replace
+from dataclasses import asdict, dataclass, replace
 from datetime import datetime
+from functools import lru_cache
+import hashlib
+import inspect
+import json
 from pathlib import Path
 import os
 import random
@@ -52,6 +56,7 @@ from market.physical_lp_bidding import (
     ActivationScenario,
     BiddingLPConfig,
     BiddingSolution,
+    EVSpec,
     JointBiddingProblem,
     sample_ev_specs_from_evenv,
     solve_joint_hard_bidding_benders,
@@ -442,26 +447,381 @@ def _mean_natural_baseline(
     return np.mean(np.stack(baselines, axis=0), axis=0)
 
 
+PROJECT_ROOT = Path(__file__).resolve().parents[1]
+EV_SCENARIO_CACHE_DIR = PROJECT_ROOT / "execute_results" / "ev_scenario_cache"
+# Modules in these packages that the EV rollout or the natural-baseline LP
+# reaches are hashed whole into the cache key.
+_CACHE_KEY_PACKAGES = ("environment", "market.physical_lp_bidding")
+_SETTINGS_MODULES = ("Config", "EnvConfig")
 
 
+def _reuse_stored_results() -> bool:
+    """EVMA_BID_SOLVE_CACHE=0 recomputes everything the bid builder stores."""
+
+    return os.environ.get("EVMA_BID_SOLVE_CACHE", "1").strip() not in (
+        "0", "false", "False",
+    )
 
 
+def _load_cache_entry(path: Path, key: str | None, field: str):
+    """Return ``field`` of the entry stored at ``path`` under ``key``, or None."""
+
+    if not key or not path.is_file():
+        return None
+    try:
+        payload = torch.load(path, map_location="cpu", weights_only=False)
+    except Exception:
+        return None
+    if not isinstance(payload, dict) or payload.get("key") != key:
+        return None
+    return payload.get(field)
 
 
+def _store_cache_entry(path: Path, key: str | None, field: str, value) -> None:
+    """Write ``{"key": key, field: value}`` in one replace; a failed write stores nothing."""
+
+    if not key:
+        return
+    tmp = path.with_name(f".{path.name}.tmp-{os.getpid()}")
+    try:
+        path.parent.mkdir(parents=True, exist_ok=True)
+        with open(tmp, "wb") as handle:
+            torch.save({"key": key, field: value}, handle)
+            handle.flush()
+            os.fsync(handle.fileno())
+        os.replace(tmp, path)
+    except Exception:
+        try:
+            tmp.unlink(missing_ok=True)
+        except OSError:
+            pass
 
 
+def _stable_value(value):
+    """A JSON-ready form of ``value`` that changes whenever the value does.
+
+    Raises TypeError for a type without one, so the caller stores nothing
+    rather than keying on a lossy form.
+    """
+
+    if value is None or isinstance(value, (bool, int, float, str)):
+        return value
+    if isinstance(value, np.generic):
+        return value.item()
+    if isinstance(value, np.ndarray):
+        if value.dtype == object:
+            raise TypeError("cannot hash an object array")
+        array = np.ascontiguousarray(value)
+        return {
+            "dtype": str(array.dtype),
+            "shape": list(array.shape),
+            "sha256": hashlib.sha256(array.tobytes()).hexdigest(),
+        }
+    if isinstance(value, (list, tuple)):
+        return [_stable_value(item) for item in value]
+    if isinstance(value, dict):
+        return {str(name): _stable_value(item) for name, item in value.items()}
+    if isinstance(value, (Path, torch.device)):
+        return str(value)
+    raise TypeError(f"cannot hash a value of type {type(value).__name__}")
 
 
+def _content_sha256(path: Path) -> str:
+    """Hash a file, or every file under a directory together with its relative path."""
+
+    digest = hashlib.sha256()
+    if path.is_file():
+        digest.update(path.read_bytes())
+        return digest.hexdigest()
+    for file in sorted(item for item in path.rglob("*") if item.is_file()):
+        digest.update(file.relative_to(path).as_posix().encode("utf-8") + b"\0")
+        digest.update(file.read_bytes())
+        digest.update(b"\0")
+    return digest.hexdigest()
 
 
+def _function_sources(*functions) -> list[str]:
+    return [
+        hashlib.sha256(inspect.getsource(function).encode("utf-8")).hexdigest()
+        for function in functions
+    ]
 
 
+def _code_and_settings_inputs(entry_module: str) -> dict:
+    """The code ``entry_module`` runs and the settings it reads, as hashes and values.
+
+    Every module reachable from it inside _CACHE_KEY_PACKAGES is hashed whole.
+    A name imported from Config or EnvConfig is recorded by its value, and a
+    value that is an absolute path also by the content of that file or
+    directory. A function or class imported from another module of this
+    project is hashed by its own source, any other name by its value. Library
+    versions cover the rest. Raises when an import cannot be followed this way.
+    """
+
+    import ast
+    import importlib
+    import sys
+
+    import pandas
+    import scipy
+
+    def source_path(module: str) -> Path | None:
+        base = PROJECT_ROOT.joinpath(*module.split("."))
+        for path in (base.with_suffix(".py"), base / "__init__.py"):
+            if path.is_file():
+                return path
+        return None
+
+    def object_signature(module: str, name: str):
+        text = source_path(module).read_text(encoding="utf-8")
+        for node in ast.parse(text).body:
+            if (
+                isinstance(node, (ast.FunctionDef, ast.AsyncFunctionDef, ast.ClassDef))
+                and node.name == name
+            ):
+                segment = ast.get_source_segment(text, node)
+                return hashlib.sha256(segment.encode("utf-8")).hexdigest()
+        return _stable_value(getattr(importlib.import_module(module), name))
+
+    modules: dict[str, str] = {}
+    objects: dict[str, object] = {}
+    setting_names: dict[str, set[str]] = {name: set() for name in _SETTINGS_MODULES}
+    pending = [entry_module]
+    while pending:
+        module = pending.pop()
+        if module in modules:
+            continue
+        path = source_path(module)
+        if path is None:
+            raise ValueError(f"no source file for {module}")
+        text = path.read_text(encoding="utf-8")
+        modules[module] = hashlib.sha256(text.encode("utf-8")).hexdigest()
+        package = module if path.name == "__init__.py" else module.rpartition(".")[0]
+        for node in ast.walk(ast.parse(text)):
+            if isinstance(node, ast.Import):
+                imports = [(alias.name, None) for alias in node.names]
+            elif isinstance(node, ast.ImportFrom):
+                target = node.module or ""
+                if node.level:
+                    parts = package.split(".")
+                    parts = parts[: len(parts) - node.level + 1]
+                    target = ".".join(parts + ([node.module] if node.module else []))
+                imports = [(target, alias.name) for alias in node.names]
+            else:
+                continue
+            for target, name in imports:
+                if name is not None and source_path(f"{target}.{name}") is not None:
+                    target, name = f"{target}.{name}", None
+                if target in _SETTINGS_MODULES:
+                    if name is None or name == "*":
+                        raise ValueError(f"{module} imports all of {target}")
+                    setting_names[target].add(name)
+                elif source_path(target) is None:
+                    continue  # standard library or a third-party package
+                elif any(
+                    target == package_name or target.startswith(package_name + ".")
+                    for package_name in _CACHE_KEY_PACKAGES
+                ):
+                    pending.append(target)
+                elif name is None or name == "*":
+                    raise ValueError(f"{module} imports all of {target}")
+                else:
+                    objects[f"{target}.{name}"] = object_signature(target, name)
+
+    settings: dict[str, dict[str, object]] = {}
+    contents: dict[str, str | None] = {}
+    for module_name, names in setting_names.items():
+        loaded = importlib.import_module(module_name)
+        settings[module_name] = {}
+        for name in sorted(names):
+            value = getattr(loaded, name)
+            settings[module_name][name] = _stable_value(value)
+            if isinstance(value, (str, Path)) and os.path.isabs(value):
+                location = Path(value).resolve()
+                if location == PROJECT_ROOT or location in PROJECT_ROOT.parents:
+                    raise ValueError(f"{module_name}.{name} points at the whole project")
+                contents[f"{module_name}.{name}"] = (
+                    _content_sha256(location) if location.exists() else None
+                )
+    return {
+        "modules": modules,
+        "objects": objects,
+        "settings": settings,
+        "setting_contents": contents,
+        "versions": {
+            "python": f"{sys.version_info.major}.{sys.version_info.minor}",
+            "numpy": np.__version__,
+            "torch": torch.__version__,
+            "scipy": scipy.__version__,
+            "pandas": pandas.__version__,
+        },
+    }
 
 
+@lru_cache(maxsize=None)
+def _code_and_settings_signature(entry_module: str) -> str:
+    blob = json.dumps(_code_and_settings_inputs(entry_module), sort_keys=True)
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()
 
 
+def _cache_key(what: str, build_payload) -> str | None:
+    """Hash ``build_payload()``; None when reuse is off or an input cannot be hashed."""
+
+    if not _reuse_stored_results():
+        return None
+    try:
+        blob = json.dumps(build_payload(), sort_keys=True)
+    except (AttributeError, ImportError, OSError, SyntaxError, TypeError, ValueError) as exc:
+        _bid_build_log(f"{what} cache off: {type(exc).__name__}: {exc}")
+        return None
+    return hashlib.sha256(blob.encode("utf-8")).hexdigest()
 
 
+def _ev_scenario_bank_key(
+    *, count: int, seed: int, seed_offset: int, arrival_probs, service_date
+) -> str | None:
+    """Hash every input of _sample_ev_scenario_bank and of the selection after it."""
+
+    return _cache_key("EV scenario", lambda: {
+        "service_date": None if service_date is None else str(service_date),
+        "seed": int(seed),
+        "seed_offset": int(seed_offset),
+        "candidate_count": int(count),
+        "arrival_probabilities_by_station": _stable_value(
+            None if arrival_probs is None
+            else np.asarray(arrival_probs, dtype=np.float64)
+        ),
+        "rollout": _code_and_settings_signature(
+            "market.physical_lp_bidding.evenv_adapter"
+        ),
+        "sampling": _function_sources(
+            _sample_ev_candidate,
+            _sample_ev_scenario_bank,
+            _select_ev_scenarios_by_count,
+        ),
+    })
+
+
+def _is_selected_bank(entry, count: int) -> bool:
+    """Whether a stored entry has the shape _select_ev_scenarios_by_count returns."""
+
+    if not isinstance(entry, dict):
+        return False
+    bank = entry.get("ev_bank")
+    selection = entry.get("selection")
+    if not (
+        isinstance(bank, list)
+        and isinstance(selection, list)
+        and len(bank) == len(selection) == 3
+    ):
+        return False
+    return all(
+        isinstance(evs, list)
+        and all(isinstance(ev, EVSpec) for ev in evs)
+        and isinstance(row, dict)
+        and row.get("candidate_count") == int(count)
+        and row.get("ev_count") == len(evs)
+        for evs, row in zip(bank, selection)
+    )
+
+
+def _selected_ev_scenario_bank(
+    *,
+    count: int,
+    seed: int,
+    arrival_probs,
+    service_date,
+    label: str,
+    workers: int = 1,
+) -> tuple[list[list], list[dict], str | None]:
+    """The minimum, median and maximum EV realizations of one day, and their cache key.
+
+    They depend on the day, the seed, the arrival probabilities and the
+    zero-power EVEnv rollout, not on the command library or the minimum bid
+    quantity. A bank built for another signal set or bid setting on the same
+    day therefore reads them from EV_SCENARIO_CACHE_DIR instead of drawing
+    ``count`` rollouts again. The key is None when reuse is off.
+    """
+
+    key = _ev_scenario_bank_key(
+        count=count,
+        seed=seed,
+        seed_offset=0,
+        arrival_probs=arrival_probs,
+        service_date=service_date,
+    )
+    path = EV_SCENARIO_CACHE_DIR / f"bank_{key}.pt"
+    cached = _load_cache_entry(path, key, "ev_scenarios")
+    if _is_selected_bank(cached, count):
+        _bid_build_log(
+            f"physical-joint: reused {label} EV scenarios key={key[:12]} "
+            f"(sampling skipped)"
+        )
+        return cached["ev_bank"], cached["selection"], key
+    candidates = _sample_ev_scenario_bank(
+        count=count,
+        seed=seed,
+        seed_offset=0,
+        arrival_probs=arrival_probs,
+        label=label,
+        service_date=service_date,
+        workers=workers,
+    )
+    ev_bank, selection = _select_ev_scenarios_by_count(candidates)
+    _store_cache_entry(
+        path, key, "ev_scenarios", {"ev_bank": ev_bank, "selection": selection}
+    )
+    return ev_bank, selection, key
+
+
+def _natural_baseline_for_bank(
+    *,
+    ev_bank: list[list],
+    bank_key: str | None,
+    config: BiddingLPConfig,
+    baseline_min_kw: float,
+    baseline_max_kw: float,
+) -> np.ndarray:
+    """_mean_natural_baseline, read from EV_SCENARIO_CACHE_DIR when its inputs match.
+
+    ``bank_key`` stands for ``ev_bank``; without it the LPs are always solved.
+    """
+
+    key = None
+    if bank_key is not None:
+        key = _cache_key("natural baseline", lambda: {
+            "ev_scenarios": bank_key,
+            "config": {
+                name: _stable_value(value)
+                for name, value in asdict(config).items()
+                if name != "scenario_workers"
+            },
+            "baseline_min_kw": float(baseline_min_kw),
+            "baseline_max_kw": float(baseline_max_kw),
+            "lp": _code_and_settings_signature(
+                "market.physical_lp_bidding.solve_bidding"
+            ),
+            "averaging": _function_sources(_mean_natural_baseline),
+        })
+    path = EV_SCENARIO_CACHE_DIR / f"baseline_{key}.pt"
+    cached = _load_cache_entry(path, key, "baseline")
+    if (
+        isinstance(cached, np.ndarray)
+        and cached.shape == (int(config.blocks),)
+        and np.isfinite(cached).all()
+    ):
+        _bid_build_log(
+            f"physical-joint: reused natural baseline key={key[:12]} (LP skipped)"
+        )
+        return cached.astype(float, copy=True)
+    baseline = _mean_natural_baseline(
+        ev_bank=ev_bank,
+        config=config,
+        baseline_min_kw=baseline_min_kw,
+        baseline_max_kw=baseline_max_kw,
+    )
+    _store_cache_entry(path, key, "baseline", np.asarray(baseline, dtype=float))
+    return baseline
 
 
 def _activation_scenarios_for_day(
@@ -828,7 +1188,7 @@ def _submitted_bid_info(
     }
 
 
-BID_SOLVE_CACHE_DIR = Path(__file__).resolve().parents[1] / "execute_results" / "bid_solve_cache"
+BID_SOLVE_CACHE_DIR = PROJECT_ROOT / "execute_results" / "bid_solve_cache"
 
 
 def _arrival_scenario_signature(arrival_scenario):
@@ -917,35 +1277,13 @@ def _bid_solve_cache_key(
 
 
 def _load_cached_bid_solve(key):
-    if not key:
-        return None
-    path = BID_SOLVE_CACHE_DIR / f"{key}.pt"
-    if not path.is_file():
-        return None
-    try:
-        payload = torch.load(path, map_location="cpu", weights_only=False)
-    except Exception:
-        return None
-    if not isinstance(payload, dict) or payload.get("key") != key:
-        return None
-    bid = payload.get("bid")
+    bid = _load_cache_entry(BID_SOLVE_CACHE_DIR / f"{key}.pt", key, "bid")
     return bid if isinstance(bid, dict) else None
 
 
 def _store_cached_bid_solve(key, bid) -> None:
-    if not key or not isinstance(bid, dict):
-        return
-    try:
-        BID_SOLVE_CACHE_DIR.mkdir(parents=True, exist_ok=True)
-        path = BID_SOLVE_CACHE_DIR / f"{key}.pt"
-        tmp = path.with_name(f".{path.name}.tmp-{os.getpid()}")
-        with open(tmp, "wb") as handle:
-            torch.save({"key": key, "bid": bid}, handle)
-            handle.flush()
-            os.fsync(handle.fileno())
-        os.replace(tmp, path)
-    except Exception:
-        pass
+    if isinstance(bid, dict):
+        _store_cache_entry(BID_SOLVE_CACHE_DIR / f"{key}.pt", key, "bid", bid)
 
 
 def build_fixed_upper_bid_for_day(
@@ -959,7 +1297,8 @@ def build_fixed_upper_bid_for_day(
     """Build one bid robust to three EV counts and every design command.
 
     The result is cached under a hash of the day, seed, arrival scenario, and
-    upper-bid settings. EVMA_BID_SOLVE_CACHE=0 always solves.
+    upper-bid settings. EVMA_BID_SOLVE_CACHE=0 always solves, and also redraws
+    the EV scenarios and the natural baseline (_selected_ev_scenario_bank).
     """
 
     from training.blockwise_bid import build_blockwise_bid_for_day
@@ -969,14 +1308,11 @@ def build_fixed_upper_bid_for_day(
         if forecast_seed is None
         else forecast_seed
     )
-    cache_enabled = os.environ.get("EVMA_BID_SOLVE_CACHE", "1").strip() not in (
-        "0", "false", "False",
-    )
     cache_key = (
         _bid_solve_cache_key(
             base_series, service_date, arrival_scenario, seed, assessment_band_fraction
         )
-        if cache_enabled
+        if _reuse_stored_results()
         else None
     )
     cached = _load_cached_bid_solve(cache_key)
