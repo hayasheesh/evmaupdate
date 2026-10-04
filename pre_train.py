@@ -1,7 +1,9 @@
 """Train the reusable lower-MARL policy from the multi-day bid bank.
 
 Run this offline when the shared pretrained checkpoint needs to be created or
-updated. The proposed system uses this fixed policy without day-specific adaptation.
+updated, after tools/build_training_bid_bank.py has built the train and test
+banks. The proposed system uses this fixed policy without day-specific
+adaptation.
 """
 
 from __future__ import annotations
@@ -26,12 +28,12 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--bank-dir",
         default=None,
-        help="Optional train-bank directory; default follows EnvConfig.py.",
+        help="Complete train-bank directory; default follows EnvConfig.py.",
     )
     parser.add_argument(
         "--test-bank-dir",
         default=None,
-        help="Optional test-bank directory; default follows EnvConfig.py.",
+        help="Complete test-bank directory; default follows EnvConfig.py.",
     )
     parser.add_argument(
         "--resume-run",
@@ -108,7 +110,6 @@ def main() -> int:
             os.environ[
                 "EVMA_LOWER_TRAIN_UPPER_BID_ACTIVATION_SOURCE_DIR"
             ] = str(activation_source)
-        os.environ["EVMA_LOWER_TRAIN_BUILD_BID_BANK"] = "0"
         print(
             f"[resume] run={resume_run} "
             f"saved_episode={manifest['completed_training_episode']} "
@@ -118,12 +119,6 @@ def main() -> int:
 
     hold_scheduler_priority("pretrain")
 
-    # Make this entry point unambiguously pretrain-only even if the parent
-    # shell still contains variables from an earlier fine-tune command.
-    os.environ["EVMA_FINETUNE_ENABLE"] = "0"
-    os.environ.pop("EVMA_FINETUNE_WARMSTART_DIR", None)
-    os.environ["EVMA_LOWER_TRAIN_USE_BID_BANK"] = "1"
-
     from training.run_after_day_ahead_bid import run_after_day_ahead_bid
 
     run_after_day_ahead_bid(
@@ -131,7 +126,6 @@ def main() -> int:
         model_name=args.model_name,
         forecast_seed=args.forecast_seed,
         train_split_count=args.train_days,
-        use_train_bid_bank=True,
         bid_bank_dir=args.bank_dir,
         test_bid_bank_dir=args.test_bank_dir,
         resume_run_dir=str(resume_run) if resume_run is not None else None,

@@ -14,12 +14,10 @@ per-station intermediate utilities for diagnostics.
 import torch
 import torch .nn as nn
 from Config import (
-GLOBAL_CRITIC_KEEP_COMMON_MODE ,
 LOCAL_CRITIC_HIDDEN_SIZE ,
 GLOBAL_CRITIC_HIDDEN_SIZE ,
 MAX_EV_PER_STATION ,
 MIXER_B_MAX ,
-MIXER_B_MAX_ENABLE ,
 )
 from environment.observation_config import (
 EV_FEAT_DIM ,
@@ -112,98 +110,12 @@ class LocalEvMLPCritic (nn .Module ):
 
         tail_start =self .max_evs *self .ev_feat_dim
         tail =s_flat [:,tail_start :tail_start +int (LOCAL_TAIL_DIM )]
-        if tail .size (1 )<int (LOCAL_TAIL_DIM ):
-            tail =torch .cat (
-            [tail ,s_flat .new_zeros (B ,int (LOCAL_TAIL_DIM )-tail .size (1 ))],dim =1
-            )
 
         scaled_total_ev_power =torch .clamp (total_ev_power ,-1.0 ,1.0 )
         feat =torch .cat ([pooled ,scaled_total_ev_power ,tail ],dim =1 )
         out =self .q_head (feat )
         out =torch .nan_to_num_ (out ,nan =0.0 ,posinf =0.0 ,neginf =0.0 )
         return out
-
-
-class LocalPerEvCritic (nn .Module ):
-    """Station-local value as the sum of per-EV values.
-
-    EV j's value is Q_j = head(token(x_j, a_j) + context(s)): its own features
-    and action, plus a station context built from the EV features and local
-    tail only. The context carries no action, because an EV's SoC reward
-    depends on that EV's actions alone; so d(sum_k Q_k)/d a_j = d Q_j/d a_j and
-    each action is credited with its own EV's value. One set of weights serves
-    every EV slot.
-    """
-
-    def __init__ (self ,ev_feat_dim ,max_evs ,hid =LOCAL_CRITIC_HIDDEN_SIZE ,station_state_dim =None ,init_gain =1.0 ):
-        super ().__init__ ()
-        self .ev_feat_dim =ev_feat_dim
-        self .max_evs =max_evs
-        self .station_state_dim =station_state_dim if station_state_dim is not None else (ev_feat_dim *max_evs +LOCAL_TAIL_DIM )
-        self .init_gain =init_gain
-        set_hid =max (hid //2 ,32 )
-        head_hid =max (hid //4 ,16 )
-
-        self .token_encoder =nn .Sequential (
-        nn .Linear (self .ev_feat_dim +1 ,set_hid ),
-        nn .LayerNorm (set_hid ),
-        nn .LeakyReLU (0.1 ),
-        nn .Linear (set_hid ,set_hid ),
-        nn .LayerNorm (set_hid ),
-        nn .LeakyReLU (0.1 ),
-        )
-        self .context_encoder =nn .Sequential (
-        nn .Linear (self .ev_feat_dim ,set_hid ),
-        nn .LayerNorm (set_hid ),
-        nn .LeakyReLU (0.1 ),
-        )
-        # Computed once per station and added to every EV's token.
-        self .context_proj =nn .Linear (set_hid +int (LOCAL_TAIL_DIM ),set_hid )
-        self .q_head =nn .Sequential (
-        nn .LayerNorm (set_hid ),
-        nn .LeakyReLU (0.1 ),
-        nn .Linear (set_hid ,head_hid ),
-        nn .LayerNorm (head_hid ),
-        nn .LeakyReLU (0.1 ),
-        nn .Linear (head_hid ,1 ),
-        )
-        self .apply (self ._init_weights )
-
-    def _init_weights (self ,m ):
-        if isinstance (m ,nn .Linear ):
-            nn .init .xavier_uniform_ (m .weight ,gain =self .init_gain )
-            nn .init .constant_ (m .bias ,0 )
-
-    def per_ev (self ,s_flat ,a_flat ):
-        """Per-slot values, [batch, max_evs], zero on empty slots."""
-        if s_flat .dim ()==1 :
-            s_flat =s_flat .unsqueeze (0 )
-        if a_flat .dim ()==1 :
-            a_flat =a_flat .unsqueeze (0 )
-        B =s_flat .size (0 )
-        if a_flat .size (1 )!=self .max_evs :
-            raise ValueError (f"Invalid local action shape: {tuple(a_flat.shape)} expected second dim {self.max_evs}")
-        ev_dim =self .max_evs *self .ev_feat_dim
-        ev_tokens =s_flat [:,:ev_dim ].view (B ,self .max_evs ,self .ev_feat_dim )
-        presence =(ev_tokens [...,0 :1 ]>0.5 ).float ()
-
-        tail =s_flat [:,ev_dim :ev_dim +int (LOCAL_TAIL_DIM )]
-        if tail .size (1 )<int (LOCAL_TAIL_DIM ):
-            tail =torch .cat ([tail ,s_flat .new_zeros (B ,int (LOCAL_TAIL_DIM )-tail .size (1 ))],dim =1 )
-        context_feat =self .context_encoder (ev_tokens )
-        denom =presence .sum (dim =1 ).clamp (min =1.0 )
-        pooled =(context_feat *presence ).sum (dim =1 )/denom
-        context =self .context_proj (torch .cat ([pooled ,tail ],dim =1 ))
-
-        a_tokens =torch .clamp (a_flat ,-1.0 ,1.0 ).unsqueeze (-1 )
-        token_feat =self .token_encoder (torch .cat ([ev_tokens ,a_tokens ],dim =-1 ))
-        q =self .q_head (token_feat +context .unsqueeze (1 )).squeeze (-1 )
-        q =torch .nan_to_num (q ,nan =0.0 ,posinf =0.0 ,neginf =0.0 )
-        return q *presence .squeeze (-1 )
-
-    def forward (self ,s_flat ,a_flat ,key_padding_mask =None ,return_attn =False ,actual_station_powers =None ):
-        """The station value, [batch, 1]: the sum of the per-EV values."""
-        return self .per_ev (s_flat ,a_flat ).sum (dim =1 ,keepdim =True )
 
 
 class GlobalMLPCritic (nn .Module ):
@@ -254,11 +166,9 @@ class GlobalMLPCritic (nn .Module ):
         nn .Linear (hid //2 ,1 ),
         )
         self .softplus =nn .Softplus ()
-        self .keep_common_mode =bool (GLOBAL_CRITIC_KEEP_COMMON_MODE )
-        if self .keep_common_mode :
-            # softplus(0.5413) == 1, so the station mean starts passing through
-            # at full weight and the mixer can shrink it if it is not useful.
-            self .common_mode_gain =nn .Parameter (torch .tensor (0.5413 ))
+        # softplus(0.5413) == 1, so the station mean starts passing through
+        # at full weight and the mixer can shrink it if it is not useful.
+        self .common_mode_gain =nn .Parameter (torch .tensor (0.5413 ))
 
         self .apply (self ._init_weights )
 
@@ -286,10 +196,6 @@ class GlobalMLPCritic (nn .Module ):
 
         common_info_start =ev_features_total
         global_context =s [:,common_info_start :common_info_start +int (GLOBAL_TAIL_DIM )]
-        if global_context .size (1 )<int (GLOBAL_TAIL_DIM ):
-            global_context =torch .cat (
-            [global_context ,s .new_zeros (B ,int (GLOBAL_TAIL_DIM )-global_context .size (1 ))],dim =1
-            )
 
         if actual_station_powers is None :
             raise ValueError ("actual_station_powers must be provided for GlobalMLPCritic")
@@ -328,10 +234,7 @@ class GlobalMLPCritic (nn .Module ):
         #     b = K * tanh(b_raw / K).
         # This preserves near-zero gradient scale while preventing the bias term
         # from absorbing unbounded global-Q drift.
-        if MIXER_B_MAX_ENABLE :
-            b =MIXER_B_MAX *torch .tanh (b_raw /MIXER_B_MAX )
-        else :
-            b =b_raw
+        b =MIXER_B_MAX *torch .tanh (b_raw /MIXER_B_MAX )
 
         # Mean-centered mixer: the global value depends on station utilities as
         # advantages relative to the station mean. Normalizing weights to mean 1
@@ -342,12 +245,11 @@ class GlobalMLPCritic (nn .Module ):
         w_mean =w .mean (dim =1 ,keepdim =True ).clamp (min =1e-6 )
         w_norm =w /w_mean
         q_global =(w_norm *u_centered ).mean (dim =1 ,keepdim =True )+b
-        if self .keep_common_mode :
-            # The centred term is untouched, so station-specific credit is
-            # unchanged; this only adds back the channel centring removes.
-            # Softplus keeps the share positive, which also gives every station
-            # a non-negative partial derivative the centred term alone lacks.
-            q_global =q_global +self .softplus (self .common_mode_gain )*u_mean
+        # The centred term is untouched, so station-specific credit is
+        # unchanged; this only adds back the channel centring removes.
+        # Softplus keeps the share positive, which also gives every station
+        # a non-negative partial derivative the centred term alone lacks.
+        q_global =q_global +self .softplus (self .common_mode_gain )*u_mean
 
         if not torch .isfinite (q_global ).all ():
             q_global =torch .nan_to_num (q_global ,nan =0.0 ,posinf =0.0 ,neginf =0.0 )

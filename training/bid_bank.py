@@ -109,21 +109,49 @@ def forecast_seed_for_day(base_seed: int, day_index: int) -> int:
     return int(base_seed) + int(day_index) * 1009
 
 
+# Settings that banks began to record after banks already existed. A manifest
+# without one predates it and is not rejected for that alone: a mismatch makes
+# the callers rebuild every date with overwrite, which would discard banks that
+# took hours to solve. A manifest that records one must match it.
+RECORDED_LATER_SETTINGS = frozenset({"ev_population"})
+
+
 def manifest_settings_match(
-    manifest: dict, required_settings: dict, *, ignored_keys=()
+    manifest: dict,
+    required_settings: dict,
+    *,
+    ignored_keys=(),
+    recorded_later=RECORDED_LATER_SETTINGS,
 ) -> bool:
-    """Return whether every required setting is present and unchanged."""
+    """Return whether every required setting is present and unchanged.
+
+    A key in ``recorded_later`` that the manifest does not have is accepted.
+    """
 
     actual = manifest.get("settings") or {}
     if not isinstance(actual, dict):
         return False
     ignored = {str(key) for key in ignored_keys}
+    later = {str(key) for key in recorded_later}
     for key, expected in required_settings.items():
         if key in ignored:
             continue
-        if key not in actual or actual[key] != expected:
+        if key not in actual:
+            if key in later:
+                continue
+            return False
+        if actual[key] != expected:
             return False
     return True
+
+
+def manifest_missing_settings(manifest: dict, required_settings: dict) -> list[str]:
+    """Required keys the manifest does not record (unverified, not mismatched)."""
+
+    actual = manifest.get("settings") or {}
+    if not isinstance(actual, dict):
+        return sorted(str(key) for key in required_settings)
+    return sorted(str(key) for key in required_settings if key not in actual)
 
 
 def _entry_summary(info: dict) -> dict:

@@ -146,20 +146,11 @@ def _json_stable(value: Any) -> Any:
     raise TypeError(type(value).__name__)
 
 
-# Operational switches, not experiment identity, and the resume path sets this
-# one itself: pre_train turns the bank build off when resuming because the bank
-# is already there. Comparing it made every resume fail on a difference the
-# resume had just created.
-_RUNTIME_SIGNATURE_EXCLUDED = frozenset({
-    "LOWER_TRAIN_UPPER_BID_BANK_BUILD_MISSING",
-})
-
-
 def _runtime_module_signature(module_name: str) -> dict[str, Any]:
     module = importlib.import_module(module_name)
     result: dict[str, Any] = {}
     for name in sorted(dir(module)):
-        if not name.isupper() or name in _RUNTIME_SIGNATURE_EXCLUDED:
+        if not name.isupper():
             continue
         try:
             result[name] = _json_stable(getattr(module, name))

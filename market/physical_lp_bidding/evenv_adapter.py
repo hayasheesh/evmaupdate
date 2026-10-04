@@ -12,7 +12,6 @@ def sample_ev_specs_from_evenv(
     *,
     seed: int,
     arrival_probabilities_by_station=None,
-    day_context=None,
     arrival_counts_by_station_step=None,
     initial_evs_by_station=None,
     service_date=None,
@@ -30,7 +29,6 @@ def sample_ev_specs_from_evenv(
         arrival_probabilities_by_station=arrival_probabilities_by_station,
         arrival_counts_by_station_step=arrival_counts_by_station_step,
         initial_evs_by_station=initial_evs_by_station,
-        day_context=day_context,
         service_date=service_date,
     )
 

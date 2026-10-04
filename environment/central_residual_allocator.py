@@ -19,6 +19,8 @@ from dataclasses import dataclass
 
 import torch
 
+from EnvConfig import POWER_TO_ENERGY
+
 
 def capped_weighted_waterfill(
     headroom: torch.Tensor,
@@ -228,35 +230,6 @@ class _StationLocalDispatchContext:
     envelope: StationFlexibilityEnvelope
 
 
-def _cap_station_tier_headrooms(
-    env,
-    raw_station_kw: torch.Tensor,
-    target_up_kw: torch.Tensor,
-    surplus_up_kw: torch.Tensor,
-    remove_charge_kw: torch.Tensor,
-    safe_discharge_kw: torch.Tensor,
-) -> tuple[torch.Tensor, torch.Tensor, torch.Tensor, torch.Tensor]:
-    """Apply a public station import/export cap to aggregate tier headrooms."""
-    if not bool(getattr(env, "use_station_total_power_limit", False)):
-        return target_up_kw, surplus_up_kw, remove_charge_kw, safe_discharge_kw
-
-    station_limit_kw = env.station_power_limit_kw.to(
-        dtype=raw_station_kw.dtype, device=raw_station_kw.device
-    )
-    up_budget = torch.clamp(station_limit_kw - raw_station_kw, min=0.0)
-    capped_target_up = torch.minimum(target_up_kw, up_budget)
-    capped_surplus_up = torch.minimum(
-        surplus_up_kw, torch.clamp(up_budget - capped_target_up, min=0.0)
-    )
-
-    down_budget = torch.clamp(raw_station_kw + station_limit_kw, min=0.0)
-    capped_remove = torch.minimum(remove_charge_kw, down_budget)
-    capped_discharge = torch.minimum(
-        safe_discharge_kw, torch.clamp(down_budget - capped_remove, min=0.0)
-    )
-    return capped_target_up, capped_surplus_up, capped_remove, capped_discharge
-
-
 def build_station_flexibility_envelope(
     env,
     actor_actions: torch.Tensor,
@@ -290,11 +263,7 @@ def build_station_flexibility_envelope(
             env.depart[station, ordered]
         )
 
-    dt = max(float(getattr(env, "power_to_energy", 0.0) or 0.0), 1e-9)
-    if dt <= 1e-8:
-        from EnvConfig import POWER_TO_ENERGY
-
-        dt = max(float(POWER_TO_ENERGY), 1e-9)
+    dt = max(float(POWER_TO_ENERGY), 1e-9)
     capacity = torch.clamp(capacity, min=1e-6)
     remaining = torch.clamp(remaining, min=1.0)
     soc_kwh = torch.clamp(soc_pct, 0.0, 100.0) * capacity / 100.0
@@ -317,28 +286,11 @@ def build_station_flexibility_envelope(
         actions * max_power, physical_lower, physical_upper
     )
     raw_power = torch.where(present, raw_power, torch.zeros_like(raw_power))
-    if bool(getattr(env, "use_station_total_power_limit", False)):
-        for station in range(int(env.num_stations)):
-            raw_power[station], _, _ = env._apply_station_power_limit(
-                station, raw_power[station]
-            )
 
     # A station does not rescue a local actor miss on its own.  This lower
     # correction bound only prevents a downward central request from making the
     # actor's current departure-reachability position worse.
-    #
-    # Taking the minimum with the actor's own power does more than that: once
-    # the actor is already below the departure-safe floor the bound collapses
-    # onto the actor and the central layer cannot move the station down by a
-    # single kW, even though pulling it back up to the safe floor would not
-    # worsen reachability. The flag drops the minimum and keeps only the floor.
-    from EnvConfig import CENTRAL_EV_ALLOCATOR_DOWN_TO_SAFE_FLOOR
-
-    correction_lower = (
-        safe_lower
-        if bool(CENTRAL_EV_ALLOCATOR_DOWN_TO_SAFE_FLOOR)
-        else torch.minimum(raw_power, safe_lower)
-    )
+    correction_lower = torch.minimum(raw_power, safe_lower)
     target_upper = torch.minimum(
         physical_upper, torch.clamp((target_kwh - soc_kwh) / dt, min=0.0)
     )
@@ -399,19 +351,6 @@ def build_station_flexibility_envelope(
     surplus_up_station = surplus_headroom.sum(dim=1)
     remove_charge_station = remove_charge_headroom.sum(dim=1)
     safe_discharge_station = safe_discharge_headroom.sum(dim=1)
-    (
-        target_up_station,
-        surplus_up_station,
-        remove_charge_station,
-        safe_discharge_station,
-    ) = _cap_station_tier_headrooms(
-        env,
-        raw_station,
-        target_up_station,
-        surplus_up_station,
-        remove_charge_station,
-        safe_discharge_station,
-    )
 
     envelope = StationFlexibilityEnvelope(
         raw_power_kw=raw_station,

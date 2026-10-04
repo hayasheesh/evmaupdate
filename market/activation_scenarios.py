@@ -9,7 +9,7 @@ shape by this fleet's directional bids sets its simulated command amplitude.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from datetime import date, datetime
+from datetime import date
 from concurrent.futures import ThreadPoolExecutor
 import glob
 import hashlib
@@ -24,8 +24,6 @@ import numpy as np
 import pandas as pd
 
 from EnvConfig import ACTIVATION_SCENARIO_DIR, EPISODE_STEPS
-from environment.readcsv import _load_and_normalize_demand_file
-from market.bid_env import BASE_DOWN_KW, BASE_UP_KW
 
 
 @dataclass(frozen=True)
@@ -53,34 +51,6 @@ class ActivationScenario:
         return payload
 
 
-def _parse_date(value) -> date | None:
-    try:
-        if isinstance(value, date):
-            return value
-        return datetime.strptime(str(value)[:10], "%Y-%m-%d").date()
-    except Exception:
-        try:
-            return pd.to_datetime(value, errors="coerce").date()
-        except Exception:
-            return None
-
-
-def _season(month: int) -> str:
-    if month in (12, 1, 2):
-        return "winter"
-    if month in (3, 4, 5):
-        return "spring"
-    if month in (6, 7, 8):
-        return "summer"
-    return "autumn"
-
-
-def _day_type(d: date | None) -> tuple[str, str]:
-    if d is None:
-        return ("unknown", "unknown")
-    return (_season(int(d.month)), "weekend" if d.weekday() >= 5 else "weekday")
-
-
 def stable_seed_for_context(*parts) -> int:
     text = "|".join(str(p) for p in parts)
     return int(zlib.crc32(text.encode("utf-8")) % (2**31))
@@ -90,8 +60,6 @@ def _load_proxy_shape_row(path: str) -> dict | None:
     try:
         # Scenario selection needs only the utilization and source fields.
         needed_columns = {
-            "up_proxy",
-            "down_proxy",
             "up_proxy_raw",
             "down_proxy_raw",
             "source_type",
@@ -104,34 +72,21 @@ def _load_proxy_shape_row(path: str) -> dict | None:
             path,
             usecols=lambda name: str(name) in needed_columns,
         )
-        raw_pair = {"up_proxy_raw", "down_proxy_raw"}
-        legacy_pair = {"up_proxy", "down_proxy"}
-        if raw_pair.issubset(raw.columns) or legacy_pair.issubset(raw.columns):
-            up_name, down_name = (
-                ("up_proxy_raw", "down_proxy_raw")
-                if raw_pair.issubset(raw.columns)
-                else ("up_proxy", "down_proxy")
-            )
-            up_proxy = pd.to_numeric(raw[up_name], errors="coerce").to_numpy(dtype=float)
-            down_proxy = pd.to_numeric(raw[down_name], errors="coerce").to_numpy(dtype=float)
-            if up_proxy.size < EPISODE_STEPS or down_proxy.size < EPISODE_STEPS:
-                raise ValueError("explicit activation file has fewer than 288 rows")
-            # Source libraries may retain values beyond one for QA. Saturate
-            # only at this simulator-input boundary.
-            up_proxy = np.clip(up_proxy[:EPISODE_STEPS], 0.0, 1.0)
-            down_proxy = np.clip(down_proxy[:EPISODE_STEPS], 0.0, 1.0)
-            source_type = str(
-                raw.get("source_type", pd.Series(["explicit_5min"])).iloc[0]
-            ).strip()
-            if not source_type:
-                source_type = "explicit_5min"
-        else:
-            series = _load_and_normalize_demand_file(path)[:EPISODE_STEPS]
-            if series.size < EPISODE_STEPS:
-                series = np.pad(series, (0, EPISODE_STEPS - series.size))
-            up_proxy = np.clip(-series / max(BASE_UP_KW, 1e-6), 0.0, 1.0)
-            down_proxy = np.clip(series / max(BASE_DOWN_KW, 1e-6), 0.0, 1.0)
-            source_type = "local_5min"
+        if not {"up_proxy_raw", "down_proxy_raw"}.issubset(raw.columns):
+            raise ValueError("command file has no up_proxy_raw/down_proxy_raw")
+        up_proxy = pd.to_numeric(raw["up_proxy_raw"], errors="coerce").to_numpy(dtype=float)
+        down_proxy = pd.to_numeric(raw["down_proxy_raw"], errors="coerce").to_numpy(dtype=float)
+        if up_proxy.size < EPISODE_STEPS or down_proxy.size < EPISODE_STEPS:
+            raise ValueError("explicit activation file has fewer than 288 rows")
+        # Source libraries may retain values beyond one for QA. Saturate
+        # only at this simulator-input boundary.
+        up_proxy = np.clip(up_proxy[:EPISODE_STEPS], 0.0, 1.0)
+        down_proxy = np.clip(down_proxy[:EPISODE_STEPS], 0.0, 1.0)
+        source_type = str(
+            raw.get("source_type", pd.Series(["explicit_5min"])).iloc[0]
+        ).strip()
+        if not source_type:
+            source_type = "explicit_5min"
     except Exception:
         return None
     both = (up_proxy > 0.0) & (down_proxy > 0.0)
@@ -149,15 +104,13 @@ def _load_proxy_shape_row(path: str) -> dict | None:
     if not source_date:
         match = re.search(r"\d{4}-\d{2}-\d{2}", label)
         source_date = match.group(0) if match else label
-    d = _parse_date(source_date)
-    season, kind = _day_type(d)
     source_bmu = ""
     if "source_bmu" in raw.columns and not raw["source_bmu"].empty:
         source_bmu = str(raw["source_bmu"].iloc[0])
     declared_partition = ""
     if "scenario_partition" in raw:
         partitions = raw["scenario_partition"].dropna().astype(str).unique()
-        if len(partitions) != 1 or partitions[0] not in {"train", "validation", "test", "unassigned"}:
+        if len(partitions) != 1 or partitions[0] not in {"train", "validation", "test"}:
             raise ValueError(f"Invalid declared partition in {path}")
         declared_partition = partitions[0]
     return {
@@ -165,8 +118,6 @@ def _load_proxy_shape_row(path: str) -> dict | None:
         "path": os.path.abspath(path),
         "source_type": source_type,
         "source_date": source_date,
-        "season": season,
-        "day_kind": kind,
         "up_proxy": up_proxy,
         "down_proxy": down_proxy,
         "source_bmu": source_bmu,
@@ -256,125 +207,15 @@ def activation_library_signature(
     }
 
 
-# Partition proportions. Two forecast and two feedback days for every holdout
-# day, dealt in that repeating order along the difficulty ranking below.
-_PARTITION_PATTERN = ("forecast", "feedback", "forecast", "feedback", "holdout")
-
-
-def _day_difficulty_scores(shape_lib: pd.DataFrame, day_key: pd.Series) -> dict[str, float]:
-    """Score each calendar day by how much tracking its commands demand.
-
-    Four properties, averaged over the day's BM Unit files and then z-scored so
-    none of them dominates by unit: how often an instruction is present, how
-    deep it is, how long the longest unbroken instruction runs, and how often
-    the direction reverses. All four make a day harder to follow, so their mean
-    orders days from easiest to hardest.
-    """
-
-    per_day: dict[str, list[list[float]]] = {}
-    for row_index in range(len(shape_lib)):
-        up = np.asarray(shape_lib["up_proxy"].iloc[row_index], dtype=float)
-        down = np.asarray(shape_lib["down_proxy"].iloc[row_index], dtype=float)
-        signed = up - down
-        active = np.abs(signed) > 1e-9
-        current, longest = 0, 0
-        for flag in active:
-            current = current + 1 if flag else 0
-            longest = max(longest, current)
-        sign = np.sign(signed)
-        nonzero = sign[sign != 0.0]
-        reversals = (
-            float(np.count_nonzero(np.diff(nonzero) != 0.0)) if nonzero.size > 1 else 0.0
-        )
-        per_day.setdefault(str(day_key.iloc[row_index]), []).append([
-            float(active.mean()),
-            float(np.abs(signed[active]).mean()) if np.any(active) else 0.0,
-            float(longest),
-            reversals,
-        ])
-
-    days = sorted(per_day)
-    matrix = np.asarray([np.mean(per_day[day], axis=0) for day in days], dtype=float)
-    spread = matrix.std(axis=0)
-    spread[spread <= 1e-12] = 1.0
-    normalized = (matrix - matrix.mean(axis=0)) / spread
-    return {day: float(score) for day, score in zip(days, normalized.mean(axis=1))}
-
-
-def _stratified_day_partitions(
-    shape_lib: pd.DataFrame, day_key: pd.Series
-) -> dict[str, set[str]]:
-    """Split calendar days so every pool spans the same range of difficulty.
-
-    Splitting on a hash of the date is only unbiased in expectation. With 31
-    days it can produce a holdout whose commands are active 29% more of the
-    time, run 28% longer unbroken and reverse 25% more often than the days the
-    bid was built on -- so the bid is fitted to easy commands and judged on
-    hard ones, and the out-of-sample failures partly measure that gap rather
-    than the bid.
-
-    Dealing the difficulty-ordered days into the pools makes each pool a
-    systematic sample of the same distribution: every five adjacent days in the
-    ranking contribute two, two and one. The pattern is rotated once per group,
-    because a fixed order would hand the holdout the same slot every time --
-    with holdout last that is the hardest day of each group, which made the
-    imbalance worse than the hash split it replaced. Rotating moves the holdout
-    slot through the whole group, so no pool sits systematically high or low.
-    The hash still breaks ties, so the assignment stays deterministic.
-    """
-
-    scores = _day_difficulty_scores(shape_lib, day_key)
-    ordered = sorted(
-        scores,
-        key=lambda day: (scores[day], stable_seed_for_context(day, "partition"), day),
-    )
-    width = len(_PARTITION_PATTERN)
-    pools: dict[str, set[str]] = {name: set() for name in ("forecast", "feedback", "holdout")}
-    for position, day in enumerate(ordered):
-        rotated = (position + position // width) % width
-        pools[_PARTITION_PATTERN[rotated]].add(day)
-    return pools
-
-
-_PARTITION_CACHE: dict[str, dict[str, set[str]]] = {}
-
+# Every command library declares its split in ``scenario_partition``:
+# train = the upper bid's design commands, validation and test = the commands
+# the lower controller draws. forecast/feedback/holdout name the same pools.
+_PARTITION_ALIASES = {"forecast": "train", "feedback": "validation", "holdout": "test"}
 # The pool the lower controller's rollout commands are drawn from: every
-# command except the upper bid's design partition (train). In a library
-# without declared partitions it is the whole library.
+# command except the upper bid's design partition (train).
 LOWER_CONTROL_POOL = "lower_control"
 _LOWER_CONTROL_DECLARED = ("validation", "test")
-
-
-def library_declares_partitions(directory: str | os.PathLike | None = None) -> bool:
-    declared = load_proxy_shape_library(directory).get("declared_partition", pd.Series(dtype=str))
-    return bool(declared.fillna("").ne("").any())
-
-
-def lower_control_pool_label(directory: str | os.PathLike | None = None) -> str:
-    """How LOWER_CONTROL_POOL resolves for this library, for run records."""
-
-    if not library_declares_partitions(directory):
-        return "all_historical"
-    declared = set(load_proxy_shape_library(directory)["declared_partition"])
-    if declared == {"unassigned"}:
-        return "unassigned"
-    return "+".join(_LOWER_CONTROL_DECLARED)
-
-
-def _stratified_day_partitions_cached(
-    directory, shape_lib: pd.DataFrame, day_key: pd.Series
-) -> dict[str, set[str]]:
-    """Cache the partition per command library.
-
-    Scoring walks every step of every file, which is a second or two once the
-    library covers a year. The library itself is already cached per directory
-    and the partition is a pure function of it, so it is computed once.
-    """
-
-    key = os.path.abspath(str(directory or ACTIVATION_SCENARIO_DIR))
-    if key not in _PARTITION_CACHE:
-        _PARTITION_CACHE[key] = _stratified_day_partitions(shape_lib, day_key)
-    return _PARTITION_CACHE[key]
+LOWER_CONTROL_POOL_LABEL = "+".join(_LOWER_CONTROL_DECLARED)
 
 
 def _row_source(row) -> str:
@@ -383,6 +224,24 @@ def _row_source(row) -> str:
     source_path = str(row.get("path", ""))
     source_name = os.path.basename(source_path) if source_path else str(row["date"])
     return f"{str(row.get('source_type', 'local_5min'))}:{source_name}"
+
+
+def command_days(directory: str | os.PathLike | None = None) -> dict[str, str]:
+    """Calendar day of every command file, keyed by ActivationScenario.source.
+
+    The day the partitioning uses: the source date when the row has one,
+    otherwise the file's date. One day holds one file per source unit.
+    """
+
+    shape_lib = load_proxy_shape_library(directory)
+    days: dict[str, str] = {}
+    for i in range(len(shape_lib)):
+        row = shape_lib.iloc[i]
+        day = row.get("source_date", None)
+        if day is None or (isinstance(day, float) and np.isnan(day)) or not str(day).strip():
+            day = row.get("date", "")
+        days[_row_source(row)] = str(day)
+    return days
 
 
 def build_activation_scenario_set(
@@ -397,59 +256,29 @@ def build_activation_scenario_set(
     """Randomly select complete 5-minute command files.
 
     Selection is uniform and without replacement while enough files exist.
-    Legacy libraries use deterministic 40/40/20 date pools. A library that
-    declares its split in ``scenario_partition`` keeps it: forecast=train,
-    feedback=validation, holdout=test. The only draw across declared pools is
-    LOWER_CONTROL_POOL, which takes every pool except train; in a library
-    without declared partitions it is the whole library, drawn exactly as
-    ``scenario_partition=None``. Files whose source is in ``exclude_sources``
-    are removed from the pool before drawing.
+    ``scenario_partition`` names one declared pool (forecast=train,
+    feedback=validation, holdout=test). The only draw across declared pools is
+    LOWER_CONTROL_POOL, which takes every pool except train. Files whose source
+    is in ``exclude_sources`` are removed from the pool before drawing.
     """
     shape_lib = load_proxy_shape_library(proxy_shape_dir)
     partition = str(scenario_partition or "").strip().lower()
     declared = shape_lib.get("declared_partition", pd.Series(dtype=str)).fillna("")
-    is_declared = bool(declared.ne("").any())
-    if partition == LOWER_CONTROL_POOL and not is_declared:
-        partition, scenario_partition = "", None
+    if declared.eq("").any():
+        raise ValueError("every command file must declare its scenario_partition")
     rng = np.random.default_rng(stable_seed_for_context(
         service_date,
         seed,
         "explicit_5min_random",
         scenario_partition or "all",
     ))
-    if is_declared:
-        if declared.eq("").any():
-            raise ValueError("Do not mix libraries with declared partitions and unpartitioned libraries")
-        aliases = {"forecast": "train", "feedback": "validation", "holdout": "test"}
-        selected_partition = aliases.get(partition, partition)
-        if not selected_partition:
-            if set(declared) == {"unassigned"}:
-                selected_partition = "unassigned"  # exploratory, not a claimed holdout
-            else:
-                raise ValueError("A library with declared partitions requires an explicit scenario_partition")
-        if selected_partition == LOWER_CONTROL_POOL:
-            pools = {"unassigned"} if set(declared) == {"unassigned"} else set(_LOWER_CONTROL_DECLARED)
-            shape_lib = shape_lib[declared.isin(pools)].reset_index(drop=True)
-        elif selected_partition not in {"train", "validation", "test", "unassigned"}:
-            raise ValueError(f"unknown activation scenario partition: {scenario_partition!r}")
-        else:
-            shape_lib = shape_lib[declared == selected_partition].reset_index(drop=True)
-    elif partition:
-        if partition not in {"forecast", "feedback", "holdout"}:
-            raise ValueError(f"unknown activation scenario partition: {scenario_partition!r}")
-        ranked = shape_lib.copy()
-        # Partition by calendar day, not by file. A single day can contribute
-            # several files (one per source unit); every file for
-        # that day must land in the same forecast/feedback/holdout pool, or
-        # the same realized day would leak across disjoint partitions.
-        if "source_date" in ranked.columns:
-            day_key = ranked["source_date"].map(lambda value: str(value))
-        else:
-            day_key = ranked["date"].map(lambda value: str(value))
-        day_slices = _stratified_day_partitions_cached(
-            proxy_shape_dir, ranked, day_key
-        )
-        shape_lib = ranked[day_key.isin(day_slices[partition])].reset_index(drop=True)
+    selected_partition = _PARTITION_ALIASES.get(partition, partition)
+    if selected_partition == LOWER_CONTROL_POOL:
+        shape_lib = shape_lib[declared.isin(_LOWER_CONTROL_DECLARED)].reset_index(drop=True)
+    elif selected_partition in {"train", "validation", "test"}:
+        shape_lib = shape_lib[declared == selected_partition].reset_index(drop=True)
+    else:
+        raise ValueError(f"unknown activation scenario partition: {scenario_partition!r}")
     excluded = set(exclude_sources or ())
     if excluded:
         keep = [_row_source(shape_lib.iloc[i]) not in excluded for i in range(len(shape_lib))]

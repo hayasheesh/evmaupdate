@@ -111,22 +111,20 @@ def test_floor_relaxed_master_exposes_a_subminimum_direction() -> None:
     assert relaxed.down_kw[0] == pytest.approx(100.0 / 9.0, abs=1e-5)
 
 
-def _without_the_circulation_cut(monkeypatch) -> None:
-    """Take the LP dual for the cut, which is what this file used to get.
+def _without_the_circulation(monkeypatch) -> None:
+    """Answer every scenario with the exact LP, which brings its own dual cut.
 
-    The circulation's Hoffman inequality is the default now; both sources have
-    to keep working, so one test pins each.
+    The circulation answers first in production; the LP still answers whatever
+    the circulation cannot, so both have to keep working.
     """
 
-    import EnvConfig
-
     monkeypatch.setattr(
-        EnvConfig, "LOWER_TRAIN_UPPER_BID_CIRCULATION_CUT", False, raising=False
+        benders_module, "_circulation_decision", lambda *args, **kwargs: None
     )
 
 
 def test_benders_moves_the_common_baseline(monkeypatch) -> None:
-    _without_the_circulation_cut(monkeypatch)
+    _without_the_circulation(monkeypatch)
     config = BiddingLPConfig(
         steps=6,
         blocks=1,
@@ -438,8 +436,6 @@ def test_small_fleet_can_use_direct_sparse_primary_oracle() -> None:
 
 
 def test_the_solver_label_names_the_oracle_that_answered(monkeypatch) -> None:
-    import EnvConfig
-
     scenario = _limited_down_scenario("hybrid_direct")
     problem = _one_block_problem([scenario])
     cfg = BiddingLPConfig(
@@ -449,18 +445,11 @@ def test_the_solver_label_names_the_oracle_that_answered(monkeypatch) -> None:
         0, scenario, cfg, np.array([0.0, 0.0, 10.0]),
         np.array([False]), np.array([True]), 60, 3, False,
     )
-    monkeypatch.setattr(
-        EnvConfig, "LOWER_TRAIN_UPPER_BID_CIRCULATION_SCREEN", False
-    )
-    monkeypatch.setattr(
-        EnvConfig, "LOWER_TRAIN_UPPER_BID_CIRCULATION_CUT", False
-    )
+    _without_the_circulation(monkeypatch)
     without = benders_module._scenario_oracle_task(payload)
     assert without["oracle_solver"] == "direct_sparse_phase1"
 
-    monkeypatch.setattr(
-        EnvConfig, "LOWER_TRAIN_UPPER_BID_CIRCULATION_SCREEN", True
-    )
+    monkeypatch.undo()
     with_screen = benders_module._scenario_oracle_task(payload)
     assert with_screen["oracle_solver"] == "prefix_circulation"
     assert with_screen["feasible"] is without["feasible"]
@@ -575,17 +564,10 @@ def test_benders_retries_only_round_limited_oracles(monkeypatch) -> None:
 def test_benders_uses_exact_direct_fallback_for_non_round_limit_unknown(
     monkeypatch,
 ) -> None:
-    import EnvConfig
-
     # This is about what happens when column generation returns "unknown".
     # The circulation would answer first and the fallback would never be
     # reached, so it is switched off to keep the test on its own subject.
-    monkeypatch.setattr(
-        EnvConfig, "LOWER_TRAIN_UPPER_BID_CIRCULATION_SCREEN", False
-    )
-    monkeypatch.setattr(
-        EnvConfig, "LOWER_TRAIN_UPPER_BID_CIRCULATION_CUT", False
-    )
+    _without_the_circulation(monkeypatch)
     scenario = _limited_down_scenario("direct_unknown_fallback")
     problem = _one_block_problem([scenario])
     initial = _seed([10.0])

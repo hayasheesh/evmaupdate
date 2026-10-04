@@ -27,7 +27,6 @@ The update sequence is:
 import copy
 import math
 import os
-import pickle
 
 import torch
 import torch .nn as nn
@@ -45,21 +44,15 @@ LOCAL_CRITIC_HIDDEN_SIZE ,GLOBAL_CRITIC_HIDDEN_SIZE ,
 LR_ACTOR ,LR_CRITIC_LOCAL ,LR_GLOBAL_CRITIC ,LOCAL_REWARD_SCALE ,
 RANDOM_ACTION_RANGE ,SMOOTHL1_BETA ,
 EPSILON_START_EPISODE ,EPSILON_END_EPISODE ,EPSILON_INITIAL ,EPSILON_FINAL ,
-    OU_NOISE_START_EPISODE ,OU_NOISE_END_EPISODE ,
-    OU_NOISE_SCALE_INITIAL ,OU_NOISE_SCALE_FINAL ,OU_NOISE_GAIN ,
-    GLOBAL_CORRELATED_NOISE_GAIN ,
+OU_NOISE_START_EPISODE ,OU_NOISE_END_EPISODE ,
+OU_NOISE_SCALE_INITIAL ,OU_NOISE_SCALE_FINAL ,OU_NOISE_GAIN ,
 OU_SIGMA ,OU_CLIP ,
 TD3_SIGMA_GLOBAL ,TD3_CLIP_GLOBAL ,
 POLICY_DELAY ,
 MEMORY_SIZE ,WARMUP_STEPS ,
-REPLAY_SNAPSHOT_MAX_TRANSITIONS ,
-REPLAY_SNAPSHOT_SAVE_ENABLE ,
 Q_MIX_GLOBAL_WEIGHT ,
-GLOBAL_CRITIC_USE_TWIN ,
-USE_VECTORIZED_GLOBAL_ACTOR_UPDATE ,
-EV_CAPACITY ,POWER_TO_ENERGY ,TRAIN_FORCE_CHARGING ,TRAIN_FORCE_SLACK_KWH ,EPISODE_STEPS ,
-LOCAL_CRITIC_PER_EV ,STATION_RULE_ALLOCATION ,STATION_SOC_FLOOR ,
-MAX_EV_POWER_KW ,MAX_EV_PER_STATION ,EV_CHARGER_POWER_OBS_SCALE_KW ,
+POWER_TO_ENERGY ,
+MAX_EV_PER_STATION ,EV_CHARGER_POWER_OBS_SCALE_KW ,
 BIAS_GRAD_CLIP_MAX ,GRAD_CLIP_MAX ,GRAD_CLIP_MAX_GLOBAL ,
 )
 
@@ -70,42 +63,20 @@ LOCAL_TAIL_DIM ,
 LOCAL_TAIL_FEATURE_NAMES ,GLOBAL_TAIL_FEATURE_NAMES ,
 )
 
-try :
-    from .actor import Actor
-    from .critic import LocalEvMLPCritic ,LocalPerEvCritic ,GlobalMLPCritic
-    from .replay_buffer import ReplayBuffer
-    from .noise import (
-    GaussianNoise ,
-    linear_epsilon_decay ,
-    )
-except ImportError :
-    from actor import Actor
-    from critic import LocalEvMLPCritic ,LocalPerEvCritic ,GlobalMLPCritic
-    from replay_buffer import ReplayBuffer
-    from noise import (
-    GaussianNoise ,
-    linear_epsilon_decay ,
-    )
-
-
-from environment.force_floor import force_floor_fraction
-from environment.station_allocation import allocate_by_laxity ,laxity_steps
+from .actor import Actor
+from .critic import LocalEvMLPCritic ,GlobalMLPCritic
+from .replay_buffer import ReplayBuffer
+from .noise import (
+GaussianNoise ,
+linear_epsilon_decay ,
+)
 
 device =torch .device ("cuda"if torch .cuda .is_available ()else "cpu")
 
 
-def _ev_feature_index (name :str )->int |None :
-    try :
-        return EV_FEATURE_NAMES .index (name )
-    except ValueError :
-        return None
-
-
-SOC_FEATURE_IDX =_ev_feature_index ("soc")
-CAPACITY_FEATURE_IDX =_ev_feature_index ("battery_capacity_kwh")
-MAX_POWER_FEATURE_IDX =_ev_feature_index ("max_power_kw")
-REMAINING_FEATURE_IDX =_ev_feature_index ("remaining_time")
-NEEDED_FEATURE_IDX =_ev_feature_index ("needed_soc")
+SOC_FEATURE_IDX =EV_FEATURE_NAMES .index ("soc")
+CAPACITY_FEATURE_IDX =EV_FEATURE_NAMES .index ("battery_capacity_kwh")
+MAX_POWER_FEATURE_IDX =EV_FEATURE_NAMES .index ("max_power_kw")
 
 
 def _clip_bias_gradients (model ,max_norm =1.0 ):
@@ -242,19 +213,16 @@ class MADDPG :
         self .ou_noise_scale_initial =OU_NOISE_SCALE_INITIAL
         self .ou_noise_scale_final =OU_NOISE_SCALE_FINAL
         self .ou_noise_scale =self .ou_noise_scale_initial
-        self .global_correlated_noise_gain =float (GLOBAL_CORRELATED_NOISE_GAIN )
 
         self .ou_noise =GaussianNoise (
-        n_agent ,1 if STATION_RULE_ALLOCATION else max_evs_per_station ,
+        n_agent ,max_evs_per_station ,
         sigma =float (OU_SIGMA ),
         clip =float (OU_CLIP )if OU_CLIP is not None and OU_CLIP >0 else None ,
         )
 
         self .test_mode =False
 
-        self .per_ev_local =bool (LOCAL_CRITIC_PER_EV )
-        self ._slot_ids_s =None
-        self .buf =ReplayBuffer (cap =int (MEMORY_SIZE ),per_ev_local =self .per_ev_local )
+        self .buf =ReplayBuffer (cap =int (MEMORY_SIZE ))
         self .buf .maddpg_ref =self
         self .max_evs =max_evs_per_station
 
@@ -269,20 +237,12 @@ class MADDPG :
         self .station_state_dim =self .ev_state_dim *self .max_evs +self .local_tail_dim
 
         self .actors =[
-        Actor (s_dim ,max_evs_per_station ,station_state_dim =self .station_state_dim ,
-        station_total =STATION_RULE_ALLOCATION ).to (device )
+        Actor (s_dim ,max_evs_per_station ,station_state_dim =self .station_state_dim ).to (device )
         for _ in range (n_agent )
         ]
         self .t_actors =[copy .deepcopy (ac )for ac in self .actors ]
 
         def local_critic ():
-            if self .per_ev_local :
-                return LocalPerEvCritic (
-                ev_feat_dim =EV_FEAT_DIM ,
-                max_evs =max_evs_per_station ,
-                hid =LOCAL_CRITIC_HIDDEN_SIZE ,
-                station_state_dim =self .station_state_dim ,
-                ).to (device )
             return LocalEvMLPCritic (
             ev_feat_dim =EV_FEAT_DIM ,
             a_dim =max_evs_per_station ,
@@ -328,18 +288,15 @@ class MADDPG :
         hid =GLOBAL_CRITIC_HIDDEN_SIZE ,
         station_state_dim =self ._global_station_dim ,
         init_gain =0.3 ,
-        ).to (device )if bool (GLOBAL_CRITIC_USE_TWIN )else None
+        ).to (device )
         self .t_global_critic1 =copy .deepcopy (self .global_critic1 )
-        self .t_global_critic2 =copy .deepcopy (self .global_critic2 )if self .global_critic2 is not None else None
+        self .t_global_critic2 =copy .deepcopy (self .global_critic2 )
 
         self .opt_a =[optim .Adam (self .actors [i ].parameters (),lr =lr_a )for i in range (n_agent )]
         self .opt_c =[optim .Adam (self .critics [i ].parameters (),lr =lr_c )for i in range (n_agent )]
         self .opt_c2 =[optim .Adam (self .critics2 [i ].parameters (),lr =lr_c )for i in range (n_agent )]
         self .opt_global_c1 =optim .Adam (self .global_critic1 .parameters (),lr =self .lr_global_c )
-        self .opt_global_c2 =(
-        optim .Adam (self .global_critic2 .parameters (),lr =self .lr_global_c )
-        if self .global_critic2 is not None else None
-        )
+        self .opt_global_c2 =optim .Adam (self .global_critic2 .parameters (),lr =self .lr_global_c )
 
         self .loss_fn =nn .SmoothL1Loss (beta =smoothl1_beta )
 
@@ -350,13 +307,7 @@ class MADDPG :
 
         self .policy_delay =max (1 ,int (POLICY_DELAY ))
 
-        # Gradient updates are gated on this, not on Config.WARMUP_STEPS
-        # directly: fine-tune runs start from a trained checkpoint and use a
-        # much smaller warmup (see EnvConfig.FINETUNE_WARMUP_STEPS). Reading
-        # the module constant here would silently keep the from-scratch 7000
-        # threshold, so train()'s shortened warmup would end the warmup loop
-        # while update() still returned early -- episodes that roll the
-        # environment but never learn.
+        # Gradient updates start once the buffer holds this many transitions.
         self .warmup_steps =int (WARMUP_STEPS )
 
         self .update_step =0
@@ -415,54 +366,12 @@ class MADDPG :
 
     def _extract_ev_physics (self ,ev_block ):
         """Return SoC percent, capacity kWh, and per-slot max power from EV features."""
-        if SOC_FEATURE_IDX is None :
-            current_socs =denormalize_soc (ev_block [...,1 ])
-        else :
-            current_socs =denormalize_soc (ev_block [...,SOC_FEATURE_IDX ])
-
-        if CAPACITY_FEATURE_IDX is None :
-            capacity_kwh =torch .full_like (current_socs ,float (EV_CAPACITY ))
-        else :
-            capacity_kwh =denormalize_ev_capacity_kwh (ev_block [...,CAPACITY_FEATURE_IDX ])
-            capacity_kwh =torch .clamp (capacity_kwh ,min =1e-6 )
-
-        if MAX_POWER_FEATURE_IDX is None :
-            max_power_kw =torch .full_like (current_socs ,float (MAX_EV_POWER_KW ))
-        else :
-            max_power_kw =denormalize_ev_max_power_kw (ev_block [...,MAX_POWER_FEATURE_IDX ])
-            max_power_kw =torch .clamp (max_power_kw ,min =0.0 )
-
+        current_socs =denormalize_soc (ev_block [...,SOC_FEATURE_IDX ])
+        capacity_kwh =denormalize_ev_capacity_kwh (ev_block [...,CAPACITY_FEATURE_IDX ])
+        capacity_kwh =torch .clamp (capacity_kwh ,min =1e-6 )
+        max_power_kw =denormalize_ev_max_power_kw (ev_block [...,MAX_POWER_FEATURE_IDX ])
+        max_power_kw =torch .clamp (max_power_kw ,min =0.0 )
         return current_socs ,capacity_kwh ,max_power_kw
-
-    def _force_floor_kw (self ,ev_block ,capacity_kwh ,max_power_kw ):
-        """The departure force-charging floor in kW per slot, or None when training without it.
-
-        Read from the observation the environment built: remaining steps and
-        SoC points still needed, with the EV's capacity and rating. It is the
-        floor the environment applied when the transition was recorded, so the
-        learner values only actions the environment would have executed.
-        """
-        if not TRAIN_FORCE_CHARGING :
-            return None
-        return MADDPG ._soc_floor_kw (ev_block ,capacity_kwh ,max_power_kw )
-
-    @staticmethod
-    def _soc_floor_kw (ev_block ,capacity_kwh ,max_power_kw ):
-        """The departure force-charging floor in kW per slot, from the observation.
-
-        training.system_controller.apply_force_charging with slack
-        TRAIN_FORCE_SLACK_KWH: the lowest power that keeps the EV's target
-        reachable at full rating over its remaining steps.
-        """
-        if REMAINING_FEATURE_IDX is None or NEEDED_FEATURE_IDX is None :
-            return None
-        remaining_steps =ev_block [...,REMAINING_FEATURE_IDX ]*float (EPISODE_STEPS )
-        need_soc_pct =ev_block [...,NEEDED_FEATURE_IDX ]*100.0
-        floor =force_floor_fraction (
-        need_soc_pct ,torch .round (remaining_steps ),capacity_kwh ,max_power_kw ,
-        float (POWER_TO_ENERGY ),slack_kwh =float (TRAIN_FORCE_SLACK_KWH ),
-        )
-        return floor *max_power_kw
 
     def _ev_physics_factors (self ,capacity_kwh ,max_power_kw ):
         safe_capacity_kwh =torch .clamp (capacity_kwh ,min =1e-6 )
@@ -477,82 +386,24 @@ class MADDPG :
             inv_max_power_kw =torch .reciprocal (torch .clamp (max_power_kw ,min =1e-6 ))
         return torch .clamp (power_kw *inv_max_power_kw ,-1.0 ,1.0 )
 
-    def _rule_laxity (self ,ev_block ,capacity_kwh ,max_power_kw ):
-        """Each slot's laxity in steps, read from the observation (see environment/station_allocation)."""
-        remaining_steps =torch .round (ev_block [...,REMAINING_FEATURE_IDX ]*float (EPISODE_STEPS ))
-        need_soc_pct =ev_block [...,NEEDED_FEATURE_IDX ]*100.0
-        return laxity_steps (remaining_steps ,need_soc_pct ,capacity_kwh ,max_power_kw ,float (POWER_TO_ENERGY ))
-
     def _apply_soc_constraint (
     self ,actions_kw ,current_socs ,ev_padding_mask =None ,use_ste =False ,
-    capacity_kwh =None ,max_power_kw =None ,
-    soc_step_per_kw =None ,kw_per_soc_step =None ,floor_kw =None ,ev_block =None ,
+    max_power_kw =None ,soc_step_per_kw =None ,kw_per_soc_step =None ,
     ):
         """
-        Map a station scalar through the local rule, or clip per-EV kW actions.
+        Clip per-EV kW actions to each charger and to one step of SoC.
 
-        In station-rule mode `actions_kw` carries one normalized scalar per
-        station, which the rule converts to per-EV kW. Otherwise it carries
-        per-EV kW. The final one-step energy change is bounded by EV SoC.
-        With `use_ste`, this last bound keeps a straight-through gradient.
+        The final one-step energy change is bounded by EV SoC. With `use_ste`,
+        both bounds keep a straight-through gradient.
         """
-        if soc_step_per_kw is None or kw_per_soc_step is None :
-            if capacity_kwh is None :
-                capacity_kwh =torch .full_like (current_socs ,float (EV_CAPACITY ))
-            capacity_kwh =torch .clamp (capacity_kwh ,min =1e-6 )
-            soc_step_per_kw =float (POWER_TO_ENERGY )*100.0 /capacity_kwh
-            kw_per_soc_step =capacity_kwh /(100.0 *float (POWER_TO_ENERGY ))
-
-        if STATION_RULE_ALLOCATION :
-            if ev_block is None or max_power_kw is None or capacity_kwh is None :
-                raise ValueError ("station-total action requires EV observations and physics")
-            if actions_kw .shape [-1 ]!=1 :
-                raise ValueError ("station-total actor must emit one scalar per station")
+        bounded_actions_kw =actions_kw
+        if max_power_kw is not None :
             max_power_kw =torch .clamp (max_power_kw ,min =0.0 )
-            # The one actor action is a fraction of the station's feasible
-            # charge or discharge range. No EV-specific proposal is clipped
-            # before the station total is chosen.
-            lo_kw =torch .maximum (-max_power_kw ,-current_socs *kw_per_soc_step )
-            hi_kw =torch .minimum (max_power_kw ,(100.0 -current_socs )*kw_per_soc_step )
-            present =(ev_block [...,0 ]>0.5 )
-            base_kw =torch .zeros_like (lo_kw )
-            if STATION_SOC_FLOOR :
-                # Each EV's force-charging floor is reserved first: a
-                # positive floor is charged regardless of the actor, a
-                # negative one limits how far the EV may discharge.
-                soc_floor =torch .minimum (torch .maximum (
-                self ._soc_floor_kw (ev_block ,capacity_kwh ,max_power_kw ),lo_kw ),hi_kw )
-                lo_kw =torch .maximum (lo_kw ,soc_floor )
-                base_kw =torch .where (present ,torch .clamp (lo_kw ,min =0.0 ),torch .zeros_like (lo_kw ))
-            up_kw =torch .where (present ,torch .clamp (hi_kw -base_kw ,min =0.0 ),torch .zeros_like (hi_kw ))
-            down_kw =torch .where (present ,torch .clamp (base_kw -lo_kw ,min =0.0 ),torch .zeros_like (lo_kw ))
-            station_action =torch .clamp (actions_kw .squeeze (-1 ),-1.0 ,1.0 )
-            # The action is a fraction of the station's room above (charge) or
-            # below (discharge) what the floors already fix.
-            station_extra_kw =torch .where (
-            station_action >=0.0 ,station_action *up_kw .sum (dim =-1 ),station_action *down_kw .sum (dim =-1 )
-            )
-            bounded_actions_kw =base_kw +allocate_by_laxity (
-            station_extra_kw ,-down_kw ,up_kw ,
-            self ._rule_laxity (ev_block ,capacity_kwh ,max_power_kw ),present ,
-            )
-        else :
-            bounded_actions_kw =actions_kw
-            if max_power_kw is not None :
-                max_power_kw =torch .clamp (max_power_kw ,min =0.0 )
-                bounded =torch .clamp (actions_kw ,-max_power_kw ,max_power_kw )
-                if use_ste :
-                    bounded_actions_kw =actions_kw +(bounded -actions_kw ).detach ()
-                else :
-                    bounded_actions_kw =bounded
-
-        if floor_kw is not None :
-            # The departure force-charging floor, applied as the environment did.
-            lifted =torch .maximum (bounded_actions_kw ,floor_kw )
+            bounded =torch .clamp (actions_kw ,-max_power_kw ,max_power_kw )
             if use_ste :
-                bounded_actions_kw =bounded_actions_kw +(lifted -bounded_actions_kw ).detach ()
+                bounded_actions_kw =actions_kw +(bounded -actions_kw ).detach ()
             else :
-                bounded_actions_kw =lifted
+                bounded_actions_kw =bounded
 
         proposed_delta_soc =bounded_actions_kw *soc_step_per_kw
         max_charge =100.0 -current_socs
@@ -583,16 +434,9 @@ class MADDPG :
         self .active_evs_tensor =self .active_evs
         if env is not None :
             self .env =env
-            if self .per_ev_local and not self .test_mode :
-                # Which EV is in each slot of this observation, to find the same
-                # EV in the next one when the transition is stored.
-                self ._slot_ids_s =env .slot_ev_ids ()
 
-        action_width =1 if STATION_RULE_ALLOCATION else self .max_evs
-        tensor_actions =torch .zeros ((self .n ,action_width ),dtype =torch .float32 ,device =device )
-        action_mask =(
-        (self .active_evs >0 ).unsqueeze (-1 )if STATION_RULE_ALLOCATION else active_slot_mask
-        )
+        tensor_actions =torch .zeros ((self .n ,self .max_evs ),dtype =torch .float32 ,device =device )
+        action_mask =active_slot_mask
 
         # Sample one noise tensor for the whole step. active_slot_mask gates which
         # slots actually receive it.
@@ -600,23 +444,6 @@ class MADDPG :
         step_noise =None
         if is_training and self .ou_noise_scale >0.0 :
             step_noise =self .ou_noise .sample (action_mask )
-        global_step_noise =None
-        if (
-        is_training
-        and self .global_correlated_noise_gain >0.0
-        and self .ou_noise_scale >0.0
-        ):
-            global_step_noise =torch .randn ((),device =device )*float (OU_SIGMA )
-            if OU_CLIP is not None and OU_CLIP >0 :
-                global_step_noise =torch .clamp (
-                global_step_noise ,-float (OU_CLIP ),float (OU_CLIP )
-                )
-            global_step_noise =(
-            float (OU_NOISE_GAIN )
-            *float (self .ou_noise_scale )
-            *float (self .global_correlated_noise_gain )
-            *global_step_noise
-            )
 
         with torch .no_grad ():
             for agent_idx in range (self .n ):
@@ -625,18 +452,11 @@ class MADDPG :
                 slot_mask =action_mask [agent_idx ]
 
                 if is_training :
-                    # Shared low-frequency component keeps aggregate dispatch
-                    # exploration from vanishing when many independent slot
-                    # noises cancel out across stations.
-                    if global_step_noise is not None :
-                        a =a +global_step_noise
-
                     # 1) Continuous Gaussian perturbation on the policy output.
                     if step_noise is not None :
                         a =a +(OU_NOISE_GAIN *self .ou_noise_scale )*step_noise [agent_idx ]
 
-                    # In station-total mode the one action is replaced as a
-                    # unit; otherwise exploration remains per EV slot.
+                    # 2) Per-slot epsilon-greedy replacement.
                     eps_now =float (self .epsilon )
                     if eps_now >0.0 :
                         mask =(torch .rand_like (a )<eps_now )&slot_mask
@@ -646,21 +466,6 @@ class MADDPG :
 
                 a =torch .clamp (a ,-1.0 ,1.0 )
                 tensor_actions [agent_idx ]=a .masked_fill (~slot_mask ,0.0 )
-
-            if STATION_RULE_ALLOCATION :
-                # The actor emitted one normalized total per station. The rule
-                # turns that scalar into EV actions before EVEnv sees them.
-                socs ,capacity_kwh ,max_power_kw =self ._extract_ev_physics (ev_block )
-                soc_step_per_kw ,kw_per_soc_step ,inv_max_power_kw =self ._ev_physics_factors (capacity_kwh ,max_power_kw )
-                split_kw ,_ =self ._apply_soc_constraint (
-                tensor_actions .unsqueeze (0 ),socs .unsqueeze (0 ),(~active_slot_mask ).unsqueeze (0 ),
-                capacity_kwh =capacity_kwh .unsqueeze (0 ),max_power_kw =max_power_kw .unsqueeze (0 ),
-                soc_step_per_kw =soc_step_per_kw .unsqueeze (0 ),kw_per_soc_step =kw_per_soc_step .unsqueeze (0 ),
-                ev_block =ev_block .unsqueeze (0 ),
-                )
-                tensor_actions =self ._normalize_power_by_limit (
-                split_kw .squeeze (0 ),max_power_kw ,inv_max_power_kw
-                ).masked_fill (~active_slot_mask ,0.0 )
 
         return tensor_actions
 
@@ -720,15 +525,13 @@ class MADDPG :
         presence_mask_s2 =(ev_block_s2 [...,0 ]<=0.5 )
         ev_padding_mask_s2 =presence_mask_s2
 
-        # With the SoC floor in the station rule, SoC is not learned: the
-        # local critics are neither trained nor used by the actors.
-        skip_local =(Q_MIX_GLOBAL_WEIGHT ==1.0 )or bool (STATION_SOC_FLOOR )
-        skip_global =(Q_MIX_GLOBAL_WEIGHT ==0.0 )
+        # w = 1 trains the actors from the global critic alone (ABG); the
+        # local critics are then not updated.
+        skip_local =(Q_MIX_GLOBAL_WEIGHT ==1.0 )
         # Station power enters the critics divided by what ten chargers of the
-        # largest rating can draw; the 27.5 kW homogeneous rating would clip
-        # a station of high-rated chargers at +-275 kW.
+        # largest rating can draw.
         max_station_power =EV_CHARGER_POWER_OBS_SCALE_KW *MAX_EV_PER_STATION
-        w_eff =1.0 if STATION_SOC_FLOOR else Q_MIX_GLOBAL_WEIGHT
+        w_eff =Q_MIX_GLOBAL_WEIGHT
 
         return {
         's':s ,'s2':s2 ,
@@ -753,7 +556,7 @@ class MADDPG :
         'ev_padding_mask':ev_padding_mask ,
         'ev_padding_mask_s2':ev_padding_mask_s2 ,
         'key_padding_mask':key_padding_mask ,
-        'skip_local':skip_local ,'skip_global':skip_global ,
+        'skip_local':skip_local ,
         'max_station_power':max_station_power ,
         'w_eff':w_eff ,
         }
@@ -782,7 +585,6 @@ class MADDPG :
         ev_padding_mask_s2 =ctx ['ev_padding_mask_s2']
         max_station_power =ctx ['max_station_power']
         current_socs_s2 =ctx ['current_socs_s2']
-        capacity_kwh_s2 =ctx ['capacity_kwh_s2']
         max_power_kw_s2 =ctx ['max_power_kw_s2']
         soc_step_per_kw_s2 =ctx ['soc_step_per_kw_s2']
         kw_per_soc_step_s2 =ctx ['kw_per_soc_step_s2']
@@ -798,16 +600,11 @@ class MADDPG :
             next_actions_all =next_actions_all +local_noise
             next_actions_all =torch .clamp (next_actions_all ,-1.0 ,1.0 )
 
-            next_actions_kw =(
-            next_actions_all if STATION_RULE_ALLOCATION
-            else next_actions_all *max_power_kw_s2
-            )
+            next_actions_kw =next_actions_all *max_power_kw_s2
             next_actions_clamped ,next_agent_powers =self ._apply_soc_constraint (
             next_actions_kw ,current_socs_s2 ,ev_padding_mask_s2 ,
-            capacity_kwh =capacity_kwh_s2 ,max_power_kw =max_power_kw_s2 ,
+            max_power_kw =max_power_kw_s2 ,
             soc_step_per_kw =soc_step_per_kw_s2 ,kw_per_soc_step =kw_per_soc_step_s2 ,
-            floor_kw =self ._force_floor_kw (ctx ['ev_block_s2'],capacity_kwh_s2 ,max_power_kw_s2 ),
-            ev_block =ctx ['ev_block_s2'],
             )
             next_powers_norm =torch .clamp (next_agent_powers /max_station_power ,-1.0 ,1.0 )
             next_actions_normalized =self ._normalize_power_by_limit (
@@ -815,17 +612,6 @@ class MADDPG :
             )
             target_qs =[]
             for i in range (self .n ):
-                if self .per_ev_local :
-                    # Each EV's value at s2, carried back to the slot the same
-                    # EV held at s; an EV that left has no continuation.
-                    tq_s2 =torch .minimum (
-                    self .t_critics [i ].per_ev (s2 [:,i ,:],next_actions_normalized [:,i ,:]),
-                    self .t_critics2 [i ].per_ev (s2 [:,i ,:],next_actions_normalized [:,i ,:]),
-                    )
-                    next_slot_i =ctx ['next_slot'][:,i ,:]
-                    tq =torch .gather (tq_s2 ,1 ,next_slot_i .clamp (min =0 ))*(next_slot_i >=0 ).float ()
-                    target_qs .append (torch .nan_to_num_ (tq ,nan =0.0 ,posinf =0.0 ,neginf =0.0 ))
-                    continue
                 tq1 =self .t_critics [i ](
                 s2 [:,i ,:],next_actions_normalized [:,i ,:],
                 actual_station_powers =next_powers_norm [:,i ],
@@ -840,7 +626,7 @@ class MADDPG :
 
         y_targets =[]
         for i in range (self .n ):
-            reward =ctx ['r_ev_local'][:,i ,:]if self .per_ev_local else r_local [:,i :i +1 ]
+            reward =r_local [:,i :i +1 ]
             y =LOCAL_REWARD_SCALE *reward +self .gamma *target_qs [i ]*(1 -d [:,i :i +1 ])
             y_targets .append (torch .nan_to_num_ (y ,nan =0.0 ,posinf =0.0 ,neginf =0.0 ))
 
@@ -850,20 +636,13 @@ class MADDPG :
 
         q_vals =[]
         q_vals2 =[]
-        loss_masks =[]
         for i in range (self .n ):
-            if self .per_ev_local :
-                q_val =self .critics [i ].per_ev (s [:,i ,:],a_actual [:,i ,:])
-                q_val2 =self .critics2 [i ].per_ev (s [:,i ,:],a_actual [:,i ,:])
-                loss_masks .append ((~ctx ['ev_padding_mask'][:,i ,:]).float ())
-            else :
-                q_val =self .critics [i ](
-                s [:,i ,:],a_actual [:,i ,:],actual_station_powers =powers_norm [:,i ]
-                )
-                q_val2 =self .critics2 [i ](
-                s [:,i ,:],a_actual [:,i ,:],actual_station_powers =powers_norm [:,i ]
-                )
-                loss_masks .append (None )
+            q_val =self .critics [i ](
+            s [:,i ,:],a_actual [:,i ,:],actual_station_powers =powers_norm [:,i ]
+            )
+            q_val2 =self .critics2 [i ](
+            s [:,i ,:],a_actual [:,i ,:],actual_station_powers =powers_norm [:,i ]
+            )
             q_vals .append (torch .nan_to_num_ (q_val ,nan =0.0 ,posinf =0.0 ,neginf =0.0 ))
             q_vals2 .append (torch .nan_to_num_ (q_val2 ,nan =0.0 ,posinf =0.0 ,neginf =0.0 ))
 
@@ -881,21 +660,14 @@ class MADDPG :
         for i in range (self .n ):
             per_sample_loss1 =F .smooth_l1_loss (q_vals [i ],y_targets [i ],beta =SMOOTHL1_BETA ,reduction ='none').squeeze (-1 )
             per_sample_loss2 =F .smooth_l1_loss (q_vals2 [i ],y_targets [i ],beta =SMOOTHL1_BETA ,reduction ='none').squeeze (-1 )
-            if loss_masks [i ]is not None :
-                # Per-EV losses averaged over the EVs present at s.
-                count =loss_masks [i ].sum ().clamp (min =1.0 )
-                loss_c1 =(per_sample_loss1 *loss_masks [i ]).sum ()/count
-                loss_c2 =(per_sample_loss2 *loss_masks [i ]).sum ()/count
-            else :
-                loss_c1 =per_sample_loss1 .mean ()
-                loss_c2 =per_sample_loss2 .mean ()
+            loss_c1 =per_sample_loss1 .mean ()
+            loss_c2 =per_sample_loss2 .mean ()
             loss_c1 =torch .nan_to_num_ (loss_c1 ,nan =0.0 ,posinf =0.0 ,neginf =0.0 )
             loss_c2 =torch .nan_to_num_ (loss_c2 ,nan =0.0 ,posinf =0.0 ,neginf =0.0 )
             loss_pair =loss_c1 +loss_c2
             critic_loss_tensors .append ((0.5 *(loss_c1 +loss_c2 )).detach ())
 
             with torch .no_grad ():
-                # Station values: per-EV critics are compared on their sums.
                 local_q_gap_tensors .append ((q_vals [i ].sum (dim =1 )-q_vals2 [i ].sum (dim =1 )).abs ().mean ().detach ())
 
             self .opt_c [i ].zero_grad ()
@@ -1012,8 +784,7 @@ class MADDPG :
             modules .extend (self .critics2 )
         if include_global :
             modules .append (self .global_critic1 )
-            if self .global_critic2 is not None :
-                modules .append (self .global_critic2 )
+            modules .append (self .global_critic2 )
 
         states =[]
         for module in modules :
@@ -1033,7 +804,8 @@ class MADDPG :
         Update station actors with an explicit local/global gradient mixture.
 
         For station i, the local gradient is taken from its local critic. The
-        global gradient is taken from the twin global critic. The applied
+        global gradient is taken from the twin global critic, computed once on
+        the shared global graph and split by actor parameters. The applied
         gradient is `g_mix = (1 - w_eff) * g_local + w_eff * g_global`; the
         separate norms and cosine are recorded to diagnose objective conflict.
         """
@@ -1041,71 +813,51 @@ class MADDPG :
         ev_padding_mask =ctx ['ev_padding_mask']
         key_padding_mask =ctx ['key_padding_mask']
         batch_size =ctx ['batch_size']
-        skip_local ,skip_global =ctx ['skip_local'],ctx ['skip_global']
+        skip_local =ctx ['skip_local']
         max_station_power =ctx ['max_station_power']
         w_eff =ctx ['w_eff']
         current_socs_all =ctx ['current_socs']
-        capacity_kwh_all =ctx ['capacity_kwh']
         max_power_kw_all =ctx ['max_power_kw']
         soc_step_per_kw_all =ctx ['soc_step_per_kw']
         kw_per_soc_step_all =ctx ['kw_per_soc_step']
         inv_max_power_kw_all =ctx ['inv_max_power_kw']
         actor_clip_count =0
-        use_vectorized_global_actor_update =bool (USE_VECTORIZED_GLOBAL_ACTOR_UPDATE )
         critic_grad_states =self ._set_critic_requires_grad_for_actor_update (
-        False ,include_local =not skip_local ,include_global =not skip_global
+        False ,include_local =not skip_local ,include_global =True
         )
 
         current_actions =[self .actors [i ](s [:,i ,:])for i in range (self .n )]
         cur_a_all_new =torch .stack (current_actions ,dim =1 )
-        actions_all =(
-        cur_a_all_new if STATION_RULE_ALLOCATION
-        else cur_a_all_new *max_power_kw_all
-        )
-
-        if ev_padding_mask is not None and not STATION_RULE_ALLOCATION :
-            actions_all =actions_all .masked_fill (ev_padding_mask ,0.0 )
+        actions_all =cur_a_all_new *max_power_kw_all
+        actions_all =actions_all .masked_fill (ev_padding_mask ,0.0 )
 
         clamped_actions_all ,recomputed_actual_station_powers =self ._apply_soc_constraint (
         actions_all ,current_socs_all ,ev_padding_mask ,use_ste =True ,
-        capacity_kwh =capacity_kwh_all ,max_power_kw =max_power_kw_all ,
+        max_power_kw =max_power_kw_all ,
         soc_step_per_kw =soc_step_per_kw_all ,kw_per_soc_step =kw_per_soc_step_all ,
-        floor_kw =self ._force_floor_kw (ctx ['ev_block'],capacity_kwh_all ,max_power_kw_all ),
-        ev_block =ctx ['ev_block'],
         )
-        clamped_actions_all_critic =clamped_actions_all
 
-        s_global_actor =None
-        recomputed_actual_station_powers_normalized =None
-        if not skip_global :
-            s_global_actor =self ._convert_to_global_critic_obs (
-            s ,recomputed_actual_station_powers )
-            recomputed_actual_station_powers_normalized =torch .clamp (
-            recomputed_actual_station_powers /max_station_power ,-1.0 ,1.0
-            )
+        s_global_actor =self ._convert_to_global_critic_obs (
+        s ,recomputed_actual_station_powers )
+        recomputed_actual_station_powers_normalized =torch .clamp (
+        recomputed_actual_station_powers /max_station_power ,-1.0 ,1.0
+        )
 
-        q_g_mean_shared =torch .zeros ((),device =device )
-        if not skip_global and use_vectorized_global_actor_update :
-            a_all_kw_masked =clamped_actions_all .masked_fill (ev_padding_mask ,0.0 )
-            a_all_kw_normalized =self ._normalize_power_by_limit (
-            a_all_kw_masked ,max_power_kw_all ,inv_max_power_kw_all
-            )
-            q1_shared ,_ =self .global_critic1 (
-            s_global_actor ,a_all_kw_normalized ,key_padding_mask ,
-            actual_station_powers =recomputed_actual_station_powers_normalized ,
-            )
-            if self .global_critic2 is not None :
-                q2_shared ,_ =self .global_critic2 (
-                s_global_actor ,a_all_kw_normalized ,key_padding_mask ,
-                actual_station_powers =recomputed_actual_station_powers_normalized ,
-                )
-                q_global_shared =torch .minimum (q1_shared ,q2_shared )
-            else :
-                q_global_shared =q1_shared
-            # Values are identical to the old per-station global critic call;
-            # only the gradient extraction below is split by actor parameters.
-            q_global_shared =torch .nan_to_num_ (q_global_shared ,nan =0.0 ,posinf =0.0 ,neginf =0.0 )
-            q_g_mean_shared =q_global_shared .mean ()
+        a_all_kw_masked =clamped_actions_all .masked_fill (ev_padding_mask ,0.0 )
+        a_all_kw_normalized =self ._normalize_power_by_limit (
+        a_all_kw_masked ,max_power_kw_all ,inv_max_power_kw_all
+        )
+        q1_shared ,_ =self .global_critic1 (
+        s_global_actor ,a_all_kw_normalized ,key_padding_mask ,
+        actual_station_powers =recomputed_actual_station_powers_normalized ,
+        )
+        q2_shared ,_ =self .global_critic2 (
+        s_global_actor ,a_all_kw_normalized ,key_padding_mask ,
+        actual_station_powers =recomputed_actual_station_powers_normalized ,
+        )
+        q_global_shared =torch .minimum (q1_shared ,q2_shared )
+        q_global_shared =torch .nan_to_num_ (q_global_shared ,nan =0.0 ,posinf =0.0 ,neginf =0.0 )
+        q_g_mean_shared =q_global_shared .mean ()
 
         self .actor_losses =[0.0 ]*self .n
         self .actor_clip_counts =[0 ]*self .n
@@ -1117,16 +869,15 @@ class MADDPG :
         actors_ready_to_step =[]
         actor_param_groups =[list (self .actors [i ].parameters ())for i in range (self .n )]
         global_grads_by_actor =[[None ]*len (params )for params in actor_param_groups ]
-        if not skip_global and use_vectorized_global_actor_update :
-            all_actor_params =[p for params in actor_param_groups for p in params ]
-            global_grads_flat =torch .autograd .grad (
-            -q_g_mean_shared ,all_actor_params ,retain_graph =True ,allow_unused =True
-            )
-            offset =0
-            for i ,params in enumerate (actor_param_groups ):
-                width =len (params )
-                global_grads_by_actor [i ]=list (global_grads_flat [offset :offset +width ])
-                offset +=width
+        all_actor_params =[p for params in actor_param_groups for p in params ]
+        global_grads_flat =torch .autograd .grad (
+        -q_g_mean_shared ,all_actor_params ,retain_graph =True ,allow_unused =True
+        )
+        offset =0
+        for i ,params in enumerate (actor_param_groups ):
+            width =len (params )
+            global_grads_by_actor [i ]=list (global_grads_flat [offset :offset +width ])
+            offset +=width
 
         source_local_norm_tensors =[]
         source_global_norm_tensors =[]
@@ -1150,7 +901,7 @@ class MADDPG :
             else :
                 s_flat_i =s [:,i ,:]
                 agent_a =torch .clamp (
-                clamped_actions_all_critic [:,i ,:]*inv_max_power_kw_all [:,i ,:],-1.0 ,1.0 )
+                clamped_actions_all [:,i ,:]*inv_max_power_kw_all [:,i ,:],-1.0 ,1.0 )
                 q_local =self .critics [i ](
                 s_flat_i ,agent_a ,actual_station_powers =agent_actual_power_normalized )
 
@@ -1171,32 +922,6 @@ class MADDPG :
                 local_grads =list (torch .autograd .grad (
                 -q_l_mean ,params ,retain_graph =True ,allow_unused =True
                 ))
-            if not skip_global and not use_vectorized_global_actor_update :
-                a_all_kw =clamped_actions_all .detach ().clone ()
-                a_all_kw [:,i ,:]=clamped_actions_all [:,i ,:]
-                a_all_kw_masked =a_all_kw .masked_fill (ev_padding_mask ,0.0 )
-                a_all_kw_normalized =self ._normalize_power_by_limit (
-                a_all_kw_masked ,max_power_kw_all ,inv_max_power_kw_all
-                )
-                q1 ,_ =self .global_critic1 (
-                s_global_actor ,a_all_kw_normalized ,key_padding_mask ,
-                actual_station_powers =recomputed_actual_station_powers_normalized ,
-                )
-                if self .global_critic2 is not None :
-                    q2 ,_ =self .global_critic2 (
-                    s_global_actor ,a_all_kw_normalized ,key_padding_mask ,
-                    actual_station_powers =recomputed_actual_station_powers_normalized ,
-                    )
-                    q_global =torch .minimum (q1 ,q2 )
-                else :
-                    q_global =q1
-                q_global =torch .nan_to_num_ (q_global ,nan =0.0 ,posinf =0.0 ,neginf =0.0 )
-                q_g_mean =q_global .mean ()
-                global_grads =list (torch .autograd .grad (
-                -q_g_mean ,params ,retain_graph =True ,allow_unused =True
-                ))
-                if i ==0 :
-                    self ._ep_q_raw_global [-1 ]=q_g_mean .detach ()
 
             sq_l =torch .zeros ((),device =device )
             sq_g =torch .zeros ((),device =device )
@@ -1310,7 +1035,7 @@ class MADDPG :
                 grad_norm_before =float (grad_norms_before [i ])
                 grad_norm_after =min (grad_norm_before ,GRAD_CLIP_MAX )
 
-                if bool (grad_finite [i ])and grad_norm_before >5.0 :
+                if bool (grad_finite [i ])and grad_norm_before >GRAD_CLIP_MAX :
                     actor_clip_count +=1
                     if i <len (self .actor_clip_counts ):
                         self .actor_clip_counts [i ]=1
@@ -1350,9 +1075,8 @@ class MADDPG :
         src_global ,tgt_global =[],[]
         for p ,tp in zip (self .global_critic1 .parameters (),self .t_global_critic1 .parameters ()):
             src_global .append (p .data );tgt_global .append (tp .data )
-        if self .global_critic2 is not None and self .t_global_critic2 is not None :
-            for p ,tp in zip (self .global_critic2 .parameters (),self .t_global_critic2 .parameters ()):
-                src_global .append (p .data );tgt_global .append (tp .data )
+        for p ,tp in zip (self .global_critic2 .parameters (),self .t_global_critic2 .parameters ()):
+            src_global .append (p .data );tgt_global .append (tp .data )
         torch ._foreach_lerp_ (tgt_global ,src_global ,self .tau_global )
 
 
@@ -1433,9 +1157,6 @@ class MADDPG :
         shorter than the local discount because dispatch tracking is an
         immediate aggregate-power objective.
         """
-        if ctx ['skip_global']:
-            return
-
         s =ctx ['s']
         a_actual =ctx ['a_actual']
         r_global_n =ctx ['r_global_n']
@@ -1472,16 +1193,11 @@ class MADDPG :
             g_noise =torch .clamp (g_noise ,-self .td3_clip ,self .td3_clip )
             next_a_all =torch .clamp (next_a_all +g_noise ,-1.0 ,1.0 )
 
-            next_a_kw =(
-            next_a_all if STATION_RULE_ALLOCATION
-            else next_a_all *max_power_kw_s2_g
-            )
+            next_a_kw =next_a_all *max_power_kw_s2_g
             clamped_actions_next ,next_station_powers =self ._apply_soc_constraint (
             next_a_kw ,current_socs_s2_g ,ev_padding_mask_for_target ,
-            capacity_kwh =capacity_kwh_s2_g ,max_power_kw =max_power_kw_s2_g ,
+            max_power_kw =max_power_kw_s2_g ,
             soc_step_per_kw =soc_step_per_kw_s2_g ,kw_per_soc_step =kw_per_soc_step_s2_g ,
-            floor_kw =self ._force_floor_kw (ev_block_for_target ,capacity_kwh_s2_g ,max_power_kw_s2_g ),
-            ev_block =ev_block_for_target ,
             )
             s2_global =self ._convert_to_global_critic_obs (s2_for_target ,next_station_powers )
 
@@ -1497,14 +1213,11 @@ class MADDPG :
             s2_global ,next_a_kw_normalized ,key_padding_mask_for_target ,
             actual_station_powers =next_station_powers_normalized ,
             )
-            if self .t_global_critic2 is not None :
-                tq2_s ,_ =self .t_global_critic2 (
-                s2_global ,next_a_kw_normalized ,key_padding_mask_for_target ,
-                actual_station_powers =next_station_powers_normalized ,
-                )
-                target_q_global =torch .min (tq1_s ,tq2_s )
-            else :
-                target_q_global =tq1_s
+            tq2_s ,_ =self .t_global_critic2 (
+            s2_global ,next_a_kw_normalized ,key_padding_mask_for_target ,
+            actual_station_powers =next_station_powers_normalized ,
+            )
+            target_q_global =torch .min (tq1_s ,tq2_s )
 
             # One-step global TD target in the n-step sampler format:
             # y = c_global * (r_global - b_global) + GAMMA_GLOBAL * Q' * (1 - done_any).
@@ -1512,7 +1225,7 @@ class MADDPG :
             # the critic target. With one-step global targets this shifts Q_g
             # by a constant before scaling, preserving the optimal action while
             # reducing the centralized critic's raw gradient scale.
-            # When twin global critics are enabled, Q' is min(Q1', Q2').
+            # Q' is min(Q1', Q2') of the twin target global critics.
             centered_r_global_n =r_global_n -self .global_reward_baseline
             scaled_r_global_n =self .global_reward_scale *centered_r_global_n
             done_mask_global =d_n .max (dim =1 ,keepdim =True )[0 ]
@@ -1530,22 +1243,16 @@ class MADDPG :
         actual_station_powers =actual_station_powers_normalized ,
         )
         q1_s =torch .nan_to_num_ (q1_s ,nan =0.0 ,posinf =0.0 ,neginf =0.0 )
-        if self .global_critic2 is not None :
-            q2_s ,_ =self .global_critic2 (
-            s_global ,a_actual_global ,key_padding_mask ,
-            actual_station_powers =actual_station_powers_normalized ,
-            )
-            q2_s =torch .nan_to_num_ (q2_s ,nan =0.0 ,posinf =0.0 ,neginf =0.0 )
-        else :
-            q2_s =None
+        q2_s ,_ =self .global_critic2 (
+        s_global ,a_actual_global ,key_padding_mask ,
+        actual_station_powers =actual_station_powers_normalized ,
+        )
+        q2_s =torch .nan_to_num_ (q2_s ,nan =0.0 ,posinf =0.0 ,neginf =0.0 )
 
         per_sample_g1 =F .smooth_l1_loss (q1_s ,y_global ,beta =SMOOTHL1_BETA ,reduction ='none').squeeze (-1 )
-        per_sample_g2 =(
-        F .smooth_l1_loss (q2_s ,y_global ,beta =SMOOTHL1_BETA ,reduction ='none').squeeze (-1 )
-        if q2_s is not None else None
-        )
+        per_sample_g2 =F .smooth_l1_loss (q2_s ,y_global ,beta =SMOOTHL1_BETA ,reduction ='none').squeeze (-1 )
         loss_g1 =per_sample_g1 .mean ()
-        loss_g2 =per_sample_g2 .mean ()if per_sample_g2 is not None else q1_s .new_zeros (())
+        loss_g2 =per_sample_g2 .mean ()
         loss_g1 =torch .nan_to_num_ (loss_g1 ,nan =0.0 ,posinf =0.0 ,neginf =0.0 )
         loss_g2 =torch .nan_to_num_ (loss_g2 ,nan =0.0 ,posinf =0.0 ,neginf =0.0 )
 
@@ -1576,8 +1283,7 @@ class MADDPG :
 
         loss_g_total =loss_g1 +loss_g2
         self .opt_global_c1 .zero_grad ()
-        if self .opt_global_c2 is not None :
-            self .opt_global_c2 .zero_grad ()
+        self .opt_global_c2 .zero_grad ()
         loss_g_total .backward ()
 
         finite_g1 =torch .isfinite (loss_g1 .detach ())
@@ -1585,22 +1291,18 @@ class MADDPG :
             if p .grad is not None :
                 finite_g1 =finite_g1 &torch .isfinite (p .grad ).all ()
         finite_g2 =torch .isfinite (loss_g2 .detach ())
-        if self .global_critic2 is not None :
-            for p in self .global_critic2 .parameters ():
-                if p .grad is not None :
-                    finite_g2 =finite_g2 &torch .isfinite (p .grad ).all ()
+        for p in self .global_critic2 .parameters ():
+            if p .grad is not None :
+                finite_g2 =finite_g2 &torch .isfinite (p .grad ).all ()
 
         self .clip_bias_gradients (self .global_critic1 ,max_norm =BIAS_GRAD_CLIP_MAX )
         gn_b =torch .nn .utils .clip_grad_norm_ (
         self .global_critic1 .parameters (),max_norm =GRAD_CLIP_MAX_GLOBAL
         )
-        if self .global_critic2 is not None :
-            self .clip_bias_gradients (self .global_critic2 ,max_norm =BIAS_GRAD_CLIP_MAX )
-            gn_b2 =torch .nn .utils .clip_grad_norm_ (
-            self .global_critic2 .parameters (),max_norm =GRAD_CLIP_MAX_GLOBAL
-            )
-        else :
-            gn_b2 =q1_s .new_zeros (())
+        self .clip_bias_gradients (self .global_critic2 ,max_norm =BIAS_GRAD_CLIP_MAX )
+        gn_b2 =torch .nn .utils .clip_grad_norm_ (
+        self .global_critic2 .parameters (),max_norm =GRAD_CLIP_MAX_GLOBAL
+        )
 
         global_diag =torch .stack ([
         loss_g1 .detach (),
@@ -1624,7 +1326,7 @@ class MADDPG :
         gn_a2 =min (float (gn_b2_value ),GRAD_CLIP_MAX_GLOBAL )
         if bool (finite_g1_value )and math .isfinite (gn_a ):
             self .opt_global_c1 .step ()
-        if self .opt_global_c2 is not None and bool (finite_g2_value )and math .isfinite (gn_a2 ):
+        if bool (finite_g2_value )and math .isfinite (gn_a2 ):
             self .opt_global_c2 .step ()
 
 
@@ -1641,9 +1343,7 @@ class MADDPG :
             self ._zero_update_logs ()
             return
 
-        # Warm-started runs carry the pretrain's transitions, so gating on the
-        # whole buffer would start updating on the new day's first step.
-        if self .buf .pending_size <self .warmup_steps :
+        if self .buf .size <self .warmup_steps :
             self ._zero_update_logs ()
             return
 
@@ -1659,8 +1359,6 @@ class MADDPG :
         ctx ['r_global_n']=r_global_n
         ctx ['s2_n']=s2_n
         ctx ['d_n']=d_n
-        if self .per_ev_local :
-            ctx ['r_ev_local'],ctx ['next_slot']=self .buf .per_ev_batch ()
 
         local_critic_clip_count =self ._update_local_critics (ctx )
         self ._update_global_critic (ctx )
@@ -1733,10 +1431,8 @@ class MADDPG :
                 t_critic .eval ()
             self .global_critic1 .eval ()
             self .t_global_critic1 .eval ()
-            if self .global_critic2 is not None :
-                self .global_critic2 .eval ()
-            if self .t_global_critic2 is not None :
-                self .t_global_critic2 .eval ()
+            self .global_critic2 .eval ()
+            self .t_global_critic2 .eval ()
         else :
             for actor in self .actors :
                 actor .train ()
@@ -1752,39 +1448,15 @@ class MADDPG :
                 t_critic .train ()
             self .global_critic1 .train ()
             self .t_global_critic1 .train ()
-            if self .global_critic2 is not None :
-                self .global_critic2 .train ()
-            if self .t_global_critic2 is not None :
-                self .t_global_critic2 .train ()
+            self .global_critic2 .train ()
+            self .t_global_critic2 .train ()
 
     def cache_experience (self ,s ,s2 ,a ,r_local ,r_global ,d ,
     actual_station_powers =None ,actual_ev_power_kw =None ):
         """Store an executable environment transition in replay memory."""
         if self .test_mode :
             return
-        if not self .per_ev_local :
-            self .buf .cache (s ,s2 ,a ,r_local ,r_global ,d ,actual_station_powers ,actual_ev_power_kw )
-            return
-        # The environment has already built s2, so its slot ids are current.
-        if self .env is None or self ._slot_ids_s is None or self .env .last_ev_local_rewards is None :
-            raise RuntimeError ("per-EV local critics need act(state, env=env) before each stored transition")
-        next_slot =self .next_slot_from_ids (self ._slot_ids_s ,self .env .slot_ev_ids ())
-        self .buf .cache (
-        s ,s2 ,a ,r_local ,r_global ,d ,actual_station_powers ,actual_ev_power_kw ,
-        r_ev_local =self .env .last_ev_local_rewards ,next_slot =next_slot ,
-        )
-        self ._slot_ids_s =None
-
-    @staticmethod
-    def next_slot_from_ids (ids_s ,ids_s2 ):
-        """For each slot of s, the slot holding the same EV in s2, or -1.
-
-        ids_* are [stations, slots] EV ids with -1 on empty slots.
-        """
-        match =(ids_s .unsqueeze (-1 )==ids_s2 .unsqueeze (-2 ))&(ids_s .unsqueeze (-1 )>=0 )
-        found =match .any (dim =-1 )
-        slot =match .to (torch .float32 ).argmax (dim =-1 )
-        return torch .where (found ,slot ,torch .full_like (slot ,-1 ))
+        self .buf .cache (s ,s2 ,a ,r_local ,r_global ,d ,actual_station_powers ,actual_ev_power_kw )
 
     def save_actors (self ,path ,episode ):
         """Save each station actor as a separate checkpoint file."""
@@ -1807,22 +1479,6 @@ class MADDPG :
                 actor_path ,
                 map_location =map_location if map_location is not None else device ,
                 )
-            head_key ="ev_action_head.0.weight"
-            current_sd =self .actors [i ].state_dict ()
-            if head_key in sd and head_key in current_sd :
-                loaded_w =sd [head_key]
-                target_w =current_sd [head_key]
-                if (
-                loaded_w .dim ()==2
-                and target_w .dim ()==2
-                and loaded_w .shape [0 ]==target_w .shape [0 ]
-                and loaded_w .shape [1 ]==target_w .shape [1 ]+1
-                ):
-                    tail_start =target_w .shape [1 ]-int (self .local_tail_dim )
-                    sd [head_key]=torch .cat (
-                    [loaded_w [:,:tail_start ],loaded_w [:,tail_start +1 :]],
-                    dim =1 ,
-                    )
             self .actors [i ].load_state_dict (sd )
             if i <len (self .t_actors ):
                 self .t_actors [i ].load_state_dict (self .actors [i ].state_dict ())
@@ -1841,9 +1497,6 @@ class MADDPG :
         "tau_global":float (self .tau_global ),
         "policy_delay":int (self .policy_delay ),
         "replay_capacity":int (self .buf .buf_size ),
-        "global_twin":bool (self .global_critic2 is not None ),
-        # Only present when on, so runs from before the option still resume.
-        **({"local_critic_per_ev":True }if self .per_ev_local else {}),
         }
 
     def training_resume_state_dict (self ):
@@ -1857,17 +1510,16 @@ class MADDPG :
         "target_critics2":[m .state_dict ()for m in self .t_critics2 ],
         "global_critic1":self .global_critic1 .state_dict (),
         "target_global_critic1":self .t_global_critic1 .state_dict (),
-        "global_critic2":self .global_critic2 .state_dict ()if self .global_critic2 is not None else None ,
-        "target_global_critic2":self .t_global_critic2 .state_dict ()if self .t_global_critic2 is not None else None ,
+        "global_critic2":self .global_critic2 .state_dict (),
+        "target_global_critic2":self .t_global_critic2 .state_dict (),
         }
         optimizers ={
         "actors":[o .state_dict ()for o in self .opt_a ],
         "critics":[o .state_dict ()for o in self .opt_c ],
         "critics2":[o .state_dict ()for o in self .opt_c2 ],
         "global_critic1":self .opt_global_c1 .state_dict (),
-        "global_critic2":self .opt_global_c2 .state_dict ()if self .opt_global_c2 is not None else None ,
+        "global_critic2":self .opt_global_c2 .state_dict (),
         }
-        noise_state =getattr (self .ou_noise ,"state",None )
         return {
         "format_version":1 ,
         "compatibility":self ._training_resume_compatibility (),
@@ -1881,7 +1533,6 @@ class MADDPG :
         "warmup_steps":int (self .warmup_steps ),
         "test_mode":bool (self .test_mode ),
         },
-        "noise_state":noise_state .detach ().cpu ().clone ()if torch .is_tensor (noise_state )else None ,
         "replay":self .buf .training_resume_state_dict (),
         }
 
@@ -1926,17 +1577,15 @@ class MADDPG :
         self ._load_module_list (self .t_critics2 ,models ["target_critics2"],"target critic2")
         self .global_critic1 .load_state_dict (models ["global_critic1"])
         self .t_global_critic1 .load_state_dict (models ["target_global_critic1"])
-        if self .global_critic2 is not None :
-            self .global_critic2 .load_state_dict (models ["global_critic2"])
-            self .t_global_critic2 .load_state_dict (models ["target_global_critic2"])
+        self .global_critic2 .load_state_dict (models ["global_critic2"])
+        self .t_global_critic2 .load_state_dict (models ["target_global_critic2"])
 
         optimizers =state ["optimizers"]
         self ._load_optimizer_list (self .opt_a ,optimizers ["actors"],"actor")
         self ._load_optimizer_list (self .opt_c ,optimizers ["critics"],"critic")
         self ._load_optimizer_list (self .opt_c2 ,optimizers ["critics2"],"critic2")
         self .opt_global_c1 .load_state_dict (optimizers ["global_critic1"])
-        if self .opt_global_c2 is not None :
-            self .opt_global_c2 .load_state_dict (optimizers ["global_critic2"])
+        self .opt_global_c2 .load_state_dict (optimizers ["global_critic2"])
 
         scalars =state ["scalars"]
         self .current_episode =int (scalars ["current_episode"])
@@ -1945,20 +1594,13 @@ class MADDPG :
         self .update_step =int (scalars ["update_step"])
         self .warmup_steps =int (scalars ["warmup_steps"])
         self .buf .load_training_resume_state_dict (state ["replay"])
-        noise_state =state .get ("noise_state")
-        if noise_state is not None :
-            current_noise_state =getattr (self .ou_noise ,"state",None )
-            if not torch .is_tensor (current_noise_state )or current_noise_state .shape !=noise_state .shape :
-                raise ValueError ("exploration-noise state is incompatible")
-            current_noise_state .copy_ (noise_state .to (device =current_noise_state .device ))
 
         self .set_test_mode (False )
         for module in (
         list (self .actors )+list (self .t_actors )+
         list (self .critics )+list (self .critics2 )+
         list (self .t_critics )+list (self .t_critics2 )+
-        [self .global_critic1 ,self .t_global_critic1 ]+
-        ([self .global_critic2 ,self .t_global_critic2 ]if self .global_critic2 is not None else [])
+        [self .global_critic1 ,self .t_global_critic1 ,self .global_critic2 ,self .t_global_critic2 ]
         ):
             module .train ()
         return {
@@ -1967,170 +1609,3 @@ class MADDPG :
         "replay_size":int (self .buf .size ),
         "replay_ptr":int (self .buf .ptr ),
         }
-
-    def save_checkpoint (self ,path ,episode ):
-        """Save actors plus one critic/optimizer bundle for warm-start fine-tune.
-
-        Actor files keep the legacy per-station format so old archives stay
-        loadable; the extra `agent_state_ep{episode}.pth` bundle carries every
-        critic, target critic and optimizer state.
-        """
-        self .save_actors (path ,episode )
-        bundle ={
-        "episode":int (episode ),
-        "critics":[c .state_dict ()for c in self .critics ],
-        "critics2":[c .state_dict ()for c in self .critics2 ],
-        "t_critics":[c .state_dict ()for c in self .t_critics ],
-        "t_critics2":[c .state_dict ()for c in self .t_critics2 ],
-        "global_critic1":self .global_critic1 .state_dict (),
-        "t_global_critic1":self .t_global_critic1 .state_dict (),
-        "global_critic2":self .global_critic2 .state_dict ()if self .global_critic2 is not None else None ,
-        "t_global_critic2":self .t_global_critic2 .state_dict ()if self .t_global_critic2 is not None else None ,
-        "opt_a":[o .state_dict ()for o in self .opt_a ],
-        "opt_c":[o .state_dict ()for o in self .opt_c ],
-        "opt_c2":[o .state_dict ()for o in self .opt_c2 ],
-        "opt_global_c1":self .opt_global_c1 .state_dict (),
-        "opt_global_c2":self .opt_global_c2 .state_dict ()if self .opt_global_c2 is not None else None ,
-        }
-        torch .save (bundle ,os .path .join (path ,f"agent_state_ep{episode}.pth"))
-        if REPLAY_SNAPSHOT_SAVE_ENABLE :
-            self .save_replay_snapshot (path ,episode )
-
-    def save_replay_snapshot (self ,path ,episode ,max_transitions =None ):
-        """Persist the newest replay transitions for balanced-replay fine-tune.
-
-        Stored separately from the critic/optimizer bundle because it is large
-        and optional: a fine-tune run that cannot find it simply falls back to
-        an empty buffer. Only the most recent `max_transitions` are kept, so
-        the file stays bounded while still covering the behaviour the final
-        checkpoint actually produced.
-        """
-        buf =getattr (self ,"buf",None )
-        if buf is None or getattr (buf ,"s",None )is None or int (getattr (buf ,"size",0 ))<=0 :
-            return False
-        limit =int (max_transitions if max_transitions is not None else REPLAY_SNAPSHOT_MAX_TRANSITIONS )
-        if limit <=0 :
-            return False
-        size =int (buf .size )
-        keep =min (size ,limit )
-        # Chronological order: oldest kept transition first.
-        if size <buf .buf_size :
-            idxs =torch .arange (size -keep ,size ,device =buf .s .device )
-        else :
-            start =(int (buf .ptr )+size -keep )%buf .buf_size
-            idxs =(torch .arange (keep ,device =buf .s .device )+start )%buf .buf_size
-        snapshot ={
-        "episode":int (episode ),
-        "count":int (keep ),
-        "s":buf .s [idxs ].cpu (),
-        "s2":buf .s2 [idxs ].cpu (),
-        "a":buf .a [idxs ].cpu (),
-        "r_local":buf .r_local [idxs ].cpu (),
-        "r_global":buf .r_global [idxs ].cpu (),
-        "d":buf .d [idxs ].cpu (),
-        "actual_station_powers":buf .actual_station_powers [idxs ].cpu (),
-        "actual_ev_soc_changes":buf .actual_ev_soc_changes [idxs ].cpu (),
-        }
-        torch .save (snapshot ,os .path .join (path ,f"replay_snapshot_ep{episode}.pth"))
-        self ._prune_replay_snapshots (path ,episode )
-        return True
-
-    @staticmethod
-    def _prune_replay_snapshots (path ,keep_episode ):
-        """Keep only the newest snapshot: each one is tens of MB.
-
-        Checkpoints are written every INTERIM_TEST_INTERVAL episodes, so a long
-        pretrain would otherwise accumulate one snapshot per checkpoint (~58 MB
-        each, i.e. several GB per run) while only the latest is ever used to
-        warm-start a fine-tune.
-        """
-        parent =os .path .dirname (os .path .abspath (path ))
-        if not os .path .isdir (parent ):
-            return
-        keep_name =f"replay_snapshot_ep{keep_episode}.pth"
-        for entry in os .listdir (parent ):
-            sub =os .path .join (parent ,entry )
-            if not os .path .isdir (sub ):
-                continue
-            for name in os .listdir (sub ):
-                if not name .startswith ("replay_snapshot_ep")or not name .endswith (".pth"):
-                    continue
-                if os .path .abspath (os .path .join (sub ,name ))==os .path .abspath (
-                os .path .join (path ,keep_name )
-                ):
-                    continue
-                try :
-                    os .remove (os .path .join (sub ,name ))
-                except OSError :
-                    pass
-
-    def load_replay_snapshot (self ,path ,episode ,map_location =None ):
-        """Restore a saved replay snapshot as the offline region of the buffer."""
-        snap_path =os .path .join (path ,f"replay_snapshot_ep{episode}.pth")
-        if not os .path .exists (snap_path ):
-            return 0
-        snapshot =torch .load (snap_path ,map_location =map_location or device ,weights_only =False )
-        count =int (snapshot .get ("count",0 ))
-        if count <=0 :
-            return 0
-        for i in range (count ):
-            self .buf .cache (
-            snapshot ["s"][i ],
-            snapshot ["s2"][i ],
-            snapshot ["a"][i ],
-            snapshot ["r_local"][i ],
-            snapshot ["r_global"][i ],
-            snapshot ["d"][i ],
-            actual_station_powers =snapshot ["actual_station_powers"][i ],
-            actual_ev_soc_changes =snapshot ["actual_ev_soc_changes"][i ],
-            )
-        return int (self .buf .size )
-
-    def load_checkpoint (self ,path ,episode ,map_location =None ):
-        """Restore actors, then critics/optimizers when the bundle exists.
-
-        Older archives only contain actor files; those load weights-only and
-        the returned dict reports critics/optimizers as not restored.
-        """
-        self .load_actors (path ,episode ,map_location =map_location )
-        loaded ={
-        "path":str (path ),
-        "episode":int (episode ),
-        "actors":True ,
-        "critics":False ,
-        "optimizers":False ,
-        }
-        bundle_path =os .path .join (path ,f"agent_state_ep{episode}.pth")
-        if not os .path .exists (bundle_path ):
-            return loaded
-        target_device =map_location if map_location is not None else device
-        try :
-            bundle =torch .load (bundle_path ,map_location =target_device ,weights_only =True )
-        except (TypeError ,RuntimeError ,pickle .UnpicklingError ):
-            bundle =torch .load (bundle_path ,map_location =target_device )
-        for attr in ("critics","critics2","t_critics","t_critics2"):
-            states =bundle .get (attr )or []
-            modules =getattr (self ,attr )
-            for module ,sd in zip (modules ,states ):
-                module .load_state_dict (sd )
-        for attr in ("global_critic1","t_global_critic1","global_critic2","t_global_critic2"):
-            sd =bundle .get (attr )
-            module =getattr (self ,attr )
-            if sd is not None and module is not None :
-                module .load_state_dict (sd )
-        loaded ["critics"]=True
-        try :
-            for attr in ("opt_a","opt_c","opt_c2"):
-                states =bundle .get (attr )or []
-                optimizers =getattr (self ,attr )
-                for optimizer ,sd in zip (optimizers ,states ):
-                    optimizer .load_state_dict (sd )
-            for attr in ("opt_global_c1","opt_global_c2"):
-                sd =bundle .get (attr )
-                optimizer =getattr (self ,attr )
-                if sd is not None and optimizer is not None :
-                    optimizer .load_state_dict (sd )
-            loaded ["optimizers"]=True
-        except (KeyError ,ValueError ,RuntimeError )as exc :
-            print (f"[checkpoint] optimizer state not restored ({exc}); continuing with fresh optimizers",flush =True )
-        return loaded

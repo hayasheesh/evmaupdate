@@ -13,9 +13,9 @@ and divides it by one fixed width per unit (the unit's largest availability in
 the source data). Nothing time-varying divides it and nothing clips it; the
 bidder's input boundary clips to [0, 1].
 
-``bess`` and ``wdru`` keep the targets themselves with 0 MW as the reference: an
-idle battery, or no curtailment. A battery's own charge/discharge plan is then
-part of the waveform, so these are explanation sets, not command libraries.
+``bess`` keeps the targets themselves with 0 MW as the reference: an idle
+battery. A battery's own charge/discharge plan is then part of the waveform, so
+it is an explanation set, not a command library.
 """
 
 from __future__ import annotations
@@ -50,17 +50,9 @@ DEFAULT_PLAN_OUTPUT = (
     PROJECT_ROOT / "data" / "aemo" / "nem" / "command_libraries"
     / "plan_deviation_calendar_day"
 )
-DEFAULT_WDRU_CSV = (
-    PROJECT_ROOT / "data" / "aemo" / "nem" / "wdru_dispatch" / "2025Q2"
-    / "wdru_q2_2025_event_day_targets.csv"
-)
 DEFAULT_BESS_OUTPUT = (
     PROJECT_ROOT / "data" / "aemo" / "nem" / "command_libraries"
     / "bess_dispatch_calendar_day"
-)
-DEFAULT_WDRU_OUTPUT = (
-    PROJECT_ROOT / "data" / "aemo" / "nem" / "command_libraries"
-    / "wdru_activation_calendar_day"
 )
 FILE_PATTERN = re.compile(r"^nem_(?P<resource>.+)_(?P<day>\d{4}-\d{2}-\d{2})\.csv$")
 
@@ -337,86 +329,13 @@ def build_bess_library(
     return metadata
 
 
-def build_wdru_library(
-    *, source_csv: Path, output_dir: Path, overwrite: bool = False,
-    required_unique_per_partition: int = 128,
-) -> dict:
-    source = pd.read_csv(source_csv)
-    required = {"settlementdate_aest", "duid", "totalcleared_mw"}
-    missing = required.difference(source.columns)
-    if missing:
-        raise ValueError(f"Missing WDRU columns: {sorted(missing)}")
-    source["_timestamp"] = pd.to_datetime(source["settlementdate_aest"], errors="coerce")
-    if source["_timestamp"].isna().any():
-        raise ValueError("WDRU timestamps contain missing or invalid values")
-    possible_days = sorted({stamp.date().isoformat() for stamp in source["_timestamp"]})
-    partitions = month_balanced_partitions(possible_days)
-    _prepare_output(output_dir, overwrite)
-    metadata = {
-        "build_complete": False,
-        "bank_ready": False,
-        "regime": "aemo_wdru_zero_based_activation_calendar_day_fixed_scale",
-        "source_kind": "AEMO WDRU TOTALCLEARED",
-        "source_csv": str(source_csv.resolve()),
-        "calendar_window": "AEST interval ends 00:05 through next-day 00:00",
-        "reference": "physical zero activation",
-        "normalization": "one max(abs(target)) scale per scenario",
-        "clipping": False,
-        "interpolation_or_fill": False,
-        "partition_policy": "whole calendar dates; within each calendar month consecutive 60/20/20 blocks",
-        "required_unique_scenarios_per_partition": int(required_unique_per_partition),
-    }
-    _write_metadata(output_dir, metadata)
-    counts = {name: 0 for name in ("train", "validation", "test")}
-    rejected: list[dict[str, str]] = []
-    for resource, resource_rows in source.groupby("duid", sort=True):
-        for day in possible_days:
-            try:
-                selected = select_end_stamped_calendar_day(
-                    resource_rows, timestamp_column="settlementdate_aest",
-                    day=day, step_column="step",
-                )
-                waveform = build_command_waveform_day(
-                    selected, market="AEMO NEM", resource_kind="WDRU",
-                    resource_name=str(resource), source_date=day, step_column="step",
-                    target_column="totalcleared_mw", direction_sign=1.0,
-                    local_time_column="settlementdate_aest",
-                )
-                activation = waveform_to_activation_proxy(
-                    waveform, reference_mode="zero",
-                    source_type="aemo_wdru_activation_target_shape",
-                    scenario_partition=partitions[day],
-                    segment_id=f"aemo_wdru:{resource}:{day}",
-                )
-            except ValueError as exc:
-                rejected.append({"resource": str(resource), "date": day, "reason": str(exc)})
-                continue
-            activation.to_csv(
-                output_dir / f"aemo_wdru_{resource}_{day}.csv",
-                index=False, float_format="%.12g",
-            )
-            counts[partitions[day]] += 1
-    bank_ready = all(count >= int(required_unique_per_partition) for count in counts.values())
-    metadata.update({
-        "build_complete": True,
-        "bank_ready": bool(bank_ready),
-        "written_file_count": int(sum(counts.values())),
-        "partition_counts": counts,
-        "rejected_file_count": len(rejected),
-        "rejected": rejected,
-    })
-    _write_metadata(output_dir, metadata)
-    return metadata
-
-
 def parse_args() -> argparse.Namespace:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
-        "--source", choices=("plan_deviation", "bess", "wdru"), default="plan_deviation"
+        "--source", choices=("plan_deviation", "bess"), default="plan_deviation"
     )
     parser.add_argument("--plan-dir", type=Path, default=DEFAULT_PLAN_DIR)
     parser.add_argument("--bess-dir", type=Path, default=DEFAULT_BESS_DIR)
-    parser.add_argument("--wdru-csv", type=Path, default=DEFAULT_WDRU_CSV)
     parser.add_argument("--output-dir", type=Path, default=None)
     parser.add_argument("--required-unique-per-partition", type=int, default=128)
     parser.add_argument("--overwrite", action="store_true")
@@ -430,7 +349,6 @@ def main() -> int:
     output_dir = args.output_dir or {
         "plan_deviation": DEFAULT_PLAN_OUTPUT,
         "bess": DEFAULT_BESS_OUTPUT,
-        "wdru": DEFAULT_WDRU_OUTPUT,
     }[args.source]
     if args.source == "plan_deviation":
         metadata = build_plan_deviation_library(
@@ -438,15 +356,9 @@ def main() -> int:
             overwrite=args.overwrite,
             required_unique_per_partition=args.required_unique_per_partition,
         )
-    elif args.source == "bess":
+    else:
         metadata = build_bess_library(
             source_dir=args.bess_dir, output_dir=output_dir,
-            overwrite=args.overwrite,
-            required_unique_per_partition=args.required_unique_per_partition,
-        )
-    else:
-        metadata = build_wdru_library(
-            source_csv=args.wdru_csv, output_dir=output_dir,
             overwrite=args.overwrite,
             required_unique_per_partition=args.required_unique_per_partition,
         )

@@ -1,7 +1,0 @@
-ERCOT ADER SCED direct-query plan
-  Endpoint : https://api.ercot.com/api/public-reports/np3-965-er/60_load_res_data_in_sced
-  Resources: AR_ALD1, BOERNE_ALD1
-  SCED dates: 2023-12-11 through 2026-07-24 (957 days)
-  Approx upper-bound rows at 5-min cadence: 551,232
-  Minimum API requests before pagination: 62
-  Full daily NP3-965-ER ZIPs: NOT downloaded

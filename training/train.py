@@ -3,14 +3,15 @@ Training entry point for EV multi-agent charging control.
 
 This module coordinates the full training experiment:
 - create an archive directory and snapshot the source code;
-- load training demand episodes;
+- take the bank days and their episode preparers from the caller;
 - construct EVEnv and the selected agent class;
 - fill replay memory during warmup;
 - run online environment interaction and gradient updates;
 - record TensorBoard diagnostics, CSV/PNG summaries, and checkpoint evaluations.
 
 Training data flow:
-1. A daily demand series is sampled from the training split.
+1. A bank day is chosen and its episode preparer resets EVEnv with the day's
+   submitted bid and one command.
 2. EVEnv generates station-specific arrivals and EV profiles for the episode.
 3. The agent observes normalized station states and outputs per-station EV-slot
    actions.
@@ -18,7 +19,7 @@ Training data flow:
    power traces.
 5. Agents with replay buffers cache the transition and update their networks.
 6. Periodic deterministic tests run through `tools.evaluator.test()` on the held
-   out demand split.
+   out test bank.
 
 Output structure:
 - `archive/{model_name}_{timestamp}/code_snapshot`: source snapshot.
@@ -54,7 +55,6 @@ create_tensorboard_writer ,
 GradientLossVisualizer ,
 snapshot_code_to_archive ,
 InterruptHandler ,
-launch_tensorboard ,
 write_train_episode_tb_scalars ,
 )
 import matplotlib
@@ -62,7 +62,6 @@ matplotlib .use ('Agg')
 matplotlib .rcParams ['font.family']='sans-serif'
 matplotlib .rcParams ['font.sans-serif']=['Arial','Helvetica','Liberation Sans','FreeSans','sans-serif']
 from tools.Utils import plot_daily_rewards ,plot_performance_metrics
-from environment.readcsv import load_multiple_demand_files ,load_multiple_demand_files_with_labels
 from tools.evaluator import set_env_seed ,test
 from Config import (
 NUM_EPISODES ,EPISODE_STEPS ,NUM_EVS ,NUM_STATIONS ,
@@ -72,22 +71,10 @@ TD3_SIGMA_GLOBAL ,TD3_CLIP_GLOBAL ,
 MEMORY_SIZE ,WARMUP_STEPS ,
 TRAIN_UPDATES_PER_ENV_STEP ,
 TRAIN_INTERIM_CSV_INTERVAL_EPISODES ,TRAIN_INTERIM_GRAPH_INTERVAL_EPISODES ,
-INTERIM_TEST_EPISODES ,INTERIM_TEST_ENABLE_PNG ,
+INTERIM_TEST_EPISODES ,
 INTERIM_TEST_SEED ,
-INTERIM_TEST_SAVE_DETAIL_FILES ,INTERIM_TEST_VERBOSE ,
-INTERIM_TEST_ENABLE_HISTORY_PNG ,
-TRAIN_FAST_PERFORMANCE_ONLY ,TRAIN_ENABLE_DIAGNOSTICS ,
-TRAIN_SAVE_EPISODE_DETAIL ,TRAIN_SAVE_SUMMARY_PNG ,
-AUTO_LAUNCH_TENSORBOARD ,CREATE_AGENT_RUNS_WRITER ,
-TRAIN_FINITE_CHECK_INTERVAL_STEPS ,
-TRAIN_WRITE_GRAD_HEALTH ,
-USE_SWITCHING_CONSTRAINTS ,LOCAL_SWITCH_PENALTY ,
-USE_STATION_TOTAL_POWER_LIMIT ,LOCAL_STATION_LIMIT_PENALTY ,
-USE_DAY_CONTEXT_ARRIVALS ,
 )
 from environment.EVEnv import EVEnv
-from environment.arrival_context import ArrivalScenarioSampler
-from training.Agent import MADDPG
 from training.Agent.standard_maddpg import build_marl_agent
 from training.Agent .maddpg import device
 from training.training_resume import (
@@ -101,7 +88,6 @@ stop_requested ,
 
 INTERIM_TEST_INTERVAL =max (1 ,int (TRAIN_INTERIM_CSV_INTERVAL_EPISODES ))
 INTERIM_PLOT_INTERVAL =max (1 ,int (TRAIN_INTERIM_GRAPH_INTERVAL_EPISODES ))
-FINITE_CHECK_INTERVAL_STEPS =max (0 ,int (TRAIN_FINITE_CHECK_INTERVAL_STEPS ))
 VISUALIZER_UPDATE_INTERVAL_STEPS =10
 
 
@@ -149,62 +135,6 @@ def sample_episode_payload_strict (demand_data ,episode_steps ,index =None ):
     if _data .size >=int (episode_steps ):
         return _data [:int (episode_steps )],_date
     return np .pad (_data ,(0 ,int (episode_steps )-int (_data .size ))),_date
-
-
-from EnvConfig import TRAIN_USE_RESIDUAL_BESS ,TRAIN_FORCE_CHARGING
-from training.lower_bid_training import build_upper_bid_training_episode
-
-
-def reset_env_with_day_context (
-env ,
-episode_demand ,
-service_date ,
-arrival_sampler ,
-tol_narrow_series =None ,
-arrival_probabilities_by_station =None ,
-day_context =None ,
-market_context_series =None ,
-):
-    kwargs ={"net_demand_series":episode_demand ,"service_date":service_date }
-    if tol_narrow_series is not None :
-        kwargs ["tol_narrow_series"]=tol_narrow_series 
-    if market_context_series is not None :
-        kwargs ["market_context_series"]=market_context_series
-    if arrival_probabilities_by_station is not None :
-        kwargs ["arrival_probabilities_by_station"]=arrival_probabilities_by_station
-        if day_context is not None :
-            kwargs ["day_context"]=day_context
-    elif arrival_sampler is not None :
-        scenario =arrival_sampler .scenario_for_day (service_date )
-        kwargs ["arrival_probabilities_by_station"]=scenario .arrival_probabilities_by_station
-        kwargs ["day_context"]=scenario .day_context
-    return env .reset (**kwargs )
-
-
-def prepare_lower_training_episode (env ,episode_demand ,episode_date ,arrival_sampler ,episode_idx ):
-    """Reset EVEnv for one lower-controller training episode.
-
-    Current lower training always uses:
-    forecast -> upper bid -> fixed submitted bid execution distribution.
-    """
-    scenario =arrival_sampler .scenario_for_day (episode_date )if arrival_sampler is not None else None
-    bid_demand ,bid_tol ,arrival_kwargs ,bid_info =build_upper_bid_training_episode (
-    episode_demand ,
-    episode_date ,
-    int (episode_idx ),
-    arrival_scenario =scenario ,
-    )
-    reset_env_with_day_context (
-    env ,
-    bid_demand ,
-    episode_date ,
-    None ,
-    tol_narrow_series =bid_tol ,
-    arrival_probabilities_by_station =arrival_kwargs .get ("arrival_probabilities_by_station"),
-    day_context =arrival_kwargs .get ("day_context"),
-    market_context_series =arrival_kwargs .get ("market_context_series"),
-    )
-    return bid_info
 
 
 def create_model_directory (model_name ):
@@ -260,10 +190,7 @@ test_demand_data_override =None ,
 test_episode_preparer =None ,
 interim_eval_fn =None ,
 balanced_demand_sampling =False ,
-initial_agent_checkpoint =None ,
-exploration_noise_scale =None ,
 observation_normalization_profile =None ,
-warmup_steps =None ,
 resume_run_dir =None ,
 resume_context =None ,
 resume_checkpoint_interval =100 ,
@@ -271,12 +198,15 @@ resume_checkpoint_interval =100 ,
     """
     Run training and return the trained agent plus collected metrics.
 
-    When `agent` is None, the active Config flags select one implementation.
-    The default path is MADDPG with local station critics and a global critic.
-    `all_rewards`, `performance_metrics`, and `all_episode_data` allow resumed
-    or externally managed runs to continue appending to existing containers.
+    When `agent` is None, Config.MARL_ALGORITHM selects the learner. The
+    bank days (`demand_data_override`, `test_demand_data_override`) and their
+    episode preparers are required. `all_rewards`, `performance_metrics`, and
+    `all_episode_data` allow externally managed runs to continue appending to
+    existing containers.
     """
     del random_window, profile_episode
+    if demand_data_override is None or episode_preparer is None :
+        raise ValueError ("train() needs the bank days and their episode preparer")
 
     resume_manifest =None
     if resume_run_dir is not None :
@@ -312,58 +242,28 @@ resume_checkpoint_interval =100 ,
     tb_writer =create_tensorboard_writer (
     log_dir =performance_dir ,purge_step =purge_step
     )
-    if bool (AUTO_LAUNCH_TENSORBOARD ):
-        try :
-            launch_tensorboard (working_dir )
-        except Exception as exc :
-            warnings .warn (f"Failed to launch TensorBoard: {exc}")
 
     _interrupt_handler .setup ()
 
 
     env =EVEnv (num_stations =NUM_STATIONS ,num_evs =NUM_EVS ,episode_steps =EPISODE_STEPS )
-    env .use_residual_bess =bool (TRAIN_USE_RESIDUAL_BESS )
+    # The battery never rewrites an EV action and never enters the EV-side
+    # reward, so during training its only consumer would be a reported column.
+    env .use_residual_bess =False
     episode_limit =_episode_limit_or_none (num_episodes )
     episode_limit_label =str (episode_limit )if episode_limit is not None else "manual-stop"
     agent_num_episodes =episode_limit if episode_limit is not None else 10 **12
 
 
-    demand_data_train =None
-    arrival_sampler =None
-    if demand_data_override is not None :
-        demand_data_train =list (demand_data_override )
-    else :
-        try :
-
-            if bool (USE_DAY_CONTEXT_ARRIVALS ):
-                all_demand_data =load_multiple_demand_files_with_labels (train_split =25 )
-            else :
-                all_demand_data =load_multiple_demand_files (train_split =25 )
-            demand_data_train =all_demand_data ['train']
-        except FileNotFoundError :
-            error_message ="Failed to load training demand CSV files."
-            print (error_message )
-            raise
-
+    demand_data_train =list (demand_data_override )
     if not demand_data_train :
-        raise RuntimeError ("Training demand pool is empty after CSV load.")
-    if arrival_sampler_override is not None :
-        arrival_sampler =arrival_sampler_override
-    elif bool (USE_DAY_CONTEXT_ARRIVALS ):
-        arrival_sampler =ArrivalScenarioSampler ()
-        print (
-        "[Info] Day-context arrivals enabled for lower training: "
-        f"{arrival_sampler.describe()}",
-        flush =True ,
-        )
+        raise RuntimeError ("Training bank day pool is empty.")
+    arrival_sampler =arrival_sampler_override
     episode_demand ,episode_date =sample_episode_payload_strict (
     demand_data_train ,env .episode_steps ,0 if balanced_demand_sampling else None
     )
-    if episode_preparer is not None :
-        episode_preparer (env ,episode_demand ,episode_date ,arrival_sampler ,0 )
-        initial_obs =env ._get_obs ()
-    else :
-        initial_obs =reset_env_with_day_context (env ,episode_demand ,episode_date ,arrival_sampler )
+    episode_preparer (env ,episode_demand ,episode_date ,arrival_sampler ,0 )
+    initial_obs =env ._get_obs ()
 
     state_dim =initial_obs .shape [1 ]
 
@@ -390,8 +290,6 @@ resume_checkpoint_interval =100 ,
     resume_completed_training_episode =0
     resume_completed_environment_episodes =0
     if resume_run_dir is not None :
-        if initial_agent_checkpoint :
-            raise ValueError ("exact resume cannot be combined with initial_agent_checkpoint")
         resume_state ,_ =load_training_resume (
         resume_run_dir ,expected_context =resume_context ,map_location ="cpu"
         )
@@ -411,92 +309,21 @@ resume_checkpoint_interval =100 ,
         flush =True ,
         )
 
-    # Warm-start fine-tune support: restore actor/critic (+ optimizer) state
-    # from a saved checkpoint before the loop. The replay buffer stays empty.
-    if initial_agent_checkpoint :
-        from training.agent_checkpoint import initialize_agent_from_checkpoint
-        initialize_agent_from_checkpoint (agent ,initial_agent_checkpoint )
-        # Only here, once, before the loop. select_finetuned_model reloads
-        # candidates through the same restore helper, and a reset there would
-        # corrupt the very comparison that chooses the model.
-        from EnvConfig import FINETUNE_RESET_CRITIC_SCOPE
-        if str (FINETUNE_RESET_CRITIC_SCOPE ).lower ()!="off":
-            from training .agent_checkpoint import reset_critic_heads
-            _reset =reset_critic_heads (agent ,FINETUNE_RESET_CRITIC_SCOPE )
-            print (
-            "[warm-start] critic heads reset: "
-            f"scope={_reset['scope']} critics={_reset['critics']} "
-            f"linear_layers={_reset['layers']} heads={_reset.get('heads')}",
-            flush =True ,
-            )
-        # Applied after the reset and in the same one-shot place, so the
-        # optimizer this rebuilds is the one the loop will actually step.
-        from EnvConfig import FINETUNE_CRITIC_ADAPT_SCOPE
-        if str (FINETUNE_CRITIC_ADAPT_SCOPE ).lower ()!="all":
-            from training .agent_checkpoint import freeze_critic_paths
-            _frozen =freeze_critic_paths (agent ,FINETUNE_CRITIC_ADAPT_SCOPE )
-            print (
-            "[warm-start] critic adaptation restricted: "
-            f"scope={_frozen['scope']} frozen_params={_frozen['frozen']} "
-            f"trainable_params={_frozen['trainable']} held={_frozen.get('paths')}",
-            flush =True ,
-            )
-    if exploration_noise_scale is not None :
-        from training .agent_checkpoint import apply_finetune_exploration_schedule
-        applied =apply_finetune_exploration_schedule (
-        agent ,
-        noise_scale =float (exploration_noise_scale ),
-        episodes =episode_limit ,
-        )
-        print (
-        "[fine-tune] exploration: epsilon "
-        f"{applied['epsilon_initial']:.4f} -> {applied['epsilon_final']:.4f} "
-        f"over {applied['epsilon_end_episode']} episodes, "
-        f"OU scaled by {float(exploration_noise_scale):.3f}",
-        flush =True ,
-        )
-    # The agent gates its own gradient updates on a warmup threshold. Keep it
-    # consistent with this loop's warmup, or a shortened fine-tune warmup ends
-    # the collection phase while update() still returns early -- episodes that
-    # roll the environment and learn nothing.
-    if warmup_steps is not None and hasattr (agent ,"warmup_steps"):
-        agent .warmup_steps =max (0 ,int (warmup_steps ))
-
     try :
-        if bool (CREATE_AGENT_RUNS_WRITER ):
-            runs_dir =os .path .join (working_dir ,"runs")
-            os .makedirs (runs_dir ,exist_ok =True )
-            if hasattr (agent ,'writer'):
-                if agent .writer is not None :
-                    try :
-                        agent .writer .close ()
-                    except Exception as exc :
-                        warnings .warn (f"Failed to close previous TensorBoard writer: {exc}")
-            agent .writer =SummaryWriter (log_dir =runs_dir )
-            agent .use_tensorboard =True
-        else :
-            if hasattr (agent ,'writer'):
-                agent .writer =None
-            if hasattr (agent ,'use_tensorboard'):
-                agent .use_tensorboard =False
-
-
+        runs_dir =os .path .join (working_dir ,"runs")
+        os .makedirs (runs_dir ,exist_ok =True )
+        if hasattr (agent ,'writer'):
+            if agent .writer is not None :
+                try :
+                    agent .writer .close ()
+                except Exception as exc :
+                    warnings .warn (f"Failed to close previous TensorBoard writer: {exc}")
+        agent .writer =SummaryWriter (log_dir =runs_dir )
+        agent .use_tensorboard =True
     except Exception as exc :
         warnings .warn (f"TensorBoard writer setup failed: {exc}")
 
-    if warmup_steps is not None :
-        active_warmup_steps =max (0 ,int (warmup_steps ))
-    else :
-        active_warmup_steps =int (WARMUP_STEPS )
-    # The warmup counts only new transitions (ReplayBuffer.pending_size), not
-    # inherited ones: the offline and online regions are sampled separately,
-    # so without new transitions half the batch is one transition repeated.
-    _inherited =int (getattr (getattr (agent ,"buf",None ),"offline_size",0 ))
-    if _inherited >0 :
-        print (
-        f"[fine-tune] balanced replay active: {_inherited} inherited transitions, "
-        f"warmup waits for {active_warmup_steps} new ones",flush =True ,
-        )
+    active_warmup_steps =int (WARMUP_STEPS )
     active_updates_per_step =max (1 ,int (TRAIN_UPDATES_PER_ENV_STEP ))
     print (
     "[training profile] "
@@ -529,10 +356,6 @@ resume_checkpoint_interval =100 ,
         all_global_rewards =[]
         if all_episode_data is None :
             all_episode_data ={}
-
-    enable_switch_metrics =bool (USE_SWITCHING_CONSTRAINTS )and (float (LOCAL_SWITCH_PENALTY )!=0.0 )
-    enable_stlimit_metrics =bool (USE_STATION_TOTAL_POWER_LIMIT )and (float (LOCAL_STATION_LIMIT_PENALTY )!=0.0 )
-
 
     if performance_metrics is None :
         performance_metrics ={
@@ -584,16 +407,6 @@ resume_checkpoint_interval =100 ,
         'bess_max_abs_power_kw':[],
         'avg_soc_deficit':[],
         }
-        if enable_switch_metrics :
-            performance_metrics ['avg_switches']=[]
-        if enable_stlimit_metrics :
-            performance_metrics ['station_limit_hits']=[]
-            performance_metrics ['station_limit_steps']=[]
-            performance_metrics ['station_charge_limit_hits']=[]
-            performance_metrics ['station_discharge_limit_hits']=[]
-            performance_metrics ['station_limit_penalty_total']=[]
-            performance_metrics ['station_limit_penalty_per_step']=[]
-            performance_metrics ['station_limit_penalty_per_hit']=[]
 
     if resume_state is not None :
         expected_history =int (resume_completed_training_episode )
@@ -666,7 +479,7 @@ resume_checkpoint_interval =100 ,
 
             # Warmup collects replay transitions using exploratory actions
             # before network updates are allowed to dominate the buffer.
-            _is_warmup =hasattr (agent ,'buf')and agent .buf .pending_size <active_warmup_steps
+            _is_warmup =agent .buf .size <active_warmup_steps
 
             if _is_warmup :
                 env .record_snapshots =False
@@ -675,12 +488,8 @@ resume_checkpoint_interval =100 ,
                 demand_data_train ,env .episode_steps ,
                 _episode_ordinal if balanced_demand_sampling else None
                 )
-                if episode_preparer is not None :
-                    episode_preparer (env ,_wu_demand ,_wu_date ,arrival_sampler ,
-                    int (environment_episode ))
-                else :
-                    prepare_lower_training_episode (env ,_wu_demand ,_wu_date ,arrival_sampler ,
-                    int (environment_episode ))
+                episode_preparer (env ,_wu_demand ,_wu_date ,arrival_sampler ,
+                int (environment_episode ))
                 agent .episode_start ()
                 _wu_prefetch =None
                 while True :
@@ -699,26 +508,25 @@ resume_checkpoint_interval =100 ,
                         _wu_next_raw =env .begin_step ()
                         _wu_next =normalize_observation (_wu_next_raw )
                         _wu_prefetch =_wu_next_raw
-                    if hasattr (agent ,'cache_experience'):
-                        _wu_sp =_wu_info .get ('raw_actor_station_powers',_wu_info ['station_powers'])
-                        _wu_rl_t =_wu_rl if torch .is_tensor (_wu_rl )else torch .as_tensor (_wu_rl ,dtype =torch .float32 ,device =device )
-                        _wu_sp_t =_wu_sp if torch .is_tensor (_wu_sp )else torch .as_tensor (_wu_sp ,dtype =torch .float32 ,device =device )
-                        agent .cache_experience (
-                        torch .as_tensor (_wu_obs ,dtype =torch .float32 ,device =device ),
-                        torch .as_tensor (_wu_next ,dtype =torch .float32 ,device =device ),
-                        _wu_act ,
-                        _wu_rl_t ,
-                        torch .tensor (_wu_rg ,dtype =torch .float32 ,device =device ),
-                        torch .as_tensor (_wu_done ,dtype =torch .float32 ,device =device ),
-                        actual_station_powers =_wu_sp_t ,
-                        actual_ev_power_kw =_wu_info .get ('raw_actor_ev_power_kw',_wu_info .get ('actual_ev_power_kw')),
-                        )
-                        if not all (_wu_done ):
-                            agent .update ()
+                    _wu_sp =_wu_info .get ('raw_actor_station_powers',_wu_info ['station_powers'])
+                    _wu_rl_t =_wu_rl if torch .is_tensor (_wu_rl )else torch .as_tensor (_wu_rl ,dtype =torch .float32 ,device =device )
+                    _wu_sp_t =_wu_sp if torch .is_tensor (_wu_sp )else torch .as_tensor (_wu_sp ,dtype =torch .float32 ,device =device )
+                    agent .cache_experience (
+                    torch .as_tensor (_wu_obs ,dtype =torch .float32 ,device =device ),
+                    torch .as_tensor (_wu_next ,dtype =torch .float32 ,device =device ),
+                    _wu_act ,
+                    _wu_rl_t ,
+                    torch .tensor (_wu_rg ,dtype =torch .float32 ,device =device ),
+                    torch .as_tensor (_wu_done ,dtype =torch .float32 ,device =device ),
+                    actual_station_powers =_wu_sp_t ,
+                    actual_ev_power_kw =_wu_info .get ('raw_actor_ev_power_kw',_wu_info .get ('actual_ev_power_kw')),
+                    )
+                    if not all (_wu_done ):
+                        agent .update ()
                     if all (_wu_done ):
                         agent .episode_end ()
                         break
-                _wu_buf =agent .buf .pending_size
+                _wu_buf =agent .buf .size
                 if ep %5 ==1 or _wu_buf >=active_warmup_steps :
                     print (f"[WARMUP] ep={ep:4d}  buffer={_wu_buf}/{active_warmup_steps}",flush =True )
                 if _interrupt_handler .is_interrupted ()or stop_requested (working_dir ):
@@ -759,18 +567,9 @@ resume_checkpoint_interval =100 ,
             env .record_snapshots =bool (getattr (agent ,'test_mode',False ))
 
 
-            enable_diagnostics =(
-            (not bool (TRAIN_FAST_PERFORMANCE_ONLY ))
-            and bool (TRAIN_ENABLE_DIAGNOSTICS )
-            and tb_writer is not None
-            )
-            collect_episode_detail =(
-            (not bool (TRAIN_FAST_PERFORMANCE_ONLY ))
-            and bool (TRAIN_SAVE_EPISODE_DETAIL )
-            )
             visualizer =(
             GradientLossVisualizer (env .num_stations ,tb_writer )
-            if enable_diagnostics else None
+            if tb_writer is not None else None
             )
 
 
@@ -779,66 +578,15 @@ resume_checkpoint_interval =100 ,
             demand_data_train ,env .episode_steps ,
             _episode_ordinal if balanced_demand_sampling else None
             )
-            if episode_preparer is not None :
-                episode_preparer (
-                env ,episode_demand ,episode_date ,arrival_sampler ,
-                int (environment_episode )
-                )
-            else :
-                prepare_lower_training_episode (
-                env ,episode_demand ,episode_date ,arrival_sampler ,
-                int (environment_episode )
-                )
+            episode_preparer (
+            env ,episode_demand ,episode_date ,arrival_sampler ,
+            int (environment_episode )
+            )
 
             agent .episode_start ()
             ep_r =0.0
 
             ep_start_time =time .time ()
-
-            if collect_episode_detail :
-                episode_data ={
-                'ag_requests':[],
-                'total_ev_transport':[],
-                'soc_data':{},
-                'power_mismatch':[],
-                'tol_narrow':[],
-                'pre_bess_residual_kw':[],
-                'raw_actor_total_power_kw':[],
-                'raw_actor_residual_kw':[],
-                'central_correction_power_kw':[],
-                'bess_power_kw':[],
-                'bess_soc_pct':[],
-                'pcc_power_kw':[],
-                'post_bess_residual_kw':[],
-                }
-                episode_station_power_history =[]
-                episode_total_transport_history =[]
-
-                for i in range (1 ,env .num_stations +1 ):
-                    episode_data [f'actual_ev{i}']=[]
-
-                for station_idx in range (env .num_stations ):
-
-                    episode_data ['soc_data'][f'station{station_idx+1}']={}
-
-
-                    for ev_idx ,ev in enumerate (env .stations_evs [station_idx ]):
-
-                        ev_id =str (ev ['id'])
-
-                        episode_data ['soc_data'][f'station{station_idx+1}'][ev_id ]={
-                        'id':ev ['id'],
-                        'station':station_idx ,
-                        'depart':ev ['depart'],
-                        'target':ev ['target'],
-                        'times':[env .step_count ],
-                        'soc':[ev ['soc']]
-                        }
-            else :
-                episode_data =None
-                episode_station_power_history =None
-                episode_total_transport_history =None
-
 
             ep_r =0
             ep_local_r =0.0
@@ -849,18 +597,12 @@ resume_checkpoint_interval =100 ,
 
             ep_local_departure_r =0.0
             ep_local_progress_shaping_r =0.0
-            ep_local_discharge_penalty_r =0.0
-            ep_local_switch_penalty_r =0.0
-            ep_local_station_limit_penalty_r =0.0
 
             station_local_reward_sums =[
             {
             "total":0.0 ,
             "departure":0.0 ,
             "progress_shaping":0.0 ,
-            "discharge_penalty":0.0 ,
-            "switch_penalty":0.0 ,
-            "station_limit_penalty":0.0 ,
             }
             for _ in range (env .num_stations )
             ]
@@ -870,10 +612,6 @@ resume_checkpoint_interval =100 ,
             # Step loop: observe, act, apply physics/rewards, cache transition,
             # update the agent, and accumulate diagnostics for this episode.
             while True :
-
-                MAX_RETRIES =3
-                retry_count =0
-                step_success =False
 
                 def all_safe (*values ):
                     safe_tensor =None
@@ -888,72 +626,51 @@ resume_checkpoint_interval =100 ,
                         return safe_python
                     return safe_python and bool (safe_tensor .item ())
 
-                info =None
-                act_tensor =None
-                obs1 =None
-                next_state =None
-                r_local =None
-                r_global =None
-                done =None
-
                 _step_obs_raw =_prefetch_obs
                 _prefetch_obs =None
+                if _step_obs_raw is not None :
+                    obs1 =normalize_observation (_step_obs_raw )
+                else :
+                    obs1 =normalize_observation (env .begin_step ())
 
-                while retry_count <MAX_RETRIES and not step_success :
+                act_tensor =agent .act (obs1 ,env =env ,noise =True )
 
-                    if _step_obs_raw is not None and retry_count ==0 :
-                        obs1 =normalize_observation (_step_obs_raw )
-                        _step_obs_raw =None
-                    else :
-                        obs1 =normalize_observation (env .begin_step ())
+                # Training uses the lightweight info payload for speed.
+                # Evaluation/timing requests detailed snapshots and reward
+                # decomposition for plotting and diagnostics.
+                _build_info_full =bool (getattr (agent ,'test_mode',False ))
+                _ ,r_local ,r_global ,done ,info =env .apply_action (
+                act_tensor ,
+                build_info =_build_info_full ,
+                return_observation =_build_info_full ,
+                )
 
+                if all (done ):
+                    next_state =normalize_observation (env ._get_obs ())
+                else :
+                    _next_raw =env .begin_step ()
+                    next_state =normalize_observation (_next_raw )
+                    _prefetch_obs =_next_raw
 
-                    act_tensor =agent .act (obs1 ,env =env ,noise =True )
-
-                    # Training uses the lightweight info payload for speed.
-                    # Evaluation/timing requests detailed snapshots and reward
-                    # decomposition for plotting and diagnostics.
-                    _build_info_full =bool (getattr (agent ,'test_mode',False ))
-                    _ ,r_local_tmp ,r_global_tmp ,done_tmp ,info_tmp =env .apply_action (
-                    act_tensor ,
-                    build_info =_build_info_full ,
-                    return_observation =_build_info_full ,
+                # Checked on the last step only: a periodic check would force a
+                # device synchronization during training.
+                finite_check_due =(
+                bool (getattr (agent ,'test_mode',False ))
+                or all (done )
+                )
+                if finite_check_due and not all_safe (obs1 ,next_state ,act_tensor ,r_local ,r_global ):
+                    # The environment has already moved past this step and
+                    # cannot be stepped back, so the step is not retried. Its
+                    # transition is neither stored nor learned from, and its
+                    # rewards stay out of the episode sums.
+                    print (
+                    f"Warning: NaN/Inf step data at step {int(env.step_count)}; transition skipped",
+                    flush =True ,
                     )
-
-                    if all (done_tmp ):
-                        next_state_tmp =normalize_observation (env ._get_obs ())
-                        _next_prefetch_tmp =None
-                    else :
-                        _next_raw =env .begin_step ()
-                        next_state_tmp =normalize_observation (_next_raw )
-                        _next_prefetch_tmp =_next_raw
-
-                    periodic_finite_check_due =(
-                    FINITE_CHECK_INTERVAL_STEPS >0
-                    and int (env .step_count )%FINITE_CHECK_INTERVAL_STEPS ==0
-                    )
-                    finite_check_due =(
-                    bool (getattr (agent ,'test_mode',False ))
-                    or all (done_tmp )
-                    or periodic_finite_check_due
-                    )
-                    if finite_check_due and not all_safe (obs1 ,next_state_tmp ,act_tensor ,r_local_tmp ,r_global_tmp ):
-                        retry_count +=1
-                        print (f"Retry: Step data NaN/Inf detected (attempt {retry_count}/{MAX_RETRIES})")
-                        continue
-
-                    info =info_tmp
-                    next_state =next_state_tmp
-                    r_local =r_local_tmp
-                    r_global =r_global_tmp
-                    done =done_tmp
-                    _prefetch_obs =_next_prefetch_tmp
-                    step_success =True
-
-                if not step_success :
-                    print (f"Error: Step data retry failed after {MAX_RETRIES} attempts, stopping training")
-                    agent .episode_end ()
-                    break
+                    if all (done ):
+                        agent .episode_end ()
+                        break
+                    continue
 
                 if torch .is_tensor (r_local ):
                     ep_local_sum_tensor =ep_local_sum_tensor +r_local .detach ().sum ()
@@ -968,57 +685,45 @@ resume_checkpoint_interval =100 ,
 
                         dep_r =station_data .get ('departure_reward',0.0 )
                         shaping_r =station_data .get ('progress_shaping',0.0 )
-                        discharge_penalty_r =station_data .get ('discharge_penalty',0.0 )
-                        switch_penalty_r =station_data .get ('switch_penalty',0.0 )
-                        station_limit_penalty_r =station_data .get ('station_limit_penalty',0.0 )
                         total_r =station_data .get ('local_total',0.0 )
 
                         ep_local_departure_r +=dep_r
                         ep_local_progress_shaping_r +=shaping_r
-                        ep_local_discharge_penalty_r +=discharge_penalty_r
-                        ep_local_switch_penalty_r +=switch_penalty_r
-                        ep_local_station_limit_penalty_r +=station_limit_penalty_r
 
                         if 0 <=st_idx <len (station_local_reward_sums ):
                             sums =station_local_reward_sums [st_idx ]
                             sums ["total"]+=total_r
                             sums ["departure"]+=dep_r
                             sums ["progress_shaping"]+=shaping_r
-                            sums ["discharge_penalty"]+=discharge_penalty_r
-                            sums ["switch_penalty"]+=switch_penalty_r
-                            sums ["station_limit_penalty"]+=station_limit_penalty_r
 
 
-                if hasattr (agent ,'cache_experience'):
-                    # The policy action is the actor proposal. The central EV
-                    # allocator is part of environment dynamics, so critics are
-                    # keyed by the actor's physically clipped pre-allocation
-                    # powers; the next state still reflects executed corrected
-                    # EV powers. Keeping executed powers here would train Q on
-                    # actions the actor never emitted.
-                    state_tensor_for_buffer =torch .as_tensor (obs1 ,dtype =torch .float32 ,device =device )
-                    next_state_tensor =torch .as_tensor (next_state ,dtype =torch .float32 ,device =device )
+                # The policy action is the actor proposal. The central EV
+                # allocator is part of environment dynamics, so critics are
+                # keyed by the actor's physically clipped pre-allocation
+                # powers; the next state still reflects executed corrected
+                # EV powers. Keeping executed powers here would train Q on
+                # actions the actor never emitted.
+                state_tensor_for_buffer =torch .as_tensor (obs1 ,dtype =torch .float32 ,device =device )
+                next_state_tensor =torch .as_tensor (next_state ,dtype =torch .float32 ,device =device )
 
-                    actual_ev_power_kw_tensor =info .get ('raw_actor_ev_power_kw',info .get ('actual_ev_power_kw'))
-                    _r_local_t =r_local if torch .is_tensor (r_local )else torch .as_tensor (r_local ,dtype =torch .float32 ,device =device )
-                    _sp =info .get ('raw_actor_station_powers',info ['station_powers'])
-                    _sp_t =_sp if torch .is_tensor (_sp )else torch .as_tensor (_sp ,dtype =torch .float32 ,device =device )
+                actual_ev_power_kw_tensor =info .get ('raw_actor_ev_power_kw',info .get ('actual_ev_power_kw'))
+                _r_local_t =r_local if torch .is_tensor (r_local )else torch .as_tensor (r_local ,dtype =torch .float32 ,device =device )
+                _sp =info .get ('raw_actor_station_powers',info ['station_powers'])
+                _sp_t =_sp if torch .is_tensor (_sp )else torch .as_tensor (_sp ,dtype =torch .float32 ,device =device )
 
-                    agent .cache_experience (
-                    state_tensor_for_buffer ,
-                    next_state_tensor ,
-                    act_tensor ,
-                    _r_local_t ,
-                    torch .tensor (r_global ,dtype =torch .float32 ,device =device ),
-                    torch .as_tensor (done ,dtype =torch .float32 ,device =device ),
-                    actual_station_powers =_sp_t ,
-                    actual_ev_power_kw =actual_ev_power_kw_tensor ,
-                    )
+                agent .cache_experience (
+                state_tensor_for_buffer ,
+                next_state_tensor ,
+                act_tensor ,
+                _r_local_t ,
+                torch .tensor (r_global ,dtype =torch .float32 ,device =device ),
+                torch .as_tensor (done ,dtype =torch .float32 ,device =device ),
+                actual_station_powers =_sp_t ,
+                actual_ev_power_kw =actual_ev_power_kw_tensor ,
+                )
 
-
-                if hasattr (agent ,'update'):
-                    for _update_idx in range (active_updates_per_step ):
-                        agent .update ()
+                for _update_idx in range (active_updates_per_step ):
+                    agent .update ()
 
 
                 # Agents expose diagnostics for TensorBoard. Sampling them
@@ -1050,55 +755,6 @@ resume_checkpoint_interval =100 ,
                     visualizer .update_losses (agent )
                     visualizer .update_clipping (agent )
 
-                if collect_episode_detail :
-                    episode_data ['ag_requests'].append (info ['net_demand'])
-                    episode_data ['tol_narrow'].append (float (env .tol_narrow_metrics ))
-                    episode_data ['pre_bess_residual_kw'].append (float (info .get ('pre_bess_residual_kw',0.0 )))
-                    episode_data ['raw_actor_total_power_kw'].append (float (info .get ('raw_actor_total_power_kw',info ['total_ev_transport'])))
-                    episode_data ['raw_actor_residual_kw'].append (float (info .get ('raw_actor_residual_kw',0.0 )))
-                    episode_data ['central_correction_power_kw'].append (float (info .get ('central_correction_power_kw',0.0 )))
-                    episode_data ['bess_power_kw'].append (float (info .get ('bess_power_kw',0.0 )))
-                    episode_data ['bess_soc_pct'].append (float (info .get ('bess_soc_pct',0.0 )))
-                    episode_data ['pcc_power_kw'].append (float (info .get ('pcc_power_kw',info ['total_ev_transport'])))
-                    episode_data ['post_bess_residual_kw'].append (float (info .get ('post_bess_residual_kw',info ['net_demand']-info ['total_ev_transport'])))
-
-                    if 'pre_total_ev_transport'not in episode_data :
-                        episode_data ['pre_total_ev_transport']=[]
-                        for i in range (1 ,env .num_stations +1 ):
-                            episode_data [f'pre_ev{i}']=[]
-                    _sp =info ['station_powers']
-                    _sp_t =_sp if torch .is_tensor (_sp )else torch .as_tensor (_sp ,dtype =torch .float32 ,device =device )
-                    episode_station_power_history .append (_sp_t .detach ())
-                    _tev =info ['total_ev_transport']
-                    _tev_t =_tev if torch .is_tensor (_tev )else _sp_t .sum ()
-                    episode_total_transport_history .append (_tev_t .detach ().reshape (()))
-
-
-                    if 'departed_evs'in info and info ['departed_evs']:
-                        for departed_ev in info ['departed_evs']:
-                            ev_id =str (departed_ev .get ('id'))
-                            station_idx =departed_ev .get ('station')
-                            if station_idx is None :
-                                continue
-
-                            if f'station{station_idx+1}'not in episode_data ['soc_data']:
-                                episode_data ['soc_data'][f'station{station_idx+1}']={}
-                            if ev_id in episode_data ['soc_data'][f'station{station_idx+1}']:
-
-                                after_list =info .get ('snapshot_after',{}).get (station_idx ,[])
-                                matched =next ((d for d in after_list if str (d .get ('id'))==ev_id ),None )
-                                if matched is not None :
-                                    final_soc =matched .get ('new_soc',None )
-                                    target_soc =matched .get ('target_soc',None )
-                                    if target_soc is None :
-                                        raise ValueError (f"EV {ev_id}: target_soc not found in snapshot data. Cannot proceed without target SoC information.")
-                                    if final_soc is not None :
-                                        episode_data ['soc_data'][f'station{station_idx+1}'][ev_id ]['final_soc']=float (final_soc )
-                                    if target_soc is not None :
-                                        episode_data ['soc_data'][f'station{station_idx+1}'][ev_id ]['target_soc']=float (target_soc )
-
-                                episode_data ['soc_data'][f'station{station_idx+1}'][ev_id ]['depart_step']=int (info .get ('step_count',env .step_count ))
-
                 if all (done ):
                     agent .episode_end ()
                     break
@@ -1123,8 +779,6 @@ resume_checkpoint_interval =100 ,
             _is_warmup =False
 
             metrics =env .get_metrics ()
-            if TRAIN_FORCE_CHARGING and tb_writer is not None :
-                tb_writer .add_scalar ("Metrics/train_forced_kwh",metrics .get ('train_forced_kwh',0.0 ),training_ep )
             soc_miss_rate =metrics ['soc_miss_rate']
             surplus_absorption_rate =metrics ['surplus_absorption_rate']
             supply_cooperation_rate =metrics ['supply_cooperation_rate']
@@ -1135,19 +789,6 @@ resume_checkpoint_interval =100 ,
             departing_evs_total =env .metrics .get ('departing_evs',0 )
             departing_evs_soc_met =env .metrics .get ('departing_evs_soc_met',0 )
             avg_soc_deficit =metrics .get ('avg_soc_deficit',0.0 )
-            avg_switches =metrics .get ('avg_switches',0.0 )
-            station_limit_hits =metrics .get ('station_limit_hits',0 )
-            station_limit_steps =metrics .get ('station_limit_steps',0 )
-            station_charge_limit_hits =metrics .get ('station_charge_limit_hits',0 )
-            station_discharge_limit_hits =metrics .get ('station_discharge_limit_hits',0 )
-            station_limit_penalty_total =metrics .get ('station_limit_penalty_total',0.0 )
-            station_limit_penalty_per_step =(
-            station_limit_penalty_total /max (steps_in_ep ,1 )
-            )
-            station_limit_penalty_per_hit =(
-            station_limit_penalty_total /max (station_limit_hits ,1 )
-            if station_limit_hits >0 else 0.0
-            )
 
             if not _is_warmup :
                 all_rewards .append (ep_r /steps_in_ep )
@@ -1167,8 +808,6 @@ resume_checkpoint_interval =100 ,
                 performance_metrics ['avg_soc_deficit'].append (avg_soc_deficit )
                 performance_metrics ['surplus_absorption_rate'].append (surplus_absorption_rate )
                 performance_metrics ['supply_cooperation_rate'].append (supply_cooperation_rate )
-                if 'avg_switches'in performance_metrics :
-                    performance_metrics ['avg_switches'].append (avg_switches )
                 performance_metrics ['departing_evs'].append (departing_evs_total )
                 performance_metrics ['departing_evs_soc_met'].append (departing_evs_soc_met )
                 performance_metrics .setdefault ('central_soc_miss_count',[]).append (
@@ -1204,73 +843,30 @@ resume_checkpoint_interval =100 ,
                 'bess_energy_limit_hits','bess_max_abs_power_kw',
                 ):
                     performance_metrics .setdefault (key ,[]).append (metrics .get (key ,0.0 ))
-                if 'station_limit_hits'in performance_metrics :
-                    performance_metrics ['station_limit_hits'].append (station_limit_hits )
-                    performance_metrics ['station_limit_steps'].append (station_limit_steps )
-                    performance_metrics ['station_charge_limit_hits'].append (station_charge_limit_hits )
-                    performance_metrics ['station_discharge_limit_hits'].append (station_discharge_limit_hits )
-                    performance_metrics ['station_limit_penalty_total'].append (station_limit_penalty_total )
-                    performance_metrics ['station_limit_penalty_per_step'].append (station_limit_penalty_per_step )
-                    performance_metrics ['station_limit_penalty_per_hit'].append (station_limit_penalty_per_hit )
 
                 train .charge_rates .append (surplus_absorption_rate )
                 train .discharge_rates .append (supply_cooperation_rate )
                 train .soc_hit_rates .append (100 -soc_miss_rate )
-
-                if collect_episode_detail and episode_station_power_history :
-                    station_power_rows =torch .stack (episode_station_power_history ).detach ().cpu ().tolist ()
-                    total_transport_rows =torch .stack (episode_total_transport_history ).detach ().cpu ().tolist ()
-                    episode_data ['total_ev_transport']=[float (v )for v in total_transport_rows ]
-                    episode_data ['pre_total_ev_transport']=episode_data ['total_ev_transport'].copy ()
-                    for i in range (env .num_stations ):
-                        series =[float (row [i ])for row in station_power_rows ]
-                        episode_data [f'actual_ev{i+1}']=series
-                        episode_data [f'pre_ev{i+1}']=series.copy ()
-
-                if collect_episode_detail :
-                    all_episode_data [training_ep ]=episode_data
 
             train_parts =[
             f"train{training_ep} ",
             f"SoC actor/physical: {100-soc_miss_rate:.1f}/"
             f"{100-metrics.get('central_soc_miss_rate', 0.0):.1f}%",
             ]
-            if enable_switch_metrics :
-                train_parts .append (f"Switches: {avg_switches:.2f}")
-            if enable_stlimit_metrics :
-                train_parts .append (
-                f"StLimit: steps={station_limit_steps}, hits={station_limit_hits}, pen={station_limit_penalty_total:.2f}"
-                )
             train_parts .append (f"Surplus: {surplus_success}/{surplus_steps} ({surplus_absorption_rate:.1f}%)")
             train_parts .append (f"Supply: {shortage_success}/{shortage_steps} ({supply_cooperation_rate:.1f}%)")
-            # With the battery off its column repeats the central one and the
-            # third MAE repeats the second, so the line would say the same
-            # number twice and print a battery that did nothing.
-            if bool (TRAIN_USE_RESIDUAL_BESS ):
-                train_parts .append (
-                f"MARL/Central/System: {metrics.get('tracking_success_rate', 0.0):.1f}/"
-                f"{metrics.get('central_tracking_success_rate', 0.0):.1f}/"
-                f"{metrics.get('system_tracking_success_rate', 0.0):.1f}% "
-                f"(MAE {metrics.get('raw_actor_mae_kw', 0.0):.1f}->"
-                f"{metrics.get('pre_bess_mae_kw', 0.0):.1f}->"
-                f"{metrics.get('post_bess_mae_kw', 0.0):.1f} kW)"
-                )
-            else :
-                train_parts .append (
-                f"MARL/Central: {metrics.get('tracking_success_rate', 0.0):.1f}/"
-                f"{metrics.get('central_tracking_success_rate', 0.0):.1f}% "
-                f"(MAE {metrics.get('raw_actor_mae_kw', 0.0):.1f}->"
-                f"{metrics.get('pre_bess_mae_kw', 0.0):.1f} kW)"
-                )
+            # The battery is off in training, so only the actor and central
+            # columns carry information.
+            train_parts .append (
+            f"MARL/Central: {metrics.get('tracking_success_rate', 0.0):.1f}/"
+            f"{metrics.get('central_tracking_success_rate', 0.0):.1f}% "
+            f"(MAE {metrics.get('raw_actor_mae_kw', 0.0):.1f}->"
+            f"{metrics.get('pre_bess_mae_kw', 0.0):.1f} kW)"
+            )
             train_parts .append (
             f"Central: corrected={metrics.get('central_corrected_ev_steps', 0)} EV-steps, "
             f"max={metrics.get('central_max_abs_aggregate_correction_kw', 0.0):.1f}kW"
             )
-            if bool (TRAIN_USE_RESIDUAL_BESS ):
-                train_parts .append (
-                f"BESS: SoC={metrics.get('bess_final_soc_pct', 0.0):.1f}%, "
-                f"max={metrics.get('bess_max_abs_power_kw', 0.0):.1f}kW"
-                )
             train_parts .append (f"Duration={ep_duration:.1f}s")
             print (" | ".join (train_parts ),flush =True )
 
@@ -1304,44 +900,35 @@ resume_checkpoint_interval =100 ,
                 bess_max_abs_power_kw =metrics .get ('bess_max_abs_power_kw',0.0 ),
                 bess_power_limit_hits =metrics .get ('bess_power_limit_hits',0 ),
                 bess_energy_limit_hits =metrics .get ('bess_energy_limit_hits',0 ),
-                avg_switches =avg_switches ,
-                station_limit_steps =station_limit_steps ,
-                station_limit_penalty_total =station_limit_penalty_total ,
                 ep_local_departure_r =ep_local_departure_r ,
                 ep_local_progress_shaping_r =ep_local_progress_shaping_r ,
-                ep_local_discharge_penalty_r =ep_local_discharge_penalty_r ,
-                ep_local_switch_penalty_r =ep_local_switch_penalty_r ,
-                ep_local_station_limit_penalty_r =ep_local_station_limit_penalty_r ,
                 station_local_reward_sums =station_local_reward_sums ,
-                enable_switch_metrics =enable_switch_metrics ,
-                enable_stlimit_metrics =enable_stlimit_metrics ,
                 )
-                if bool (TRAIN_WRITE_GRAD_HEALTH ):
-                    grad_health_tags =(
-                    ("last_global_critic_grad_norm_before_clip","GradHealth/global_critic_raw"),
-                    ("last_global_critic_grad_norm","GradHealth/global_critic_after_clip"),
-                    ("last_local_critic_grad_norm","GradHealth/local_critic_after_clip"),
-                    ("last_actor_grad_norm","GradHealth/actor_after_clip"),
-                    ("last_actor_source_local_grad_norm_before_clip","GradHealth/actor_source_local_raw"),
-                    ("last_actor_source_global_grad_norm_before_clip","GradHealth/actor_source_global_raw"),
-                    ("last_actor_source_global_ratio","GradHealth/actor_source_global_ratio"),
-                    ("last_actor_source_cos","GradHealth/actor_source_local_global_cos"),
-                    ("last_actor_source_cos_valid_fraction","GradHealth/actor_source_cos_valid_fraction"),
-                    ("last_global_critic_clip_count","GradHealth/global_critic_clip"),
-                    ("last_local_critic_clip_count","GradHealth/local_critic_clip_count"),
-                    ("last_actor_clip_count","GradHealth/actor_clip_count"),
-                    ("last_global_critic_loss","GradHealth/global_critic_loss"),
-                    ("last_critic_loss","GradHealth/local_critic_loss"),
-                    ("last_actor_loss","GradHealth/actor_loss"),
-                    )
-                    for attr ,tag in grad_health_tags :
-                        if hasattr (agent ,attr ):
-                            try :
-                                value =float (getattr (agent ,attr ))
-                            except (TypeError ,ValueError ):
-                                continue
-                            if np .isfinite (value ):
-                                tb_writer .add_scalar (tag ,value ,training_ep )
+                grad_health_tags =(
+                ("last_global_critic_grad_norm_before_clip","GradHealth/global_critic_raw"),
+                ("last_global_critic_grad_norm","GradHealth/global_critic_after_clip"),
+                ("last_local_critic_grad_norm","GradHealth/local_critic_after_clip"),
+                ("last_actor_grad_norm","GradHealth/actor_after_clip"),
+                ("last_actor_source_local_grad_norm_before_clip","GradHealth/actor_source_local_raw"),
+                ("last_actor_source_global_grad_norm_before_clip","GradHealth/actor_source_global_raw"),
+                ("last_actor_source_global_ratio","GradHealth/actor_source_global_ratio"),
+                ("last_actor_source_cos","GradHealth/actor_source_local_global_cos"),
+                ("last_actor_source_cos_valid_fraction","GradHealth/actor_source_cos_valid_fraction"),
+                ("last_global_critic_clip_count","GradHealth/global_critic_clip"),
+                ("last_local_critic_clip_count","GradHealth/local_critic_clip_count"),
+                ("last_actor_clip_count","GradHealth/actor_clip_count"),
+                ("last_global_critic_loss","GradHealth/global_critic_loss"),
+                ("last_critic_loss","GradHealth/local_critic_loss"),
+                ("last_actor_loss","GradHealth/actor_loss"),
+                )
+                for attr ,tag in grad_health_tags :
+                    if hasattr (agent ,attr ):
+                        try :
+                            value =float (getattr (agent ,attr ))
+                        except (TypeError ,ValueError ):
+                            continue
+                        if np .isfinite (value ):
+                            tb_writer .add_scalar (tag ,value ,training_ep )
 
 
             _stop_after_episode =bool (
@@ -1367,11 +954,6 @@ resume_checkpoint_interval =100 ,
             if should_run_interim_test :
                 print (f"------------test{training_ep}")
                 test_start =time .time ()
-                enable_interim_test_png =bool (
-                INTERIM_TEST_ENABLE_PNG and should_save_interim_graph
-                )
-                save_interim_test_detail =bool (INTERIM_TEST_SAVE_DETAIL_FILES )
-
                 _ =test (agent ,random_window =False ,working_dir =working_dir ,
                 test_results =None ,test_episode_num =training_ep ,
                 demand_data_override =test_demand_data_override ,
@@ -1379,22 +961,16 @@ resume_checkpoint_interval =100 ,
                 episode_preparer =test_episode_preparer ,
                 num_episodes =max (1 ,int (INTERIM_TEST_EPISODES )),
                 eval_seed =int (INTERIM_TEST_SEED ),
-                enable_png =enable_interim_test_png ,
-                enable_history_png =bool (INTERIM_TEST_ENABLE_HISTORY_PNG and should_save_interim_graph ),
-                save_test_detail_files =save_interim_test_detail ,
-                verbose =bool (INTERIM_TEST_VERBOSE ),
+                enable_png =bool (should_save_interim_graph ),
+                enable_history_png =bool (should_save_interim_graph ),
+                save_test_detail_files =True ,
+                verbose =True ,
                 print_summary =True )
 
                 try :
                     save_dir =os .path .join (working_dir ,"results",f"TEST{training_ep}")
                     os .makedirs (save_dir ,exist_ok =True )
-                    if hasattr (agent ,"save_checkpoint"):
-                        # actor files + critic/optimizer bundle (warm-start fine-tune)
-                        agent .save_checkpoint (save_dir ,episode =training_ep )
-                    elif hasattr (agent ,"save_actors"):
-                        agent .save_actors (save_dir ,episode =training_ep )
-                    elif hasattr (agent ,"save_models"):
-                        agent .save_models (save_dir ,episode =training_ep )
+                    agent .save_actors (save_dir ,episode =training_ep )
                 except Exception as exc :
                     warnings .warn (f"Failed to save checkpoint actors at episode {training_ep}: {exc}")
                 test_duration =time .time ()-test_start
@@ -1427,7 +1003,7 @@ resume_checkpoint_interval =100 ,
                     # Root-level train summaries must stay aligned with the CSV
                     # written by the same helper. Detailed/interim plots are
                     # still gated by should_save_interim_graph in test().
-                    skip_png_flag =bool (TRAIN_FAST_PERFORMANCE_ONLY )or not bool (TRAIN_SAVE_SUMMARY_PNG )
+                    skip_png_flag =False
 
                     if len (all_local_rewards )>0 and len (all_global_rewards )>0 :
                         plot_daily_rewards (all_local_rewards ,all_global_rewards ,
@@ -1483,7 +1059,7 @@ resume_checkpoint_interval =100 ,
     results_dir =os .path .join (working_dir ,"results")
     os .makedirs (results_dir ,exist_ok =True )
 
-    skip_png_flag =bool (TRAIN_FAST_PERFORMANCE_ONLY )or not bool (TRAIN_SAVE_SUMMARY_PNG )
+    skip_png_flag =False
     if len (all_local_rewards )>0 and len (all_global_rewards )>0 :
         plot_daily_rewards (all_local_rewards ,all_global_rewards ,
         results_dir ,episode_num =len (all_local_rewards ),

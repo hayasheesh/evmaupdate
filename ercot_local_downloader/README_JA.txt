@@ -5,16 +5,14 @@ ERCOT SCED 指令波形の取得
 
 取得するのは2025-12-05以降のNP3-965-ER。
 標準では全Load Resource（CLR候補）と全ESR。Generationは任意追加。
-旧resources.txtのAR_ALD1/BOERNE_ALD1制限は新しいCMDでは使わない。
 
 ユーザーが実行する入口
 ----------------------
 1. run_test_windows.bat：1日だけ取得し、接続とCSV列を確認する。
 2. run_all_windows.bat：全期間取得する。
 3. run_cop_windows.bat：COP調整期間スナップショット（NP1-301）を全期間取得する。
-4. run_plan_probe_windows.bat：1営業日分のDAM・COP・SCEDを全列で取得し、列を確認する。
 
-既存のPublic API認証を再利用し、email、password、subscription keyを入力する。
+Public API認証（download_ercot_ader_sced_api.py の ErcotClient）を使い、email、password、subscription keyを入力する。
 passwordとkeyは非表示入力。認証情報は出力ファイルに保存しない。
 bank生成や学習は自動実行しない。
 
@@ -46,6 +44,3 @@ CSVの欠損をこの段階で補間しない。
 次の整形・監査手順はプロジェクトの
   docs/指令データ.md
 を参照。期間境界は監査後に明示する。合成シナリオ数を実日数と混同しない。
-
-旧download_ercot_ader_sced_api.py、旧resources.txt、過去の取得成果物は残してある。
-従来の名前指定CLR専用取得を再現する場合だけ旧スクリプトを直接指定する。

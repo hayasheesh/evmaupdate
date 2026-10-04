@@ -3,14 +3,12 @@
 The submitted bids come from a persistent bid bank.  Command traces are drawn
 from the disjoint holdout partition, minus every command the model's pretrain
 drew (the lower controller trains on all partitions but the bid design one),
-and EV realizations use independent seeds. The script must configure the
-observation layout before importing EVEnv.
+and EV realizations use independent seeds.
 """
 from __future__ import annotations
 
 import argparse
 import json
-import os
 from pathlib import Path
 import sys
 
@@ -26,15 +24,9 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--model-dir", required=True)
     parser.add_argument("--episode", type=int, default=None)
-    parser.add_argument(
-        "--bid-bank-dir",
-        default=str(
-            PROJECT_ROOT
-            / "execute_results"
-            / "bid_banks"
-            / "validation_5_minmedmax_3of128ev_128cmd_all_commands"
-        ),
-    )
+    # No default: a bank is built for one command set, and a default path
+    # cannot follow EVMA_ACTIVATION_SIGNAL_SET.
+    parser.add_argument("--bid-bank-dir", required=True)
     parser.add_argument("--command-scenarios", type=int, default=24)
     parser.add_argument("--ev-seeds", type=int, default=3)
     parser.add_argument("--base-seed", type=int, default=1_422_090)
@@ -46,6 +38,14 @@ def build_parser() -> argparse.ArgumentParser:
         help="Controller stack to evaluate. The default is the proposed system.",
     )
     parser.add_argument("--max-days", type=int, default=0)
+    parser.add_argument(
+        "--allow-other-command-set",
+        action="store_true",
+        help=(
+            "Evaluate commands from a set other than the one the bank was designed on "
+            "(pjm_regd on a pjm_regd_phase_shift bank). Otherwise the two must match."
+        ),
+    )
     parser.add_argument(
         "--include-training-commands",
         action="store_true",
@@ -88,10 +88,33 @@ def _commands_seen_in_training(model_dir: Path) -> set[str]:
     )
 
 
-def _configure_environment() -> None:
-    os.environ["EVMA_LOWER_BID_CONTEXT_OBS"] = "1"
-    os.environ["EVMA_USE_CENTRAL_EV_RESIDUAL_ALLOCATOR"] = "0"
-    os.environ["EVMA_USE_RESIDUAL_BESS"] = "1"
+def _check_bank_command_set(bank, *, allow_other: bool) -> None:
+    """Refuse a bank designed on another command set than the one evaluated.
+
+    Compared by the library's declared regime (metadata.json), which every
+    bank since contract version 28 records.
+    """
+
+    from EnvConfig import LOWER_TRAIN_UPPER_BID_ACTIVATION_SOURCE_DIR
+
+    settings = bank.manifest.get("settings") or {}
+    saved = settings.get("activation_signal_regime")
+    metadata_path = Path(LOWER_TRAIN_UPPER_BID_ACTIVATION_SOURCE_DIR) / "metadata.json"
+    current = None
+    if metadata_path.is_file():
+        current = json.loads(metadata_path.read_text(encoding="utf-8")).get("regime")
+    current = str(current).strip() or None if current is not None else None
+    if saved is None:
+        raise SystemExit("the bank records no command set; it predates contract version 28")
+    if str(saved) == str(current):
+        return
+    message = (
+        f"the bank was designed on {saved!r} commands, but this evaluation draws {current!r} "
+        f"from {LOWER_TRAIN_UPPER_BID_ACTIVATION_SOURCE_DIR}"
+    )
+    if not allow_other:
+        raise SystemExit(f"{message}; set EVMA_ACTIVATION_SIGNAL_SET to match or pass --allow-other-command-set")
+    print(f"[eval] {message} (allowed)", flush=True)
 
 
 def _weighted_soc(rows) -> float:
@@ -101,128 +124,10 @@ def _weighted_soc(rows) -> float:
     return float(rows["departing_evs_soc_met"].sum()) / departing
 
 
-def _scale_submitted_bid(fixed_bid: dict) -> dict:
-    """約定量を EVMA_EVAL_BID_SCALE 倍に縮める。
-
-    目標も帯も up_plan/down_plan から再計算されるので、この2本を縮めれば
-    両方が整合して縮む。縮めた結果が最低入札量を割るブロックは、規定上
-    参加できないのでゼロにする。解き直しではないが、能力 X を出せるなら
-    sX も出せるので実行可能性は保たれる。
-    """
-    import numpy as np
-
-    raw = os.environ.get("EVMA_EVAL_BID_SCALE", "1.0").strip()
-    try:
-        scale = float(raw)
-    except ValueError:
-        raise SystemExit(f"EVMA_EVAL_BID_SCALE が数値でない: {raw!r}")
-    if scale == 1.0:
-        return fixed_bid
-    if not (0.0 < scale <= 1.0):
-        raise SystemExit(f"EVMA_EVAL_BID_SCALE は (0, 1] の範囲: {scale}")
-
-    from EnvConfig import LOWER_TRAIN_RESEARCH_MINIMUM_BID_QUANTITY_KW as MIN_BID
-
-    q = float(MIN_BID)
-    out = dict(fixed_bid)
-    kept = 0
-    dropped = 0
-    for key in ("up_plan", "down_plan"):
-        plan = np.asarray(out[key], dtype=float) * scale
-        below = (plan > 1e-8) & (plan < q)
-        dropped += int(below.sum())
-        plan[below] = 0.0
-        kept += int((plan > 1e-8).sum())
-        out[key] = plan
-    print(
-        f"[eval] 入札を {scale:.2f} 倍に縮めた: 参加方向ブロック {kept}, "
-        f"最低入札量 {q:.0f} kW を割って落ちたもの {dropped}",
-        flush=True,
-    )
-    return out
-
-
-def _drop_bid_blocks(fixed_bid: dict) -> dict:
-    """EVMA_EVAL_DROP_BLOCKS_JSON に挙げたブロックを入札から外す。
-
-    JSON は {"YYYY-MM-DD": [block, ...]}。上げも下げもゼロのブロックは
-    その30分コマ全体が評価の対象外になるので、落としたブロックの EV は
-    追従を気にせず充電できる。残るブロックが楽になるかを測るための穴。
-    """
-    import json
-
-    import numpy as np
-
-    path = os.environ.get("EVMA_EVAL_DROP_BLOCKS_JSON", "").strip()
-    if not path:
-        return fixed_bid
-    with open(path, encoding="utf-8") as fh:
-        table = json.load(fh)
-    day = str(fixed_bid.get("service_date"))
-    blocks = [int(b) for b in table.get(day, [])]
-    if not blocks:
-        print(f"[eval] {day}: 外すブロックなし", flush=True)
-        return fixed_bid
-    out = dict(fixed_bid)
-    for key in ("up_plan", "down_plan"):
-        plan = np.asarray(out[key], dtype=float).copy()
-        plan[blocks] = 0.0
-        out[key] = plan
-    print(f"[eval] {day}: {len(blocks)} ブロックを入札から外した {blocks}", flush=True)
-    return out
-
-
-def _override_band_fraction(fixed_bid: dict) -> dict:
-    """許容帯を EVMA_EVAL_BAND_FRACTION に差し替える。
-
-    約定量はそのままで帯幅だけを変える。帯は目標と一緒に
-    _bid_to_target_tol_from_activation で再計算されるので、この値を
-    置き換えれば評価側の合否判定にもそのまま効く。規定は 10%。
-    """
-    raw = os.environ.get("EVMA_EVAL_BAND_FRACTION", "").strip()
-    if not raw:
-        return fixed_bid
-    frac = float(raw)
-    if not (0.0 < frac <= 1.0):
-        raise SystemExit(f"EVMA_EVAL_BAND_FRACTION は (0, 1]: {frac}")
-    out = dict(fixed_bid)
-    before = float(out.get("assessment_band_fraction", 0.1))
-    out["assessment_band_fraction"] = frac
-    print(f"[eval] 帯幅 {before:.3f} -> {frac:.3f}", flush=True)
-    return out
-
-
-def _apply_min_award(fixed_bid: dict) -> dict:
-    """EVMA_EVAL_MIN_AWARD_KW 未満の方向約定をゼロにする。
-
-    帯下限（LOWER_CONTROLLER_MIN_TRACKING_BAND_KW）を上げたときに落ちる
-    ブロックを、入札を解き直さずに近似する。解き直しの効果は含まれない。
-    """
-    import numpy as np
-
-    raw = os.environ.get("EVMA_EVAL_MIN_AWARD_KW", "").strip()
-    if not raw:
-        return fixed_bid
-    floor = float(raw)
-    out = dict(fixed_bid)
-    dropped = kept = 0
-    for key in ("up_plan", "down_plan"):
-        plan = np.asarray(out[key], dtype=float).copy()
-        low = (plan > 1e-8) & (plan < floor)
-        dropped += int(low.sum())
-        plan[low] = 0.0
-        kept += int((plan > 1e-8).sum())
-        out[key] = plan
-    print(f"[eval] {fixed_bid.get('service_date')}: 約定 {floor:.0f} kW 未満を落とした "
-          f"落とし {dropped} / 残り {kept}", flush=True)
-    return out
-
-
 def main(argv=None) -> int:
     args = build_parser().parse_args(argv)
     if args.command_scenarios <= 0 or args.ev_seeds <= 0:
         raise ValueError("command scenarios and EV seeds must be positive")
-    _configure_environment()
 
     import numpy as np
     import pandas as pd
@@ -255,6 +160,7 @@ def main(argv=None) -> int:
 
     profile = load_observation_normalization_for_archive(model_dir)
     bank = BidBank(bid_bank_dir)
+    _check_bank_command_set(bank, allow_other=bool(args.allow_other_command_set))
     entries = list(bank.entries)
     if args.max_days > 0:
         entries = entries[: int(args.max_days)]
@@ -264,6 +170,16 @@ def main(argv=None) -> int:
         set() if args.include_training_commands else _commands_seen_in_training(model_dir)
     )
     print(f"[eval] excluding {len(seen_in_training)} commands the pretrain drew", flush=True)
+    # The exclusion is per command file. A day holds one file per source unit,
+    # so a holdout command can share its day with a unit the pretrain drew.
+    # Such commands are counted, not excluded.
+    from EnvConfig import LOWER_TRAIN_UPPER_BID_ACTIVATION_SOURCE_DIR
+    from market.activation_scenarios import command_days
+
+    day_of_command = command_days(LOWER_TRAIN_UPPER_BID_ACTIVATION_SOURCE_DIR)
+    training_days = {
+        day_of_command[source] for source in seen_in_training if source in day_of_command
+    }
 
     first_bid = dict(bank.load_entry(entries[0]))
     first_payloads, _ = _activation_scenarios_for_day(
@@ -285,7 +201,6 @@ def main(argv=None) -> int:
         tracking_enabled_series=arrival.get("tracking_enabled_series"),
         market_context_series=arrival.get("market_context_series"),
         arrival_probabilities_by_station=arrival.get("arrival_probabilities_by_station"),
-        day_context=arrival.get("day_context"),
         service_date=arrival.get("service_date"),
         baseline_series=arrival.get("baseline_series"),
     )
@@ -316,10 +231,6 @@ def main(argv=None) -> int:
     rollout_frames = []
     for day_index, entry in enumerate(entries):
         fixed_bid = dict(bank.load_entry(entry))
-        fixed_bid = _scale_submitted_bid(fixed_bid)
-        fixed_bid = _drop_bid_blocks(fixed_bid)
-        fixed_bid = _override_band_fraction(fixed_bid)
-        fixed_bid = _apply_min_award(fixed_bid)
         command_seed = int(fixed_bid.get("forecast_seed", 0)) + 512_209
         payloads, activation_mode = _activation_scenarios_for_day(
             fixed_bid.get("service_date"),
@@ -342,7 +253,16 @@ def main(argv=None) -> int:
             out_dir=day_dir,
             visualize=False,
         )
-        summary = {"service_date": entry["service_date"], **summary}
+        same_day = sum(
+            day_of_command.get(str(payload.get("source", ""))) in training_days
+            for payload in payloads
+        )
+        summary = {
+            "service_date": entry["service_date"],
+            "holdout_commands": len(payloads),
+            "holdout_commands_on_training_days": int(same_day),
+            **summary,
+        }
         day_summaries.append(summary)
         frame = pd.read_csv(day_dir / "results" / "controller_precision_by_scenario.csv")
         frame.insert(0, "bid_day_index", day_index)
@@ -374,9 +294,13 @@ def main(argv=None) -> int:
         "model_dir": str(model_dir),
         "checkpoint_dir": str(checkpoint_dir),
         "model_episode": int(selected_episode),
-        "evaluation_pipeline": "system",
+        "evaluation_pipeline": str(args.pipeline),
         "command_partition": "holdout",
         "excluded_training_commands": len(seen_in_training),
+        "holdout_commands": int(sum(day["holdout_commands"] for day in day_summaries)),
+        "holdout_commands_on_training_days": int(sum(
+            day["holdout_commands_on_training_days"] for day in day_summaries
+        )),
         "bid_days": len(entries),
         "command_scenarios_per_day": int(args.command_scenarios),
         "ev_seeds_per_command": int(args.ev_seeds),

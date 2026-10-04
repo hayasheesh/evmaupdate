@@ -29,7 +29,9 @@ python tools/build_all_upper_bid_banks.py --workers 2
 
 `--preflight-only` を付けると、指令の区分と本数だけ確認して止まる。
 
-MARLの事前学習:
+EV実現の3本（128本から選んだもの）と、そこから解く基準値の初期値（指令なしで出発時SoCを満たす充電のLP）は、`execute_results/ev_scenario_cache/` に保存する。指令集合や最低入札量を変えて同じ日のbankを作り直すときは、128本を引き直さずにここから読む。EVの生成が読むコード・設定・データファイルのどれかが変わっていれば、読まずに作り直す。`EVMA_BID_SOLVE_CACHE=0` を付けると、入札の保存分（`execute_results/bid_solve_cache/`）も使わず、すべて計算し直す。
+
+MARLの事前学習。train・testのbankが揃っていないとき、またはbankの入札設定が今のコードと違うときは止まる:
 
 ```powershell
 python pre_train.py
@@ -44,11 +46,15 @@ python pre_train.py
 
 ```powershell
 python tools/evaluate_final_system_on_bid_bank.py `
-  --model-dir <run> --output-dir <output> `
+  --model-dir <run> --bid-bank-dir <bank> --output-dir <output> `
   --pipeline marl_force_bess
 ```
 
 `rule_based_central` でもcheckpointを読み込むが、観測次元を決めるためだけでactorの出力は使わない。
+
+`--bid-bank-dir` に既定値はない。bankを作った指令集合と `EVMA_ACTIVATION_SIGNAL_SET` が違うと止まる。`pjm_regd_phase_shift` のbankで `pjm_regd` を評価するときは `--allow-other-command-set` を付ける。
+
+`--episode` を省くと、途中テストの追従率とSoC達成率の和が最大のcheckpointを、1000エピソード以降から選ぶ。追従率は指令なしのstepを含む。指令なしのstep数を記録する前の途中テストは候補に入らない。
 
 ## 主な実装
 
@@ -60,4 +66,3 @@ python tools/evaluate_final_system_on_bid_bank.py `
 - `environment/EVEnv.py`: EV群とPCCのBESSを含む環境
 - `environment/central_residual_allocator.py`: 中央観測ルールベースの比較器
 - `training/evaluate_controller_precision.py`: 入札後の統一評価
-- `legacy/finetune/`: 約定後のfine-tune（主線から外した旧実験）

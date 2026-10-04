@@ -1,2 +1,4 @@
 __pycache__/
 *.pyc
+execute_results/bid_solve_cache/
+execute_results/ev_scenario_cache/

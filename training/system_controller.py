@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import csv
 import json
+import math
 import re
 from pathlib import Path
 
@@ -21,7 +22,7 @@ from Config import (
     TD3_CLIP_GLOBAL,
     TD3_SIGMA_GLOBAL,
 )
-from EnvConfig import MAX_EV_POWER_KW, POWER_TO_ENERGY
+from EnvConfig import POWER_TO_ENERGY
 from training.Agent import MADDPG
 from training.Agent.standard_maddpg import build_marl_agent
 
@@ -136,8 +137,6 @@ def apply_force_charging(actions, env, *, slack_kwh: float = 0.0):
         for order_index, ev_tensor in enumerate(sorted_active):
             ev_index = int(ev_tensor.item())
             max_power_kw = float(env.ev_max_power_kw[station, ev_index].item())
-            if max_power_kw <= 0.0:
-                max_power_kw = float(MAX_EV_POWER_KW)
             max_step_kwh = max_power_kw * float(POWER_TO_ENERGY)
             if max_step_kwh <= 0.0:
                 continue
@@ -198,35 +197,54 @@ def _test_history_episodes(results_dir: Path) -> list[int] | None:
         return None
 
 
-def choose_best_episode(model_dir: str | Path) -> int:
-    """Choose the saved checkpoint with maximum test SoC plus tracking rate."""
+# A MARL result is a policy trained for at least this many episodes (AGENTS.md).
+MIN_REPORTED_TRAINING_EPISODE = 1000
+
+
+def choose_best_episode(
+    model_dir: str | Path,
+    *,
+    min_episode: int = MIN_REPORTED_TRAINING_EPISODE,
+) -> int:
+    """Choose the checkpoint with maximum test SoC plus tracking rate.
+
+    Only checkpoints at or after ``min_episode`` are candidates. The tracking
+    rate counts every assessed step, no-instruction steps included; a row
+    written before those were recorded has no rate and is skipped.
+    """
 
     results_dir = Path(model_dir) / "results"
     test_dirs = _test_directories(results_dir)
     if not test_dirs:
         raise FileNotFoundError(f"No TEST* directories found under: {results_dir}")
     history = _test_history_episodes(results_dir)
+    if history is None:
+        raise FileNotFoundError(f"{results_dir / 'test_history.json'} is missing; pass the episode explicitly")
     metrics_path = results_dir / "test_performance_metrics.csv"
+    if not metrics_path.is_file():
+        raise FileNotFoundError(f"{metrics_path} is missing; pass the episode explicitly")
+    with metrics_path.open("r", encoding="utf-8-sig", newline="") as handle:
+        rows = list(csv.DictReader(handle))
     best: tuple[int, float] | None = None
-    if metrics_path.is_file():
-        with metrics_path.open("r", encoding="utf-8-sig", newline="") as handle:
-            rows = list(csv.DictReader(handle))
-        for index, row in enumerate(rows):
-            try:
-                score = float(row["SoC_Hit_Rate_%"]) + float(
-                    row["Dispatch_Tracking_Rate_%"]
-                )
-            except (KeyError, TypeError, ValueError):
-                continue
-            episode = history[index] if history is not None and index < len(history) else None
-            if episode is None:
-                try:
-                    raw = int(float(row.get("Episode", "")))
-                except (TypeError, ValueError):
-                    raw = -1
-                episode = raw if raw in test_dirs else raw * 10
-            if episode not in test_dirs:
-                continue
-            if best is None or score > best[1] or (score == best[1] and episode > best[0]):
-                best = (episode, score)
-    return best[0] if best is not None else max(test_dirs)
+    for index, row in enumerate(rows):
+        try:
+            score = float(row["SoC_Hit_Rate_%"]) + float(
+                row["Dispatch_Tracking_Rate_%"]
+            )
+        except (KeyError, TypeError, ValueError):
+            continue
+        if not math.isfinite(score):
+            continue
+        if index >= len(history):
+            continue
+        episode = history[index]
+        if episode not in test_dirs or episode < int(min_episode):
+            continue
+        if best is None or score > best[1] or (score == best[1] and episode > best[0]):
+            best = (episode, score)
+    if best is None:
+        raise ValueError(
+            f"no checkpoint at or after episode {int(min_episode)} has a test score "
+            f"with no-instruction steps in {metrics_path}; pass the episode explicitly"
+        )
+    return best[0]

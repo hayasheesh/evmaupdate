@@ -8,7 +8,6 @@ def test_bounded_balance_reward_has_no_tolerance_flat_top() -> None:
 
     env = EVEnv.__new__(EVEnv)
     env.balance_reward = 1.0
-    env.balance_reward_mode = "bounded_absolute_error"
     env._balance_reward_error_scale_kw = 150.0
     env._balance_reward_linear_tail_kw = 0.0
     env.tol_narrow_metrics = 75.0
