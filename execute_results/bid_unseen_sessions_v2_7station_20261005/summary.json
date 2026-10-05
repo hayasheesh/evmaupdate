@@ -1,0 +1,50 @@
+{
+  "AEMO": {
+    "commands": 3200,
+    "trials": 9600,
+    "feasible": 8108,
+    "infeasible": 1253,
+    "unknown": 239,
+    "bid_days": 25,
+    "ev_seeds_per_command": 3,
+    "success_rate": null,
+    "success_rate_lower_bound": 0.8445833333333334,
+    "success_rate_upper_bound": 0.8694791666666667
+  },
+  "ERCOT": {
+    "commands": 3200,
+    "trials": 9600,
+    "feasible": 8473,
+    "infeasible": 897,
+    "unknown": 230,
+    "bid_days": 25,
+    "ev_seeds_per_command": 3,
+    "success_rate": null,
+    "success_rate_lower_bound": 0.8826041666666666,
+    "success_rate_upper_bound": 0.9065625
+  },
+  "GB": {
+    "commands": 3200,
+    "trials": 9600,
+    "feasible": 7795,
+    "infeasible": 1407,
+    "unknown": 398,
+    "bid_days": 25,
+    "ev_seeds_per_command": 3,
+    "success_rate": null,
+    "success_rate_lower_bound": 0.8119791666666667,
+    "success_rate_upper_bound": 0.8534375
+  },
+  "PJM": {
+    "commands": 3200,
+    "trials": 9600,
+    "feasible": 3953,
+    "infeasible": 5158,
+    "unknown": 489,
+    "bid_days": 25,
+    "ev_seeds_per_command": 3,
+    "success_rate": null,
+    "success_rate_lower_bound": 0.4117708333333333,
+    "success_rate_upper_bound": 0.46270833333333333
+  }
+}

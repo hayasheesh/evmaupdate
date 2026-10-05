@@ -1,3 +1,0 @@
-PRESERVED RESEARCH RESULT
-Do not delete or move this run during cleanup.
-Exact state: completed_training_episode=2207.

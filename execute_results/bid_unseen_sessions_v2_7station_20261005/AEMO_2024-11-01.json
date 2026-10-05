@@ -1,0 +1,2715 @@
+{
+  "result_version": 4,
+  "market": "AEMO",
+  "stations": 7,
+  "device": "cpu",
+  "service_date": "2024-11-01",
+  "bid_path": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\sessions_v2_train_25_7station_128cmd_3ev_aemo_plan_deviation\\days\\023_2024-11-01\\fixed_bid.pkl",
+  "bid_sha256": "722db8f58f2f679b7ca69fdcbcd3ce79e2aef03d06529aae568f0fcde995df9c",
+  "design_commands": 128,
+  "unseen_commands": 128,
+  "unseen_command_source": "bank activation_scenario_payload",
+  "ev_sampling": "independent_seed",
+  "ev_seeds": [
+    10096207,
+    10106214,
+    10116221
+  ],
+  "ev_counts": [
+    142,
+    131,
+    141
+  ],
+  "solver_time_limit_s": 20.0,
+  "elapsed_s": 1521.332583200001,
+  "rows": [
+    {
+      "source_date": "2025-10-24",
+      "source_bmu": "TIB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-21",
+      "source_bmu": "WTAHB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-08-19",
+      "source_bmu": "RIVNB2",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-23",
+      "source_bmu": "TEMPB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-18",
+      "source_bmu": "SNB01",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-22",
+      "source_bmu": "ULPBESS1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-21",
+      "source_bmu": "CGBESS01",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-21",
+      "source_bmu": "TIB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-23",
+      "source_bmu": "SWANBBF1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-09-19",
+      "source_bmu": "LBB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-11-20",
+      "source_bmu": "RANGEB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-19",
+      "source_bmu": "SNB01",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-22",
+      "source_bmu": "BUNGAMB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-09-20",
+      "source_bmu": "RANGEB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-19",
+      "source_bmu": "LIMBESS1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-09-21",
+      "source_bmu": "TB2B1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-22",
+      "source_bmu": "TEMPB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-24",
+      "source_bmu": "BLYTHB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-24",
+      "source_bmu": "WDBESS1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-21",
+      "source_bmu": "CHBESS1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-21",
+      "source_bmu": "WALGRV1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-23",
+      "source_bmu": "SNB01",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-24",
+      "source_bmu": "TEMPB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-19",
+      "source_bmu": "BBATTERY1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-24",
+      "source_bmu": "HBESS1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-19",
+      "source_bmu": "DPNTB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-19",
+      "source_bmu": "ULPBESS1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-11-18",
+      "source_bmu": "WALGRV1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-08-22",
+      "source_bmu": "DALNTH1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-23",
+      "source_bmu": "VBB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-19",
+      "source_bmu": "SMTHBES1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-08-23",
+      "source_bmu": "BALB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-18",
+      "source_bmu": "ERB01",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-20",
+      "source_bmu": "WDBESS2",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-23",
+      "source_bmu": "VBB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-24",
+      "source_bmu": "CGBESS01",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-21",
+      "source_bmu": "HPR1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-19",
+      "source_bmu": "CAPBES1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-23",
+      "source_bmu": "DPNTB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-09-22",
+      "source_bmu": "HPR1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-22",
+      "source_bmu": "SNB01",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-17",
+      "source_bmu": "TB2B1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-24",
+      "source_bmu": "SNB01",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-23",
+      "source_bmu": "DALNTH1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-21",
+      "source_bmu": "HPR1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-21",
+      "source_bmu": "TEMPB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-22",
+      "source_bmu": "BRNDBES1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-19",
+      "source_bmu": "BHB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-24",
+      "source_bmu": "BRDDBES1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-17",
+      "source_bmu": "WTAHB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-19",
+      "source_bmu": "WDBESS1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-11-23",
+      "source_bmu": "HBESS1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-18",
+      "source_bmu": "CHBESS1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-20",
+      "source_bmu": "TB2B1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-08-24",
+      "source_bmu": "DALNTH1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-11-21",
+      "source_bmu": "SMTHBES1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-08-23",
+      "source_bmu": "CAPBES1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-20",
+      "source_bmu": "LVES1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-11-18",
+      "source_bmu": "ERB01",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-19",
+      "source_bmu": "SNB02",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-11-19",
+      "source_bmu": "MREHA2",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-21",
+      "source_bmu": "GREENB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-10-19",
+      "source_bmu": "TIB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-21",
+      "source_bmu": "MREHA3",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-22",
+      "source_bmu": "BBATTERY1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-21",
+      "source_bmu": "ULPBESS1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-09-21",
+      "source_bmu": "CAPBES1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-21",
+      "source_bmu": "BHB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-10-20",
+      "source_bmu": "DALNTH1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-22",
+      "source_bmu": "DPNTB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-22",
+      "source_bmu": "DPNTB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-11-23",
+      "source_bmu": "MANNUMB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-24",
+      "source_bmu": "SNB01",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-22",
+      "source_bmu": "ULPBESS1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-11-19",
+      "source_bmu": "TB2B1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-19",
+      "source_bmu": "RIVNB2",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-23",
+      "source_bmu": "MREHA2",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-11-18",
+      "source_bmu": "MREHA2",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-23",
+      "source_bmu": "GREENB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-11-22",
+      "source_bmu": "TB2B1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-24",
+      "source_bmu": "CGBESS01",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-10-18",
+      "source_bmu": "SMTHBES1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-24",
+      "source_bmu": "NESBESS2",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-19",
+      "source_bmu": "MREHA2",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-20",
+      "source_bmu": "HPR1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-23",
+      "source_bmu": "BALB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-21",
+      "source_bmu": "BHB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-20",
+      "source_bmu": "MREHA2",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-20",
+      "source_bmu": "WTAHB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-19",
+      "source_bmu": "ULPBESS1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-21",
+      "source_bmu": "SNB01",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-08-21",
+      "source_bmu": "DALNTH1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-24",
+      "source_bmu": "TB2B1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-19",
+      "source_bmu": "LBB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-18",
+      "source_bmu": "MREHA3",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-20",
+      "source_bmu": "SMTHBES1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-20",
+      "source_bmu": "LDBESS1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-22",
+      "source_bmu": "RANGEB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-20",
+      "source_bmu": "CHBESS1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-03-23",
+      "source_bmu": "MANNUMB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-21",
+      "source_bmu": "RANGEB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-23",
+      "source_bmu": "LVES1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-23",
+      "source_bmu": "RESS1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-09-20",
+      "source_bmu": "WDBESS1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-19",
+      "source_bmu": "MANNUMB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-09-21",
+      "source_bmu": "CHBESS1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-10-18",
+      "source_bmu": "GANNB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-21",
+      "source_bmu": "SWANBBF1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-09-21",
+      "source_bmu": "GANNB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-23",
+      "source_bmu": "VBB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-24",
+      "source_bmu": "RIVNB2",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-20",
+      "source_bmu": "TB2B1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-23",
+      "source_bmu": "LVES1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-08-20",
+      "source_bmu": "BLYTHB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-21",
+      "source_bmu": "VBB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-22",
+      "source_bmu": "WDBESS2",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-18",
+      "source_bmu": "BRNDBES1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-10-18",
+      "source_bmu": "TB2B1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-24",
+      "source_bmu": "HPR1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-22",
+      "source_bmu": "WALGRV1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-01-22",
+      "source_bmu": "GANNB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-05-19",
+      "source_bmu": "WALGRV1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-19",
+      "source_bmu": "MREHA2",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-12-23",
+      "source_bmu": "BBATTERY1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-02-19",
+      "source_bmu": "MREHA1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-07-19",
+      "source_bmu": "CGBESS01",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-04-21",
+      "source_bmu": "DPNTB1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2026-06-18",
+      "source_bmu": "TB2B1",
+      "trials": [
+        {
+          "ev_seed": 10096207,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10106214,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10116221,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    }
+  ]
+}

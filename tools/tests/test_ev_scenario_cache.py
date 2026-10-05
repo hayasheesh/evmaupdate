@@ -12,6 +12,9 @@ DAY = "2024-04-02"
 
 @pytest.fixture
 def cache_dir(tmp_path, monkeypatch):
+    # These tests draw three candidates, so they pin a rule that picks three.
+    monkeypatch.setattr(lbt, "LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION", "session_count")
+    monkeypatch.setattr(lbt, "LOWER_TRAIN_UPPER_BID_EV_SCENARIOS", 3)
     monkeypatch.setattr(lbt, "EV_SCENARIO_CACHE_DIR", tmp_path)
     monkeypatch.delenv("EVMA_BID_SOLVE_CACHE", raising=False)
     lbt._code_and_settings_signature.cache_clear()
@@ -67,6 +70,9 @@ def test_the_key_follows_every_rollout_input(cache_dir, monkeypatch):
     assert _key(service_date="2024-04-03") != base
     assert _key(count=4) != base
     assert _key(arrival_probs=np.ones((7, 288))) != base
+    monkeypatch.setattr(lbt, "LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION", "low_connection_2_max_count")
+    assert _key() != base
+    monkeypatch.setattr(lbt, "LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION", "session_count")
 
     monkeypatch.setattr(
         EnvConfig,

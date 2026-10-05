@@ -24,18 +24,18 @@ print('banks    ', {k: v['state'] + (' ' + str(v.get('exit_codes')) if v['state'
 print('trainings', {k: v['state'] + (' ' + str(v.get('exit_codes')) if v['state'] == 'failed' else '') for k, v in s['trainings'].items()})
 EOF
 for set in aemo_plan_deviation ercot_plan_deviation elexon_plan_deviation pjm_regd_phase_shift; do
-  t=$(ls $E/bid_banks/sessions_train_25_7station_128cmd_3ev_$set/days/*/fixed_bid.pkl 2>/dev/null | wc -l)
-  v=$(ls $E/bid_banks/sessions_validation_5_7station_128cmd_3ev_$set/days/*/fixed_bid.pkl 2>/dev/null | wc -l)
+  t=$(ls $E/bid_banks/sessions_v2_train_25_7station_128cmd_3ev_$set/days/*/fixed_bid.pkl 2>/dev/null | wc -l)
+  v=$(ls $E/bid_banks/sessions_v2_validation_5_7station_128cmd_3ev_$set/days/*/fixed_bid.pkl 2>/dev/null | wc -l)
   echo "  bank $set: train $t/25, validation $v/5"
 done
 for f in $O/logs/*.stderr.log; do [ -s "$f" ] && grep -q Traceback "$f" && echo "[traceback] $f"; done
 for task in aemo ercot gb pjm ercot_maddpg; do
-  LOG=$O/logs/${task}_pretrain.stdout.log
-  [ -f $LOG ] || continue
+  LOG=$(ls -t $O/logs/${task}_pretrain*.stdout.log 2>/dev/null | head -1)
+  [ -n "$LOG" ] && [ -f "$LOG" ] || continue
   case $task in
-    aemo) M=sessions_aemoplan_AB_7station;; ercot) M=sessions_ercotplan_AB_7station;;
-    gb) M=sessions_elexonplan_AB_7station;; pjm) M=sessions_pjmregd_AB_7station;;
-    ercot_maddpg) M=sessions_ercotplan_MADDPGstd_7station;;
+    aemo) M=sessions_v2_aemoplan_AB_7station;; ercot) M=sessions_v2_ercotplan_AB_7station;;
+    gb) M=sessions_v2_elexonplan_AB_7station;; pjm) M=sessions_v2_pjmregd_AB_scale2_7station;;
+    ercot_maddpg) M=sessions_v2_ercotplan_MADDPGstd_7station;;
   esac
   RUN=$(ls -d $ROOT/archive/${M}_* 2>/dev/null | tail -1)
   echo "-- $task: $(basename "$RUN"), stdout age $(age $LOG)"
@@ -47,7 +47,7 @@ done
 $SSH smartgrid-gpu 'bash /home/hayashi/workspace/EVMALOCALUPDATE/execute_results/sessions_watch_20261004/lab_status.sh' 2>&1 || echo "[lab] ssh failed"
 
 # 研究室 20 station の学習結果の写しを archive/<同じ実行名>/ に置く。学習状態やチェックポイントは写さない。
-for LABRUN in $($SSH smartgrid-gpu 'for d in /home/hayashi/workspace/EVMALOCALUPDATE/archive/sessions_*_AB_20station_*; do [ -d "$d" ] && echo "$d"; done'); do
+for LABRUN in $($SSH smartgrid-gpu 'for d in /home/hayashi/workspace/EVMALOCALUPDATE/archive/sessions_v2_*_AB_20station_*; do [ -d "$d" ] && echo "$d"; done'); do
   MIRROR=$ROOT/archive/$(basename "$LABRUN")
   mkdir -p $MIRROR/results $MIRROR/performance $MIRROR/runs
   for f in test_performance_metrics.png test_performance_metrics.csv train_performance_metrics.png train_performance_metrics.csv test_history.json episode_rewards_all.png episode_rewards_all.csv test_episode_rewards_all.png test_episode_rewards_all.csv; do

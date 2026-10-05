@@ -4,7 +4,7 @@ This is the historical simulator-proxy path: it subtracts a rolling predispatch
 plan, divides by availability, and clips the result. Those operations answer a
 different question from source-faithful waveform extraction. For raw
 ``TOTALCLEARED`` targets and a single fixed per-scenario offset, use
-``market.command_waveforms`` / ``tools.build_market_command_waveforms``.
+``market.command_waveforms``.
 
 A GB pool built from Bid-Offer Acceptances does not fit: those are
 discrete instructions the operator issues to move a unit

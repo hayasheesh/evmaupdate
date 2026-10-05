@@ -1,51 +1,104 @@
 {
   "project": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE",
-  "started_at": "2026-10-04T18:45:40",
-  "orchestrator_pid": 18896,
+  "started_at": "2026-10-05T01:46:34",
+  "orchestrator_pid": 43776,
   "power_settings_touched": false,
   "banks": {
     "aemo": {
-      "state": "stopped",
-      "started_at": "2026-10-04T18:45:40",
+      "state": "done",
+      "started_at": "2026-10-05T01:46:34",
       "pids": [
-        39644,
-        4064
+        29904,
+        35652
+      ],
+      "finished_at": "2026-10-05T07:17:10",
+      "exit_codes": [
+        0,
+        0
       ]
     },
     "ercot": {
-      "state": "stopped",
-      "started_at": "2026-10-04T18:45:40",
+      "state": "done",
+      "started_at": "2026-10-05T01:46:34",
       "pids": [
-        18832,
-        1524
+        45976,
+        18232
+      ],
+      "finished_at": "2026-10-05T07:12:40",
+      "exit_codes": [
+        0,
+        0
       ]
     },
     "gb": {
-      "state": "pending"
+      "state": "done",
+      "started_at": "2026-10-05T07:12:40",
+      "pids": [
+        39168,
+        16752
+      ],
+      "finished_at": "2026-10-05T10:56:15",
+      "exit_codes": [
+        0,
+        0
+      ]
     },
     "pjm": {
-      "state": "pending"
+      "state": "done",
+      "started_at": "2026-10-05T07:17:10",
+      "pids": [
+        15132,
+        24668
+      ],
+      "finished_at": "2026-10-05T09:02:13",
+      "exit_codes": [
+        0,
+        0
+      ]
     }
   },
   "trainings": {
     "aemo": {
-      "state": "pending"
+      "state": "done",
+      "started_at": "2026-10-05T07:23:10",
+      "pid": 41512,
+      "finished_at": "2026-10-05T08:43:42",
+      "exit_codes": [
+        0
+      ]
     },
     "ercot": {
-      "state": "pending"
+      "state": "done",
+      "started_at": "2026-10-05T07:12:40",
+      "pid": 45004,
+      "finished_at": "2026-10-05T08:44:42",
+      "exit_codes": [
+        0
+      ]
     },
     "gb": {
       "state": "pending"
     },
     "pjm": {
-      "state": "pending"
+      "state": "done",
+      "started_at": "2026-10-05T09:02:13",
+      "pid": 10740,
+      "finished_at": "2026-10-05T13:22:18",
+      "exit_codes": [
+        0
+      ]
     },
     "ercot_maddpg": {
-      "state": "pending"
+      "state": "done",
+      "started_at": "2026-10-05T07:14:40",
+      "pid": 22888,
+      "finished_at": "2026-10-05T07:23:10",
+      "exit_codes": [
+        0
+      ]
     }
   },
-  "stage": "stopped",
-  "updated_at": "2026-10-04T20:17:42",
-  "stopped_at": "2026-10-04T20:18:46",
-  "stop_reason": "7-station minimum bid changed from 500 kW to 250 kW; banks built at 500 kW are not used"
+  "stage": "complete",
+  "updated_at": "2026-10-05T13:22:18",
+  "finished_at": "2026-10-05T13:22:18"
 }

@@ -1,0 +1,74 @@
+{
+  "episodes": [
+    20,
+    40
+  ],
+  "local_rewards": [
+    0.10263833592576488,
+    0.1028589109231152
+  ],
+  "global_rewards": [
+    -0.5451158135384672,
+    -0.5644360797621746
+  ],
+  "soc_miss_count": [
+    0.7089267002132885,
+    0.5550805463671338
+  ],
+  "avg_soc_deficit": [
+    2.36721134185791,
+    1.9925997734069825
+  ],
+  "surplus_absorption_rate": [
+    32.44889430832349,
+    31.565582568049894
+  ],
+  "supply_cooperation_rate": [
+    33.46571575026294,
+    33.83381759377462
+  ],
+  "departing_evs": [
+    689,
+    689
+  ],
+  "departing_evs_soc_met": [
+    684,
+    685
+  ],
+  "surplus_steps": [
+    417,
+    417
+  ],
+  "surplus_within_narrow": [
+    125,
+    128
+  ],
+  "shortage_steps": [
+    475,
+    475
+  ],
+  "shortage_within_narrow": [
+    175,
+    175
+  ],
+  "zero_request_steps": [
+    536,
+    536
+  ],
+  "zero_request_within_narrow": [
+    293,
+    294
+  ],
+  "raw_actor_mae_kw": [
+    130.0048250695376,
+    131.7456080538945
+  ],
+  "pre_bess_mae_kw": [
+    130.0048238782509,
+    131.7456053950312
+  ],
+  "post_bess_mae_kw": [
+    130.0048238782509,
+    131.7456053950312
+  ]
+}

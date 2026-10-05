@@ -1,0 +1,14 @@
+{
+  "version": 1,
+  "source": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\sessions_v2_train_25_7station_128cmd_3ev_ercot_plan_deviation",
+  "quantile": 0.95,
+  "demand_center_kw": 0.0,
+  "demand_scale_kw": 329.8300247192381,
+  "instruction_scale_scale_kw": 892.2999877929688,
+  "sample_counts": {
+    "demand_kw": 921600,
+    "instruction_scale_kw": 921600
+  },
+  "bank_dates": 25,
+  "bank_scenario_episodes": 3200
+}

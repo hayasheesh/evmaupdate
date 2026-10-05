@@ -1,0 +1,2715 @@
+{
+  "result_version": 4,
+  "market": "PJM",
+  "stations": 7,
+  "device": "cpu",
+  "service_date": "2024-02-03",
+  "bid_path": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\sessions_v2_train_25_7station_128cmd_3ev_pjm_regd_phase_shift\\days\\002_2024-02-03\\fixed_bid.pkl",
+  "bid_sha256": "dcdf149d8fb70ced7cc83e0b8e787a5b08d0f87edf9497e23a6357c890411f88",
+  "design_commands": 128,
+  "unseen_commands": 128,
+  "unseen_command_source": "bank activation_scenario_payload",
+  "ev_sampling": "independent_seed",
+  "ev_seeds": [
+    10075018,
+    10085025,
+    10095032
+  ],
+  "ev_counts": [
+    127,
+    128,
+    128
+  ],
+  "solver_time_limit_s": 20.0,
+  "elapsed_s": 4024.8486337,
+  "rows": [
+    {
+      "source_date": "2024-03-13",
+      "source_bmu": "PJM_RegD_offset210s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-01-11",
+      "source_bmu": "PJM_RegD_offset140s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-03-12",
+      "source_bmu": "PJM_RegD_offset290s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 72"
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        }
+      ]
+    },
+    {
+      "source_date": "2024-10-14",
+      "source_bmu": "PJM_RegD_offset020s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 22"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-01-13",
+      "source_bmu": "PJM_RegD_offset020s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before restricted master"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-04-13",
+      "source_bmu": "PJM_RegD_offset130s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-04-12",
+      "source_bmu": "PJM_RegD_offset030s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-07-12",
+      "source_bmu": "PJM_RegD_offset240s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 80"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-01-13",
+      "source_bmu": "PJM_RegD_offset250s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-09-13",
+      "source_bmu": "PJM_RegD_offset120s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-07-13",
+      "source_bmu": "PJM_RegD_offset040s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 60"
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-08-11",
+      "source_bmu": "PJM_RegD_offset130s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-08-14",
+      "source_bmu": "PJM_RegD_offset130s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-08-13",
+      "source_bmu": "PJM_RegD_offset090s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is Infeasible)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-09-13",
+      "source_bmu": "PJM_RegD_offset050s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 30"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-02-11",
+      "source_bmu": "PJM_RegD_offset120s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-10-12",
+      "source_bmu": "PJM_RegD_offset170s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-04-14",
+      "source_bmu": "PJM_RegD_offset110s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-04-13",
+      "source_bmu": "PJM_RegD_offset110s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-01-14",
+      "source_bmu": "PJM_RegD_offset220s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-08-13",
+      "source_bmu": "PJM_RegD_offset020s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached pricing vehicle 2: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-09-14",
+      "source_bmu": "PJM_RegD_offset280s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 18"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-05-13",
+      "source_bmu": "PJM_RegD_offset210s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-10-11",
+      "source_bmu": "PJM_RegD_offset050s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-03-15",
+      "source_bmu": "PJM_RegD_offset140s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-06-12",
+      "source_bmu": "PJM_RegD_offset070s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-11-13",
+      "source_bmu": "PJM_RegD_offset260s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 15"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-10-12",
+      "source_bmu": "PJM_RegD_offset150s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-10-14",
+      "source_bmu": "PJM_RegD_offset220s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 54"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-04-13",
+      "source_bmu": "PJM_RegD_offset250s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-12-13",
+      "source_bmu": "PJM_RegD_offset180s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-04-14",
+      "source_bmu": "PJM_RegD_offset240s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-10-11",
+      "source_bmu": "PJM_RegD_offset280s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-05-13",
+      "source_bmu": "PJM_RegD_offset010s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-07-14",
+      "source_bmu": "PJM_RegD_offset260s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 107"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-01-13",
+      "source_bmu": "PJM_RegD_offset110s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-11-13",
+      "source_bmu": "PJM_RegD_offset200s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached pricing vehicle 24: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-02-11",
+      "source_bmu": "PJM_RegD_offset030s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-04-11",
+      "source_bmu": "PJM_RegD_offset210s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-11-12",
+      "source_bmu": "PJM_RegD_offset050s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-09-11",
+      "source_bmu": "PJM_RegD_offset030s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 9"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-01-11",
+      "source_bmu": "PJM_RegD_offset080s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-06-14",
+      "source_bmu": "PJM_RegD_offset090s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-04-12",
+      "source_bmu": "PJM_RegD_offset120s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-08-12",
+      "source_bmu": "PJM_RegD_offset000s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached pricing vehicle 17: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-12-11",
+      "source_bmu": "PJM_RegD_offset170s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-12-12",
+      "source_bmu": "PJM_RegD_offset260s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-11-13",
+      "source_bmu": "PJM_RegD_offset030s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-04-12",
+      "source_bmu": "PJM_RegD_offset000s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-09-12",
+      "source_bmu": "PJM_RegD_offset100s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-02-12",
+      "source_bmu": "PJM_RegD_offset210s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-11-13",
+      "source_bmu": "PJM_RegD_offset010s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-06-14",
+      "source_bmu": "PJM_RegD_offset070s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-12-12",
+      "source_bmu": "PJM_RegD_offset250s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-06-13",
+      "source_bmu": "PJM_RegD_offset290s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-12-13",
+      "source_bmu": "PJM_RegD_offset240s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached pricing vehicle 17: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-01-14",
+      "source_bmu": "PJM_RegD_offset000s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-08-14",
+      "source_bmu": "PJM_RegD_offset210s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-04-12",
+      "source_bmu": "PJM_RegD_offset250s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-02-12",
+      "source_bmu": "PJM_RegD_offset000s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-06-12",
+      "source_bmu": "PJM_RegD_offset270s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-01-11",
+      "source_bmu": "PJM_RegD_offset270s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached pricing vehicle 0: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-08-13",
+      "source_bmu": "PJM_RegD_offset080s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached pricing vehicle 19: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-05-12",
+      "source_bmu": "PJM_RegD_offset170s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-10-12",
+      "source_bmu": "PJM_RegD_offset270s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 113"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-06-11",
+      "source_bmu": "PJM_RegD_offset050s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached pricing vehicle 17: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-05-13",
+      "source_bmu": "PJM_RegD_offset170s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-11-12",
+      "source_bmu": "PJM_RegD_offset120s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-11-13",
+      "source_bmu": "PJM_RegD_offset040s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached pricing vehicle 2: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-06-12",
+      "source_bmu": "PJM_RegD_offset180s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-11-13",
+      "source_bmu": "PJM_RegD_offset230s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-11-14",
+      "source_bmu": "PJM_RegD_offset290s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-06-13",
+      "source_bmu": "PJM_RegD_offset080s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-01-14",
+      "source_bmu": "PJM_RegD_offset180s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-06-11",
+      "source_bmu": "PJM_RegD_offset080s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-08-13",
+      "source_bmu": "PJM_RegD_offset100s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-03-15",
+      "source_bmu": "PJM_RegD_offset070s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-09-11",
+      "source_bmu": "PJM_RegD_offset040s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 14"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-05-14",
+      "source_bmu": "PJM_RegD_offset150s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-08-11",
+      "source_bmu": "PJM_RegD_offset250s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 9"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-01-12",
+      "source_bmu": "PJM_RegD_offset250s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-07-11",
+      "source_bmu": "PJM_RegD_offset220s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-05-13",
+      "source_bmu": "PJM_RegD_offset270s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 86"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-06-14",
+      "source_bmu": "PJM_RegD_offset040s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-09-14",
+      "source_bmu": "PJM_RegD_offset030s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-12-13",
+      "source_bmu": "PJM_RegD_offset050s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 118"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-05-11",
+      "source_bmu": "PJM_RegD_offset190s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-05-14",
+      "source_bmu": "PJM_RegD_offset230s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached pricing vehicle 75: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-02-11",
+      "source_bmu": "PJM_RegD_offset140s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-08-13",
+      "source_bmu": "PJM_RegD_offset000s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-10-13",
+      "source_bmu": "PJM_RegD_offset020s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-03-15",
+      "source_bmu": "PJM_RegD_offset290s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-07-13",
+      "source_bmu": "PJM_RegD_offset240s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-06-11",
+      "source_bmu": "PJM_RegD_offset040s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-07-12",
+      "source_bmu": "PJM_RegD_offset210s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-09-13",
+      "source_bmu": "PJM_RegD_offset000s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-02-12",
+      "source_bmu": "PJM_RegD_offset090s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-03-13",
+      "source_bmu": "PJM_RegD_offset200s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-10-14",
+      "source_bmu": "PJM_RegD_offset290s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": true,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached pricing vehicle 104: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-05-11",
+      "source_bmu": "PJM_RegD_offset280s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-10-13",
+      "source_bmu": "PJM_RegD_offset250s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-12-13",
+      "source_bmu": "PJM_RegD_offset100s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-05-12",
+      "source_bmu": "PJM_RegD_offset000s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-07-13",
+      "source_bmu": "PJM_RegD_offset250s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached pricing vehicle 43: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-04-11",
+      "source_bmu": "PJM_RegD_offset060s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-04-14",
+      "source_bmu": "PJM_RegD_offset180s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 85"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-02-11",
+      "source_bmu": "PJM_RegD_offset210s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 33"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-11-12",
+      "source_bmu": "PJM_RegD_offset240s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-06-13",
+      "source_bmu": "PJM_RegD_offset180s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-03-15",
+      "source_bmu": "PJM_RegD_offset090s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached pricing vehicle 0: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-06-14",
+      "source_bmu": "PJM_RegD_offset160s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 5"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-11-12",
+      "source_bmu": "PJM_RegD_offset140s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-07-14",
+      "source_bmu": "PJM_RegD_offset020s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached pricing vehicle 12: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-10-12",
+      "source_bmu": "PJM_RegD_offset200s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 15"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-05-12",
+      "source_bmu": "PJM_RegD_offset200s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-07-12",
+      "source_bmu": "PJM_RegD_offset030s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-10-14",
+      "source_bmu": "PJM_RegD_offset180s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-10-12",
+      "source_bmu": "PJM_RegD_offset290s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2025-01-13",
+      "source_bmu": "PJM_RegD_offset260s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 117"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-09-11",
+      "source_bmu": "PJM_RegD_offset230s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 64"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-04-13",
+      "source_bmu": "PJM_RegD_offset100s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-07-14",
+      "source_bmu": "PJM_RegD_offset180s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-12-11",
+      "source_bmu": "PJM_RegD_offset150s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-04-11",
+      "source_bmu": "PJM_RegD_offset280s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached pricing vehicle 6: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-06-14",
+      "source_bmu": "PJM_RegD_offset120s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": true,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-09-12",
+      "source_bmu": "PJM_RegD_offset090s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached in restricted master: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    },
+    {
+      "source_date": "2024-03-12",
+      "source_bmu": "PJM_RegD_offset260s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 16"
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 9"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": null,
+          "reason": "oracle time limit reached pricing vehicle 18: Time limit reached. (HiGHS Status 13: model_status is Time limit reached; primal_status is None)"
+        }
+      ]
+    },
+    {
+      "source_date": "2024-05-14",
+      "source_bmu": "PJM_RegD_offset000s",
+      "trials": [
+        {
+          "ev_seed": 10075018,
+          "feasible": false,
+          "reason": null
+        },
+        {
+          "ev_seed": 10085025,
+          "feasible": null,
+          "reason": "oracle time limit reached before pricing vehicle 57"
+        },
+        {
+          "ev_seed": 10095032,
+          "feasible": false,
+          "reason": null
+        }
+      ]
+    }
+  ]
+}

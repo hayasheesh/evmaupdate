@@ -1,3 +1,0 @@
-PRESERVED RESEARCH RESULT
-Do not delete or move during cleanup.
-Exact stop checkpoint: training episode 322.

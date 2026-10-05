@@ -88,3 +88,16 @@ def test_unique_requirement_rejects_recycling_command_files(tmp_path: Path) -> N
             scenario_partition="holdout",
             require_unique=True,
         )
+
+
+def test_activation_library_signature_is_reused_while_the_library_is_unchanged(tmp_path: Path) -> None:
+    from market import activation_scenarios as module
+
+    pd.DataFrame({"step": np.arange(288), "up_proxy_raw": np.zeros(288), "down_proxy_raw": np.zeros(288)}).to_csv(
+        tmp_path / "boa_E_TEST-1_2024-08-03.csv", index=False
+    )
+    first = activation_library_signature(tmp_path)
+    cached = len(module._LIBRARY_SIGNATURE_CACHE)
+    second = activation_library_signature(tmp_path)
+    assert second == first
+    assert len(module._LIBRARY_SIGNATURE_CACHE) == cached

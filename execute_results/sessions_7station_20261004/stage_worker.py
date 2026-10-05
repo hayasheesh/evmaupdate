@@ -17,19 +17,27 @@ import sys
 ROOT = Path(__file__).resolve().parents[2]
 BANKS = ROOT / 'execute_results' / 'bid_banks'
 TASKS = {
-    'aemo': ('aemo_plan_deviation', 'hybrid', 'sessions_aemoplan_AB_7station'),
-    'ercot': ('ercot_plan_deviation', 'hybrid', 'sessions_ercotplan_AB_7station'),
-    'gb': ('elexon_plan_deviation', 'hybrid', 'sessions_elexonplan_AB_7station'),
+    'aemo': ('aemo_plan_deviation', 'hybrid', 'sessions_v2_aemoplan_AB_7station'),
+    'ercot': ('ercot_plan_deviation', 'hybrid', 'sessions_v2_ercotplan_AB_7station'),
+    'gb': ('elexon_plan_deviation', 'hybrid', 'sessions_v2_elexonplan_AB_7station'),
     # PJM は入札と学習（学習中のテストを含む）を疑似指令で行う。実指令は最終評価にだけ使う。
-    'pjm': ('pjm_regd_phase_shift', 'hybrid', 'sessions_pjmregd_AB_7station'),
-    'ercot_maddpg': ('ercot_plan_deviation', 'maddpg', 'sessions_ercotplan_MADDPGstd_7station'),
+    'pjm': ('pjm_regd_phase_shift', 'hybrid', 'sessions_v2_pjmregd_AB_scale2_7station'),
+    'ercot_maddpg': ('ercot_plan_deviation', 'maddpg', 'sessions_v2_ercotplan_MADDPGstd_7station'),
 }
+
+
+# 大域の追従報酬の尺度と直線部 [kW]。既定は 150 / 60。
+# PJM は学習中の追従誤差が約280 kW（AEMO・ERCOT は65〜135 kW）で、既定のままだと
+# 1ステップの報酬が約-2.3 になり、大域批評家の勾配がほぼ毎回切られた。利用者の判断で、
+# PJM だけ尺度と直線部を2倍にする（誤差280 kW の報酬は約-0.7）。
+REWARD_KW = {'pjm': (300.0, 120.0)}
+DEFAULT_REWARD_KW = (150.0, 60.0)
 
 
 def banks(signal_set: str) -> tuple[Path, Path]:
     return (
-        BANKS / f'sessions_train_25_7station_128cmd_3ev_{signal_set}',
-        BANKS / f'sessions_validation_5_7station_128cmd_3ev_{signal_set}',
+        BANKS / f'sessions_v2_train_25_7station_128cmd_3ev_{signal_set}',
+        BANKS / f'sessions_v2_validation_5_7station_128cmd_3ev_{signal_set}',
     )
 
 
@@ -48,6 +56,10 @@ def configure(task: str):
         'EVMA_LOWER_TRAIN_BID_BANK_DIR': str(train_bank),
         'EVMA_LOWER_TRAIN_TEST_BID_BANK_DIR': str(test_bank),
     })
+    if task in REWARD_KW:
+        scale, tail = REWARD_KW[task]
+        os.environ['EVMA_GLOBAL_BALANCE_REWARD_ERROR_SCALE_KW'] = str(scale)
+        os.environ['EVMA_GLOBAL_BALANCE_REWARD_LINEAR_TAIL_KW'] = str(tail)
     for key in ('OMP_NUM_THREADS', 'MKL_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'NUMEXPR_NUM_THREADS'):
         os.environ[key] = '1'
     os.environ['MPLBACKEND'] = 'Agg'
@@ -69,12 +81,14 @@ def check(config, task: str) -> dict:
     assert config.ACTIVATION_SIGNAL_SET == signal_set
     assert config.Q_MIX_GLOBAL_WEIGHT == 0.5
     assert config.MEMORY_SIZE == 500000
-    assert EnvConfig.GLOBAL_BALANCE_REWARD_ERROR_SCALE_KW == 150.0
-    assert EnvConfig.GLOBAL_BALANCE_REWARD_LINEAR_TAIL_KW == 60.0
+    scale, tail = REWARD_KW.get(task, DEFAULT_REWARD_KW)
+    assert EnvConfig.GLOBAL_BALANCE_REWARD_ERROR_SCALE_KW == scale
+    assert EnvConfig.GLOBAL_BALANCE_REWARD_LINEAR_TAIL_KW == tail
     assert EnvConfig.LOWER_BID_LOOKAHEAD_BLOCKS == 24
     assert EnvConfig.LOWER_TRAIN_UPPER_BID_ACTIVATION_SCENARIOS == 128
     assert EnvConfig.LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES == 128
     assert minimum_bid_quantity_kw() == 250.0
+    assert EnvConfig.LOWER_TRAIN_UPPER_BID_BASELINE_STEP_WEIGHT == 0.5
     assert len(EnvConfig.PER_STATION_SESSION_IDS) == 7
     for station in EnvConfig.PER_STATION_SESSION_IDS:
         assert (Path(EnvConfig.STATION_SESSION_DIR) / f'{station}.csv').exists(), station

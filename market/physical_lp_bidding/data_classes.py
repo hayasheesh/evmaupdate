@@ -143,10 +143,8 @@ class BiddingLPConfig:
     # Objective weight on the baseline step between two adjacent participating
     # blocks, in kW-block per kW of step. Capacity alone leaves the baseline
     # free wherever Assessment I and the recourse do not pin it, and the LP then
-    # returns whichever vertex it reaches, which can put the whole band on one
-    # side of a block and the next block's on the other. With a weight this
-    # small the search still maximizes capacity first: removing a step of s kW
-    # can cost at most weight x s kW-block. 0 leaves the baseline to the solver.
+    # returns whichever vertex it reaches. Removing a step of s kW can cost at
+    # most weight x s kW-block of capacity. 0 leaves the baseline to the solver.
     baseline_step_weight: float = 0.0
 
 

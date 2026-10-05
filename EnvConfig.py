@@ -367,19 +367,53 @@ OBS_DEMAND_CLAMP = float(os.environ.get(
 
 
 # --- Upper bid and bid banks -------------------------------------------------
-# Each bank day's submitted bid is robust to the minimum, median and maximum
-# EV-count realizations sampled from the day's forecast. Lower-controller
-# training runs on banks built by tools/build_training_bid_bank.py.
+# Each bank day's submitted bid is robust to a few EV realizations picked from
+# the candidates sampled from the day's forecast (see
+# LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION). Lower-controller training runs
+# on banks built by tools/build_training_bid_bank.py.
 LOWER_TRAIN_UPPER_BID_ACTIVATION_SCENARIOS = int(os.environ.get(
     "EVMA_LOWER_TRAIN_UPPER_BID_ACTIVATION_SCENARIOS", 128
 ))
 LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES = int(os.environ.get(
     "EVMA_LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES", 128
 ))
-if LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES < 3:
-    raise ValueError("EV scenario candidates must be at least 3 for min/median/max robustness")
+# How the realizations are picked, and how many.
+#   session_count (3): the minimum, lower median and maximum session count.
+#   low_connection_2_max_count (3): two candidates that cover the low side of
+#     the connected charging power block by block (30 minutes), then the
+#     maximum session count.
+#   low_connection_1_median_max_count (3): one such low-side candidate, then
+#     the lower median and the maximum session count of the rest.
+#   low_connection_3_max_count (4): three low-side candidates, then the
+#     maximum session count.
+# Independent realizations that break a session-count bid have, in some
+# block, fewer EVs connected than every pick.
+LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION = os.environ.get(
+    "EVMA_LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION", "low_connection_3_max_count"
+)
+_EV_SCENARIO_SELECTIONS = {
+    "session_count": ("minmedmax", 3),
+    "low_connection_2_max_count": ("low2max", 3),
+    "low_connection_1_median_max_count": ("low1medmax", 3),
+    "low_connection_3_max_count": ("low3max", 4),
+}
+if LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION not in _EV_SCENARIO_SELECTIONS:
+    raise ValueError(
+        "EVMA_LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION must be one of "
+        f"{sorted(_EV_SCENARIO_SELECTIONS)}, got "
+        f"{LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION!r}"
+    )
+LOWER_TRAIN_UPPER_BID_EV_SCENARIOS = _EV_SCENARIO_SELECTIONS[
+    LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION
+][1]
+if LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES < LOWER_TRAIN_UPPER_BID_EV_SCENARIOS:
+    raise ValueError(
+        f"EV scenario candidates must be at least {LOWER_TRAIN_UPPER_BID_EV_SCENARIOS} "
+        f"for {LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION}"
+    )
 LOWER_TRAIN_UPPER_BID_EV_SCENARIO_LAYOUT = (
-    f"minmedmax_3of{LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES}"
+    f"{_EV_SCENARIO_SELECTIONS[LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION][0]}"
+    f"_{LOWER_TRAIN_UPPER_BID_EV_SCENARIOS}of{LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES}"
 )
 LOWER_TRAIN_UPPER_BID_BANK_DIR = os.environ.get(
     "EVMA_LOWER_TRAIN_BID_BANK_DIR",
@@ -474,13 +508,16 @@ LOWER_TRAIN_UPPER_BID_ENERGY_INITIAL_TIME_LIMIT_S = float(os.environ.get(
 # Objective weight on the baseline step between adjacent participating blocks,
 # in kW-block per kW of step, in the seed LP and the Benders master. Capacity
 # alone leaves the baseline free wherever Assessment I and the recourse do not
-# pin it, and the solver then returns an arbitrary vertex: the baseline jumps to
-# the Assessment-I ceiling for one block and back. At 1e-3 removing a 1000 kW
-# step can cost at most 1 kW-block of capacity. 0 leaves the baseline to the
-# solver.
+# pin it, so the solver returns an arbitrary vertex; and in a block that offers
+# only up, raising the baseline widens the up band one for one, so capacity
+# alone pushes that block's baseline to the Assessment-I ceiling and back. At
+# 0.5 the search gives up at most 0.5 kW-block of capacity per kW of step it
+# removes. 20 stations, AEMO, 2024-01-03: summed step 14,063 kW at 1e-3 and
+# 3,762 kW at 0.5; capacity 121,722 and 118,464 kW-block (the 0.5 run also has
+# the EVSpec SoC-unit fix). 0 leaves the baseline to the solver.
 LOWER_TRAIN_UPPER_BID_BASELINE_STEP_WEIGHT = float(os.environ.get(
     "EVMA_LOWER_TRAIN_UPPER_BID_BASELINE_STEP_WEIGHT",
-    "1e-3",
+    "0.5",
 ))
 # Farkas cuts added per inner Benders iteration. Every iteration checks all
 # 3 x 128 EV/command combinations; this cap limits cuts entering the master.

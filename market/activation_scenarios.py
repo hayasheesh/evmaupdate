@@ -161,6 +161,13 @@ def load_proxy_shape_library(directory: str | os.PathLike | None = None) -> pd.D
     return _PROXY_LIBRARY_CACHE[key]
 
 
+# Signatures already computed in this process, keyed by the directory and every
+# file's name, size and modification time. Training draws one command per
+# episode and asks for the signature each time; hashing a 47,000-file library
+# took two minutes per draw.
+_LIBRARY_SIGNATURE_CACHE: dict[tuple, dict[str, object]] = {}
+
+
 def activation_library_signature(
     directory: str | os.PathLike | None = None,
 ) -> dict[str, object]:
@@ -168,10 +175,28 @@ def activation_library_signature(
 
     A bid bank must not silently reuse entries generated from another command
     source. Hash the actual CSV
-    content, rather than just the directory name or modification time.
+    content, rather than just the directory name or modification time. The
+    content is hashed again whenever a file's size or modification time
+    differs from the last computation in this process.
     """
 
     root = Path(directory or ACTIVATION_SCENARIO_DIR).resolve()
+    listing = []
+    if root.is_dir():
+        with os.scandir(root) as entries:
+            for entry in entries:
+                if entry.is_file() and (entry.name.endswith(".csv") or entry.name == "metadata.json"):
+                    stat = entry.stat()
+                    listing.append((entry.name, stat.st_size, stat.st_mtime_ns))
+    key = (str(root), tuple(sorted(listing)))
+    cached = _LIBRARY_SIGNATURE_CACHE.get(key)
+    if cached is None:
+        cached = _activation_library_signature(root)
+        _LIBRARY_SIGNATURE_CACHE[key] = cached
+    return dict(cached)
+
+
+def _activation_library_signature(root: Path) -> dict[str, object]:
     paths = sorted(root.glob("*.csv")) if root.is_dir() else []
     digest = hashlib.sha256()
     for path in paths:

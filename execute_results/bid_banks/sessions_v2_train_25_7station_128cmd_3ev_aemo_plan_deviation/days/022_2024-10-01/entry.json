@@ -1,0 +1,33 @@
+{
+  "index": 22,
+  "service_date": "2024-10-01",
+  "forecast_seed": 95198,
+  "source_path": "",
+  "bid_path": "days\\022_2024-10-01\\fixed_bid.pkl",
+  "artifact_dir": "days\\022_2024-10-01\\results",
+  "summary": {
+    "service_date": "2024-10-01",
+    "forecast_seed": 95198,
+    "method": "outer_participation_colgen_benders_certified",
+    "activation_mode": "aemo_storage_plan_deviation_shape:aemo_storage_dispatch_minus_own_plan_calendar_day_unit_width",
+    "activation_scenarios": 128,
+    "bid_status": "outer_participation_colgen_benders_certified",
+    "bid_solved": true,
+    "bid_feasible": true,
+    "bid_objective_capacity_kw_block": 50815.99151724659,
+    "submitted_mean_up_kw": 586.4622623839274,
+    "submitted_mean_down_kw": 472.2042275587099,
+    "submitted_participating_blocks": 48,
+    "awarded_mean_up_kw": 586.4622623839274,
+    "awarded_mean_down_kw": 472.2042275587099,
+    "bid_mean_baseline_kw": 93.57579830846976,
+    "bid_mean_up_kw": 586.4622623839274,
+    "bid_mean_down_kw": 472.2042275587099,
+    "bid_max_up_kw": 843.2953447553847,
+    "bid_max_down_kw": 635.2344823760227,
+    "bid_participating_blocks": 48,
+    "bid_global_tracking_rate": 1.0,
+    "target_min_kw": -570.0162963867188,
+    "target_max_kw": 654.5999755859375
+  }
+}

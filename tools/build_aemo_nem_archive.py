@@ -1,7 +1,7 @@
 """Build the legacy NEM schedule-deviation proxy library from the archive.
 
 For source-faithful raw target waveform exports, use
-``tools.build_market_command_waveforms`` instead.
+``market.command_waveforms`` instead.
 
 The daily reports reach back sixty days, which is one season and sixty
 independent days.  The commands are partitioned by calendar day because

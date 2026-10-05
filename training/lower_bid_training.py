@@ -31,6 +31,8 @@ from EnvConfig import (
     LOWER_TRAIN_UPPER_BID_SEED,
     LOWER_TRAIN_UPPER_BID_UP_MAX_KW,
     LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES,
+    LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION,
+    LOWER_TRAIN_UPPER_BID_EV_SCENARIOS,
     LOWER_TRAIN_RESEARCH_MINIMUM_BID_QUANTITY_KW,
     LOWER_BID_LOOKAHEAD_BLOCKS,
 )
@@ -258,6 +260,133 @@ def _select_ev_scenarios_by_count(ev_candidates: list[list]):
             }
         )
     return selected, metadata
+
+
+def _connected_charge_kw_by_block(evs) -> np.ndarray:
+    """Summed charger rating of the connected EVs, averaged over each block.
+
+    An EV counts from arrival_t up to departure_t, clipped to the day as the
+    certifier does (at least one step).
+    """
+
+    steps = int(N_BLOCKS) * int(STEPS_PER_BLOCK)
+    power = np.zeros(steps, dtype=float)
+    for ev in evs:
+        arrival = int(np.clip(int(ev.arrival_t), 0, steps - 1))
+        departure = int(np.clip(int(ev.departure_t), arrival + 1, steps))
+        power[arrival:departure] += max(0.0, float(ev.max_charge_kw))
+    return power.reshape(int(N_BLOCKS), int(STEPS_PER_BLOCK)).mean(axis=1)
+
+
+def _select_ev_scenarios_low_connection(
+    ev_candidates: list[list],
+    *,
+    low_picks: int = 2,
+    count_picks: tuple[str, ...] = ("maximum",),
+):
+    """Candidates covering the low side of connected power, then by session count.
+
+    Each candidate's connected charging power per block is divided by the
+    candidates' median for that block (a block whose median is zero adds
+    nothing). The first ``low_picks`` picks are greedy: each minimizes the sum
+    over blocks of the smallest ratio among the picks so far, with the lower
+    candidate index on a tie. ``count_picks`` then adds, from the candidates
+    not yet picked and ranked as in _select_ev_scenarios_by_count, the lower
+    median ("median") and the largest ("maximum") session count, in that
+    order. The bank is ordered low_connection_1 .. low_connection_k, then the
+    count picks.
+    """
+
+    candidates = list(ev_candidates)
+    needed = int(low_picks) + len(count_picks)
+    if len(candidates) < needed:
+        raise ValueError(f"at least {needed} candidate EV realizations are required")
+    unknown = set(count_picks) - {"median", "maximum"}
+    if unknown:
+        raise ValueError(f"unknown session-count picks: {sorted(unknown)}")
+    power = np.stack([_connected_charge_kw_by_block(evs) for evs in candidates])
+    median = np.median(power, axis=0)
+    ratio = np.divide(power, median, out=np.zeros_like(power), where=median > 0.0)
+    ranked_indices = sorted(
+        range(len(candidates)), key=lambda index: (len(candidates[index]), index)
+    )
+    count_rank = {index: rank for rank, index in enumerate(ranked_indices)}
+    picks: list[int] = []
+    labels: list[str] = []
+    floor = np.full(power.shape[1], np.inf)
+    for pick in range(int(low_picks)):
+        best = min(
+            (index for index in range(len(candidates)) if index not in picks),
+            key=lambda index: (float(np.minimum(floor, ratio[index]).sum()), index),
+        )
+        picks.append(best)
+        labels.append(f"low_connection_{pick + 1}")
+        floor = np.minimum(floor, ratio[best])
+    for label in count_picks:
+        rest = [index for index in ranked_indices if index not in picks]
+        picks.append(rest[(len(rest) - 1) // 2] if label == "median" else rest[-1])
+        labels.append(label)
+    selected = []
+    metadata = []
+    for label, candidate_index in zip(labels, picks):
+        evs = candidates[candidate_index]
+        selected.append(evs)
+        metadata.append(
+            {
+                "label": label,
+                "candidate_index": int(candidate_index),
+                "rank_zero_based": int(count_rank[candidate_index]),
+                "candidate_count": int(len(candidates)),
+                "ev_count": int(len(evs)),
+                "min_connected_ratio": (
+                    float(ratio[candidate_index][median > 0.0].min())
+                    if np.any(median > 0.0) else 0.0
+                ),
+            }
+        )
+    return selected, metadata
+
+
+# selection -> (ev_scenario_selection, bank_bid_contract, low_picks, count_picks).
+_EV_SCENARIO_SELECTIONS = {
+    "session_count": (
+        "minimum_lower_median_maximum_by_session_count",
+        "fixed_min_median_max_ev_all_commands_k0",
+        None,
+        None,
+    ),
+    "low_connection_2_max_count": (
+        "two_low_connection_30min_greedy_plus_maximum_by_session_count",
+        "fixed_low2_max_ev_all_commands_k0",
+        2,
+        ("maximum",),
+    ),
+    "low_connection_1_median_max_count": (
+        "one_low_connection_30min_greedy_plus_lower_median_and_maximum_by_session_count",
+        "fixed_low1_median_max_ev_all_commands_k0",
+        1,
+        ("median", "maximum"),
+    ),
+    "low_connection_3_max_count": (
+        "three_low_connection_30min_greedy_plus_maximum_by_session_count",
+        "fixed_low3_max_ev_all_commands_k0",
+        3,
+        ("maximum",),
+    ),
+}
+
+
+def _select_ev_scenarios(ev_candidates: list[list]):
+    """The realizations of LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION."""
+
+    _, _, low_picks, count_picks = _EV_SCENARIO_SELECTIONS[
+        LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION
+    ]
+    if low_picks is None:
+        return _select_ev_scenarios_by_count(ev_candidates)
+    return _select_ev_scenarios_low_connection(
+        ev_candidates, low_picks=low_picks, count_picks=count_picks
+    )
 
 
 def _solve_fixed_bid_scenarios_decomposed(
@@ -698,12 +827,16 @@ def _ev_scenario_bank_key(
             _sample_ev_candidate,
             _sample_ev_scenario_bank,
             _select_ev_scenarios_by_count,
+            _connected_charge_kw_by_block,
+            _select_ev_scenarios_low_connection,
+            _select_ev_scenarios,
         ),
+        "selection": str(LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION),
     })
 
 
 def _is_selected_bank(entry, count: int) -> bool:
-    """Whether a stored entry has the shape _select_ev_scenarios_by_count returns."""
+    """Whether a stored entry has the shape _select_ev_scenarios returns."""
 
     if not isinstance(entry, dict):
         return False
@@ -712,7 +845,7 @@ def _is_selected_bank(entry, count: int) -> bool:
     if not (
         isinstance(bank, list)
         and isinstance(selection, list)
-        and len(bank) == len(selection) == 3
+        and len(bank) == len(selection) == int(LOWER_TRAIN_UPPER_BID_EV_SCENARIOS)
     ):
         return False
     return all(
@@ -734,7 +867,7 @@ def _selected_ev_scenario_bank(
     label: str,
     workers: int = 1,
 ) -> tuple[list[list], list[dict], str | None]:
-    """The minimum, median and maximum EV realizations of one day, and their cache key.
+    """The selected EV realizations of one day (_select_ev_scenarios), and their cache key.
 
     They depend on the day, the seed, the arrival probabilities and the
     zero-power EVEnv rollout, not on the command library or the minimum bid
@@ -767,7 +900,7 @@ def _selected_ev_scenario_bank(
         service_date=service_date,
         workers=workers,
     )
-    ev_bank, selection = _select_ev_scenarios_by_count(candidates)
+    ev_bank, selection = _select_ev_scenarios(candidates)
     _store_cache_entry(
         path, key, "ev_scenarios", {"ev_bank": ev_bank, "selection": selection}
     )
@@ -824,6 +957,11 @@ def _natural_baseline_for_bank(
     return baseline
 
 
+# The feedback commands stored with a bid (activation_scenario_payload) are
+# drawn from the feedback partition with forecast_seed + this offset.
+FEEDBACK_COMMAND_SEED_OFFSET = 830_027
+
+
 def _activation_scenarios_for_day(
     service_date,
     forecast_seed: int,
@@ -863,11 +1001,11 @@ def upper_bid_bank_settings() -> dict[str, object]:
         "bid_objective": "total_ev_regulation_capacity_kw_block",
         "award_assumption": "full_award",
         "activation_scenarios": int(LOWER_TRAIN_UPPER_BID_ACTIVATION_SCENARIOS),
-        "bank_bid_contract": "fixed_min_median_max_ev_all_commands_k0",
+        "bank_bid_contract": _EV_SCENARIO_SELECTIONS[LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION][1],
         "ev_information_regime": "clairvoyant",
-        "fixed_ev_scenarios": 3,
+        "fixed_ev_scenarios": int(LOWER_TRAIN_UPPER_BID_EV_SCENARIOS),
         "ev_scenario_candidate_count": int(LOWER_TRAIN_UPPER_BID_EV_SCENARIO_CANDIDATES),
-        "ev_scenario_selection": "minimum_lower_median_maximum_by_session_count",
+        "ev_scenario_selection": _EV_SCENARIO_SELECTIONS[LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION][0],
         "all_command_scenarios": True,
         "allowed_command_failures": 0,
         "physical_lp_tracking_contract": "all_assessed_blocks_hard",
@@ -1294,7 +1432,7 @@ def build_fixed_upper_bid_for_day(
     assessment_band_fraction: float | None = None,
     scenario_workers: int = 1,
 ) -> dict:
-    """Build one bid robust to three EV counts and every design command.
+    """Build one bid robust to the selected EV realizations and every design command.
 
     The result is cached under a hash of the day, seed, arrival scenario, and
     upper-bid settings. EVMA_BID_SOLVE_CACHE=0 always solves, and also redraws
@@ -1340,7 +1478,7 @@ def build_fixed_upper_bid_for_day(
         )
     training_commands, training_mode = _activation_scenarios_for_day(
         service_date,
-        seed + 830_027,
+        seed + FEEDBACK_COMMAND_SEED_OFFSET,
         n_scenarios=expected_commands,
         scenario_partition="feedback",
     )

@@ -2,7 +2,7 @@
 
 入札（CPU）：市場ごとに学習用25日と検証用5日を同時に作る。同時に作る市場は2つまで。
 学習（GPU）：市場の入札ができたら AB を2000回。同時に2本まで。標準 MADDPG（ERCOT）は AB のあと。
-CPU は Job Object で抑える（入札 60%、学習 30%、論理32 CPU に対して）。電源設定（boost）には触らない。
+CPU は Job Object で抑える（入札 62.5%、学習 25%、論理32 CPU に対して。合わせて28 CPU まで）。電源設定（boost）には触らない。
 状態は status.json、記録は logs/。RUN/STOP を置くと、新しい作業を始めなくなる（動いているものは止めない）。
 """
 from __future__ import annotations
@@ -28,8 +28,8 @@ TRAIN_ORDER = ('aemo', 'ercot', 'gb', 'pjm', 'ercot_maddpg')
 TRAIN_BANK = {'aemo': 'aemo', 'ercot': 'ercot', 'gb': 'gb', 'pjm': 'pjm', 'ercot_maddpg': 'ercot'}
 MAX_BANKS = 2
 MAX_TRAININGS = 2
-BANK_CPU_RATE = 6000      # 1/100 %: 60 %
-TRAIN_CPU_RATE = 3000     # 30 %
+BANK_CPU_RATE = 6250      # 1/100 %: 62.5 % (20 of 32 logical CPUs)
+TRAIN_CPU_RATE = 2500     # 25 % (8 CPUs); banks + trainings stay within 28
 GPU_FREE_MIB = 5000
 CREATE_NO_WINDOW = 0x08000000
 
@@ -145,6 +145,12 @@ class Orchestrator:
                 entry.update({'state': 'blocked', 'reason': f'bank {TRAIN_BANK[task]} failed'})
                 continue
             if bank_state != 'done':
+                continue
+            if task == 'ercot_maddpg' and any(
+                self.state['trainings'][ab]['state'] == 'pending' for ab in TRAIN_ORDER if ab != task
+            ):
+                # The baseline runs after every AB run has started, even when its
+                # bank is ready before another market's.
                 continue
             if gpu_free_mib() < GPU_FREE_MIB:
                 break
