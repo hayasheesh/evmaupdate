@@ -72,10 +72,10 @@ def weekday_class_for_date(service_date, *, is_holiday=None) -> str:
 
     if is_holiday is None:
         from EnvConfig import SERVICE_CALENDAR_COUNTRY
-        from environment.calendars import is_public_holiday
+        from environment.calendars import is_day_off
 
         def is_holiday(day):
-            return is_public_holiday(day, SERVICE_CALENDAR_COUNTRY)
+            return is_day_off(day, SERVICE_CALENDAR_COUNTRY)
     day = service_date if isinstance(service_date, date) else _parse_service_date(service_date)
     if day.weekday() == 6 or bool(is_holiday(day)):
         return "sunday_holiday"
@@ -143,17 +143,21 @@ def stratified_bank_day_selection(
     train_count: int,
     test_count: int,
     is_holiday=None,
+    day_classes=None,
 ) -> tuple[list[dict], list[dict], dict]:
     """Deterministic train/test day selection over the available dates.
 
-    Each selection takes weekday / saturday / sunday-or-holiday dates in
-    proportion to how often the classes occur among the available dates
-    (largest remainder), so the banks see the calendar's mix of day types.
+    Only dates of ``day_classes`` (default ``EnvConfig.BANK_DAY_CLASSES``) are
+    used. Each selection takes those classes in proportion to how often they
+    occur among the available dates (largest remainder).
     Within a class the months are taken in turn, spreading the days over the
     year. Test days are picked first, then train days from the rest. No RNG is
     used: the result is a pure function of the available date list.
     """
 
+    if day_classes is None:
+        from EnvConfig import BANK_DAY_CLASSES as day_classes
+    day_classes = tuple(cls for cls in _BANK_DAY_CLASS_ORDER if cls in set(day_classes))
     train_count = int(train_count)
     test_count = int(test_count)
     dated: list[tuple[date, dict]] = []
@@ -165,7 +169,8 @@ def stratified_bank_day_selection(
             raise ValueError(
                 f"stratified bank day selection requires ISO dates, got {raw!r}"
             ) from exc
-        dated.append((day, payload))
+        if weekday_class_for_date(day, is_holiday=is_holiday) in day_classes:
+            dated.append((day, payload))
     dated.sort(key=lambda item: item[0])
     if len(dated) < train_count + test_count:
         raise RuntimeError(
@@ -231,7 +236,12 @@ def stratified_bank_day_selection(
         })
 
     selection_info = {
-        "mode": "stratified_proportional",
+        "mode": (
+            "stratified_proportional"
+            if day_classes == _BANK_DAY_CLASS_ORDER
+            else "stratified_proportional[" + "+".join(day_classes) + "]"
+        ),
+        "day_classes": list(day_classes),
         "available_class_counts": dict(available),
         "train_dates": [day.isoformat() for day, _payload in train_picked],
         "test_dates": [day.isoformat() for day, _payload in test_picked],

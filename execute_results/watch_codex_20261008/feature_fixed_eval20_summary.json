@@ -1,0 +1,58 @@
+{
+  "aemo": {
+    "fixed_band_kw": 202.33251953125,
+    "summary": {
+      "normal": {
+        "tracking_pct": 74.47308488612836,
+        "soc_pct": 83.6298982406596,
+        "sum": 158.10298312678793,
+        "mae_kw": 123.9462349243212,
+        "block_pass_pct": 60.725327812284334
+      },
+      "holiday_weekday": {
+        "tracking_pct": 75.47837589141936,
+        "soc_pct": 82.84461046907045,
+        "sum": 158.32298636048984,
+        "mae_kw": 121.6984123584654,
+        "block_pass_pct": 62.915804002760524
+      },
+      "band_constant": {
+        "tracking_pct": 73.81343455256498,
+        "soc_pct": 83.80531429792642,
+        "sum": 157.6187488504914,
+        "mae_kw": 124.87730202124445,
+        "block_pass_pct": 59.585921325051764
+      }
+    },
+    "matched_input_checks": true,
+    "holiday_weekday_control_identical": true
+  },
+  "ercot": {
+    "fixed_band_kw": 151.28477478027344,
+    "summary": {
+      "normal": {
+        "tracking_pct": 89.24200598113642,
+        "soc_pct": 78.24493147960064,
+        "sum": 167.48693746073707,
+        "mae_kw": 70.46286155518838,
+        "block_pass_pct": 78.43547273982057
+      },
+      "holiday_weekday": {
+        "tracking_pct": 86.30020703933748,
+        "soc_pct": 79.01416224883141,
+        "sum": 165.31436928816888,
+        "mae_kw": 76.83183925388789,
+        "block_pass_pct": 75.6735679779158
+      },
+      "band_constant": {
+        "tracking_pct": 89.56372210720036,
+        "soc_pct": 78.14427322729155,
+        "sum": 167.7079953344919,
+        "mae_kw": 70.7106613795777,
+        "block_pass_pct": 77.91166321601104
+      }
+    },
+    "matched_input_checks": true,
+    "holiday_weekday_control_identical": true
+  }
+}

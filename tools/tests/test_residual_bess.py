@@ -137,7 +137,8 @@ def test_central_ev_layer_changes_soc_but_reward_stays_on_raw_actor(env):
     env.use_central_ev_residual_allocator = True
     initial_counts = np.zeros(NUM_STATIONS, dtype=np.int64)
     initial_counts[0] = 1
-    request_kw = BESS_POWER_KW + 11.0
+    # Less than one EV can absorb at the smallest rating (7.7 kW under the cap).
+    request_kw = BESS_POWER_KW + 5.0
     _reset_empty(env, [request_kw], tol_kw=1.0, initial_counts=initial_counts)
     env.begin_step()
     active_slot = int(torch.nonzero(env.ev_mask[0], as_tuple=False)[0].item())

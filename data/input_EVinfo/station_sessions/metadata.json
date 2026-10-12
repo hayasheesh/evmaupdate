@@ -6,7 +6,7 @@
     "arrival_minute": "local arrival time, minutes after midnight",
     "dwell_minutes": "plug-in to plug-out time",
     "energy_kwh": "energy delivered in the session",
-    "arrival_soc_pct": "plug-in SoC, residential stations only (Norway Dataset3 SoC_start)"
+    "arrival_soc_pct": "Norway Dataset3 SoC_start, residential stations only; EVEnv draws plug-in SoC from the EV Project distribution instead"
   },
   "sources": {
     "boulder": "City of Boulder Open Data, Electric Vehicle Charging Station Data (dataset 95992b3938be4622b07f0b05eba95d4c_0), CC0 1.0",
@@ -16,97 +16,180 @@
   "stations": {
     "COMM VITALITY _ 1400 WALNUT1": {
       "source": "boulder",
-      "source_key": "COMM VITALITY / 1400 WALNUT1",
-      "source_rows": 3196,
-      "duplicates_removed": 1599,
+      "source_key": [
+        "COMM VITALITY / 1400 WALNUT1",
+        "MUNICIPAL SC / 1400 WALNUT1"
+      ],
+      "source_rows": 3546,
+      "duplicates_removed": 1711,
       "ports": 2,
       "port_definition": "two Level 2 ports per Boulder station",
-      "first_date": "2018-01-25",
-      "last_date": "2023-05-01",
+      "first_date": "2018-01-26",
+      "last_date": "2023-11-30",
+      "excluded_periods": [
+        [
+          "2020-03-14",
+          "2021-06-30",
+          "covid19"
+        ]
+      ],
+      "ramp_up_days_dropped": 180,
+      "outages": [
+        [
+          "2018-09-18",
+          "2018-09-27",
+          10
+        ],
+        [
+          "2023-07-12",
+          "2023-08-14",
+          34
+        ]
+      ],
+      "days_kept": 1437,
+      "days_in_record": 2135,
+      "sessions_dropped_by_day_exclusion": 181,
       "port_days": {
-        "weekday": 2642,
-        "holiday": 1204
+        "weekday": 1918,
+        "holiday": 956
       },
       "file": "COMM VITALITY _ 1400 WALNUT1.csv",
       "sessions": {
-        "weekday": 1171,
-        "holiday": 426
+        "weekday": 1116,
+        "holiday": 430
       },
       "sessions_per_port_day": {
-        "weekday": 0.443224829674489,
-        "holiday": 0.3538205980066445
+        "weekday": 0.5818561001042752,
+        "holiday": 0.4497907949790795
       },
       "mean_dwell_hours": {
-        "weekday": 3.3310713492741244,
-        "holiday": 1.7525965571205009
+        "weekday": 3.5060004480286735,
+        "holiday": 1.8815990697674416
       },
       "mean_energy_kwh": {
-        "weekday": 16.030194705380016,
-        "holiday": 8.333962441314554
+        "weekday": 16.65522311827957,
+        "holiday": 9.21266511627907
       },
       "has_arrival_soc": false
     },
     "COMM VITALITY _ 1104 SPRUCE1": {
       "source": "boulder",
-      "source_key": "COMM VITALITY / 1104 SPRUCE1",
-      "source_rows": 7802,
-      "duplicates_removed": 3902,
+      "source_key": [
+        "COMM VITALITY / 1104 SPRUCE1",
+        "MUNICIPAL SC / 1104 SPRUCE1"
+      ],
+      "source_rows": 9194,
+      "duplicates_removed": 4416,
       "ports": 2,
       "port_definition": "two Level 2 ports per Boulder station",
       "first_date": "2018-01-25",
-      "last_date": "2023-05-02",
+      "last_date": "2023-11-30",
+      "excluded_periods": [
+        [
+          "2020-03-14",
+          "2021-06-30",
+          "covid19"
+        ]
+      ],
+      "ramp_up_days_dropped": 180,
+      "outages": [
+        [
+          "2022-06-18",
+          "2023-03-01",
+          257
+        ],
+        [
+          "2023-08-14",
+          "2023-08-17",
+          4
+        ]
+      ],
+      "days_kept": 1221,
+      "days_in_record": 2136,
+      "sessions_dropped_by_day_exclusion": 775,
       "port_days": {
-        "weekday": 2644,
-        "holiday": 1204
+        "weekday": 1640,
+        "holiday": 802
       },
       "file": "COMM VITALITY _ 1104 SPRUCE1.csv",
       "sessions": {
-        "weekday": 2529,
-        "holiday": 1371
+        "weekday": 2395,
+        "holiday": 1372
       },
       "sessions_per_port_day": {
-        "weekday": 0.9565052950075643,
-        "holiday": 1.138704318936877
+        "weekday": 1.4603658536585367,
+        "holiday": 1.7107231920199502
       },
       "mean_dwell_hours": {
-        "weekday": 1.8233385725583235,
-        "holiday": 1.5700886943836614
+        "weekday": 1.9809613987473906,
+        "holiday": 1.6970673226433428
       },
       "mean_energy_kwh": {
-        "weekday": 8.095251087386318,
-        "holiday": 6.782231947483588
+        "weekday": 8.829024217118999,
+        "holiday": 7.519228862973762
       },
       "has_arrival_soc": false
     },
     "COMM VITALITY _ 1500PEARL1": {
       "source": "boulder",
-      "source_key": "COMM VITALITY / 1500PEARL1",
-      "source_rows": 3432,
-      "duplicates_removed": 1725,
+      "source_key": [
+        "COMM VITALITY / 1500PEARL1",
+        "MUNICIPAL SC / 1500PEARL1"
+      ],
+      "source_rows": 3925,
+      "duplicates_removed": 1876,
       "ports": 2,
       "port_definition": "two Level 2 ports per Boulder station",
       "first_date": "2018-01-18",
-      "last_date": "2023-03-20",
+      "last_date": "2023-11-30",
+      "excluded_periods": [
+        [
+          "2020-03-14",
+          "2021-06-30",
+          "covid19"
+        ]
+      ],
+      "ramp_up_days_dropped": 180,
+      "outages": [
+        [
+          "2023-03-02",
+          "2023-03-17",
+          16
+        ],
+        [
+          "2023-03-21",
+          "2023-06-20",
+          92
+        ],
+        [
+          "2023-09-09",
+          "2023-09-15",
+          7
+        ]
+      ],
+      "days_kept": 1374,
+      "days_in_record": 2143,
+      "sessions_dropped_by_day_exclusion": 216,
       "port_days": {
-        "weekday": 2592,
-        "holiday": 1184
+        "weekday": 1832,
+        "holiday": 916
       },
       "file": "COMM VITALITY _ 1500PEARL1.csv",
       "sessions": {
-        "weekday": 1024,
-        "holiday": 683
+        "weekday": 945,
+        "holiday": 659
       },
       "sessions_per_port_day": {
-        "weekday": 0.3950617283950617,
-        "holiday": 0.5768581081081081
+        "weekday": 0.5158296943231441,
+        "holiday": 0.7194323144104804
       },
       "mean_dwell_hours": {
-        "weekday": 1.8804721516927083,
-        "holiday": 1.9689721327476817
+        "weekday": 2.1864066843033507,
+        "holiday": 2.118640971168437
       },
       "mean_energy_kwh": {
-        "weekday": 7.8783818359375,
-        "holiday": 6.705472913616398
+        "weekday": 9.294856084656084,
+        "holiday": 7.429878603945373
       },
       "has_arrival_soc": false
     },
@@ -128,26 +211,54 @@
         "2018-09-05",
         "2019-01-09"
       ],
+      "excluded_periods": [
+        [
+          "2020-03-14",
+          "2021-06-30",
+          "covid19"
+        ]
+      ],
+      "ramp_up_days_dropped": 0,
+      "outages": [
+        [
+          "2018-09-12",
+          "2018-09-12",
+          1
+        ],
+        [
+          "2018-12-22",
+          "2018-12-23",
+          2
+        ],
+        [
+          "2018-12-29",
+          "2018-12-30",
+          2
+        ]
+      ],
+      "days_kept": 120,
+      "days_in_record": 125,
+      "sessions_dropped_by_day_exclusion": 0,
       "port_days": {
-        "weekday": 4368,
-        "holiday": 2132
+        "weekday": 4004,
+        "holiday": 2236
       },
       "file": "ACN_JPL_ARROYO1.csv",
       "sessions": {
-        "weekday": 4800,
-        "holiday": 253
+        "weekday": 4682,
+        "holiday": 371
       },
       "sessions_per_port_day": {
-        "weekday": 1.098901098901099,
-        "holiday": 0.11866791744840526
+        "weekday": 1.1693306693306693,
+        "holiday": 0.16592128801431127
       },
       "mean_dwell_hours": {
-        "weekday": 7.196041072916667,
-        "holiday": 6.156086824769433
+        "weekday": 7.221347283924249,
+        "holiday": 6.167490925426774
       },
       "mean_energy_kwh": {
-        "weekday": 12.084602270833335,
-        "holiday": 12.479608695652173
+        "weekday": 12.023247736010251,
+        "holiday": 13.128264150943396
       },
       "has_arrival_soc": false
     },
@@ -169,6 +280,18 @@
         "2018-04-25",
         "2018-08-16"
       ],
+      "excluded_periods": [
+        [
+          "2020-03-14",
+          "2021-06-30",
+          "covid19"
+        ]
+      ],
+      "ramp_up_days_dropped": 0,
+      "outages": [],
+      "days_kept": 112,
+      "days_in_record": 112,
+      "sessions_dropped_by_day_exclusion": 0,
       "port_days": {
         "weekday": 4134,
         "holiday": 1802
@@ -202,25 +325,25 @@
       "first_date": "2018-02-06",
       "last_date": "2020-02-03",
       "port_days": {
-        "weekday": 10651,
-        "holiday": 4869
+        "weekday": 9685,
+        "holiday": 5835
       },
       "file": "RESIDENTIAL NORWAY _ OSL_S.csv",
       "sessions": {
-        "weekday": 6123,
-        "holiday": 3032
+        "weekday": 5617,
+        "holiday": 3536
       },
       "sessions_per_port_day": {
-        "weekday": 0.5748755985353488,
-        "holiday": 0.6227151365783529
+        "weekday": 0.5799690242643263,
+        "holiday": 0.6059982862039417
       },
       "mean_dwell_hours": {
-        "weekday": 10.797435897435896,
-        "holiday": 11.291589676781003
+        "weekday": 10.886330188119398,
+        "holiday": 11.086024670060333
       },
       "mean_energy_kwh": {
-        "weekday": 12.626934509227503,
-        "holiday": 13.006807387862796
+        "weekday": 12.647050026704646,
+        "holiday": 12.92781391402715
       },
       "has_arrival_soc": true
     },
@@ -234,89 +357,128 @@
       "first_date": "2018-12-21",
       "last_date": "2020-01-31",
       "port_days": {
-        "weekday": 10096,
-        "holiday": 4535
+        "weekday": 9265,
+        "holiday": 5366
       },
       "file": "RESIDENTIAL NORWAY _ TRO_R.csv",
       "sessions": {
-        "weekday": 4753,
-        "holiday": 1896
+        "weekday": 4501,
+        "holiday": 2142
       },
       "sessions_per_port_day": {
-        "weekday": 0.47078050713153724,
-        "holiday": 0.4180815876515987
+        "weekday": 0.4858067997841338,
+        "holiday": 0.39918002236302647
       },
       "mean_dwell_hours": {
-        "weekday": 10.94012826635809,
-        "holiday": 12.556174393459916
+        "weekday": 10.768380522846774,
+        "holiday": 12.761995284780577
       },
       "mean_energy_kwh": {
-        "weekday": 12.47623185356617,
-        "holiday": 13.98851793248945
+        "weekday": 12.491161964007999,
+        "holiday": 13.818188608776845
       },
       "has_arrival_soc": true
     },
     "BOULDER _ CARPENTER PARK1": {
       "source": "boulder",
-      "source_key": "BOULDER / CARPENTER PARK1",
+      "source_key": [
+        "BOULDER / CARPENTER PARK1"
+      ],
       "source_rows": 11823,
-      "duplicates_removed": 4765,
+      "duplicates_removed": 5619,
       "ports": 2,
       "port_definition": "two Level 2 ports per Boulder station",
       "first_date": "2020-07-30",
       "last_date": "2023-11-30",
+      "excluded_periods": [
+        [
+          "2020-03-14",
+          "2021-06-30",
+          "covid19"
+        ]
+      ],
+      "ramp_up_days_dropped": 180,
+      "outages": [],
+      "days_kept": 883,
+      "days_in_record": 1219,
+      "sessions_dropped_by_day_exclusion": 639,
       "port_days": {
-        "weekday": 1670,
-        "holiday": 768
+        "weekday": 1186,
+        "holiday": 580
       },
       "file": "BOULDER _ CARPENTER PARK1.csv",
       "sessions": {
-        "weekday": 4915,
-        "holiday": 2142
+        "weekday": 3108,
+        "holiday": 1309
       },
       "sessions_per_port_day": {
-        "weekday": 2.94311377245509,
-        "holiday": 2.7890625
+        "weekday": 2.6205733558178754,
+        "holiday": 2.2568965517241377
       },
       "mean_dwell_hours": {
-        "weekday": 1.9796452661919295,
-        "holiday": 1.6518823685029567
+        "weekday": 2.5599462998713,
+        "holiday": 2.188411293608352
       },
       "mean_energy_kwh": {
-        "weekday": 7.782560122075281,
-        "holiday": 6.618003734827264
+        "weekday": 9.920581081081082,
+        "holiday": 8.856267379679144
       },
       "has_arrival_soc": false
     },
     "BOULDER _ N BOULDER REC 1": {
       "source": "boulder",
-      "source_key": "BOULDER / N BOULDER REC 1",
+      "source_key": [
+        "BOULDER / N BOULDER REC 1"
+      ],
       "source_rows": 16278,
-      "duplicates_removed": 7150,
+      "duplicates_removed": 7743,
       "ports": 2,
       "port_definition": "two Level 2 ports per Boulder station",
       "first_date": "2018-08-22",
       "last_date": "2023-11-30",
+      "excluded_periods": [
+        [
+          "2020-03-14",
+          "2021-06-30",
+          "covid19"
+        ]
+      ],
+      "ramp_up_days_dropped": 180,
+      "outages": [
+        [
+          "2020-01-15",
+          "2020-01-18",
+          4
+        ],
+        [
+          "2023-08-15",
+          "2023-08-16",
+          2
+        ]
+      ],
+      "days_kept": 1267,
+      "days_in_record": 1927,
+      "sessions_dropped_by_day_exclusion": 1586,
       "port_days": {
-        "weekday": 2642,
-        "holiday": 1212
+        "weekday": 1702,
+        "holiday": 832
       },
       "file": "BOULDER _ N BOULDER REC 1.csv",
       "sessions": {
-        "weekday": 6733,
-        "holiday": 2395
+        "weekday": 4271,
+        "holiday": 1605
       },
       "sessions_per_port_day": {
-        "weekday": 2.548448145344436,
-        "holiday": 1.976072607260726
+        "weekday": 2.509400705052879,
+        "holiday": 1.9290865384615385
       },
       "mean_dwell_hours": {
-        "weekday": 2.4705136665181446,
-        "holiday": 2.7003210160055673
+        "weekday": 2.821521673300554,
+        "holiday": 3.224556479750779
       },
       "mean_energy_kwh": {
-        "weekday": 8.486729244021982,
-        "holiday": 9.54919331941545
+        "weekday": 9.636970498712246,
+        "holiday": 11.496672897196262
       },
       "has_arrival_soc": false
     }

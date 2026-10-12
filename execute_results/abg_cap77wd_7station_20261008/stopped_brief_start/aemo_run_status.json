@@ -1,0 +1,16 @@
+{
+  "task": "aemo",
+  "started_at": "2026-10-09T01:33:26",
+  "stages": {
+    "train_bank": {
+      "state": "running",
+      "pid": 18624,
+      "started_at": "2026-10-09T01:33:26"
+    },
+    "test_bank": {
+      "state": "running",
+      "pid": 50852,
+      "started_at": "2026-10-09T01:33:26"
+    }
+  }
+}

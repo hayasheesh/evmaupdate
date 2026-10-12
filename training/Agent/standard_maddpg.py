@@ -95,11 +95,11 @@ class StandardMADDPG(MADDPG):
 
     def _executed_actions(self, raw, current_socs, max_power_kw,
                           soc_step_per_kw, kw_per_soc_step, inv_max_power_kw,
-                          padding_mask, use_ste):
+                          padding_mask, actor_path):
         """Map actor outputs in [-1, 1] to the normalized actions the plant executes."""
         kw = (raw * max_power_kw).masked_fill(padding_mask, 0.0)
         clamped_kw, _ = self._apply_soc_constraint(
-            kw, current_socs, padding_mask, use_ste=use_ste,
+            kw, current_socs, padding_mask, actor_path=actor_path,
             max_power_kw=max_power_kw,
             soc_step_per_kw=soc_step_per_kw, kw_per_soc_step=kw_per_soc_step,
         )
@@ -133,7 +133,7 @@ class StandardMADDPG(MADDPG):
             next_exec = self._executed_actions(
                 next_raw, ctx['current_socs_s2'], ctx['max_power_kw_s2'],
                 ctx['soc_step_per_kw_s2'], ctx['kw_per_soc_step_s2'], ctx['inv_max_power_kw_s2'],
-                ctx['ev_padding_mask_s2'], use_ste=False,
+                ctx['ev_padding_mask_s2'], actor_path=False,
             ).reshape(B, -1)
             targets = []
             for i in range(self.n):
@@ -178,7 +178,7 @@ class StandardMADDPG(MADDPG):
             own = self._executed_actions(
                 raw, ctx['current_socs'], ctx['max_power_kw'],
                 ctx['soc_step_per_kw'], ctx['kw_per_soc_step'], ctx['inv_max_power_kw'],
-                ctx['ev_padding_mask'], use_ste=True,
+                ctx['ev_padding_mask'], actor_path=True,
             )
             total = torch.zeros((), device=device)
             q_means = []

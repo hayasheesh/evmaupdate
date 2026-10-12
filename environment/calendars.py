@@ -1,7 +1,17 @@
 """Public-holiday calendars and the weekday / holiday day class.
 
 EV sessions are grouped into two day classes, ``weekday`` (Monday to Friday and
-not a public holiday) and ``holiday`` (Saturday, Sunday or a public holiday).
+not a day off) and ``holiday`` (Saturday, Sunday or a day off). A day off is a
+public holiday or a weekday inside a period that most workplaces of that
+country take off by custom (``customary_off_period``):
+  JP: 29 Dec - 3 Jan (the closure in the Act on Holidays of Administrative
+      Organs, 行政機関の休日に関する法律, Art. 1(1)(iii)), Golden Week
+      (29 Apr - 6 May) and Obon (13 - 16 Aug);
+  US: the Friday after Thanksgiving and 24 - 31 Dec;
+  NO: Monday to Wednesday of Holy Week, the fellesferie (ISO weeks 28 - 30)
+      and 24 - 31 Dec.
+Only the Japanese year-end closure has a legal basis; the other periods follow
+custom.
 Each source dataset is classified with its own country's calendar; the service
 day of the simulated market is classified with the Japanese calendar.
 """
@@ -139,9 +149,39 @@ def is_public_holiday(day, country: str) -> bool:
     return d in _CALENDARS[str(country)](d.year)
 
 
+def customary_off_period(day, country: str) -> bool:
+    """Inside a period most workplaces of ``country`` take off by custom."""
+    d = as_date(day)
+    country = str(country)
+    if country == "JP":
+        return (
+            (d.month == 12 and d.day >= 29) or (d.month == 1 and d.day <= 3)
+            or (d.month == 4 and d.day >= 29) or (d.month == 5 and d.day <= 6)
+            or (d.month == 8 and 13 <= d.day <= 16)
+        )
+    if country == "US":
+        first = date(d.year, 11, 1)
+        thanksgiving = first + timedelta(days=(3 - first.weekday()) % 7 + 21)
+        return d == thanksgiving + timedelta(days=1) or (d.month == 12 and d.day >= 24)
+    if country == "NO":
+        easter = _easter_sunday(d.year)
+        return (
+            easter - timedelta(days=6) <= d <= easter - timedelta(days=4)
+            or 28 <= d.isocalendar()[1] <= 30
+            or (d.month == 12 and d.day >= 24)
+        )
+    return False
+
+
+def is_day_off(day, country: str) -> bool:
+    """A public holiday, or a day of a customary off period."""
+    d = as_date(day)
+    return is_public_holiday(d, country) or customary_off_period(d, country)
+
+
 def day_class(day, country: str) -> str:
     """``weekday`` or ``holiday`` for one calendar date in ``country``."""
     d = as_date(day)
-    if d.weekday() >= 5 or is_public_holiday(d, country):
+    if d.weekday() >= 5 or is_day_off(d, country):
         return HOLIDAY
     return WEEKDAY

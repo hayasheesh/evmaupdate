@@ -1,0 +1,16 @@
+{
+  "task": "ercot",
+  "started_at": "2026-10-07T02:14:46",
+  "stages": {
+    "train_bank": {
+      "state": "running",
+      "pid": 23656,
+      "started_at": "2026-10-07T02:14:46"
+    },
+    "test_bank": {
+      "state": "running",
+      "pid": 25256,
+      "started_at": "2026-10-07T02:14:46"
+    }
+  }
+}

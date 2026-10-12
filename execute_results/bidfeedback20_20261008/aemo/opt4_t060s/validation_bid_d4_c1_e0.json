@@ -1,0 +1,1 @@
+{"id": "validation_bid_d4_c1_e0", "variant": "opt4_t060s", "date": "2024-03-01", "source": "aemo_storage_plan_deviation_shape:aemo_plan_LIMBESS1_2026-07-30.csv", "ev_seed": 40004036, "tracking": 70.93023255813954, "soc": 76.96245733788396, "mae": 137.27781184514365}

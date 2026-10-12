@@ -413,9 +413,15 @@ def derive_bid_bank_observation_normalization(
             target, _tol, arrival_kwargs, _info = build_episode(
                 fixed_bid, scenario_idx
             )
-            samples["demand_kw"].append(
-                np.asarray(target, dtype=np.float64).reshape(-1)
-            )
+            # Only steps with a market command: the zeros of blocks without
+            # an award are placeholders and would pull the percentile down.
+            demand = np.asarray(target, dtype=np.float64).reshape(-1)
+            tracked = arrival_kwargs.get("tracking_enabled_series")
+            if tracked is not None:
+                tracked = np.asarray(tracked, dtype=bool).reshape(-1)
+                if tracked.size == demand.size:
+                    demand = demand[tracked]
+            samples["demand_kw"].append(demand)
             context = arrival_kwargs.get("market_context_series") or {}
             for feature_name in feature_names:
                 samples[feature_name].append(

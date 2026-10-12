@@ -1,0 +1,31 @@
+{
+ "episode": 1100,
+ "episodes_requested": 40,
+ "episodes_saved": 40,
+ "step_columns": [
+  "step",
+  "tracking_enabled",
+  "request_kw",
+  "band_kw",
+  "residual_kw",
+  "EV_count",
+  "fleet_min_kw",
+  "fleet_max_kw",
+  "deadline_floor_sum_kw"
+ ],
+ "ev_columns": [
+  "step",
+  "station",
+  "slot_order",
+  "soc_before",
+  "target",
+  "capacity_kwh",
+  "rated_kw",
+  "remaining_steps",
+  "instant_min_kw",
+  "instant_max_kw",
+  "deadline_min_kw",
+  "action",
+  "executed_kw"
+ ]
+}

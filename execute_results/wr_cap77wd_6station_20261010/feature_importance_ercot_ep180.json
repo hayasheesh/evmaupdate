@@ -1,0 +1,34 @@
+{
+  "task": "ercot",
+  "model": "wr_obsdrop_cap77wd_ercotplan_6station_20261010_192728",
+  "episode": 180,
+  "samples_per_station": 1440,
+  "ev_features": {
+    "presence": {
+      "self": 0.0,
+      "other_evs": 0.0
+    },
+    "soc": {
+      "self": 0.05366469861263793,
+      "other_evs": 0.007486456066611513
+    },
+    "remaining_time": {
+      "self": 0.1336375584055866,
+      "other_evs": 0.019540102395320606
+    },
+    "needed_soc": {
+      "self": 0.06746311641833795,
+      "other_evs": 0.010010277709981289
+    },
+    "battery_capacity_kwh": {
+      "self": 0.0449511312943345,
+      "other_evs": 0.006001879251812311
+    }
+  },
+  "tail_features": {
+    "demand_0": 0.17676687323384813,
+    "step": 0.017720560051707756,
+    "market_tracking_enabled": 0.0
+  },
+  "mean_abs_action": 0.21512332558631897
+}

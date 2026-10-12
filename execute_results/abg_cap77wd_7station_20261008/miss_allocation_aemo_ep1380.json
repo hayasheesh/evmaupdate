@@ -1,0 +1,16 @@
+{
+  "task": "aemo",
+  "model": "abg_cap77wd_aemoplan_7station_20261009_091047",
+  "episode": 1380,
+  "tracked_steps": 18240,
+  "miss_steps": 1166,
+  "step_pass_pct": 93.60745614035088,
+  "of_misses_pct": {
+    "within_station": 10.634648370497427,
+    "other_stations": 82.41852487135506,
+    "fleet_short": 6.9468267581475125
+  },
+  "misses_with_soc_cut_over_band_pct": 42.96740994854203,
+  "all_steps_with_soc_cut_over_band_pct": 6.260964912280702,
+  "misses_ev_power_below_command_pct": 67.06689536878216
+}

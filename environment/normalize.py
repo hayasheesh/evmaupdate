@@ -9,7 +9,7 @@ Input:
   roughly `(num_stations, state_dim)`. `obs` may be a NumPy array from EVEnv or
   a torch Tensor from replay/evaluation utilities.
 - Per-station layout is:
-  `[EV slots][demand][market tracking enabled][fleet residual][bid context][current step]`
+  `[EV slots][demand][market tracking enabled][fleet residual][bid context][current step][holiday, only when the banks hold non-weekdays][band]`
 
 Output:
 - `normalize_observation()` returns a torch Tensor with the same shape as input.
@@ -19,17 +19,24 @@ Output:
 Normalization rules:
 - `presence`: unchanged. Usually 0/1.
 - `soc`: raw percent SoC `[0, 100]` -> `[0, 1]`.
-- `remaining_time`: raw remaining controllable action steps `[0, EPISODE_STEPS]` -> `[0, 1]`.
+- `remaining_time`: raw remaining controllable action steps over `EPISODE_STEPS`, capped at 1;
+  an EV staying past the end of the day reads 1.
 - `needed_soc`: raw percent `[0, 100]` -> `[0, 1]`, then clamped to `[-1, 1]`.
 - `battery_capacity_kwh` and `max_power_kw`: raw values are scaled to `[0, 1]`.
-- `demand lookahead`: centered by the Config demand-target range and divided
-  by half of that range, then clamped to `[-OBS_DEMAND_CLAMP,
-  OBS_DEMAND_CLAMP]`.
+- `demand lookahead`: centered and divided by the profile's demand scale, then
+  clamped to `[-OBS_DEMAND_CLAMP, OBS_DEMAND_CLAMP]`. With a "bank" profile
+  the scale is the training bank's 95th percentile of |command| on every day;
+  with a "day" profile it is the day's widest possible command.
 - `market tracking enabled`: unchanged 0/1 participation indicator.
 - `fleet residual`: divided by the same scale as the demand, then clamped.
 - `bid context`: the instruction scale over its profile scale; the known bid
-  schedule clamped to `[-1, 1]`.
+  schedule over the same scale as the demand, clamped to `[-1, 1]` ("day") or
+  `[-OBS_DEMAND_CLAMP, OBS_DEMAND_CLAMP]` ("bank").
 - `current step`: raw step `[0, EPISODE_STEPS]` -> `[0, 1]`.
+- `holiday`: unchanged 0/1, 1 on a weekend or holiday of the service calendar;
+  present only when the bid banks hold days other than weekdays.
+- `band`: the current block's pass band in kW over the demand scale, clamped
+  to `[0, OBS_DEMAND_CLAMP]`.
 
 Dependencies / layout contract:
 - `environment.observation_config` defines EV feature order and tail layout.
@@ -59,7 +66,10 @@ from environment.observation_config import (
     EV_FEAT_DIM,
     EV_FEATURE_NAMES,
     LOCAL_DEMAND_STEPS,
-    BID_CONTEXT_FEATURES,
+    OBSERVED_BID_CONTEXT_FEATURES,
+    OBSERVE_FLEET_RESIDUAL,
+    OBSERVE_SERVICE_DAY_HOLIDAY,
+    OBSERVE_TRACKING_BAND,
 )
 
 
@@ -77,7 +87,9 @@ _DEFAULT_OBSERVATION_NORMALIZATION = {
         (DEMAND_TARGET_MAX_KW - DEMAND_TARGET_MIN_KW) / 2.0
     ),
     "instruction_scale_scale_kw": float(PHYSICAL_MAX_POWER_KW),
+    "command_scale": "day",
 }
+COMMAND_SCALE_MODES = ("bank", "day")
 _observation_normalization = dict(_DEFAULT_OBSERVATION_NORMALIZATION)
 AG_REQUEST_CENTER = float(_observation_normalization["demand_center_kw"])
 AG_REQUEST_SCALE = float(_observation_normalization["demand_scale_kw"])
@@ -112,6 +124,12 @@ def configure_observation_normalization(profile=None):
     for key in scale_keys:
         merged[key] = _valid_scale(merged[key], key)
     merged["demand_center_kw"] = center
+    merged["command_scale"] = str(merged.get("command_scale", "day")).strip().lower()
+    if merged["command_scale"] not in COMMAND_SCALE_MODES:
+        raise ValueError(
+            f"command_scale must be one of {COMMAND_SCALE_MODES}, "
+            f"got {merged['command_scale']!r}"
+        )
     _observation_normalization = merged
     AG_REQUEST_CENTER = center
     AG_REQUEST_SCALE = float(merged["demand_scale_kw"])
@@ -134,9 +152,18 @@ def _quantile_scale(values, quantile):
     return max(float(np.quantile(np.abs(array), float(quantile))), 1.0)
 
 
-def derive_observation_normalization_profile(samples, *, quantile=0.95, source="train_bid_bank"):
-    """Derive zero-centred physical scales from training-bank samples only."""
+def derive_observation_normalization_profile(
+    samples, *, quantile=0.95, source="train_bid_bank", command_scale=None
+):
+    """Derive zero-centred physical scales from training-bank samples only.
 
+    ``command_scale`` (default ``EnvConfig.OBS_COMMAND_SCALE``) is saved with
+    the profile: "bank" keeps the fitted demand scale for every day, "day"
+    lets ``use_instruction_scale`` replace it with each day's envelope.
+    """
+
+    if command_scale is None:
+        from EnvConfig import OBS_COMMAND_SCALE as command_scale
     quantile = float(quantile)
     if not 0.5 <= quantile <= 1.0:
         raise ValueError("normalization quantile must be in [0.5, 1.0]")
@@ -149,6 +176,7 @@ def derive_observation_normalization_profile(samples, *, quantile=0.95, source="
         "source": str(source),
         "quantile": quantile,
         "demand_center_kw": 0.0,
+        "command_scale": str(command_scale),
         "sample_counts": {},
     }
     for feature_name, profile_key in feature_to_profile_key.items():
@@ -165,12 +193,24 @@ def use_instruction_scale(scale_kw):
     set by that day's submitted bid, which differs day to day, so a single
     bank-wide scale leaves narrow days squashed near zero and wide days near
     the clamp. Call this with the day's envelope before resetting the
-    environment; the rest of the profile is untouched.
+    environment; the rest of the profile is untouched. Under a "bank"
+    profile the fitted scale stays and this call changes nothing.
     """
 
     profile = dict(get_observation_normalization_profile())
+    if profile["command_scale"] == "bank":
+        return profile
     profile["demand_scale_kw"] = max(float(scale_kw), 1.0)
     return configure_observation_normalization(profile)
+
+
+def bid_lookahead_scale_kw(day_scale_kw):
+    """The divisor for the known bid schedule: the same one as the command."""
+
+    profile = _observation_normalization
+    if profile["command_scale"] == "bank":
+        return float(profile["demand_scale_kw"])
+    return max(float(day_scale_kw), 1.0)
 
 
 def save_observation_normalization_profile(path, profile=None):
@@ -259,7 +299,9 @@ def normalize_observation(obs):
             elif feat_name == "soc":
                 norm_ev[..., feat_offset] = values / 100.0
             elif feat_name == "remaining_time":
-                norm_ev[..., feat_offset] = values / EPISODE_STEPS
+                # An EV leaving after the episode can stay for days; one day and
+                # beyond reads 1.
+                norm_ev[..., feat_offset] = torch.clamp(values / EPISODE_STEPS, 0.0, 1.0)
             elif feat_name == "needed_soc":
                 norm_ev[..., feat_offset] = torch.clamp(values / 100.0, -1.0, 1.0)
             elif feat_name == "battery_capacity_kwh":
@@ -293,7 +335,7 @@ def normalize_observation(obs):
         )
         tail_idx += 1
 
-    if tail_idx < state_dim:
+    if OBSERVE_FLEET_RESIDUAL and tail_idx < state_dim:
         # Same units and same divisor as ``demand_0``: the day's own
         # instruction envelope, so the two are directly comparable.
         normalized_obs[:, tail_idx] = torch.clamp(
@@ -303,27 +345,45 @@ def normalize_observation(obs):
         )
         tail_idx += 1
 
-    if tail_idx < state_dim:
-        for feature_name in BID_CONTEXT_FEATURES:
-            if tail_idx >= state_dim:
-                break
-            if feature_name == "instruction_scale_kw":
-                normalized_obs[:, tail_idx] = torch.clamp(
-                    obs[:, tail_idx] / _market_context_scale(feature_name),
-                    0.0,
-                    float(OBS_DEMAND_CLAMP),
-                )
-            else:
-                normalized_obs[:, tail_idx] = torch.clamp(
-                    obs[:, tail_idx], -1.0, 1.0
-                )
-            tail_idx += 1
+    if OBSERVED_BID_CONTEXT_FEATURES and tail_idx < state_dim:
+        # BID_CONTEXT_FEATURES is the instruction scale followed by the bid
+        # schedule; the schedule columns are clamped together in one call.
+        normalized_obs[:, tail_idx] = torch.clamp(
+            obs[:, tail_idx] / _market_context_scale("instruction_scale_kw"),
+            0.0,
+            float(OBS_DEMAND_CLAMP),
+        )
+        tail_idx += 1
+        schedule_end = min(tail_idx + len(OBSERVED_BID_CONTEXT_FEATURES) - 1, state_dim)
+        if schedule_end > tail_idx:
+            # Under "day" the schedule is a ratio to the day's widest
+            # command; under "bank" a wide bid can exceed one.
+            limit = (
+                float(OBS_DEMAND_CLAMP)
+                if _observation_normalization["command_scale"] == "bank"
+                else 1.0
+            )
+            normalized_obs[:, tail_idx:schedule_end] = torch.clamp(
+                obs[:, tail_idx:schedule_end], -limit, limit
+            )
+            tail_idx = schedule_end
 
     if tail_idx < state_dim:
         # Current time is represented as episode progress. Clamp prevents a
         # malformed step index from leaking out-of-range values.
         normalized_obs[:, tail_idx] = torch.clamp(
             obs[:, tail_idx] / EPISODE_STEPS, 0.0, 1.0
+        )
+        tail_idx += 1
+
+    if OBSERVE_SERVICE_DAY_HOLIDAY and tail_idx < state_dim:
+        normalized_obs[:, tail_idx] = torch.clamp(obs[:, tail_idx], 0.0, 1.0)
+        tail_idx += 1
+
+    if OBSERVE_TRACKING_BAND and tail_idx < state_dim:
+        # Same divisor as ``demand_0``, so the band reads against the command.
+        normalized_obs[:, tail_idx] = torch.clamp(
+            obs[:, tail_idx] / AG_REQUEST_SCALE, 0.0, float(OBS_DEMAND_CLAMP)
         )
 
     return normalized_obs

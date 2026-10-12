@@ -1,0 +1,28 @@
+{
+  "task": "aemo_min350",
+  "started_at": "2026-10-06T18:57:42",
+  "stages": {
+    "train_bank": {
+      "state": "done",
+      "pid": 23140,
+      "started_at": "2026-10-06T18:57:42",
+      "exit_code": 0,
+      "finished_at": "2026-10-06T21:11:59"
+    },
+    "test_bank": {
+      "state": "done",
+      "pid": 40212,
+      "started_at": "2026-10-06T18:57:42",
+      "exit_code": 0,
+      "finished_at": "2026-10-06T21:11:59"
+    },
+    "pretrain": {
+      "state": "failed",
+      "pid": 46476,
+      "started_at": "2026-10-06T21:11:59",
+      "exit_code": 1073807364,
+      "finished_at": "2026-10-07T02:07:58"
+    }
+  },
+  "result": "pretrain failed"
+}

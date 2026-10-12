@@ -1,0 +1,1 @@
+{"id": "train_bid_d6_c0_e1", "variant": "base", "date": "2024-03-04", "source": "ercot_esr_base_point_minus_cop_plan:ercot_esr_plan_POTEETS_ESR1_2026-05-26.csv", "ev_seed": 39016061, "tracking": 76.35658914728683, "soc": 78.92976588628763, "mae": 79.31064406106638}

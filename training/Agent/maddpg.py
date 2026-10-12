@@ -29,6 +29,7 @@ import math
 import os
 
 import torch
+import weakref
 import torch .nn as nn
 import torch .nn .functional as F
 import torch .optim as optim
@@ -41,7 +42,7 @@ denormalize_soc ,
 from Config import (
 NUM_EPISODES ,BATCH_SIZE ,GAMMA ,GAMMA_GLOBAL ,TAU ,TAU_GLOBAL ,
 LOCAL_CRITIC_HIDDEN_SIZE ,GLOBAL_CRITIC_HIDDEN_SIZE ,
-LR_ACTOR ,LR_CRITIC_LOCAL ,LR_GLOBAL_CRITIC ,LOCAL_REWARD_SCALE ,
+LR_ACTOR ,LR_CRITIC_LOCAL ,LR_GLOBAL_CRITIC ,LOCAL_REWARD_SCALE ,GLOBAL_REWARD_SCALE ,
 RANDOM_ACTION_RANGE ,SMOOTHL1_BETA ,
 EPSILON_START_EPISODE ,EPSILON_END_EPISODE ,EPSILON_INITIAL ,EPSILON_FINAL ,
 OU_NOISE_START_EPISODE ,OU_NOISE_END_EPISODE ,
@@ -51,12 +52,14 @@ TD3_SIGMA_GLOBAL ,TD3_CLIP_GLOBAL ,
 POLICY_DELAY ,
 MEMORY_SIZE ,WARMUP_STEPS ,
 Q_MIX_GLOBAL_WEIGHT ,
+ACTOR_BOUND_GRADIENT ,
 POWER_TO_ENERGY ,
 MAX_EV_PER_STATION ,EV_CHARGER_POWER_OBS_SCALE_KW ,
 BIAS_GRAD_CLIP_MAX ,GRAD_CLIP_MAX ,GRAD_CLIP_MAX_GLOBAL ,
 )
 
 from environment.observation_config import (
+EV_FIXED_MAX_POWER_KW ,
 EV_FEAT_DIM ,
 EV_FEATURE_NAMES ,
 LOCAL_TAIL_DIM ,
@@ -74,9 +77,58 @@ linear_epsilon_decay ,
 device =torch .device ("cuda"if torch .cuda .is_available ()else "cpu")
 
 
+class _ClampTowardBounds (torch .autograd .Function ):
+    """Clamp whose gradient never asks a clipped value to move further out.
+
+    Inside [lower, upper] the gradient is the plain one. Above the upper bound a
+    descent step may only lower the value, and below the lower bound only raise
+    it; moving the other way leaves the clamped output unchanged, so that part
+    of the gradient is zero.
+    """
+
+    @staticmethod
+    def forward (ctx ,value ,lower ,upper ):
+        lower =torch .broadcast_to (lower ,value .shape )
+        upper =torch .broadcast_to (upper ,value .shape )
+        ctx .save_for_backward (value ,lower ,upper )
+        return torch .minimum (torch .maximum (value ,lower ),upper )
+
+    @staticmethod
+    def backward (ctx ,grad ):
+        value ,lower ,upper =ctx .saved_tensors
+        blocked =((value >upper )&(grad <0 ))|((value <lower )&(grad >0 ))
+        return grad .masked_fill (blocked ,0.0 ),None ,None
+
+
+def bound_power (value ,lower ,upper ,actor_path =False ):
+    """Clip to [lower, upper]; on the actor's gradient path use ACTOR_BOUND_GRADIENT."""
+    if not actor_path :
+        return torch .clamp (value ,lower ,upper )
+    if ACTOR_BOUND_GRADIENT =="inward":
+        return _ClampTowardBounds .apply (value ,lower ,upper )
+    return value +(torch .clamp (value ,lower ,upper )-value ).detach ()
+
+
 SOC_FEATURE_IDX =EV_FEATURE_NAMES .index ("soc")
 CAPACITY_FEATURE_IDX =EV_FEATURE_NAMES .index ("battery_capacity_kwh")
-MAX_POWER_FEATURE_IDX =EV_FEATURE_NAMES .index ("max_power_kw")
+PRESENCE_FEATURE_IDX =EV_FEATURE_NAMES .index ("presence")
+# None when every EV has one rating and the rating is not observed.
+MAX_POWER_FEATURE_IDX =(
+EV_FEATURE_NAMES .index ("max_power_kw")if "max_power_kw"in EV_FEATURE_NAMES else None
+)
+
+
+_BIAS_PARAMS =weakref .WeakKeyDictionary ()
+_PARAM_LISTS =weakref .WeakKeyDictionary ()
+
+
+def _param_list (model ):
+    """``list(model.parameters())``, built once per model: the tensors and their order never change."""
+    params =_PARAM_LISTS .get (model )
+    if params is None :
+        params =list (model .parameters ())
+        _PARAM_LISTS [model ]=params
+    return params
 
 
 def _clip_bias_gradients (model ,max_norm =1.0 ):
@@ -91,15 +143,19 @@ def _clip_bias_gradients (model ,max_norm =1.0 ):
     returns the same per-tensor two-norm, and the scale factor and the
     multiply are unchanged.
     """
-    grads =[
-    param .grad for name ,param in model .named_parameters ()
-    if param .grad is not None and 'bias'in name
-    ]
+    # The bias tensors of a model do not change, so their list is built once.
+    # The scale factors are computed in one stacked tensor with the same
+    # element-wise operations as before.
+    biases =_BIAS_PARAMS .get (model )
+    if biases is None :
+        biases =[param for name ,param in model .named_parameters ()if 'bias'in name ]
+        _BIAS_PARAMS [model ]=biases
+    grads =[param .grad for param in biases if param .grad is not None ]
     if not grads :
         return
-    norms =torch ._foreach_norm (grads )
-    coefs =[torch .clamp (max_norm /(norm +1e-6 ),max =1.0 )for norm in norms ]
-    torch ._foreach_mul_ (grads ,coefs )
+    norms =torch .stack (torch ._foreach_norm (grads ))
+    coefs =torch .clamp (max_norm /(norms +1e-6 ),max =1.0 )
+    torch ._foreach_mul_ (grads ,list (coefs .unbind ()))
 
 
 def _all_grads_finite (model ,loss ):
@@ -117,7 +173,7 @@ def _all_grads_finite (model ,loss ):
     is the one the loop gave.
     """
     finite =torch .isfinite (loss .detach ())
-    grads =[p .grad for p in model .parameters ()if p .grad is not None ]
+    grads =[p .grad for p in _param_list (model )if p .grad is not None ]
     if grads :
         peaks =torch .stack (torch ._foreach_norm (grads ,float ('inf')))
         finite =finite &torch .isfinite (peaks ).all ()
@@ -184,7 +240,7 @@ class MADDPG :
         self .last_local_q_twin_gap_values_per_agent =[0.0 ]*n_agent
         self .last_local_q_twin_gap_mean =0.0
         self .last_global_q_value =0.0
-        self .global_reward_scale =1.0
+        self .global_reward_scale =GLOBAL_REWARD_SCALE
         self .global_reward_baseline =0.0
         self .last_global_reward_scale =1.0
         self .last_global_reward_baseline =0.0
@@ -272,7 +328,7 @@ class MADDPG :
         global_obs_dim =(self .n *self ._global_station_dim )+additional_features
 
         global_critic_cls =GlobalMLPCritic
-        self .global_reward_scale =1.0
+        self .global_reward_scale =GLOBAL_REWARD_SCALE
         self .global_reward_baseline =0.0
         self .last_global_reward_scale =self .global_reward_scale
         self .last_global_reward_baseline =self .global_reward_baseline
@@ -369,7 +425,13 @@ class MADDPG :
         current_socs =denormalize_soc (ev_block [...,SOC_FEATURE_IDX ])
         capacity_kwh =denormalize_ev_capacity_kwh (ev_block [...,CAPACITY_FEATURE_IDX ])
         capacity_kwh =torch .clamp (capacity_kwh ,min =1e-6 )
-        max_power_kw =denormalize_ev_max_power_kw (ev_block [...,MAX_POWER_FEATURE_IDX ])
+        if MAX_POWER_FEATURE_IDX is None :
+            # The observation would hold the rating for a present EV and 0
+            # for an empty slot; rebuild exactly that.
+            present =(ev_block [...,PRESENCE_FEATURE_IDX ]>0.5 ).to (ev_block .dtype )
+            max_power_kw =present *float (EV_FIXED_MAX_POWER_KW )
+        else :
+            max_power_kw =denormalize_ev_max_power_kw (ev_block [...,MAX_POWER_FEATURE_IDX ])
         max_power_kw =torch .clamp (max_power_kw ,min =0.0 )
         return current_socs ,capacity_kwh ,max_power_kw
 
@@ -387,30 +449,25 @@ class MADDPG :
         return torch .clamp (power_kw *inv_max_power_kw ,-1.0 ,1.0 )
 
     def _apply_soc_constraint (
-    self ,actions_kw ,current_socs ,ev_padding_mask =None ,use_ste =False ,
+    self ,actions_kw ,current_socs ,ev_padding_mask =None ,actor_path =False ,
     max_power_kw =None ,soc_step_per_kw =None ,kw_per_soc_step =None ,
     ):
         """
         Clip per-EV kW actions to each charger and to one step of SoC.
 
-        The final one-step energy change is bounded by EV SoC. With `use_ste`,
-        both bounds keep a straight-through gradient.
+        The final one-step energy change is bounded by EV SoC. On the actor's
+        gradient path (`actor_path`) the gradient through both bounds follows
+        ACTOR_BOUND_GRADIENT; elsewhere the clip is a plain clamp.
         """
         bounded_actions_kw =actions_kw
         if max_power_kw is not None :
             max_power_kw =torch .clamp (max_power_kw ,min =0.0 )
-            bounded =torch .clamp (actions_kw ,-max_power_kw ,max_power_kw )
-            if use_ste :
-                bounded_actions_kw =actions_kw +(bounded -actions_kw ).detach ()
-            else :
-                bounded_actions_kw =bounded
+            bounded_actions_kw =bound_power (actions_kw ,-max_power_kw ,max_power_kw ,actor_path )
 
         proposed_delta_soc =bounded_actions_kw *soc_step_per_kw
         max_charge =100.0 -current_socs
         max_discharge =current_socs
-        clamped_soc =torch .clamp (proposed_delta_soc ,-max_discharge ,max_charge )
-        if use_ste :
-            clamped_soc =proposed_delta_soc +(clamped_soc -proposed_delta_soc ).detach ()
+        clamped_soc =bound_power (proposed_delta_soc ,-max_discharge ,max_charge ,actor_path )
         clamped_actions_kw =clamped_soc *kw_per_soc_step
         if ev_padding_mask is not None :
             clamped_actions_kw =clamped_actions_kw .masked_fill (ev_padding_mask ,0.0 )
@@ -684,10 +741,10 @@ class MADDPG :
             self .clip_bias_gradients (self .critics [i ],max_norm =BIAS_GRAD_CLIP_MAX )
             self .clip_bias_gradients (self .critics2 [i ],max_norm =BIAS_GRAD_CLIP_MAX )
             gn1 =torch .nn .utils .clip_grad_norm_ (
-            self .critics [i ].parameters (),max_norm =GRAD_CLIP_MAX
+            _param_list (self .critics [i ]),max_norm =GRAD_CLIP_MAX
             )
             gn2 =torch .nn .utils .clip_grad_norm_ (
-            self .critics2 [i ].parameters (),max_norm =GRAD_CLIP_MAX
+            _param_list (self .critics2 [i ]),max_norm =GRAD_CLIP_MAX
             )
             if isinstance (gn1 ,torch .Tensor ):
                 gn1_tensor =gn1 .detach ().to (device =device )
@@ -788,7 +845,7 @@ class MADDPG :
 
         states =[]
         for module in modules :
-            for p in module .parameters ():
+            for p in _param_list (module ):
                 states .append ((p ,p .requires_grad ))
                 p .requires_grad_ (requires_grad )
         return states
@@ -832,7 +889,7 @@ class MADDPG :
         actions_all =actions_all .masked_fill (ev_padding_mask ,0.0 )
 
         clamped_actions_all ,recomputed_actual_station_powers =self ._apply_soc_constraint (
-        actions_all ,current_socs_all ,ev_padding_mask ,use_ste =True ,
+        actions_all ,current_socs_all ,ev_padding_mask ,actor_path =True ,
         max_power_kw =max_power_kw_all ,
         soc_step_per_kw =soc_step_per_kw_all ,kw_per_soc_step =kw_per_soc_step_all ,
         )
@@ -867,7 +924,7 @@ class MADDPG :
         self .actor_source_cos =[0.0 ]*self .n
         self .actor_source_cos_valid =[0 ]*self .n
         actors_ready_to_step =[]
-        actor_param_groups =[list (self .actors [i ].parameters ())for i in range (self .n )]
+        actor_param_groups =[list (_param_list (self .actors [i ]))for i in range (self .n )]
         global_grads_by_actor =[[None ]*len (params )for params in actor_param_groups ]
         all_actor_params =[p for params in actor_param_groups for p in params ]
         global_grads_flat =torch .autograd .grad (
@@ -989,7 +1046,7 @@ class MADDPG :
 
             self .clip_bias_gradients (self .actors [i ],max_norm =BIAS_GRAD_CLIP_MAX )
             grad_norm_before =torch .nn .utils .clip_grad_norm_ (
-            self .actors [i ].parameters (),max_norm =GRAD_CLIP_MAX
+            _param_list (self .actors [i ]),max_norm =GRAD_CLIP_MAX
             )
             if isinstance (grad_norm_before ,torch .Tensor ):
                 grad_norm_before_tensor =grad_norm_before .detach ().to (device =device )
@@ -1064,18 +1121,18 @@ class MADDPG :
         """
         src_local ,tgt_local =[],[]
         for i in range (self .n ):
-            for p ,tp in zip (self .actors [i ].parameters (),self .t_actors [i ].parameters ()):
+            for p ,tp in zip (_param_list (self .actors [i ]),_param_list (self .t_actors [i ])):
                 src_local .append (p .data );tgt_local .append (tp .data )
-            for p ,tp in zip (self .critics [i ].parameters (),self .t_critics [i ].parameters ()):
+            for p ,tp in zip (_param_list (self .critics [i ]),_param_list (self .t_critics [i ])):
                 src_local .append (p .data );tgt_local .append (tp .data )
-            for p ,tp in zip (self .critics2 [i ].parameters (),self .t_critics2 [i ].parameters ()):
+            for p ,tp in zip (_param_list (self .critics2 [i ]),_param_list (self .t_critics2 [i ])):
                 src_local .append (p .data );tgt_local .append (tp .data )
         torch ._foreach_lerp_ (tgt_local ,src_local ,self .tau )
 
         src_global ,tgt_global =[],[]
-        for p ,tp in zip (self .global_critic1 .parameters (),self .t_global_critic1 .parameters ()):
+        for p ,tp in zip (_param_list (self .global_critic1 ),_param_list (self .t_global_critic1 )):
             src_global .append (p .data );tgt_global .append (tp .data )
-        for p ,tp in zip (self .global_critic2 .parameters (),self .t_global_critic2 .parameters ()):
+        for p ,tp in zip (_param_list (self .global_critic2 ),_param_list (self .t_global_critic2 )):
             src_global .append (p .data );tgt_global .append (tp .data )
         torch ._foreach_lerp_ (tgt_global ,src_global ,self .tau_global )
 
@@ -1286,22 +1343,16 @@ class MADDPG :
         self .opt_global_c2 .zero_grad ()
         loss_g_total .backward ()
 
-        finite_g1 =torch .isfinite (loss_g1 .detach ())
-        for p in self .global_critic1 .parameters ():
-            if p .grad is not None :
-                finite_g1 =finite_g1 &torch .isfinite (p .grad ).all ()
-        finite_g2 =torch .isfinite (loss_g2 .detach ())
-        for p in self .global_critic2 .parameters ():
-            if p .grad is not None :
-                finite_g2 =finite_g2 &torch .isfinite (p .grad ).all ()
+        finite_g1 =_all_grads_finite (self .global_critic1 ,loss_g1 )
+        finite_g2 =_all_grads_finite (self .global_critic2 ,loss_g2 )
 
         self .clip_bias_gradients (self .global_critic1 ,max_norm =BIAS_GRAD_CLIP_MAX )
         gn_b =torch .nn .utils .clip_grad_norm_ (
-        self .global_critic1 .parameters (),max_norm =GRAD_CLIP_MAX_GLOBAL
+        _param_list (self .global_critic1 ),max_norm =GRAD_CLIP_MAX_GLOBAL
         )
         self .clip_bias_gradients (self .global_critic2 ,max_norm =BIAS_GRAD_CLIP_MAX )
         gn_b2 =torch .nn .utils .clip_grad_norm_ (
-        self .global_critic2 .parameters (),max_norm =GRAD_CLIP_MAX_GLOBAL
+        _param_list (self .global_critic2 ),max_norm =GRAD_CLIP_MAX_GLOBAL
         )
 
         global_diag =torch .stack ([

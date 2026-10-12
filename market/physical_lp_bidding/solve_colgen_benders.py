@@ -620,6 +620,11 @@ def solve_joint_hard_bidding_benders(
     threshold = max(float(minimum_active_width_kw), cfg.eps * 10.0)
     up_active = initial_up >= threshold
     down_active = initial_down >= threshold
+    # A direction under the threshold is outside the pattern: no oracle band
+    # checks it and the master holds it at zero. The first candidate holds it
+    # there too, or a round-0 certificate would submit the unchecked width.
+    initial_up = np.where(up_active, initial_up, 0.0)
+    initial_down = np.where(down_active, initial_down, 0.0)
     first_stage_size = cfg.blocks * 3
     objective = np.zeros(first_stage_size, dtype=float)
     objective[cfg.blocks : 2 * cfg.blocks] = -objective_weights

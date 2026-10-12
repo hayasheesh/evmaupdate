@@ -1,0 +1,50 @@
+{
+  "aemo": {
+    "definitions": "weekday=0, weekend/public holiday=1. Cells: band<100/100..200/>=200kW, absrequest/connectedrated<.25/.25..5/.5..75/>=.75, 6-hour intervals. Require >=30 observed assessed steps in each group per shared cell; descriptive standardization, not causal inference.",
+    "unadjusted_outside_pct": [
+      16.26311541565779,
+      21.858974358974358
+    ],
+    "common_stratum_standardized_outside_pct": [
+      15.219938564050187,
+      15.65502381548918
+    ],
+    "covered_steps_by_group": [
+      18669,
+      8831
+    ],
+    "total_steps_by_group": [
+      19824,
+      9360
+    ],
+    "shared_cells": 23,
+    "band_mean_by_group": [
+      221.42814097046565,
+      163.81047798221948
+    ]
+  },
+  "ercot": {
+    "definitions": "weekday=0, weekend/public holiday=1. Cells: band<100/100..200/>=200kW, absrequest/connectedrated<.25/.25..5/.5..75/>=.75, 6-hour intervals. Require >=30 observed assessed steps in each group per shared cell; descriptive standardization, not causal inference.",
+    "unadjusted_outside_pct": [
+      14.735032362459547,
+      19.079506802721088
+    ],
+    "common_stratum_standardized_outside_pct": [
+      14.392020145071447,
+      15.931043783392512
+    ],
+    "covered_steps_by_group": [
+      18796,
+      9198
+    ],
+    "total_steps_by_group": [
+      19776,
+      9408
+    ],
+    "shared_cells": 23,
+    "band_mean_by_group": [
+      174.67912777882177,
+      124.86420038768223
+    ]
+  }
+}

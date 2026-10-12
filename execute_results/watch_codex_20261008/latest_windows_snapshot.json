@@ -1,0 +1,106 @@
+{
+  "aemo": {
+    "episode": 1594,
+    "alive": false,
+    "recent_tests": [
+      {
+        "episode": 1480,
+        "tracking_pct": 82.4766355140187,
+        "soc_pct": 81.5792494740766,
+        "sum": 164.0558849880953
+      },
+      {
+        "episode": 1500,
+        "tracking_pct": 82.86604361370716,
+        "soc_pct": 82.39149702884725,
+        "sum": 165.25754064255443
+      },
+      {
+        "episode": 1520,
+        "tracking_pct": 85.2803738317757,
+        "soc_pct": 80.95429004797668,
+        "sum": 166.2346638797524
+      },
+      {
+        "episode": 1540,
+        "tracking_pct": 82.3208722741433,
+        "soc_pct": 82.67234424623203,
+        "sum": 164.9932165203753
+      },
+      {
+        "episode": 1560,
+        "tracking_pct": 83.02180685358256,
+        "soc_pct": 82.4845176611907,
+        "sum": 165.50632451477327
+      },
+      {
+        "episode": 1580,
+        "tracking_pct": 84.73520249221184,
+        "soc_pct": 82.52217135265043,
+        "sum": 167.2573738448623
+      }
+    ],
+    "last_test": {
+      "episode": 1580,
+      "tracking_pct": 84.73520249221184,
+      "soc_pct": 82.52217135265043,
+      "sum": 167.2573738448623
+    },
+    "stdout_age_s": 732,
+    "traceback": false,
+    "nonfinite_tests": false,
+    "saved_episode": 1594
+  },
+  "ercot": {
+    "episode": 1522,
+    "alive": false,
+    "recent_tests": [
+      {
+        "episode": 1420,
+        "tracking_pct": 83.33333333333334,
+        "soc_pct": 77.23026564368011,
+        "sum": 160.56359897701344
+      },
+      {
+        "episode": 1440,
+        "tracking_pct": 83.4115805946792,
+        "soc_pct": 77.34914522858983,
+        "sum": 160.760725823269
+      },
+      {
+        "episode": 1460,
+        "tracking_pct": 83.56807511737088,
+        "soc_pct": 77.64897678389585,
+        "sum": 161.21705190126673
+      },
+      {
+        "episode": 1480,
+        "tracking_pct": 83.09859154929578,
+        "soc_pct": 77.34702074314492,
+        "sum": 160.4456122924407
+      },
+      {
+        "episode": 1500,
+        "tracking_pct": 83.48982785602503,
+        "soc_pct": 75.93423245630117,
+        "sum": 159.42406031232622
+      },
+      {
+        "episode": 1520,
+        "tracking_pct": 83.64632237871675,
+        "soc_pct": 77.23687953208257,
+        "sum": 160.8832019107993
+      }
+    ],
+    "last_test": {
+      "episode": 1520,
+      "tracking_pct": 83.64632237871675,
+      "soc_pct": 77.23687953208257,
+      "sum": 160.8832019107993
+    },
+    "stdout_age_s": 8024,
+    "traceback": false,
+    "nonfinite_tests": false,
+    "saved_episode": 1522
+  }
+}

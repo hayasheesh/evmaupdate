@@ -18,6 +18,7 @@ import numpy as np
 import torch
 
 from EnvConfig import (
+    ASSESSMENT_I_CONTROL_MARGIN_KW,
     EPISODE_STEPS,
     LOWER_TRAIN_UPPER_BID_ACTIVATION_SCENARIOS,
     LOWER_TRAIN_UPPER_BID_ACTIVATION_SOURCE_DIR,
@@ -27,6 +28,7 @@ from EnvConfig import (
     LOWER_TRAIN_UPPER_BID_DOWN_MAX_KW,
     LOWER_TRAIN_UPPER_BID_PHYSICAL_LP_MIN_DIRECTION_BID_KW,
     LOWER_TRAIN_UPPER_BID_PHYSICAL_LP_TIME_LIMIT_S,
+    LOWER_TRAIN_UPPER_BID_ENERGY_INITIAL_TIME_LIMIT_S,
     LOWER_TRAIN_UPPER_BID_REWARD_BAND_FRAC,
     LOWER_TRAIN_UPPER_BID_SEED,
     LOWER_TRAIN_UPPER_BID_UP_MAX_KW,
@@ -214,6 +216,121 @@ def _sample_ev_scenario_bank(
         (int(seed) + int(seed_offset) + 10007 * ev_idx, arrival_probs, service_date)
         for ev_idx in range(count)
     ]
+    if os.environ.get("EVMA_EV_CANDIDATE_CACHE", "0").strip() != "1":
+        return _sample_ev_scenario_bank_uncached(payloads, label=label, workers=workers)
+    cache_path = _ev_candidate_cache_path(payloads)
+    cached = _read_or_claim_ev_candidates(cache_path)
+    if cached is not None:
+        for ev_idx, evs in enumerate(cached):
+            _bid_build_log(f"physical-joint: sampled {label} EV scenario {ev_idx + 1}/{count} evs={len(evs)} (cached)")
+        return cached
+    try:
+        bank = _sample_ev_scenario_bank_uncached(payloads, label=label, workers=workers)
+        _write_ev_candidates(cache_path, bank)
+    finally:
+        _release_ev_candidate_claim(cache_path)
+    return bank
+
+
+# Every EV realization is one seeded EVEnv rollout, so a bank is fixed by its
+# seeds, its day, the arrival forecast and the EV and session settings; the
+# command library does not enter. Banks for different command libraries (AEMO,
+# ERCOT) on the same day therefore draw the same realizations, and the second
+# reads what the first saved instead of rolling them out again. When both start
+# the same day together, one rolls out and the other waits for its file. On
+# only with EVMA_EV_CANDIDATE_CACHE=1 (the bid-bank runs set it), so a test that
+# replaces the sampler never reads a saved bank.
+EV_CANDIDATE_CACHE_DIR = Path(__file__).resolve().parents[1] / "execute_results" / "ev_candidate_cache"
+_EV_CANDIDATE_WAIT_S = 3 * 3600.0
+
+
+def _ev_candidate_cache_path(payloads) -> Path:
+    import hashlib
+    import pickle
+
+    from Config import DEVICE
+    from EnvConfig import (
+        EV_PREROLL_DAYS,
+        FUTURE_EV_ARRIVAL_GROWTH_MULTIPLIER,
+        MAX_EV_PER_STATION,
+        PER_STATION_SESSION_IDS,
+        SERVICE_CALENDAR_COUNTRY,
+        SESSION_MATCH_MIN_CANDIDATES,
+        STATION_SESSION_DIR,
+    )
+    from environment.station_sessions import session_tables_signature
+
+    digest = hashlib.sha256()
+    digest.update(json.dumps({
+        "seeds": [int(p[0]) for p in payloads],
+        "service_date": str(payloads[0][2]) if payloads else None,
+        "ev_population": ev_population_signature(),
+        "sessions": session_tables_signature(str(STATION_SESSION_DIR), list(PER_STATION_SESSION_IDS)),
+        "stations": list(PER_STATION_SESSION_IDS),
+        "growth": float(FUTURE_EV_ARRIVAL_GROWTH_MULTIPLIER),
+        "max_ev_per_station": int(MAX_EV_PER_STATION),
+        "preroll_days": int(EV_PREROLL_DAYS),
+        "calendar": str(SERVICE_CALENDAR_COUNTRY),
+        "session_match_min_candidates": int(SESSION_MATCH_MIN_CANDIDATES),
+        "device": str(getattr(DEVICE, "type", DEVICE)),
+        "torch": str(torch.__version__),
+        "numpy": str(np.__version__),
+    }, sort_keys=True, default=str).encode("utf-8"))
+    digest.update(pickle.dumps(payloads[0][1] if payloads else None, protocol=4))
+    return EV_CANDIDATE_CACHE_DIR / f"{digest.hexdigest()}.pkl"
+
+
+def _read_ev_candidates(path: Path):
+    import pickle
+
+    try:
+        with path.open("rb") as f:
+            return pickle.load(f)
+    except (OSError, EOFError, pickle.UnpicklingError):
+        return None
+
+
+def _read_or_claim_ev_candidates(path: Path):
+    """The saved bank, or None after taking the right to roll it out."""
+
+    path.parent.mkdir(parents=True, exist_ok=True)
+    claim = path.with_suffix(".claim")
+    started = time.time()
+    while True:
+        bank = _read_ev_candidates(path) if path.exists() else None
+        if bank is not None:
+            return bank
+        try:
+            fd = os.open(str(claim), os.O_CREAT | os.O_EXCL | os.O_WRONLY)
+            os.write(fd, f"{os.getpid()} {time.time():.0f}".encode())
+            os.close(fd)
+            return None
+        except FileExistsError:
+            pass
+        if time.time() - started > _EV_CANDIDATE_WAIT_S:
+            # The other process has not finished in hours; roll out here too.
+            return None
+        time.sleep(10.0)
+
+
+def _write_ev_candidates(path: Path, bank) -> None:
+    import pickle
+
+    temp = path.with_name(f"{path.name}.{os.getpid()}.tmp")
+    with temp.open("wb") as f:
+        pickle.dump(bank, f, protocol=4)
+    temp.replace(path)
+
+
+def _release_ev_candidate_claim(path: Path) -> None:
+    try:
+        path.with_suffix(".claim").unlink()
+    except OSError:
+        pass
+
+
+def _sample_ev_scenario_bank_uncached(payloads, *, label: str, workers: int) -> list[list]:
+    count = len(payloads)
     worker_count = max(1, min(int(workers), count))
     if worker_count == 1:
         bank: list[list] = []
@@ -995,7 +1112,13 @@ def upper_bid_bank_settings() -> dict[str, object]:
     """
 
     return {
-        "upper_bid_contract_version": 30,
+        # 32: EVs leaving after the day keep their own departure and target
+        # (the bidder holds them to the energy that still reaches the target
+        # after the day), plug-in SoC from the EV Project, the 80 % target cap,
+        # and session tables without the near-empty short plug-ins.
+        # 33: every EV rated 7.7 kW (EnvConfig.EV_MAX_POWER_CAP_KW), with the
+        # minimum band and Assessment-I margin scaled by the mean rating.
+        "upper_bid_contract_version": 33,
         **activation_library_signature(LOWER_TRAIN_UPPER_BID_ACTIVATION_SOURCE_DIR),
         "builder_kind": UPPER_BID_BUILDER_KIND,
         "bid_objective": "total_ev_regulation_capacity_kw_block",
@@ -1018,6 +1141,7 @@ def upper_bid_bank_settings() -> dict[str, object]:
             LOWER_TRAIN_RESEARCH_MINIMUM_BID_QUANTITY_KW
         ),
         "physical_lp_time_limit_s": float(LOWER_TRAIN_UPPER_BID_PHYSICAL_LP_TIME_LIMIT_S),
+        "energy_initial_time_limit_s": float(LOWER_TRAIN_UPPER_BID_ENERGY_INITIAL_TIME_LIMIT_S),
         "baseline_min_kw": float(LOWER_TRAIN_UPPER_BID_BASELINE_MIN_KW),
         "baseline_max_kw": float(LOWER_TRAIN_UPPER_BID_BASELINE_MAX_KW),
         "up_max_kw": float(LOWER_TRAIN_UPPER_BID_UP_MAX_KW),
@@ -1027,6 +1151,7 @@ def upper_bid_bank_settings() -> dict[str, object]:
         # 5-minute response allowance of Secondary-2 is not used.
         "five_minute_response_band": False,
         "baseline_step_weight": float(LOWER_TRAIN_UPPER_BID_BASELINE_STEP_WEIGHT),
+        "assessment_i_control_margin_kw": float(ASSESSMENT_I_CONTROL_MARGIN_KW),
     }
 
 
@@ -1048,6 +1173,7 @@ def ev_population_signature() -> dict[str, object]:
         EV_CHARGER_MAX_POWER_PROBS,
         EV_SOC_ARRIVAL_DISTRIBUTION_PATH,
         EV_TARGET_REACHABLE_POWER_FRACTION,
+        EV_TARGET_SOC_MAX_PCT,
     )
 
     soc_path = Path(EV_SOC_ARRIVAL_DISTRIBUTION_PATH)
@@ -1057,6 +1183,7 @@ def ev_population_signature() -> dict[str, object]:
         "charger_power_options_kw": [float(v) for v in EV_CHARGER_MAX_POWER_OPTIONS_KW],
         "charger_power_probs": [float(v) for v in EV_CHARGER_MAX_POWER_PROBS],
         "target_reachable_power_fraction": float(EV_TARGET_REACHABLE_POWER_FRACTION),
+        "target_soc_max_pct": float(EV_TARGET_SOC_MAX_PCT),
         "arrival_soc_distribution_sha256": (
             hashlib.sha256(soc_path.read_bytes()).hexdigest() if soc_path.is_file() else None
         ),
@@ -1234,9 +1361,10 @@ def bid_lookahead_context_series(
     Offset zero is the current 30-minute block. Later offsets advance through
     the submitted baseline/up/down schedule. Values beyond the service day are
     zero because this one-day bank contains no next-day commitment. Everything
-    is divided by the known instruction envelope, keeping these features
-    dimensionless and preventing any realized command from leaking into the
-    lookahead.
+    is divided by ``instruction_scale_kw`` (the command's observation scale:
+    the day's envelope or the training bank's fixed value), keeping these
+    features dimensionless and preventing any realized command from leaking
+    into the lookahead.
     """
 
     horizon = max(int(lookahead_blocks), 0)
@@ -1570,8 +1698,15 @@ def build_fixed_upper_bid_training_episode(
         "activation_scenario_source_bmu": str(scenario.get("source_bmu", "")),
         "service_date": fixed_bid.get("service_date"),
     })
+    from environment.normalize import bid_lookahead_scale_kw
+
     instruction_scale_kw = bid_instruction_scale_kw(baseline, up, down)
-    cache_key = (int(LOWER_BID_LOOKAHEAD_BLOCKS), float(instruction_scale_kw))
+    lookahead_scale_kw = bid_lookahead_scale_kw(instruction_scale_kw)
+    cache_key = (
+        int(LOWER_BID_LOOKAHEAD_BLOCKS),
+        float(instruction_scale_kw),
+        float(lookahead_scale_kw),
+    )
     cached_context = fixed_bid.get("_runtime_market_context_cache")
     if not isinstance(cached_context, dict) or cached_context.get("key") != cache_key:
         market_context_series = {
@@ -1582,7 +1717,7 @@ def build_fixed_upper_bid_training_episode(
                 baseline,
                 up,
                 down,
-                instruction_scale_kw=instruction_scale_kw,
+                instruction_scale_kw=lookahead_scale_kw,
                 lookahead_blocks=int(LOWER_BID_LOOKAHEAD_BLOCKS),
             ),
         }

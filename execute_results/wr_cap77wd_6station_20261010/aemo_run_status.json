@@ -1,0 +1,27 @@
+{
+  "task": "aemo",
+  "started_at": "2026-10-10T18:30:17",
+  "stages": {
+    "train_bank": {
+      "state": "done",
+      "pid": 32512,
+      "started_at": "2026-10-10T18:30:17",
+      "exit_code": 0,
+      "finished_at": "2026-10-10T21:40:18"
+    },
+    "test_bank": {
+      "state": "done",
+      "pid": 21740,
+      "started_at": "2026-10-10T18:30:17",
+      "exit_code": 0,
+      "finished_at": "2026-10-10T21:40:18"
+    },
+    "pretrain": {
+      "state": "running",
+      "pid": 33084,
+      "started_at": "2026-10-10T21:40:18",
+      "resumed_at": "2026-10-11T14:48:02",
+      "resumed_by": "resume.ps1 after Windows restart"
+    }
+  }
+}

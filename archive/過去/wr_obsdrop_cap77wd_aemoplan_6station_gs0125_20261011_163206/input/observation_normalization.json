@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "source": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bid_banks\\wr_cap77wd_min70_margin7_train_25_6station_128cmd_3ev_aemo_plan_deviation",
+  "quantile": 0.95,
+  "demand_center_kw": 0.0,
+  "demand_scale_kw": 145.219024658203,
+  "instruction_scale_scale_kw": 308.6999816894531,
+  "command_scale": "bank",
+  "sample_counts": {
+    "demand_kw": 921600,
+    "instruction_scale_kw": 921600
+  },
+  "bank_dates": 25,
+  "bank_scenario_episodes": 3200
+}

@@ -1,0 +1,80 @@
+{
+  "project": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE",
+  "started_at": "2026-10-06T02:28:14",
+  "orchestrator_pid": 30036,
+  "power_settings_touched": false,
+  "banks": {
+    "aemo": {
+      "state": "done",
+      "started_at": "2026-10-06T02:28:14",
+      "pids": [
+        10184
+      ],
+      "train_bank_prebuilt": true,
+      "finished_at": "2026-10-06T06:47:07",
+      "exit_codes": [
+        0
+      ]
+    },
+    "ercot": {
+      "state": "done",
+      "started_at": "2026-10-06T02:28:14",
+      "pids": [
+        33672,
+        19864
+      ],
+      "train_bank_prebuilt": false,
+      "finished_at": "2026-10-06T08:44:40",
+      "exit_codes": [
+        0,
+        0
+      ]
+    },
+    "pjm": {
+      "state": "done",
+      "started_at": "2026-10-06T02:28:14",
+      "pids": [
+        7532,
+        26272
+      ],
+      "train_bank_prebuilt": false,
+      "finished_at": "2026-10-06T07:50:08",
+      "exit_codes": [
+        0,
+        0
+      ]
+    }
+  },
+  "trainings": {
+    "aemo": {
+      "state": "done",
+      "started_at": "2026-10-06T06:47:07",
+      "pid": 33988,
+      "finished_at": "2026-10-06T22:17:58",
+      "exit_codes": [
+        0
+      ]
+    },
+    "ercot": {
+      "state": "done",
+      "started_at": "2026-10-06T08:44:40",
+      "pid": 12820,
+      "finished_at": "2026-10-06T22:41:59",
+      "exit_codes": [
+        0
+      ]
+    },
+    "pjm": {
+      "state": "done",
+      "started_at": "2026-10-06T07:50:09",
+      "pid": 34616,
+      "finished_at": "2026-10-06T14:48:48",
+      "exit_codes": [
+        0
+      ]
+    }
+  },
+  "stage": "complete",
+  "updated_at": "2026-10-06T22:41:59",
+  "finished_at": "2026-10-06T22:41:59"
+}

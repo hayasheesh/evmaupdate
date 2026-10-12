@@ -23,8 +23,8 @@ def solve_natural_baseline_lp(
 
     Each block's baseline is the mean fleet power over its steps, not a power
     held at every step: an EV that must charge at its rating from the moment it
-    arrives (one staying past midnight, see EVEnv._horizon_obligation) makes
-    the fleet power step up inside a block, which no constant power can match.
+    arrives makes the fleet power step up inside a block, which no constant
+    power can match.
     """
 
     config = config or BiddingLPConfig()

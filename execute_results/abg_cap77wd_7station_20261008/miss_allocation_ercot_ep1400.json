@@ -1,0 +1,16 @@
+{
+  "task": "ercot",
+  "model": "abg_cap77wd_ercotplan_7station_20261009_085250",
+  "episode": 1400,
+  "tracked_steps": 18240,
+  "miss_steps": 855,
+  "step_pass_pct": 95.3125,
+  "of_misses_pct": {
+    "within_station": 22.105263157894736,
+    "other_stations": 74.73684210526316,
+    "fleet_short": 3.1578947368421053
+  },
+  "misses_with_soc_cut_over_band_pct": 32.046783625730995,
+  "all_steps_with_soc_cut_over_band_pct": 3.843201754385965,
+  "misses_ev_power_below_command_pct": 74.03508771929825
+}

@@ -1,0 +1,25 @@
+{
+  "task": "ercot",
+  "started_at": "2026-10-12T01:27:48",
+  "stages": {
+    "train_bank": {
+      "state": "done",
+      "pid": 30484,
+      "started_at": "2026-10-12T01:27:48",
+      "exit_code": 0,
+      "finished_at": "2026-10-12T01:28:01"
+    },
+    "test_bank": {
+      "state": "done",
+      "pid": 38892,
+      "started_at": "2026-10-12T01:27:48",
+      "exit_code": 0,
+      "finished_at": "2026-10-12T01:28:01"
+    },
+    "pretrain": {
+      "state": "running",
+      "pid": 8464,
+      "started_at": "2026-10-12T01:28:01"
+    }
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "index": 14,
+  "service_date": "2024-06-02",
+  "forecast_seed": 87126,
+  "source_path": "",
+  "bid_path": "days\\014_2024-06-02\\fixed_bid.pkl",
+  "artifact_dir": "days\\014_2024-06-02\\results",
+  "summary": {
+    "service_date": "2024-06-02",
+    "forecast_seed": 87126,
+    "method": "outer_participation_colgen_benders_certified",
+    "activation_mode": "ercot_esr_base_point_minus_cop_plan:ercot_esr_base_point_minus_cop_plan",
+    "activation_scenarios": 128,
+    "bid_status": "outer_participation_colgen_benders_certified",
+    "bid_solved": true,
+    "bid_feasible": true,
+    "bid_objective_capacity_kw_block": 21714.570541687473,
+    "submitted_mean_up_kw": 292.3862983222786,
+    "submitted_mean_down_kw": 160.00058796287706,
+    "submitted_participating_blocks": 43,
+    "awarded_mean_up_kw": 292.3862983222786,
+    "awarded_mean_down_kw": 160.00058796287706,
+    "bid_mean_baseline_kw": 70.61234017927661,
+    "bid_mean_up_kw": 292.3862983222786,
+    "bid_mean_down_kw": 160.00058796287706,
+    "bid_max_up_kw": 441.83300910644243,
+    "bid_max_down_kw": 316.07756089104544,
+    "bid_participating_blocks": 43,
+    "bid_global_tracking_rate": 1.0,
+    "target_min_kw": -282.2198181152344,
+    "target_max_kw": 306.7926025390625
+  }
+}

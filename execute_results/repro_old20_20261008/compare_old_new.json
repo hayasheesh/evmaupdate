@@ -1,0 +1,240 @@
+{
+ "old": {
+  "EVs per step": [
+   92.34635416666667,
+   40
+  ],
+  "station-steps full (10 EVs) %": [
+   16.00824652777778,
+   40
+  ],
+  "rated kW (EV-step mean)": [
+   25.148414421081544,
+   40
+  ],
+  "capacity kWh (EV-step mean)": [
+   81.67644290924072,
+   40
+  ],
+  "remaining hours (EV-step mean)": [
+   4.872524929046631,
+   40
+  ],
+  "energy still needed per EV-step kWh": [
+   16.326146268844603,
+   40
+  ],
+  "urgency need/(remaining*rated) mean": [
+   0.20962130054831504,
+   40
+  ],
+  "EV-steps with urgency > 0.8 %": [
+   4.031019444856762,
+   40
+  ],
+  "EV-steps with deadline floor > 0 %": [
+   2.9010058299466963,
+   40
+  ],
+  "fleet charge range kW (assessed mean)": [
+   2120.077923888748,
+   40
+  ],
+  "fleet discharge range kW (assessed mean)": [
+   2117.716699890911,
+   40
+  ],
+  "request position in fleet range (0=min,1=max)": [
+   0.5657434172873873,
+   40
+  ],
+  "assessed steps with request in outer 10% of range %": [
+   4.19603280141844,
+   40
+  ],
+  "assessed steps physically infeasible now %": [
+   0.8253915484633569,
+   40
+  ],
+  "assessed steps request above deadline-safe minimum? (req+band < floor sum) %": [
+   4.895833333333333,
+   40
+  ],
+  "band kW (assessed mean)": [
+   289.06120122284335,
+   40
+  ],
+  "band / fleet range %": [
+   13.95447834956985,
+   40
+  ],
+  "|request change| per step / band (assessed)": [
+   0.6465799107558678,
+   40
+  ],
+  "request |kW| (assessed mean)": [
+   454.16254055316875,
+   40
+  ],
+  "tracking %": [
+   93.90569592198582,
+   40
+  ],
+  "MAE kW": [
+   74.59408327724664,
+   40
+  ],
+  "MAE / band": [
+   0.35261816840199367,
+   40
+  ],
+  "missed steps with instant headroom %": [
+   87.17554962355369,
+   40
+  ],
+  "SoC-clip shift |nominal-executed| per assessed step kW": [
+   155.5477553937395,
+   40
+  ],
+  "assessed steps where clip shift > band %": [
+   13.559212470449172,
+   40
+  ],
+  "simultaneous charge&discharge kW (assessed mean)": [
+   140.32376581795853,
+   40
+  ],
+  "departures per episode": [
+   270.075,
+   40
+  ],
+  "SoC hit at departure %": [
+   87.48706831181337,
+   40
+  ],
+  "departures at 24:00 %": [
+   0.38057728682176956,
+   40
+  ]
+ },
+ "new": {
+  "EVs per step": [
+   77.52239583333333,
+   120
+  ],
+  "station-steps full (10 EVs) %": [
+   9.530092592592593,
+   120
+  ],
+  "rated kW (EV-step mean)": [
+   25.07538226445516,
+   120
+  ],
+  "capacity kWh (EV-step mean)": [
+   81.59019521077474,
+   120
+  ],
+  "remaining hours (EV-step mean)": [
+   3.721453115675184,
+   120
+  ],
+  "energy still needed per EV-step kWh": [
+   11.670398863156636,
+   120
+  ],
+  "urgency need/(remaining*rated) mean": [
+   0.32618126335243386,
+   120
+  ],
+  "EV-steps with urgency > 0.8 %": [
+   7.946955906533689,
+   120
+  ],
+  "EV-steps with deadline floor > 0 %": [
+   6.752032063644978,
+   120
+  ],
+  "fleet charge range kW (assessed mean)": [
+   1766.3756883263227,
+   120
+  ],
+  "fleet discharge range kW (assessed mean)": [
+   1887.5786743228941,
+   120
+  ],
+  "request position in fleet range (0=min,1=max)": [
+   0.6299276661945777,
+   120
+  ],
+  "assessed steps with request in outer 10% of range %": [
+   9.187893813032872,
+   120
+  ],
+  "assessed steps physically infeasible now %": [
+   2.57420403071093,
+   120
+  ],
+  "assessed steps request above deadline-safe minimum? (req+band < floor sum) %": [
+   18.02329540872252,
+   120
+  ],
+  "band kW (assessed mean)": [
+   203.75065010764848,
+   120
+  ],
+  "band / fleet range %": [
+   11.06481563686455,
+   120
+  ],
+  "|request change| per step / band (assessed)": [
+   0.773463806309492,
+   120
+  ],
+  "request |kW| (assessed mean)": [
+   522.5231084048899,
+   120
+  ],
+  "tracking %": [
+   81.39178487402245,
+   120
+  ],
+  "MAE kW": [
+   104.48963940397401,
+   120
+  ],
+  "MAE / band": [
+   0.6531749160641046,
+   120
+  ],
+  "missed steps with instant headroom %": [
+   90.24055920077299,
+   120
+  ],
+  "SoC-clip shift |nominal-executed| per assessed step kW": [
+   282.52918958142686,
+   120
+  ],
+  "assessed steps where clip shift > band %": [
+   50.81532132335177,
+   120
+  ],
+  "simultaneous charge&discharge kW (assessed mean)": [
+   148.37454215454053,
+   120
+  ],
+  "departures per episode": [
+   567.5166666666667,
+   120
+  ],
+  "SoC hit at departure %": [
+   82.41001521171849,
+   120
+  ],
+  "departures at 24:00 %": [
+   8.659489459839444,
+   120
+  ]
+ },
+ "old_episodes": 40,
+ "new_cases": 120
+}

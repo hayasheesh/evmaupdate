@@ -41,7 +41,7 @@ def test_batch_builder_uses_the_training_drivers_stratified_dates() -> None:
 
     assert [p["date"] for p in actual_train] == [p["date"] for p in expected_train]
     assert [p["date"] for p in actual_test] == [p["date"] for p in expected_test]
-    assert train_info["mode"] == test_info["mode"] == "stratified_proportional"
+    assert train_info["mode"] == test_info["mode"] == "stratified_proportional[weekday]"
 
 
 def test_marl_bank_bid_is_minmedmax_ev_all_128_commands_k0(monkeypatch) -> None:

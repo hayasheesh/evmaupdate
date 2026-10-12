@@ -1,0 +1,1 @@
+{"id": "train_bid_d13_c0_e1", "variant": "opt1_q095", "date": "2024-05-03", "source": "aemo_storage_plan_deviation_shape:aemo_plan_MREHA3_2026-03-25.csv", "ev_seed": 39023124, "tracking": 83.33333333333334, "soc": 73.19391634980988, "mae": 101.92151876290639}

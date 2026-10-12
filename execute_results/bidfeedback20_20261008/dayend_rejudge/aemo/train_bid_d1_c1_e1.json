@@ -1,0 +1,1 @@
+{"id": "train_bid_d1_c1_e1", "date": "2024-02-02", "ev_seed": 39011016, "tracking": 100.0, "soc_env": 83.83658969804618, "departing": 563, "day_end": 61, "hits_env": 472, "hits_new": 515, "day_end_hits_env": 15, "day_end_hits_new": 58, "day_end_minimum_zero": 57, "day_end_short_env_kwh": 1560.0032430052756, "day_end_short_new_kwh": 51.223228356043506, "unrecorded": 0}

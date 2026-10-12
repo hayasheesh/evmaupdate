@@ -1,0 +1,1 @@
+{"id": "validation_bid_d4_c0_e0", "variant": "opt1_q095s", "date": "2024-03-01", "source": "ercot_esr_base_point_minus_cop_plan:ercot_esr_plan_SBEAN_ESR1_2026-02-26.csv", "ev_seed": 40004036, "tracking": 97.33333333333334, "soc": 74.06143344709898, "mae": 78.85193693796793}

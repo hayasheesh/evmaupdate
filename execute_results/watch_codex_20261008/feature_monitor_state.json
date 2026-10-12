@@ -1,0 +1,27 @@
+{
+  "notified_events": [
+    "retraining_cancelled_and_saved"
+  ],
+  "checked_at": "2026-10-08T08:29:55.873998+09:00",
+  "aemo": {
+    "stage": "stopped_safely",
+    "baseline_episode": 102,
+    "capacity_fixed_episode": 94,
+    "exact_state_saved": true,
+    "scheduler": "stopped"
+  },
+  "ercot": {
+    "stage": "cancelled_before_start",
+    "scheduler": "stopped"
+  },
+  "frozen_confirmation": {
+    "aemo": "complete",
+    "ercot": "complete",
+    "interpretation": "candidates only; retraining is pending"
+  },
+  "followup": {
+    "aemo": "cancelled",
+    "ercot": "cancelled"
+  },
+  "stage": "retraining_cancelled_by_user"
+}

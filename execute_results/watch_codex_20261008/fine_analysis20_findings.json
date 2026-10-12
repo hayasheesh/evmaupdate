@@ -1,0 +1,238 @@
+{
+  "aemo": {
+    "dayclass": {
+      "holiday": {
+        "unique_date_n": 10,
+        "tracking_n": 9360,
+        "tracking_fail_n": 2046,
+        "tracking_success_pct": 78.14102564102564,
+        "departure_n": 21872,
+        "soc_miss_n": 3525,
+        "soc_miss_pct": 16.116495976591075
+      },
+      "weekday": {
+        "unique_date_n": 20,
+        "tracking_n": 19824,
+        "tracking_fail_n": 3224,
+        "tracking_success_pct": 83.7368845843422,
+        "departure_n": 46230,
+        "soc_miss_n": 7899,
+        "soc_miss_pct": 17.08630759247242
+      }
+    },
+    "weekday": {
+      "土": {
+        "unique_date_n": 4,
+        "tracking_success_pct": 79.453125,
+        "soc_miss_pct": 12.919154800183739
+      },
+      "日": {
+        "unique_date_n": 4,
+        "tracking_success_pct": 77.60047281323878,
+        "soc_miss_pct": 18.443738656987296
+      },
+      "月": {
+        "unique_date_n": 7,
+        "tracking_success_pct": 80.54062126642772,
+        "soc_miss_pct": 16.670813635232644
+      },
+      "木": {
+        "unique_date_n": 3,
+        "tracking_success_pct": 83.59580052493439,
+        "soc_miss_pct": 16.533295227207773
+      },
+      "水": {
+        "unique_date_n": 2,
+        "tracking_success_pct": 79.61847389558233,
+        "soc_miss_pct": 12.434554973821989
+      },
+      "火": {
+        "unique_date_n": 5,
+        "tracking_success_pct": 85.84142394822007,
+        "soc_miss_pct": 19.105051564411816
+      },
+      "金": {
+        "unique_date_n": 5,
+        "tracking_success_pct": 84.58333333333333,
+        "soc_miss_pct": 18.12162397630249
+      }
+    },
+    "holiday_standardization": {
+      "definitions": "weekday=0, weekend/public holiday=1. Cells: band<100/100..200/>=200kW, absrequest/connectedrated<.25/.25..5/.5..75/>=.75, 6-hour intervals. Require >=30 observed assessed steps in each group per shared cell; descriptive standardization, not causal inference.",
+      "unadjusted_outside_pct": [
+        16.26311541565779,
+        21.858974358974358
+      ],
+      "common_stratum_standardized_outside_pct": [
+        15.219938564050187,
+        15.65502381548918
+      ],
+      "covered_steps_by_group": [
+        18669,
+        8831
+      ],
+      "total_steps_by_group": [
+        19824,
+        9360
+      ],
+      "shared_cells": 23,
+      "band_mean_by_group": [
+        221.42814097046565,
+        163.81047798221948
+      ]
+    },
+    "EV_overall": {
+      "EV_count": 68102,
+      "miss_count": 11424,
+      "miss_rate_pct": 16.77483774338492,
+      "deficit_kwh_sum": 221722.3800140584,
+      "miss_deficit_kwh_sum": 221722.37935361508,
+      "initial_count": 5966,
+      "last_hour_discharge_EV_count": 17093,
+      "miss_with_last_hour_discharge_count": 5581,
+      "last_hour_discharge_kwh_sum": 52583.117753314385,
+      "miss_last_hour_discharge_kwh_sum": 28216.044342053156,
+      "miss_last_hour_discharge_below_target_count": 5374,
+      "last_hour_observation_shorter_than_1h_count": 16484,
+      "miss_first_unrecoverable_action_discharge_count": 4941,
+      "miss_initially_unrecoverable_count": 0,
+      "miss_became_unrecoverable_count": 11424,
+      "miss_without_recorded_unrecoverability_count": 0,
+      "miss_lead_denominator": 11424,
+      "miss_lead_minutes_median": 50.0,
+      "miss_lead_minutes_p25_p75": [
+        15.0,
+        110.0
+      ],
+      "observed_hours_mean": 3.278383894746116,
+      "first_soc_mean": 39.3497979576054,
+      "required_kwh_mean": 8.090554018233625,
+      "capacity_kwh_mean": 81.55046841502453,
+      "rated_kw_mean": 25.117802936555858,
+      "raw_strict_miss_count_not_official": 11429,
+      "day_final_hour_discharge_kwh_sum": 12837.17470926087,
+      "unrecoverability_first_action_discharge_count": 4941,
+      "official_soc_case_mean_pct": 83.23755763452615,
+      "diagnostic_soc_case_mean_pct": 83.24480180207502
+    },
+    "same_initial_EV_attributes": true
+  },
+  "ercot": {
+    "dayclass": {
+      "holiday": {
+        "unique_date_n": 10,
+        "tracking_n": 9408,
+        "tracking_fail_n": 1795,
+        "tracking_success_pct": 80.92049319727892,
+        "departure_n": 21872,
+        "soc_miss_n": 4221,
+        "soc_miss_pct": 19.298646671543526
+      },
+      "weekday": {
+        "unique_date_n": 20,
+        "tracking_n": 19776,
+        "tracking_fail_n": 2914,
+        "tracking_success_pct": 85.26496763754045,
+        "departure_n": 46230,
+        "soc_miss_n": 9193,
+        "soc_miss_pct": 19.885355829547912
+      }
+    },
+    "weekday": {
+      "土": {
+        "unique_date_n": 4,
+        "tracking_success_pct": 81.97916666666667,
+        "soc_miss_pct": 18.718419843821774
+      },
+      "日": {
+        "unique_date_n": 4,
+        "tracking_success_pct": 79.13752913752914,
+        "soc_miss_pct": 20.12250453720508
+      },
+      "月": {
+        "unique_date_n": 7,
+        "tracking_success_pct": 82.8422619047619,
+        "soc_miss_pct": 18.847972132371236
+      },
+      "木": {
+        "unique_date_n": 3,
+        "tracking_success_pct": 86.38451443569554,
+        "soc_miss_pct": 20.80594455558731
+      },
+      "水": {
+        "unique_date_n": 2,
+        "tracking_success_pct": 74.90079365079364,
+        "soc_miss_pct": 20.636998254799302
+      },
+      "火": {
+        "unique_date_n": 5,
+        "tracking_success_pct": 87.76948590381426,
+        "soc_miss_pct": 20.896696381751443
+      },
+      "金": {
+        "unique_date_n": 5,
+        "tracking_success_pct": 87.99019607843137,
+        "soc_miss_pct": 19.053842132775745
+      }
+    },
+    "holiday_standardization": {
+      "definitions": "weekday=0, weekend/public holiday=1. Cells: band<100/100..200/>=200kW, absrequest/connectedrated<.25/.25..5/.5..75/>=.75, 6-hour intervals. Require >=30 observed assessed steps in each group per shared cell; descriptive standardization, not causal inference.",
+      "unadjusted_outside_pct": [
+        14.735032362459547,
+        19.079506802721088
+      ],
+      "common_stratum_standardized_outside_pct": [
+        14.392020145071447,
+        15.931043783392512
+      ],
+      "covered_steps_by_group": [
+        18796,
+        9198
+      ],
+      "total_steps_by_group": [
+        19776,
+        9408
+      ],
+      "shared_cells": 23,
+      "band_mean_by_group": [
+        174.67912777882177,
+        124.86420038768223
+      ]
+    },
+    "EV_overall": {
+      "EV_count": 68102,
+      "miss_count": 13414,
+      "miss_rate_pct": 19.69692520043464,
+      "deficit_kwh_sum": 281023.16919032624,
+      "miss_deficit_kwh_sum": 281023.16788837005,
+      "initial_count": 5966,
+      "last_hour_discharge_EV_count": 12383,
+      "miss_with_last_hour_discharge_count": 5921,
+      "last_hour_discharge_kwh_sum": 41136.03470199275,
+      "miss_last_hour_discharge_kwh_sum": 29505.661301267697,
+      "miss_last_hour_discharge_below_target_count": 5818,
+      "last_hour_observation_shorter_than_1h_count": 16484,
+      "miss_first_unrecoverable_action_discharge_count": 6093,
+      "miss_initially_unrecoverable_count": 0,
+      "miss_became_unrecoverable_count": 13414,
+      "miss_without_recorded_unrecoverability_count": 0,
+      "miss_lead_denominator": 13414,
+      "miss_lead_minutes_median": 60.0,
+      "miss_lead_minutes_p25_p75": [
+        25.0,
+        115.0
+      ],
+      "observed_hours_mean": 3.278383894746116,
+      "first_soc_mean": 39.3497979576054,
+      "required_kwh_mean": 8.090554018233625,
+      "capacity_kwh_mean": 81.55046841502453,
+      "rated_kw_mean": 25.117802936555858,
+      "raw_strict_miss_count_not_official": 13427,
+      "day_final_hour_discharge_kwh_sum": 10596.11299551752,
+      "unrecoverability_first_action_discharge_count": 6093,
+      "official_soc_case_mean_pct": 80.28344011091097,
+      "diagnostic_soc_case_mean_pct": 80.30220405279995
+    },
+    "same_initial_EV_attributes": true
+  }
+}

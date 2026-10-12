@@ -1,0 +1,87 @@
+{
+  "task": "aemo",
+  "mode": "aemo_storage_plan_deviation_shape:aemo_storage_dispatch_minus_own_plan_calendar_day_unit_width",
+  "model": null,
+  "episode": null,
+  "departed_evs": 2868,
+  "step_pass_pct": 32.10526315789474,
+  "tracked_steps": 4560,
+  "hit_pct": 100.0,
+  "env_hit_pct": 100.0,
+  "env_departed": 2868,
+  "by_needed_charging_time_share": {
+    "0.00-0.00": {
+      "evs_pct": 14.330543933054393,
+      "hit_pct": 100.0,
+      "share_of_misses_pct": 0.0
+    },
+    "0.00-0.25": {
+      "evs_pct": 24.89539748953975,
+      "hit_pct": 100.0,
+      "share_of_misses_pct": 0.0
+    },
+    "0.25-0.50": {
+      "evs_pct": 28.486750348675034,
+      "hit_pct": 100.0,
+      "share_of_misses_pct": 0.0
+    },
+    "0.50-0.70": {
+      "evs_pct": 8.228730822873082,
+      "hit_pct": 100.0,
+      "share_of_misses_pct": 0.0
+    },
+    "0.70-0.85": {
+      "evs_pct": 24.05857740585774,
+      "hit_pct": 100.0,
+      "share_of_misses_pct": 0.0
+    },
+    "0.85-10.00": {
+      "evs_pct": 0.0,
+      "hit_pct": null,
+      "share_of_misses_pct": 0.0
+    }
+  },
+  "misses": {
+    "count": 0,
+    "deficit_in_full_power_steps_quantiles": null,
+    "deficit_le_1_step_pct": null,
+    "deficit_le_3_steps_pct": null,
+    "became_unreachable_pct": null,
+    "held_steps_mean": null,
+    "held_steps_while_fleet_below_command_share_pct": 0.0,
+    "held_steps_tracking_off_share_pct": 0.0,
+    "held_steps_fleet_below_command_and_tracking_on_share_pct": 0.0,
+    "misses_with_any_discharge_pct": null,
+    "deficit_le_held_fleet_short_steps_pct": null,
+    "deficit_le_held_tracking_off_steps_pct": null
+  },
+  "hits": {
+    "held_steps_mean": 25.471059972105998
+  },
+  "miss_rate_by_arrival_hour": {
+    "0": 0.0,
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0,
+    "6": 0.0,
+    "7": 0.0,
+    "8": 0.0,
+    "9": 0.0,
+    "10": 0.0,
+    "11": 0.0,
+    "12": 0.0,
+    "13": 0.0,
+    "14": 0.0,
+    "15": 0.0,
+    "16": 0.0,
+    "17": 0.0,
+    "18": 0.0,
+    "19": 0.0,
+    "20": 0.0,
+    "21": 0.0,
+    "22": 0.0,
+    "23": 0.0
+  }
+}

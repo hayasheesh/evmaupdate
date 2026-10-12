@@ -1,0 +1,27 @@
+{
+  "task": "ercot",
+  "started_at": "2026-10-10T15:34:29",
+  "stages": {
+    "train_bank": {
+      "state": "done",
+      "pid": 32500,
+      "started_at": "2026-10-10T15:34:29",
+      "exit_code": 0,
+      "finished_at": "2026-10-10T19:24:51"
+    },
+    "test_bank": {
+      "state": "done",
+      "pid": 10136,
+      "started_at": "2026-10-10T15:34:29",
+      "exit_code": 0,
+      "finished_at": "2026-10-10T19:24:51"
+    },
+    "pretrain": {
+      "state": "running",
+      "pid": 7036,
+      "started_at": "2026-10-10T19:24:51",
+      "resumed_at": "2026-10-11T14:48:02",
+      "resumed_by": "resume.ps1 after Windows restart"
+    }
+  }
+}

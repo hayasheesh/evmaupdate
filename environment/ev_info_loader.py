@@ -3,71 +3,66 @@ ev_info_loader.py
 =================
 Loader for the plug-in SoC distribution.
 
-`soc_arrival_distribution.csv` (built by data/input_EVinfo/Arrivesoc.py) holds
-SoC on arrival at the DC fast chargers of the EPFL DESL Level-3 dataset
-(github.com/DESL-EPFL/Level-3-EV-charging-dataset, 1,878 sessions, Apr 2022 -
-Jul 2023): column 0 is an SoC value in percent, column 2 its share. EVEnv draws
-the plug-in SoC of every non-residential session from it by inverse transform.
+`plugin_soc_inl_ev_project.csv` holds the EV Project's shares of charging events
+by SoC at the start of charging (Nissan Leaf, Oct-Dec 2012, vehicle telematics),
+in 10-point bins, for home and for away-from-home charging locations. Where the
+numbers come from: data/input_EVinfo/plugin_soc_inl_ev_project.README.txt.
 """
 
 from __future__ import annotations
 
 import csv
+from dataclasses import dataclass
 from functools import lru_cache
 from pathlib import Path
-from typing import Tuple
 
 import numpy as np
 
 
-def _read_numeric_column (path :str ,value_index :int )->Tuple [np .ndarray ,np .ndarray ]:
-    """
-    Read a CSV and return column 0 as integer keys and `value_index` as values.
+@dataclass(frozen=True)
+class PluginSocBins:
+    """Plug-in SoC bins [low, high) in percent and the cumulative share of each location."""
 
-    Rows that cannot be parsed numerically are ignored. This keeps header rows,
-    blank lines, and annotation rows from affecting the empirical distributions.
-    """
-    file_path =Path (path )
-    keys =[]
-    vals =[]
-    with file_path .open (newline ="",encoding ="utf-8-sig")as f :
-        reader =csv .reader (f )
-        header_skipped =False
-        for row in reader :
-            if not header_skipped :
-                header_skipped =True
-                continue
-            if len (row )<=value_index :
-                continue
-            try :
-                key =int (row [0 ].strip ())
-                val =float (row [value_index ])
-            except ValueError :
-                continue
-            keys .append (key )
-            vals .append (val )
-    return np .asarray (keys ,dtype =np .int64 ),np .asarray (vals ,dtype =np .float64 )
+    low: np.ndarray
+    high: np.ndarray
+    home_cdf: np.ndarray
+    away_cdf: np.ndarray
+
+    def draw(self, rng, home: bool) -> float:
+        """One plug-in SoC: a bin by its share, then uniform inside the bin."""
+        cdf = self.home_cdf if home else self.away_cdf
+        idx = min(int(np.searchsorted(cdf, rng.random(), side="right")), len(cdf) - 1)
+        return float(self.low[idx] + (self.high[idx] - self.low[idx]) * rng.random())
 
 
-def load_arrival_soc_cdf (path :str )->Tuple [np .ndarray ,np .ndarray ]:
-    """
-    Return the plug-in SoC values and their CDF.
-
-    EVEnv draws `u ~ Uniform(0, 1)` and takes `soc_values[searchsorted(cdf, u)]`.
-    """
-    return _cached_load_arrival_soc_cdf (str (Path (path ).resolve ()))
+def load_plugin_soc_bins(path: str) -> PluginSocBins:
+    return _cached_load_plugin_soc_bins(str(Path(path).resolve()))
 
 
-@lru_cache (maxsize =8 )
-def _cached_load_arrival_soc_cdf (path :str )->Tuple [np .ndarray ,np .ndarray ]:
-    soc_values ,percents =_read_numeric_column (path ,2 )
-    if len (percents )==0 :
-        raise ValueError (f"SoC arrival distribution has no usable rows: {path}")
-    percents =np .clip (percents ,a_min =0.0 ,a_max =None )
-    if float (percents .sum ())<=0 :
-        raise ValueError (f"SoC arrival distribution has zero total weight: {path}")
-    cdf =np .cumsum (percents )
-    cdf /=cdf [-1 ]
-    soc_values .setflags (write =False )
-    cdf .setflags (write =False )
-    return soc_values ,cdf
+def _cdf(shares: np.ndarray, path: str, column: str) -> np.ndarray:
+    shares = np.clip(np.asarray(shares, dtype=float), 0.0, None)
+    if float(shares.sum()) <= 0.0:
+        raise ValueError(f"plug-in SoC distribution has zero total weight in {column}: {path}")
+    cdf = np.cumsum(shares) / shares.sum()
+    cdf.setflags(write=False)
+    return cdf
+
+
+@lru_cache(maxsize=8)
+def _cached_load_plugin_soc_bins(path: str) -> PluginSocBins:
+    with Path(path).open(newline="", encoding="utf-8-sig") as f:
+        rows = list(csv.DictReader(f))
+    if not rows:
+        raise ValueError(f"plug-in SoC distribution has no rows: {path}")
+    low = np.asarray([float(r["bin_low_pct"]) for r in rows])
+    high = np.asarray([float(r["bin_high_pct"]) for r in rows])
+    if np.any(high <= low) or np.any(low < 0.0) or np.any(high > 100.0):
+        raise ValueError(f"plug-in SoC bins must satisfy 0 <= low < high <= 100: {path}")
+    low.setflags(write=False)
+    high.setflags(write=False)
+    return PluginSocBins(
+        low=low,
+        high=high,
+        home_cdf=_cdf([float(r["home_pct"]) for r in rows], path, "home_pct"),
+        away_cdf=_cdf([float(r["away_pct"]) for r in rows], path, "away_pct"),
+    )

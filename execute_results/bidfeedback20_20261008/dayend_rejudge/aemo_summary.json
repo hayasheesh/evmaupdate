@@ -1,0 +1,18 @@
+{
+ "cases": 120,
+ "same_as_base": true,
+ "mismatch": [],
+ "tracking": 81.39178487402245,
+ "soc_env_metric": 82.41001521171849,
+ "soc_pooled_env": 82.39258758920442,
+ "soc_pooled_new": 86.99597662330035,
+ "soc_case_mean_new": 87.00101394333556,
+ "departing_per_day": 567.5166666666667,
+ "day_end_per_day": 48.8,
+ "day_end_hit_env": 45.21857923497268,
+ "day_end_hit_new": 98.75341530054645,
+ "day_end_minimum_zero_pct": 91.32513661202186,
+ "day_end_short_env_kwh_per_day": 729.7855685240091,
+ "day_end_short_new_kwh_per_day": 11.76052475106597,
+ "unrecorded_evs": 0
+}

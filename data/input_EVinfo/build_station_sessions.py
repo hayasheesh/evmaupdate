@@ -21,12 +21,32 @@ Sources (all already in this repository):
             dataset's own value, which it derives by assuming every session ends
             at 95 % SoC.
 
-Day classes: weekday, or holiday (Saturday, Sunday, or a public holiday of the
-source country: US federal for Boulder and ACN, Norwegian for Norway).
+Day classes: weekday, or holiday (Saturday, Sunday, or a day off of the source
+country: a public holiday or a customary off period, environment.calendars).
+
+Days left out of a station's record (no sessions, no port-days):
+  - 14 Mar 2020 to 30 Jun 2021 for the US stations (COVID-19). Weekday sessions
+    per port-day at the Boulder stations fell to 3 - 40 % of their 2019 level in
+    2020 Q2 - 2021 Q1 and were back in 2021 Q3.
+  - the first 180 days of each Boulder station, while use was still growing
+    after installation (WALNUT: 0.08 in 2018 Q1 against 0.6 - 0.9 in 2019).
+  - outages: a run of days with no session that the station's own rate makes
+    implausible, exp(-expected sessions) < 1e-3, where each day of the run
+    expects the sessions per day of its own day class over the 90 days on each
+    side of the run. Applied to the
+    stations with a fixed set of ports (Boulder, ACN); Norway exposes each home
+    charger only between its user's first and last session.
+Boulder repeats sessions with the start time written in two formats (with and
+without seconds) and the duration rounded differently, so duplicates are
+matched on the start minute, the duration in whole minutes and the energy.
 
 The arrival rate of a station in a day class is its sessions in that class
 divided by its port-days in that class. Sessions with a non-positive dwell or a
-negative energy are dropped, and exact duplicate Boulder rows are removed.
+negative energy are dropped, and exact duplicate Boulder rows are removed. So
+are plug-ins that took under 0.1 kWh and were unplugged within 10 minutes: no
+charging took place, and keeping them as arrivals would add EVs that only
+occupy a charger for one step. They are dropped before the arrival rate is
+counted, so they do not become charging arrivals either.
 """
 
 from __future__ import annotations
@@ -52,9 +72,11 @@ NORWAY_DIR = HERE / "external_sources" / "norway_residential"
 
 # station id (used by the simulator), source, source key
 STATIONS = (
-    ("COMM VITALITY _ 1400 WALNUT1", "boulder", "COMM VITALITY / 1400 WALNUT1"),
-    ("COMM VITALITY _ 1104 SPRUCE1", "boulder", "COMM VITALITY / 1104 SPRUCE1"),
-    ("COMM VITALITY _ 1500PEARL1", "boulder", "COMM VITALITY / 1500PEARL1"),
+    # The source lists these chargers as COMM VITALITY until early May 2023 and
+    # as MUNICIPAL SC from then on, at the same address; both names are one station.
+    ("COMM VITALITY _ 1400 WALNUT1", "boulder", ("COMM VITALITY / 1400 WALNUT1", "MUNICIPAL SC / 1400 WALNUT1")),
+    ("COMM VITALITY _ 1104 SPRUCE1", "boulder", ("COMM VITALITY / 1104 SPRUCE1", "MUNICIPAL SC / 1104 SPRUCE1")),
+    ("COMM VITALITY _ 1500PEARL1", "boulder", ("COMM VITALITY / 1500PEARL1", "MUNICIPAL SC / 1500PEARL1")),
     ("ACN_JPL_ARROYO1", "acn", "acn_api_sessions_jpl_2018.json"),
     ("ACN_CALTECH_GARAGE1", "acn", "acn_api_sessions_caltech_2018.json"),
     ("RESIDENTIAL NORWAY _ OSL_S", "norway", "OSL_S"),
@@ -72,6 +94,73 @@ SOURCES = {
 }
 
 
+EMPTY_PLUGIN_KWH = 0.1
+EMPTY_PLUGIN_MINUTES = 10.0
+EXCLUDED_PERIODS = {"US": (("2020-03-14", "2021-06-30", "covid19"),)}
+BOULDER_RAMP_UP_DAYS = 180
+OUTAGE_PROBABILITY = 1e-3
+OUTAGE_CONTEXT_DAYS = 90
+
+
+def _excluded_by_period(days, country: str) -> set:
+    out = set()
+    for first, last, _why in EXCLUDED_PERIODS.get(country, ()):
+        lo, hi = pd.Timestamp(first).date(), pd.Timestamp(last).date()
+        out |= {d for d in days if lo <= d <= hi}
+    return out
+
+
+def _outage_days(frame: pd.DataFrame, days: list, excluded: set, country: str) -> list[tuple]:
+    """Runs of zero-session days that the station's local rate makes implausible.
+
+    The expected sessions of each day in the run come from days of the same
+    day class within OUTAGE_CONTEXT_DAYS on each side, so an empty weekend at
+    a workplace is not read as an outage.
+    """
+    counts = frame.groupby("local_date").size()
+    per_day = np.array([0 if d in excluded else int(counts.get(str(d), 0)) for d in days])
+    usable = np.array([d not in excluded for d in days])
+    classes = np.array([day_class(d, country) for d in days])
+    runs, i = [], 0
+    while i < len(days):
+        if usable[i] and per_day[i] == 0:
+            j = i
+            while j < len(days) and usable[j] and per_day[j] == 0:
+                j += 1
+            lo, hi = max(i - OUTAGE_CONTEXT_DAYS, 0), min(j + OUTAGE_CONTEXT_DAYS, len(days))
+            ctx = np.r_[lo:i, j:hi]
+            ctx = ctx[usable[ctx]]
+            expected = 0.0
+            for cls in set(classes[i:j]):
+                same = ctx[classes[ctx] == cls]
+                rate = per_day[same].mean() if len(same) else 0.0
+                expected += rate * int((classes[i:j] == cls).sum())
+            if expected > 0 and np.exp(-expected) < OUTAGE_PROBABILITY:
+                runs.append((days[i], days[j - 1], j - i))
+            i = j
+        else:
+            i += 1
+    return runs
+
+
+def _keep_days(frame: pd.DataFrame, days: list, country: str, *, ramp_up_days: int = 0):
+    """Drop excluded periods, the ramp-up and outages; return the frame, kept days and a log."""
+    excluded = _excluded_by_period(days, country) | set(days[:ramp_up_days])
+    outages = _outage_days(frame, days, excluded, country)
+    for first, last, _n in outages:
+        excluded |= {d for d in days if first <= d <= last}
+    kept = [d for d in days if d not in excluded]
+    kept_str = {str(d) for d in kept}
+    log = {
+        "excluded_periods": [list(p) for p in EXCLUDED_PERIODS.get(country, ())],
+        "ramp_up_days_dropped": int(min(ramp_up_days, len(days))),
+        "outages": [[str(a), str(b), int(n)] for a, b, n in outages],
+        "days_kept": len(kept), "days_in_record": len(days),
+        "sessions_dropped_by_day_exclusion": int((~frame["local_date"].isin(kept_str)).sum()),
+    }
+    return frame[frame["local_date"].isin(kept_str)].reset_index(drop=True), kept, log
+
+
 def _frame(times: pd.Series, dwell_minutes, energy_kwh, session_ids, country: str,
            arrival_soc=None) -> pd.DataFrame:
     times = pd.to_datetime(times)
@@ -85,7 +174,8 @@ def _frame(times: pd.Series, dwell_minutes, energy_kwh, session_ids, country: st
                             if arrival_soc is not None else np.nan),
     })
     frame["day_class"] = [day_class(d, country) for d in frame["local_date"]]
-    keep = (frame["dwell_minutes"] > 0.0) & (frame["energy_kwh"] >= 0.0)
+    no_charge = (frame["energy_kwh"] < EMPTY_PLUGIN_KWH) & (frame["dwell_minutes"] < EMPTY_PLUGIN_MINUTES)
+    keep = (frame["dwell_minutes"] > 0.0) & (frame["energy_kwh"] >= 0.0) & ~no_charge
     return frame[keep].reset_index(drop=True)
 
 
@@ -93,23 +183,30 @@ def _calendar_days(first, last) -> list:
     return list(pd.date_range(first, last, freq="D").date)
 
 
-def boulder_station(name: str) -> tuple[pd.DataFrame, dict]:
+def boulder_station(name) -> tuple[pd.DataFrame, dict]:
     raw = pd.read_csv(BOULDER_CSV, usecols=[
         "Station_Name", "Start_Date___Time", "End_Date___Time",
         "Total_Duration__hh_mm_ss_", "Energy__kWh_", "ObjectID",
     ])
-    raw = raw[raw["Station_Name"] == name]
+    names = (name,) if isinstance(name, str) else tuple(name)
+    raw = raw[raw["Station_Name"].isin(names)].copy()
     rows = len(raw)
-    raw = raw.drop_duplicates(subset=["Start_Date___Time", "End_Date___Time"])
-    start = pd.to_datetime(raw["Start_Date___Time"], format="mixed")
-    dwell = pd.to_timedelta(raw["Total_Duration__hh_mm_ss_"], errors="coerce").dt.total_seconds() / 60.0
+    raw["_start"] = pd.to_datetime(raw["Start_Date___Time"], format="mixed")
+    raw["_start_minute"] = raw["_start"].dt.floor("min")
+    raw["_dwell"] = pd.to_timedelta(raw["Total_Duration__hh_mm_ss_"], errors="coerce").dt.total_seconds() / 60.0
+    raw["_dwell_minute"] = raw["_dwell"].round()
+    raw["_energy"] = pd.to_numeric(raw["Energy__kWh_"], errors="coerce").round(3)
+    raw = raw.sort_values("_start").drop_duplicates(subset=["_start_minute", "_dwell_minute", "_energy"])
+    start = raw["_start"]
+    dwell = raw["_dwell"]
     frame = _frame(start, dwell, raw["Energy__kWh_"], raw["ObjectID"], "US")
     days = _calendar_days(frame["local_date"].min(), frame["local_date"].max())
-    exposure = {cls: BOULDER_PORTS * sum(day_class(d, "US") == cls for d in days) for cls in DAY_CLASSES}
-    info = {"source": "boulder", "source_key": name, "source_rows": int(rows),
+    frame, kept, log = _keep_days(frame, days, "US", ramp_up_days=BOULDER_RAMP_UP_DAYS)
+    exposure = {cls: BOULDER_PORTS * sum(day_class(d, "US") == cls for d in kept) for cls in DAY_CLASSES}
+    info = {"source": "boulder", "source_key": list(names), "source_rows": int(rows),
             "duplicates_removed": int(rows - len(raw)), "ports": BOULDER_PORTS,
             "port_definition": "two Level 2 ports per Boulder station",
-            "first_date": str(days[0]), "last_date": str(days[-1])}
+            "first_date": str(days[0]), "last_date": str(days[-1]), **log}
     return frame, {**info, "port_days": exposure}
 
 
@@ -135,13 +232,14 @@ def acn_station(file_name: str) -> tuple[pd.DataFrame, dict]:
     first, last = all_dates[0], all_dates[-1]
     frame = frame[(frame["local_date"] > first) & (frame["local_date"] < last)].reset_index(drop=True)
     days = _calendar_days(pd.Timestamp(first) + pd.Timedelta(days=1), pd.Timestamp(last) - pd.Timedelta(days=1))
+    frame, kept, log = _keep_days(frame, days, "US")
     ports = len({i["stationID"] for i in items})
-    exposure = {cls: ports * sum(day_class(d, "US") == cls for d in days) for cls in DAY_CLASSES}
+    exposure = {cls: ports * sum(day_class(d, "US") == cls for d in kept) for cls in DAY_CLASSES}
     info = {"source": "acn", "source_key": file_name, "source_rows": len(items),
             "site": sorted({i["siteID"] for i in items}), "cluster": sorted({i["clusterID"] for i in items}),
             "ports": ports, "port_definition": "distinct EVSE stationID in the export",
             "first_date": str(days[0]), "last_date": str(days[-1]),
-            "partial_edge_dates_dropped": [first, last]}
+            "partial_edge_dates_dropped": [first, last], **log}
     return frame, {**info, "port_days": exposure}
 
 
@@ -197,7 +295,7 @@ def main() -> int:
             "arrival_minute": "local arrival time, minutes after midnight",
             "dwell_minutes": "plug-in to plug-out time",
             "energy_kwh": "energy delivered in the session",
-            "arrival_soc_pct": "plug-in SoC, residential stations only (Norway Dataset3 SoC_start)",
+            "arrival_soc_pct": "Norway Dataset3 SoC_start, residential stations only; EVEnv draws plug-in SoC from the EV Project distribution instead",
         },
         "sources": SOURCES,
         "stations": stations,

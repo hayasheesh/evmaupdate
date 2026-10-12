@@ -1,0 +1,1 @@
+{"id": "validation_bid_d3_c1_e0", "variant": "opt2_r090s", "date": "2024-02-01", "source": "ercot_esr_base_point_minus_cop_plan:ercot_esr_plan_ZAPATA_ESR2_2026-01-26.csv", "ev_seed": 40003027, "tracking": 86.11111111111111, "soc": 72.59136212624585, "mae": 72.17010250797978}

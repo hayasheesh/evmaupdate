@@ -21,6 +21,7 @@ from dataclasses import replace
 import numpy as np
 
 from EnvConfig import (
+    ASSESSMENT_I_CONTROL_MARGIN_KW,
     LOWER_TRAIN_UPPER_BID_BENDERS_CUTS_PER_ROUND,
     LOWER_TRAIN_UPPER_BID_BENDERS_MAX_ROUNDS,
     LOWER_TRAIN_UPPER_BID_BENDERS_MAX_TOTAL_CUTS,
@@ -185,6 +186,22 @@ def _missing_dispatch_reasons(recourse_solution, missing: list[str]) -> dict:
 
 
 
+
+
+def assessment_i_bounds_with_control_margin(power_min, power_max, margin_kw):
+    """Pull the Assessment-I fleet-power limits in by the controller's margin.
+
+    The bid then keeps baseline - up >= power_min + margin and
+    baseline + down <= power_max - margin. Where the two would cross, both
+    sit at their midpoint: the block can carry no award there, and the
+    baseline stays inside the physical limits.
+    """
+
+    lower = np.asarray(power_min, dtype=float) + max(float(margin_kw), 0.0)
+    upper = np.asarray(power_max, dtype=float) - max(float(margin_kw), 0.0)
+    crossed = lower > upper
+    middle = 0.5 * (np.asarray(power_min, dtype=float) + np.asarray(power_max, dtype=float))
+    return np.where(crossed, middle, lower), np.where(crossed, middle, upper)
 
 
 def _reviewed_fixed_ev_assessment_i_bounds(lbt, ev_bank) -> tuple[np.ndarray, np.ndarray]:
@@ -995,8 +1012,11 @@ def build_blockwise_bid_for_day(
     sustained_discharge_kw, sustained_charge_kw = _reviewed_fixed_ev_assessment_i_bounds(
         lbt, ev_bank
     )
-    sustained_power_min = -np.maximum(np.asarray(sustained_discharge_kw, dtype=float), 0.0)
-    sustained_power_max = np.maximum(np.asarray(sustained_charge_kw, dtype=float), 0.0)
+    physical_power_min = -np.maximum(np.asarray(sustained_discharge_kw, dtype=float), 0.0)
+    physical_power_max = np.maximum(np.asarray(sustained_charge_kw, dtype=float), 0.0)
+    sustained_power_min, sustained_power_max = assessment_i_bounds_with_control_margin(
+        physical_power_min, physical_power_max, ASSESSMENT_I_CONTROL_MARGIN_KW
+    )
     natural_baseline = np.clip(
         np.asarray(baseline_plan, dtype=float).reshape(N_BLOCKS),
         baseline_floor,
@@ -1283,8 +1303,9 @@ def build_blockwise_bid_for_day(
         # Assessment-II tracking-band counterfactual: the fleet power the EVs
         # hold for 30 minutes, which baseline - up and baseline + down must
         # stay within.
-        "assessment_i_sustained_power_min_kw": sustained_power_min.copy(),
-        "assessment_i_sustained_power_max_kw": sustained_power_max.copy(),
+        "assessment_i_sustained_power_min_kw": physical_power_min.copy(),
+        "assessment_i_sustained_power_max_kw": physical_power_max.copy(),
+        "assessment_i_control_margin_kw": float(ASSESSMENT_I_CONTROL_MARGIN_KW),
         "base_series": np.asarray(base_series, dtype=np.float32).reshape(-1)[:len(target)],
         "arrival_probabilities_by_station": arrival_probs,
         "result": result,

@@ -111,6 +111,36 @@ def test_floor_relaxed_master_exposes_a_subminimum_direction() -> None:
     assert relaxed.down_kw[0] == pytest.approx(100.0 / 9.0, abs=1e-5)
 
 
+def test_a_seed_width_below_the_floor_is_not_certified_as_submitted() -> None:
+    # The seed's down width is under the floor, so the pattern leaves the
+    # direction out and no band checks it. The first candidate must then hold
+    # it at zero, as the master does; certifying the seed as it stands would
+    # submit an unchecked sub-floor width.
+    scenario = _limited_down_scenario("subfloor_seed")
+    problem = _one_block_problem([scenario])
+    initial = BiddingSolution(
+        status="optimal",
+        solver="test-seed",
+        objective_value=10.0,
+        baseline_kw=np.zeros(1),
+        up_kw=np.zeros(1),
+        down_kw=np.full(1, 10.0),
+    )
+
+    solution, summary = solve_joint_hard_bidding_benders(
+        problem,
+        [scenario],
+        initial_solution=initial,
+        minimum_active_width_kw=15.0,
+        max_rounds=6,
+        allow_widen=True,
+        enforce_minimum_active_width=True,
+    )
+
+    assert summary["complete"] is True
+    assert solution.down_kw[0] == 0.0
+
+
 def _without_the_circulation(monkeypatch) -> None:
     """Answer every scenario with the exact LP, which brings its own dual cut.
 

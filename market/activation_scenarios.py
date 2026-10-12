@@ -191,9 +191,38 @@ def activation_library_signature(
     key = (str(root), tuple(sorted(listing)))
     cached = _LIBRARY_SIGNATURE_CACHE.get(key)
     if cached is None:
-        cached = _activation_library_signature(root)
+        cached = _disk_cached_signature(root, key)
         _LIBRARY_SIGNATURE_CACHE[key] = cached
     return dict(cached)
+
+
+_SIGNATURE_CACHE_FILE = ".library_signature_cache.json"
+
+
+def _disk_cached_signature(root: Path, key: tuple) -> dict[str, object]:
+    """The signature, kept on disk next to the library for the same listing.
+
+    Hashing the 10,905 files takes about 25 s, and every bid-bank worker and
+    every training start computes it. The cached value is reused only when
+    every file's name, size and modification time match the listing it was
+    computed from, the same condition the in-process cache uses.
+    """
+    listing_digest = hashlib.sha256(repr(key[1]).encode("utf-8")).hexdigest()
+    cache_path = root / _SIGNATURE_CACHE_FILE
+    try:
+        stored = json.loads(cache_path.read_text(encoding="utf-8"))
+        if stored.get("listing_sha256") == listing_digest:
+            return {**stored["signature"], "activation_source_dir": str(root)}
+    except (OSError, ValueError, KeyError, TypeError):
+        pass
+    signature = _activation_library_signature(root)
+    try:
+        temp = cache_path.with_name(f"{cache_path.name}.{os.getpid()}.tmp")
+        temp.write_text(json.dumps({"listing_sha256": listing_digest, "signature": signature}), encoding="utf-8")
+        temp.replace(cache_path)
+    except OSError:
+        pass
+    return signature
 
 
 def _activation_library_signature(root: Path) -> dict[str, object]:

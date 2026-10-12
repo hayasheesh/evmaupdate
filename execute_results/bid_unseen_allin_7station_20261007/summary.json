@@ -1,0 +1,26 @@
+{
+  "AEMO": {
+    "commands": 3200,
+    "trials": 9600,
+    "feasible": 9431,
+    "infeasible": 164,
+    "unknown": 5,
+    "bid_days": 25,
+    "ev_seeds_per_command": 3,
+    "success_rate": null,
+    "success_rate_lower_bound": 0.9823958333333334,
+    "success_rate_upper_bound": 0.9829166666666667
+  },
+  "ERCOT": {
+    "commands": 3200,
+    "trials": 9600,
+    "feasible": 9554,
+    "infeasible": 45,
+    "unknown": 1,
+    "bid_days": 25,
+    "ev_seeds_per_command": 3,
+    "success_rate": null,
+    "success_rate_lower_bound": 0.9952083333333334,
+    "success_rate_upper_bound": 0.9953125
+  }
+}

@@ -41,7 +41,7 @@ import random as _pyrandom
 
 import numpy as np
 import torch
-from environment.ev_info_loader import load_arrival_soc_cdf
+from environment.ev_info_loader import load_plugin_soc_bins
 from environment.calendars import WEEKDAY
 from environment.station_sessions import (
 arrival_probabilities ,
@@ -62,8 +62,11 @@ SERVICE_CALENDAR_COUNTRY ,
 SESSION_MATCH_MIN_CANDIDATES ,
 EV_PREROLL_DAYS ,
 EV_TARGET_REACHABLE_POWER_FRACTION ,
+EV_TARGET_SOC_MAX_PCT ,
 NUM_STATIONS ,NUM_EVS ,GLOBAL_BALANCE_REWARD ,
+TRACKING_DIFFERENCE_REWARD ,FLEET_RESIDUAL_OBS_PER_STATION ,
 GLOBAL_BALANCE_REWARD_ERROR_SCALE_KW ,GLOBAL_BALANCE_REWARD_LINEAR_TAIL_KW ,
+GLOBAL_BALANCE_REWARD_SHAPE ,
 POWER_TO_ENERGY ,TIME_STEP_MINUTES ,
 EV_BATTERY_CAPACITY_OPTIONS_KWH ,EV_BATTERY_CAPACITY_PROBS ,
 EV_CHARGER_MAX_POWER_OPTIONS_KW ,EV_CHARGER_MAX_POWER_PROBS ,
@@ -87,6 +90,11 @@ CENTRAL_EV_ALLOCATOR_WATERFILL_ITERS ,
 CENTRAL_EV_ALLOCATOR_DEPARTURE_SLACK_KWH ,
 )
 from environment.observation_config import (
+OBSERVE_EV_MAX_POWER ,
+OBSERVE_SERVICE_DAY_HOLIDAY ,
+OBSERVE_FLEET_RESIDUAL ,
+OBSERVE_TRACKING_BAND ,
+OBSERVED_BID_CONTEXT_FEATURES ,
 EV_FEAT_DIM ,
 LOCAL_DEMAND_STEPS ,
 BID_CONTEXT_FEATURES ,
@@ -148,8 +156,9 @@ class EVEnv :
         self .num_stations =num_stations
         self .num_evs =num_evs
         self .episode_steps =episode_steps
-        # Plug-in SoC distribution for sessions that do not carry their own.
-        self .soc_values ,self .soc_cdf =load_arrival_soc_cdf (EV_SOC_ARRIVAL_DISTRIBUTION_PATH )
+        # Plug-in SoC bins: residential stations use the home-location shares,
+        # the others the away-from-home shares.
+        self .plugin_soc_bins =load_plugin_soc_bins (EV_SOC_ARRIVAL_DISTRIBUTION_PATH )
         # Each station draws its EVs from its own measured sessions.
         station_ids =list (PER_STATION_SESSION_IDS )
         if len (station_ids )!=int (self .num_stations ):
@@ -158,6 +167,7 @@ class EVEnv :
             f"num_stations={self.num_stations}, stations={len(station_ids)}"
             )
         self .station_ids =station_ids
+        self .station_is_residential =["RESIDENTIAL"in str (station_id ).upper ()for station_id in station_ids ]
         self .station_pools =[
         load_station_pool (str (STATION_SESSION_DIR ),station_id ,int (SESSION_MATCH_MIN_CANDIDATES ))
         for station_id in station_ids
@@ -185,6 +195,7 @@ class EVEnv :
         float (GLOBAL_BALANCE_REWARD_ERROR_SCALE_KW ),1e-6
         )
         self ._balance_reward_linear_tail_kw =float (GLOBAL_BALANCE_REWARD_LINEAR_TAIL_KW )
+        self ._balance_reward_shape =GLOBAL_BALANCE_REWARD_SHAPE
 
         self .max_ev_per_station =MAX_EV_PER_STATION
         # The PCC battery runs unless a caller turns it off. The central
@@ -386,10 +397,9 @@ class EVEnv :
                 ev_id =self ._allocate_ev_id ()
                 if ev_id is None :
                     raise RuntimeError ("EV id pool exhausted while placing the EVs present at 00:00")
-                dep ,target_soc =self ._horizon_obligation (
-                ev ['target_soc'],ev ['dep'],ev ['capacity_kwh'],ev ['max_power_kw'],
-                ev ['arrival'],ev ['arrival_soc'],
-                )
+                # An EV staying past the last step keeps its own departure and
+                # target: it is never judged inside the episode.
+                dep ,target_soc =int (ev ['dep']),float (ev ['target_soc'])
                 self ._record_arrival (ev ['init_soc'],target_soc -ev ['init_soc'],dep )
                 self ._set_ev_slot (
                 st ,slot_idx ,ev_id ,ev ['init_soc'],target_soc ,dep ,
@@ -446,22 +456,20 @@ class EVEnv :
     def _session_attributes (self ,station :int ,cls :str ,step :int ,rng )->dict :
         """One EV arriving at ``station`` on step ``step`` (0-based) of a ``cls`` day.
 
-        Dwell, delivered energy and, for residential stations, plug-in SoC come
-        from one session of the station that started in the same clock hour;
-        other stations draw plug-in SoC from the DESL distribution. Battery
-        capacity and charger rating come from the fleet distributions. The
-        target is plug-in SoC plus the delivered energy over this EV's battery,
-        capped at a full battery and at what EV_TARGET_REACHABLE_POWER_FRACTION
-        of its rated power adds during the stay.
+        Dwell and delivered energy come from one session of the station that
+        started in the same clock hour. Plug-in SoC comes from the EV Project
+        distribution (home shares at residential stations, away-from-home shares
+        elsewhere). Battery capacity and charger rating come from the fleet
+        distributions. The target is plug-in SoC plus the delivered energy over
+        this EV's battery, capped at EV_TARGET_SOC_MAX_PCT and at what
+        EV_TARGET_REACHABLE_POWER_FRACTION of its rated power adds during the
+        stay; an EV that plugs in above the cap has the cap as its target.
         """
         pool =self .station_pools [int (station )]
         idx =draw_session (pool ,cls ,int (step ),self .episode_steps ,rng )
         sessions =pool .pools [cls ]
         capacity_kwh ,max_power_kw =self ._sample_physical_profile (rng )
-        soc =float (sessions .arrival_soc_pct [idx ])
-        if not np .isfinite (soc ):
-            soc_idx =int (np .searchsorted (self .soc_cdf ,rng .random (),side ="right"))
-            soc =float (self .soc_values [min (soc_idx ,len (self .soc_values )-1 )])
+        soc =self .plugin_soc_bins .draw (rng ,home =self .station_is_residential [int (station )])
         init_soc =float (np .clip (soc ,0.0 ,100.0 ))
         dwell_steps =max (1 ,int (round (float (sessions .dwell_minutes [idx ])/float (TIME_STEP_MINUTES ))))
         soc_per_kwh =100.0 /max (float (capacity_kwh ),1e-6 )
@@ -471,7 +479,7 @@ class EVEnv :
         +float (dwell_steps )*float (max_power_kw )*float (POWER_TO_ENERGY )*soc_per_kwh
         *float (EV_TARGET_REACHABLE_POWER_FRACTION )
         )
-        target_soc =max (min (init_soc +delivered_soc ,reachable_soc ,100.0 ),init_soc )
+        target_soc =min (init_soc +delivered_soc ,reachable_soc ,float (EV_TARGET_SOC_MAX_PCT ))
         return {
         'init_soc':init_soc ,
         'target_soc':float (target_soc ),
@@ -481,39 +489,6 @@ class EVEnv :
         'capacity_kwh':float (capacity_kwh ),
         'max_power_kw':float (max_power_kw ),
         }
-
-    def _horizon_obligation (
-    self ,target_soc :float ,dep :int ,capacity_kwh :float ,max_power_kw :float ,
-    arrival_step :int ,arrival_soc :float ,
-    )->tuple [int ,float ]:
-        """Departure step and target SoC the episode holds an EV to.
-
-        An EV leaving after the last step is held, at the last step, to the SoC
-        the next day assumes for it at 00:00: charged at its rated power from
-        arrival until its target (the assumption _preroll_initial_evs makes).
-        ``arrival_step`` is its first step on the service day's step count
-        (zero or negative for an EV that arrived on a previous day). The two
-        days then agree at midnight, and no energy the EV will need is spent
-        today and left for tomorrow to restore. The level is never below what
-        rated-power charging after the day needs to reach the target, since the
-        target is reachable in the stay at a fraction of the rating.
-        """
-        horizon =int (self .episode_steps )
-        if int (dep )<=horizon :
-            return int (dep ),float (target_soc )
-        charged_steps =max (horizon -int (arrival_step )+1 ,0 )
-        charged_soc =(
-        float (charged_steps )*float (max_power_kw )*float (POWER_TO_ENERGY )
-        *100.0 /max (float (capacity_kwh ),1e-6 )
-        )
-        level =float (arrival_soc )+charged_soc
-        if level <float (target_soc ):
-            # Reached only by charging at the rating every step; a hair below
-            # keeps float rounding from turning that into a miss.
-            level -=1e-3
-        else :
-            level =float (target_soc )
-        return horizon ,max (level ,0.0 )
 
     def _preroll_initial_evs (self ,seed :int )->list :
         """EVs still plugged in at 00:00, per station.
@@ -561,7 +536,6 @@ class EVEnv :
                 charged_steps *ev ['max_power_kw']*float (POWER_TO_ENERGY )
                 *100.0 /max (ev ['capacity_kwh'],1e-6 )
                 )
-                ev ['arrival_soc']=ev ['init_soc']
                 ev ['init_soc']=float (max (min (ev ['init_soc']+gained_soc ,ev ['target_soc']),ev ['init_soc']))
                 midnight .append (ev )
             present .append (midnight )
@@ -577,7 +551,6 @@ class EVEnv :
                 ev =self ._session_attributes (st ,self .day_class ,0 ,rng )
                 ev ['dep']=int (ev ['dwell_steps'])
                 ev ['arrival']=1
-                ev ['arrival_soc']=ev ['init_soc']
                 evs .append (ev )
             out .append (evs )
         return out
@@ -827,21 +800,32 @@ class EVEnv :
         )
         # The fleet's own miss on the previous step, one scalar, identical
         # for every station. Nothing else in the observation reports it.
-        tail_features .append (
-        torch .as_tensor (
-        [float (getattr (self ,'last_raw_actor_residual_kw',0.0 ))],
-        dtype =torch .float32 ,device =device ,
-        )
-        )
-        tail_features .append (
-        torch .as_tensor (
-        [float (self .current_market_context .get (name ,0.0 ))for name in BID_CONTEXT_FEATURES ],
-        dtype =torch .float32 ,device =device ,
-        )
-        )
+        if OBSERVE_FLEET_RESIDUAL :
+            tail_features .append (
+            torch .as_tensor (
+            [float (getattr (self ,'last_raw_actor_residual_kw',0.0 ))
+            /(float (self .num_stations )if FLEET_RESIDUAL_OBS_PER_STATION else 1.0 )],
+            dtype =torch .float32 ,device =device ,
+            )
+            )
+        if OBSERVED_BID_CONTEXT_FEATURES :
+            tail_features .append (
+            torch .as_tensor (
+            [float (self .current_market_context .get (name ,0.0 ))for name in OBSERVED_BID_CONTEXT_FEATURES ],
+            dtype =torch .float32 ,device =device ,
+            )
+            )
         tail_features .append (
         torch .as_tensor ([float (self .step_count )],dtype =torch .float32 ,device =device )
         )
+        if OBSERVE_SERVICE_DAY_HOLIDAY :
+            tail_features .append (
+            torch .as_tensor ([0.0 if self .day_class ==WEEKDAY else 1.0 ],dtype =torch .float32 ,device =device )
+            )
+        if OBSERVE_TRACKING_BAND :
+            tail_features .append (
+            torch .as_tensor ([float (self .tol_narrow_metrics )],dtype =torch .float32 ,device =device )
+            )
 
         tail_vec =torch .cat (tail_features )
         tail_dim =int (tail_vec .numel ())
@@ -866,7 +850,8 @@ class EVEnv :
             ev_view [:,2 ]=self ._remaining_action_steps (self .depart [st ,sorted_active_evs ])
             ev_view [:,3 ]=self .target [st ,sorted_active_evs ]-ev_socs
             ev_view [:,4 ]=self .ev_capacity_kwh [st ,sorted_active_evs ]
-            ev_view [:,5 ]=self .ev_max_power_kw [st ,sorted_active_evs ]
+            if OBSERVE_EV_MAX_POWER :
+                ev_view [:,5 ]=self .ev_max_power_kw [st ,sorted_active_evs ]
 
         return obs
 
@@ -1409,6 +1394,11 @@ class EVEnv :
         else 0.0
         )
         balance_reward_only =float (global_reward )
+        if TRACKING_DIFFERENCE_REWARD and self .current_tracking_enabled :
+            local_rewards_tensor +=self ._tracking_difference_rewards (
+            current_request ,raw_actor_total_power_kw ,raw_actor_station_powers_tensor ,
+            station_safe_min_power_tensor ,station_safe_max_power_tensor ,float (global_reward ),
+            )
         # The same reward on the residual after the central allocator and the
         # battery, reported only.
         system_global_reward =(
@@ -1730,10 +1720,9 @@ class EVEnv :
             if ev_id is None :
                 return False
 
-        dep ,target_soc =self ._horizon_obligation (
-        target_soc ,self .step_count +dwell_steps -1 ,capacity_kwh ,max_power_kw ,
-        self .step_count ,init_soc ,
-        )
+        # An EV staying past the last step keeps its own departure and target:
+        # it is never judged inside the episode.
+        dep =self .step_count +dwell_steps -1
         needed_soc =max (target_soc -init_soc ,0.0 )
         profile_remaining =max (dep -self .step_count ,0 )
 
@@ -1746,17 +1735,39 @@ class EVEnv :
         )
         return True
 
+    def _tracking_difference_rewards (self ,request_kw ,total_kw ,station_kw ,safe_min_kw ,safe_max_kw ,fleet_reward ):
+        """Per-station difference reward for tracking (EnvConfig.TRACKING_DIFFERENCE_REWARD).
+
+        The fleet's tracking reward minus the one it would have earned had
+        station i delivered its share of the command, the command times its
+        share of the fleet's safe power range, clipped to its own range.
+        """
+        span =torch .clamp (safe_max_kw -safe_min_kw ,min =0.0 )
+        total_span =float (span .sum ())
+        rewards =torch .zeros (self .num_stations ,dtype =torch .float32 ,device =device )
+        if total_span <=1e-6 :
+            return rewards
+        share_kw =torch .minimum (torch .maximum (float (request_kw )*span /total_span ,safe_min_kw ),safe_max_kw )
+        counterfactual_total =float (total_kw )-station_kw +share_kw
+        for st ,value in enumerate (counterfactual_total .tolist ()):
+            rewards [st ]=fleet_reward -self ._calculate_balance_reward (abs (float (request_kw )-value ))
+        return rewards
+
     def _calculate_balance_reward (self ,deviation :float )->float :
-        """Bounded tracking reward for an absolute residual ``deviation`` in kW.
+        """Tracking reward for an absolute residual ``deviation`` in kW.
 
         The formal pass/fail tolerance remains an assessment metric. The
-        learner instead sees a smooth, bounded incentive to reduce every
-        residual kW, including errors inside that tolerance band. Past the
-        linear-tail point the curve stops bending and keeps the slope it had
-        there, so a deep miss is paid for in proportion to its depth.
+        learner instead sees a smooth incentive to reduce every residual kW,
+        including errors inside that tolerance band. The shape is
+        EnvConfig.GLOBAL_BALANCE_REWARD_SHAPE: "convex" makes each further kW
+        cost more than the last; "tanh_linear" bends the other way up to the
+        linear-tail point and keeps that slope past it.
         """
         d =max (float (deviation ),0.0 )
         scale =self ._balance_reward_error_scale_kw
+        if getattr (self ,'_balance_reward_shape',GLOBAL_BALANCE_REWARD_SHAPE )=="convex":
+            x =d /scale
+            return float (self .balance_reward )*(1.0 -2.0 *x *float (np .sqrt (1.0 +x )))
         d0 =self ._balance_reward_linear_tail_kw
         if d0 >0.0 and d >d0 :
             t0 =float (np .tanh (d0 /scale ))

@@ -23,9 +23,43 @@ TARGET_DEPLOYMENT_STATIONS = int(os.environ.get(
     "EVMA_TARGET_DEPLOYMENT_STATIONS",
     500,
 ))
+# Charge and discharge rating of each EV, drawn per EV from these options
+# before the cap below.
+EV_CHARGER_MAX_POWER_OPTIONS_BEFORE_CAP_KW = (11.0, 19.2, 27.5, 50.0)
+EV_CHARGER_MAX_POWER_PROBS = (0.20, 0.30, 0.35, 0.15)
+# Upper limit on every EV's charge and discharge power, in kW. The session
+# tables (dwell and energy) all come from AC normal charging, whose measured
+# site power stays at about 6.5 kW or below (docs/EVデータ.md); 7.7 kW is a
+# typical US Level 2 rating (240 V x 32 A). Each option is cut to the cap, so
+# with the default every EV is rated 7.7 kW. "none" keeps the options as listed.
+_ev_power_cap_env = os.environ.get("EVMA_EV_MAX_POWER_CAP_KW", "7.7").strip().lower()
+EV_MAX_POWER_CAP_KW = (
+    None if _ev_power_cap_env in {"", "none"} else float(_ev_power_cap_env)
+)
+if EV_MAX_POWER_CAP_KW is not None and EV_MAX_POWER_CAP_KW <= 0.0:
+    raise ValueError("EVMA_EV_MAX_POWER_CAP_KW must be positive or 'none'")
+EV_CHARGER_MAX_POWER_OPTIONS_KW = tuple(
+    float(p) if EV_MAX_POWER_CAP_KW is None else min(float(p), EV_MAX_POWER_CAP_KW)
+    for p in EV_CHARGER_MAX_POWER_OPTIONS_BEFORE_CAP_KW
+)
+
+
+def _mean_rating_kw(options):
+    return sum(w * p for w, p in zip(EV_CHARGER_MAX_POWER_PROBS, options))
+
+
+# The fleet-kW constants below (tracking reward, minimum band, Assessment-I
+# margin) were set for the ratings before the cap. The fleet's power range
+# moves with the mean rating, so they scale by the ratio of mean ratings
+# (7.7 / 25.085 = 0.307 under the default cap).
+RATING_KW_SCALE = (
+    _mean_rating_kw(EV_CHARGER_MAX_POWER_OPTIONS_KW)
+    / _mean_rating_kw(EV_CHARGER_MAX_POWER_OPTIONS_BEFORE_CAP_KW)
+)
 # The tracking-reward kW constants below were set at 7 stations. The fleet's
-# command and band grow with the station count, so they scale by N / 7.
-_REWARD_KW_SCALE = NUM_STATIONS / 7.0
+# command and band grow with the station count, so they scale by N / 7, and
+# with the ratings by RATING_KW_SCALE.
+_REWARD_KW_SCALE = NUM_STATIONS / 7.0 * RATING_KW_SCALE
 
 
 # --- Environment rewards and metrics ---
@@ -50,6 +84,38 @@ GLOBAL_BALANCE_REWARD_ERROR_SCALE_KW = float(os.environ.get(
 GLOBAL_BALANCE_REWARD_LINEAR_TAIL_KW = float(os.environ.get(
     "EVMA_GLOBAL_BALANCE_REWARD_LINEAR_TAIL_KW", str(60.0 * _REWARD_KW_SCALE)
 ))
+# Shape of the tracking reward. "convex" (default):
+#   reward = GLOBAL_BALANCE_REWARD * (1 - 2 x sqrt(1 + x)),  x = residual / ERROR_SCALE_KW.
+# Each further kW of residual costs more than the one before, growing like
+# x^1.5 -- between the absolute and the squared error -- so a deep miss, which
+# a battery cannot cover, weighs more than many small ones, which it can. The
+# slope at zero equals the tanh form's, so small residuals still pull the
+# policy and there is no flat band. "tanh_linear" keeps the earlier tanh with
+# a straight tail past GLOBAL_BALANCE_REWARD_LINEAR_TAIL_KW, where each kW past
+# the first costs less, not more.
+GLOBAL_BALANCE_REWARD_SHAPE = os.environ.get(
+    "EVMA_GLOBAL_BALANCE_REWARD_SHAPE", "convex"
+).strip().lower()
+if GLOBAL_BALANCE_REWARD_SHAPE not in {"convex", "tanh_linear"}:
+    raise ValueError("EVMA_GLOBAL_BALANCE_REWARD_SHAPE must be convex or tanh_linear")
+# Difference reward for tracking (Wolpert & Tumer 2001). Each station's local
+# reward adds the tracking reward of the fleet as it was, minus the tracking
+# reward the fleet would have earned had this station delivered its share of
+# the command instead (the command times the station's share of the fleet's
+# safe power range, kept inside the station's own range). It is positive when
+# the station did better than its share. The local reward otherwise carries
+# SoC terms only, so without it the tracking error reaches a station through
+# the global critic alone. Training-time only; the actors' inputs are unchanged.
+TRACKING_DIFFERENCE_REWARD = os.environ.get(
+    "EVMA_TRACKING_DIFFERENCE_REWARD", "0"
+).strip().lower() in {"1", "true", "yes", "on"}
+# Fleet residual on the previous step shown per station: divided by the station
+# count, as Mai et al. (Machine Learning 2024) show the command and the fleet
+# output per unit. Every station reads the same broadcast residual; seen at full
+# size, all of them reacting to it would correct it about NUM_STATIONS times.
+FLEET_RESIDUAL_OBS_PER_STATION = os.environ.get(
+    "EVMA_FLEET_RESIDUAL_OBS_PER_STATION", "0"
+).strip().lower() in {"1", "true", "yes", "on"}
 # Departure reward: LOCAL_R_SOC_HIT + SOC_HIT_BONUS at or above target,
 # otherwise -(LOCAL_DEPARTURE_MISS_PENALTY + LINEAR * shortfall in SoC points).
 SOC_HIT_BONUS = 0.5
@@ -101,8 +167,6 @@ EPISODE_STEPS = 288
 # Instruction cadence: 5-minute commands on the market evaluation grid.
 EV_BATTERY_CAPACITY_OPTIONS_KWH = (50.0, 60.0, 75.0, 90.0, 100.0, 120.0)
 EV_BATTERY_CAPACITY_PROBS = (0.10, 0.18, 0.25, 0.22, 0.15, 0.10)
-EV_CHARGER_MAX_POWER_OPTIONS_KW = (11.0, 19.2, 27.5, 50.0)
-EV_CHARGER_MAX_POWER_PROBS = (0.20, 0.30, 0.35, 0.15)
 EV_CAPACITY_OBS_SCALE_KWH = max(EV_BATTERY_CAPACITY_OPTIONS_KWH)
 EV_CHARGER_POWER_OBS_SCALE_KW = max(EV_CHARGER_MAX_POWER_OPTIONS_KW)
 TIME_STEP_MINUTES = 5
@@ -121,18 +185,36 @@ NUM_EVS = 10000
 # describes them.
 STATION_SESSION_DIR = os.path.join(PROJECT_ROOT, "data", "input_EVinfo", "station_sessions")
 # Station roster in EVEnv order. NUM_STATIONS takes the first entries and
-# repeats the list when it needs more.
-STATION_ROSTER = (
-    "COMM VITALITY _ 1400 WALNUT1",
-    "COMM VITALITY _ 1104 SPRUCE1",
-    "COMM VITALITY _ 1500PEARL1",
-    "ACN_JPL_ARROYO1",
-    "ACN_CALTECH_GARAGE1",
-    "RESIDENTIAL NORWAY _ OSL_S",
-    "RESIDENTIAL NORWAY _ TRO_R",
-    "BOULDER _ CARPENTER PARK1",
-    "BOULDER _ N BOULDER REC 1",
-)
+# repeats the list when it needs more. EVMA_STATION_ROSTER picks the roster:
+#   all                    Boulder's downtown and public stations, the two
+#                          workplace garages and the two residential sets
+#   workplace_residential  the two workplace garages and the two residential
+#                          sets only, alternating, so an even station count
+#                          has as many workplace as residential stations
+#                          (6: JPL, OSL, Caltech, TRO, JPL, OSL)
+STATION_ROSTERS = {
+    "all": (
+        "COMM VITALITY _ 1400 WALNUT1",
+        "COMM VITALITY _ 1104 SPRUCE1",
+        "COMM VITALITY _ 1500PEARL1",
+        "ACN_JPL_ARROYO1",
+        "ACN_CALTECH_GARAGE1",
+        "RESIDENTIAL NORWAY _ OSL_S",
+        "RESIDENTIAL NORWAY _ TRO_R",
+        "BOULDER _ CARPENTER PARK1",
+        "BOULDER _ N BOULDER REC 1",
+    ),
+    "workplace_residential": (
+        "ACN_JPL_ARROYO1",
+        "RESIDENTIAL NORWAY _ OSL_S",
+        "ACN_CALTECH_GARAGE1",
+        "RESIDENTIAL NORWAY _ TRO_R",
+    ),
+}
+STATION_ROSTER_NAME = os.environ.get("EVMA_STATION_ROSTER", "all").strip().lower()
+if STATION_ROSTER_NAME not in STATION_ROSTERS:
+    raise ValueError(f"EVMA_STATION_ROSTER must be one of {sorted(STATION_ROSTERS)}")
+STATION_ROSTER = STATION_ROSTERS[STATION_ROSTER_NAME]
 PER_STATION_SESSION_IDS = tuple(
     STATION_ROSTER[index % len(STATION_ROSTER)] for index in range(NUM_STATIONS)
 )
@@ -147,10 +229,19 @@ FUTURE_EV_ARRIVAL_GROWTH_MULTIPLIER = float(
 # follows the Japanese calendar. Each source dataset was classified with its own
 # country's calendar when the session tables were built.
 SERVICE_CALENDAR_COUNTRY = "JP"
-# Bid-bank days are drawn from this calendar year, weekday / Saturday /
-# Sunday-or-holiday in the proportions the year has
+# Bid-bank days are drawn from this calendar year, over the day classes in
+# BANK_DAY_CLASSES in the proportions the year has
 # (training.run_after_day_ahead_bid.stratified_bank_day_selection).
 SERVICE_YEAR = int(os.environ.get("EVMA_SERVICE_YEAR", "2024"))
+# Day classes the bid banks draw from: weekday, saturday, sunday_holiday
+# (comma separated). Weekdays only by default: on Saturdays and Sundays or
+# holidays the fleet is small, and the 7-station bids offered both directions
+# in only 2 to 20 of 48 blocks.
+BANK_DAY_CLASSES = tuple(
+    c.strip() for c in os.environ.get("EVMA_BANK_DAY_CLASSES", "weekday").split(",") if c.strip()
+)
+if not BANK_DAY_CLASSES or not set(BANK_DAY_CLASSES) <= {"weekday", "saturday", "sunday_holiday"}:
+    raise ValueError("EVMA_BANK_DAY_CLASSES must list weekday, saturday and/or sunday_holiday")
 # An arrival at step t draws a session of the same day class that started in
 # the same clock hour; when that hour holds fewer sessions than this, the
 # window widens one hour each side until it does.
@@ -159,18 +250,20 @@ SESSION_MATCH_MIN_CANDIDATES = int(os.environ.get("EVMA_SESSION_MATCH_MIN_CANDID
 # connected after running this many previous days, without control: each
 # charged at its rated power from arrival until its target or midnight.
 EV_PREROLL_DAYS = int(os.environ.get("EVMA_EV_PREROLL_DAYS", "2"))
-# Plug-in SoC. Residential sessions carry their own (Norway Dataset3
-# SoC_start). Every other session draws from this distribution: SoC on arrival
-# at the DC fast chargers of the EPFL DESL Level-3 dataset
-# (github.com/DESL-EPFL/Level-3-EV-charging-dataset, 1,878 sessions, Apr 2022 -
-# Jul 2023), built by data/input_EVinfo/Arrivesoc.py.
+# Plug-in SoC. Every arriving EV draws it from the EV Project's distribution of
+# SoC at the start of charging (Nissan Leaf, Oct-Dec 2012, vehicle telematics):
+# residential stations from the home-location histogram, the others from the
+# away-from-home histogram, uniform inside each 10-point bin. The file and how
+# its shares were taken from the report: data/input_EVinfo/plugin_soc_inl_ev_project.README.txt.
 EV_SOC_ARRIVAL_DISTRIBUTION_PATH = os.path.join(
-    PROJECT_ROOT, "data", "input_EVinfo", "soc_arrival_distribution.csv"
+    PROJECT_ROOT, "data", "input_EVinfo", "plugin_soc_inl_ev_project.csv"
 )
 # Departure target: plug-in SoC plus the session's delivered energy over the
-# EV's own battery, capped at a full battery and at what this fraction of the
-# EV's rated power can add during its stay.
+# EV's own battery, capped at EV_TARGET_SOC_MAX_PCT and at what this fraction of
+# the EV's rated power can add during its stay. An EV that plugs in above the
+# cap has the cap as its target, so it may leave lower than it arrived.
 EV_TARGET_REACHABLE_POWER_FRACTION = 0.8
+EV_TARGET_SOC_MAX_PCT = 80.0
 
 
 # --- Command sets and command scaling ---
@@ -268,9 +361,11 @@ DEMAND_TARGET_MAX_KW = float(os.environ.get("EVMA_DEMAND_MAX_KW", PHYSICAL_MAX_P
 # turn it off, since its only consumer there is a reported column.
 BESS_TARGET_POWER_CAP_KW = float(os.environ.get(
     "EVMA_BESS_TARGET_POWER_CAP_KW",
-    # Keep the 500-station equivalent below the 2 MW special-high-voltage
-    # application boundary used by the study.  1999.4 kW also stays below the
-    # 1999.5 kW maximum-receiving-power example in TEPCO's application guide.
+    # A reference size, not a cap: just under the 2 MW boundary above which
+    # one site connects at special high voltage (1999.4 kW also stays below
+    # the 1999.5 kW example in TEPCO's application guide). The battery can be
+    # split across sites, so the study sweeps its size and reports the
+    # smallest that clears the failures (docs/研究の全体像.md).
     "1999.4",
 ))
 _BESS_DEFAULT_POWER_KW = (
@@ -364,6 +459,18 @@ OBS_DEMAND_CLAMP = float(os.environ.get(
     "EVMA_OBS_DEMAND_CLAMP",
     "2.5",
 ))
+
+# What the command, the previous fleet residual, the band and the bid
+# lookahead are divided by in the observation.
+# "bank": one value for every day, the 95th percentile of |command| over the
+#   tracked steps of the training bid bank, so the same kW reads the same
+#   number every day.
+# "day": the widest command that day's bid can produce.
+# The choice is saved in the run's observation profile; a profile without it
+# reads as "day".
+OBS_COMMAND_SCALE = os.environ.get("EVMA_OBS_COMMAND_SCALE", "bank").strip().lower()
+if OBS_COMMAND_SCALE not in {"bank", "day"}:
+    raise ValueError("EVMA_OBS_COMMAND_SCALE must be 'bank' or 'day'")
 
 
 # --- Upper bid and bid banks -------------------------------------------------
@@ -475,7 +582,11 @@ LOWER_TRAIN_UPPER_BID_REWARD_BAND_FRAC = float(os.environ.get("EVMA_LOWER_TRAIN_
 #
 # The band is set per station count from the trained lower controller's raw
 # tracking error (interim-test MAE of the MARL output):
-#   7 stations : 25 kW (minimum bid 250 kW), set by the user.
+#   7 stations : 25 kW (minimum bid 250 kW), set by the user. A 50 kW band
+#                (500 kW) would suit the trained actors' 15-25 kW error, but
+#                the 7-station fleet holds only about 250-450 kW per direction
+#                for 30 minutes: with the Assessment-I margin, 500 kW left 13
+#                of 48 blocks a day in the bid on average (250 kW: 44).
 #   20 stations: 80 kW (minimum bid 800 kW). Interim-test MAE over the last
 #                400 episodes of the 20-station AB runs (EV model before the
 #                station-session tables): AEMO 68.3 kW, ERCOT 87.0 kW; their
@@ -487,11 +598,38 @@ LOWER_TRAIN_UPPER_BID_REWARD_BAND_FRAC = float(os.environ.get("EVMA_LOWER_TRAIN_
 # it exceeds it, the "0 or at least the floor" constraint has no feasible
 # non-zero point and the bid comes out empty rather than conservative --
 # _sustainable_plan_bounds warns when that happens.
-_MIN_TRACKING_BAND_KW_BY_STATIONS = {7: 25.0, 20: 80.0}
+#
+# Both values were measured with the ratings before the 7.7 kW cap. Under a cap
+# they are scaled by RATING_KW_SCALE and rounded (7.7 kW: 7 stations 8 kW,
+# 20 stations 25 kW). These scaled values are provisional: the band is to be
+# set again from the tracking error of a global-critic-only run under the cap.
+_MIN_TRACKING_BAND_KW_BY_STATIONS = {
+    n: float(round(v * RATING_KW_SCALE)) for n, v in {7: 25.0, 20: 80.0}.items()
+}
 _min_band_env = os.environ.get("EVMA_LOWER_CONTROLLER_MIN_TRACKING_BAND_KW", "").strip()
 LOWER_CONTROLLER_MIN_TRACKING_BAND_KW = (
     float(_min_band_env) if _min_band_env
     else _MIN_TRACKING_BAND_KW_BY_STATIONS.get(NUM_STATIONS)
+)
+# Assessment I margin for the controller. The bid keeps baseline - up at least
+# this far above the fleet's sustained discharge power and baseline + down at
+# least this far below its sustained charge power. Without it, a block that
+# offers up only has its baseline pushed to the sustained charge limit, and the
+# fleet has to charge at that limit whenever no command comes; the trained
+# 20-station AEMO actor fell short there (11 % of its assessed steps had the
+# command in the top tenth of the instantaneous dispatch range, against 2 % at
+# 7 stations, and those steps missed 65 % of the time, mostly short).
+# The value is the controller's tracking error, the same measure the minimum
+# band starts from: 7 stations 25 kW (interim-test MAE 21-24 kW), 20 stations
+# 80 kW (the 77.7 kW above). Under a rating cap they scale like the band
+# (provisional, 7.7 kW: 8 kW and 25 kW).
+_ASSESSMENT_I_CONTROL_MARGIN_KW_BY_STATIONS = {
+    n: float(round(v * RATING_KW_SCALE)) for n, v in {7: 25.0, 20: 80.0}.items()
+}
+_margin_env = os.environ.get("EVMA_ASSESSMENT_I_CONTROL_MARGIN_KW", "").strip()
+ASSESSMENT_I_CONTROL_MARGIN_KW = (
+    float(_margin_env) if _margin_env
+    else _ASSESSMENT_I_CONTROL_MARGIN_KW_BY_STATIONS.get(NUM_STATIONS, 0.0)
 )
 MARKET_MINIMUM_BID_QUANTITY_KW = float(os.environ.get(
     "EVMA_MARKET_MINIMUM_BID_QUANTITY_KW",
@@ -501,9 +639,14 @@ MARKET_MINIMUM_BID_QUANTITY_KW = float(os.environ.get(
 # comes from an aggregate LP that checks the fleet's cumulative energy over the
 # day in every EV realization x design command, not only the 30-minute
 # Assessment-I capability of each block.
+# The limit is a guard against a solve that hangs, not part of the method: a
+# solve cut short falls back to the Assessment-I seed, so a tight limit makes
+# the bid depend on how loaded the machine was. Measured solves took 100 - 985 s
+# on the lab PC and 200 - 1,660 s on the shared Windows PC; 4 hours leaves
+# room for both.
 LOWER_TRAIN_UPPER_BID_ENERGY_INITIAL_TIME_LIMIT_S = float(os.environ.get(
     "EVMA_LOWER_TRAIN_UPPER_BID_ENERGY_INITIAL_TIME_LIMIT_S",
-    "1800",
+    "14400",
 ))
 # Objective weight on the baseline step between adjacent participating blocks,
 # in kW-block per kW of step, in the seed LP and the Benders master. Capacity

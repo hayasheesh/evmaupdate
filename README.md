@@ -1,6 +1,6 @@
 # EVMA-LOCAL
 
-EV-VPPがload-following型（二次調整力②相当）の需給調整商品へ参入できるかを、入札から当日制御まで通して評価する研究コード。
+MARLで分散制御するEV-VPPが二次調整力②の供出要件を満たせるかを、入札から当日制御まで通して評価する研究コード。
 
 - 主題と貢献: [研究の全体像](docs/研究の全体像.md)
 - 入札器: [入札器の問題設定](docs/入札器の問題設定.md)
@@ -41,6 +41,16 @@ python pre_train.py
 
 - `hybrid`（既定）：本研究の学習法。stationごとのSoC用critic、全体の追従用critic（QMIX風の混合器）、2つの勾配を混ぜた行動器の更新、TD3式の工夫を持つ
 - `maddpg`：Lowe et al.（2017）のMADDPG。論文で標準実装との差を示すための比較用。stationごとに1つのcriticが全stationの観測と行動を見て、そのstationの報酬（SoC用と追従用の和）を1つのγ（既定0.95）で学ぶ。行動器・観測・行動の制限・学習率などは `hybrid` と同じにしてある。詳細は `training/Agent/standard_maddpg.py`
+
+行動器が出した電力は、EVの定格とSoCの上下限で切ってから実行する。criticも、切った後の電力で評価する。行動器を更新するとき、切った箇所の勾配をどう扱うかは `EVMA_ACTOR_BOUND_GRADIENT` で選ぶ。
+
+- `inward`（既定）：上下限の内側では普通の勾配を通す。上下限を超えた出力には、上下限へ戻す向きの勾配だけを通す。満充電のEVには、充電を増やす向きの勾配が届かない
+- `straight_through`：切らなかったものとして、勾配をすべて通す。満充電のEVにも、充電を増やす向きの勾配が届く
+
+観測のうち、指令、1つ前の時刻の全体のずれ、帯、入札の先読みは、同じ値で割る。割る値は `EVMA_OBS_COMMAND_SCALE` で選ぶ。選んだ値は実行ごとの `input/observation_normalization.json` に残り、評価もそれに従う。
+
+- `bank`（既定）：学習用の入札データで、指令がある時刻の |指令| の95%点。どの日も同じ値なので、同じkWは毎日同じ数になる
+- `day`：その日の入札で出しうる最大の指令。日ごとに変わる。`command_scale` を持たない古い実行の設定は、こちらとして読む
 
 提案システムの評価（`--pipeline` は `marl_raw`、`marl_force`、`marl_force_bess`、`rule_based_central`）:
 

@@ -1,0 +1,366 @@
+{
+  "checked_at": "2026-10-08T08:42:47+09:00",
+  "runs": {
+    "aemo": {
+      "episode": 1634,
+      "stage": "stopped_by_user",
+      "notified_milestones": [
+        1000,
+        1500
+      ],
+      "last_test": {
+        "episode": 1580,
+        "tracking_pct": 77.72357723577235,
+        "soc_pct": 85.7370946353941,
+        "sum": 163.46067187116645,
+        "mae_kw": 116.22363240448007
+      },
+      "recent_tests": [
+        {
+          "episode": 1480,
+          "tracking_pct": 78.45528455284553,
+          "soc_pct": 85.63070720529497,
+          "sum": 164.0859917581405,
+          "mae_kw": 119.82149994381109
+        },
+        {
+          "episode": 1500,
+          "tracking_pct": 77.15447154471545,
+          "soc_pct": 85.7267653070456,
+          "sum": 162.88123685176106,
+          "mae_kw": 122.62951538488842
+        },
+        {
+          "episode": 1520,
+          "tracking_pct": 77.96747967479675,
+          "soc_pct": 85.78432767444536,
+          "sum": 163.7518073492421,
+          "mae_kw": 120.19105117376189
+        },
+        {
+          "episode": 1540,
+          "tracking_pct": 78.3739837398374,
+          "soc_pct": 85.6571843334934,
+          "sum": 164.0311680733308,
+          "mae_kw": 118.24475986080661
+        },
+        {
+          "episode": 1560,
+          "tracking_pct": 77.3170731707317,
+          "soc_pct": 85.73778266823066,
+          "sum": 163.05485583896237,
+          "mae_kw": 118.50396555706416
+        },
+        {
+          "episode": 1580,
+          "tracking_pct": 77.72357723577235,
+          "soc_pct": 85.7370946353941,
+          "sum": 163.46067187116645,
+          "mae_kw": 116.22363240448007
+        }
+      ],
+      "gradient_health": [
+        "   window |     Qg | gfrac gG/gL    cos | a_clip gc_clip gc_raw | gc_loss lc_loss     td",
+        "1300-1399 |   9.89 | 0.638  1.94 -0.332 |  0.514   0.996   8.67 |   0.475   0.131  0.498",
+        "1400-1499 |   9.94 | 0.631  1.89 -0.387 |  0.557   0.999   9.12 |   0.481   0.132  0.504",
+        "1500-1599 |  10.00 | 0.651  2.07 -0.383 |  0.608   1.000   9.38 |   0.492   0.137  0.515"
+      ],
+      "stdout_age_s": 4,
+      "processes": "launcher_pid=gone\nchild_pid=gone",
+      "last_progress_at": "2026-10-08T08:43:39.570172+09:00",
+      "nonfinite_tests": false,
+      "active_warning": {
+        "kind": "consecutive_test_decline",
+        "start_test": 1120,
+        "last_test": 1160,
+        "notified_at": "2026-10-08T03:29:47+09:00",
+        "sum_drop": 1.041631497009405
+      },
+      "stderr_errors": {},
+      "exact_state_saved": true
+    },
+    "ercot": {
+      "episode": 1595,
+      "stage": "stopped_by_user",
+      "notified_milestones": [
+        1000,
+        1500
+      ],
+      "last_test": {
+        "episode": 1540,
+        "tracking_pct": 83.90243902439025,
+        "soc_pct": 80.096135325615,
+        "sum": 163.99857435000524,
+        "mae_kw": 78.76103124067937
+      },
+      "recent_tests": [
+        {
+          "episode": 1440,
+          "tracking_pct": 82.03252032520325,
+          "soc_pct": 81.03004008575824,
+          "sum": 163.0625604109615,
+          "mae_kw": 83.00401514379915
+        },
+        {
+          "episode": 1460,
+          "tracking_pct": 82.4390243902439,
+          "soc_pct": 80.1790799294771,
+          "sum": 162.618104319721,
+          "mae_kw": 76.22494867455049
+        },
+        {
+          "episode": 1480,
+          "tracking_pct": 81.0569105691057,
+          "soc_pct": 79.86572366129857,
+          "sum": 160.92263423040427,
+          "mae_kw": 79.95418155345926
+        },
+        {
+          "episode": 1500,
+          "tracking_pct": 80.40650406504065,
+          "soc_pct": 80.60659873720287,
+          "sum": 161.0131028022435,
+          "mae_kw": 82.79421680749476
+        },
+        {
+          "episode": 1520,
+          "tracking_pct": 82.84552845528455,
+          "soc_pct": 80.6063204709597,
+          "sum": 163.45184892624425,
+          "mae_kw": 80.42565259883796
+        },
+        {
+          "episode": 1540,
+          "tracking_pct": 83.90243902439025,
+          "soc_pct": 80.096135325615,
+          "sum": 163.99857435000524,
+          "mae_kw": 78.76103124067937
+        }
+      ],
+      "gradient_health": [
+        "   window |     Qg | gfrac gG/gL    cos | a_clip gc_clip gc_raw | gc_loss lc_loss     td",
+        "1300-1399 |  11.07 | 0.558  1.45 -0.381 |  0.429   0.992   8.98 |   0.437   0.131  0.459",
+        "1400-1499 |  11.15 | 0.572  1.58 -0.533 |  0.489   0.991   8.71 |   0.441   0.134  0.463",
+        "1500-1599 |  11.20 | 0.579  1.57 -0.577 |  0.534   0.995   8.80 |   0.441   0.135  0.463"
+      ],
+      "stdout_age_s": 20,
+      "processes": "launcher_pid=gone\nchild_pid=gone",
+      "last_progress_at": "2026-10-08T08:43:39.570172+09:00",
+      "nonfinite_tests": false,
+      "stderr_errors": {},
+      "exact_state_saved": true
+    },
+    "windows_aemo": {
+      "episode": 1594,
+      "stage": "stopped_saved_request_origin_unknown",
+      "pid": 4280,
+      "last_progress_at": "2026-10-08T18:21:47.253757+09:00",
+      "notified_milestones": [
+        1000,
+        1500
+      ],
+      "log": "execute_results/allin_7station_20261007/logs/aemo_resume_codex_20261008.stdout.log",
+      "exact_state_restored": true,
+      "alive": false,
+      "recent_tests": [
+        {
+          "episode": 1480,
+          "tracking_pct": 82.4766355140187,
+          "soc_pct": 81.5792494740766,
+          "sum": 164.0558849880953
+        },
+        {
+          "episode": 1500,
+          "tracking_pct": 82.86604361370716,
+          "soc_pct": 82.39149702884725,
+          "sum": 165.25754064255443
+        },
+        {
+          "episode": 1520,
+          "tracking_pct": 85.2803738317757,
+          "soc_pct": 80.95429004797668,
+          "sum": 166.2346638797524
+        },
+        {
+          "episode": 1540,
+          "tracking_pct": 82.3208722741433,
+          "soc_pct": 82.67234424623203,
+          "sum": 164.9932165203753
+        },
+        {
+          "episode": 1560,
+          "tracking_pct": 83.02180685358256,
+          "soc_pct": 82.4845176611907,
+          "sum": 165.50632451477327
+        },
+        {
+          "episode": 1580,
+          "tracking_pct": 84.73520249221184,
+          "soc_pct": 82.52217135265043,
+          "sum": 167.2573738448623
+        }
+      ],
+      "last_test": {
+        "episode": 1580,
+        "tracking_pct": 84.73520249221184,
+        "soc_pct": 82.52217135265043,
+        "sum": 167.2573738448623
+      },
+      "stdout_age_s": 732,
+      "traceback": false,
+      "nonfinite_tests": false,
+      "saved_episode": 1594,
+      "gradient_health_recent50": {
+        "Gradient/global_critic_raw": 6.064039875479305,
+        "Loss/global_critic": 0.4447133400860955,
+        "Gradient/actor_source_cos_mean": -0.33974238280572144,
+        "Clipping/global_critic": 0.7295469875429191
+      },
+      "nonfinite_gradient_records": 0,
+      "active_warning": null,
+      "resolved_warning": {
+        "kind": "lower_test_window_mean",
+        "baseline_test_range": [
+          900,
+          1000
+        ],
+        "baseline_sum_mean": 163.5197793228626,
+        "recent_test_range": [
+          1060,
+          1160
+        ],
+        "recent_sum_mean": 162.33679345028455,
+        "notified_at": "2026-10-08T12:52:47.510123+09:00",
+        "interpretation": "fluctuations persist; no claim of monotonic decline or divergence",
+        "resolved_at": "2026-10-08T15:21:40.029633+09:00",
+        "latest_window_sum_mean": 163.2662018537284
+      },
+      "exact_state_saved": true,
+      "stopped_at": "2026-10-08T18:09:27+09:00",
+      "stop_reason_log": "stop-request",
+      "tensorboard_files": [
+        {
+          "file": "archive\\過去\\allin_aemoplan_AB_7station_20261007_165254\\performance\\events.out.tfevents.1791359580.DESKTOP-63OJ20H.32968.0",
+          "bytes": 9878756,
+          "mtime_ns": 1791382887493694600
+        },
+        {
+          "file": "archive\\過去\\allin_aemoplan_AB_7station_20261007_165254\\performance\\events.out.tfevents.1791415928.DESKTOP-63OJ20H.4280.0",
+          "bytes": 9535871,
+          "mtime_ns": 1791450567262260400
+        }
+      ],
+      "stop_state_unchanged": true,
+      "tensorboard_unchanged": true,
+      "actual_run_dir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\archive\\過去\\allin_aemoplan_AB_7station_20261007_165254",
+      "checkpoint_file_exists": true
+    },
+    "windows_ercot": {
+      "episode": 1522,
+      "stage": "stopped_saved_request_origin_unknown",
+      "pid": 6908,
+      "last_progress_at": "2026-10-08T16:21:45.701176+09:00",
+      "notified_milestones": [
+        1000,
+        1500
+      ],
+      "log": "execute_results/allin_7station_20261007/logs/ercot_resume_codex_20261008.stdout.log",
+      "exact_state_restored": true,
+      "alive": false,
+      "recent_tests": [
+        {
+          "episode": 1420,
+          "tracking_pct": 83.33333333333334,
+          "soc_pct": 77.23026564368011,
+          "sum": 160.56359897701344
+        },
+        {
+          "episode": 1440,
+          "tracking_pct": 83.4115805946792,
+          "soc_pct": 77.34914522858983,
+          "sum": 160.760725823269
+        },
+        {
+          "episode": 1460,
+          "tracking_pct": 83.56807511737088,
+          "soc_pct": 77.64897678389585,
+          "sum": 161.21705190126673
+        },
+        {
+          "episode": 1480,
+          "tracking_pct": 83.09859154929578,
+          "soc_pct": 77.34702074314492,
+          "sum": 160.4456122924407
+        },
+        {
+          "episode": 1500,
+          "tracking_pct": 83.48982785602503,
+          "soc_pct": 75.93423245630117,
+          "sum": 159.42406031232622
+        },
+        {
+          "episode": 1520,
+          "tracking_pct": 83.64632237871675,
+          "soc_pct": 77.23687953208257,
+          "sum": 160.8832019107993
+        }
+      ],
+      "last_test": {
+        "episode": 1520,
+        "tracking_pct": 83.64632237871675,
+        "soc_pct": 77.23687953208257,
+        "sum": 160.8832019107993
+      },
+      "stdout_age_s": 8024,
+      "traceback": false,
+      "nonfinite_tests": false,
+      "saved_episode": 1522,
+      "gradient_health_recent50": {
+        "Gradient/global_critic_raw": 7.068788575191124,
+        "Loss/global_critic": 0.4701603271213232,
+        "Gradient/actor_source_cos_mean": -0.4010711858669917,
+        "Clipping/global_critic": 0.9607843125567717
+      },
+      "nonfinite_gradient_records": 0,
+      "exact_state_saved": true,
+      "stopped_at": "2026-10-08T16:07:56+09:00",
+      "stop_reason_log": "stop-request",
+      "tensorboard_files": [
+        {
+          "file": "archive\\過去\\allin_ercotplan_AB_7station_20261007_155605\\performance\\events.out.tfevents.1791356169.DESKTOP-63OJ20H.43272.0",
+          "bytes": 11293260,
+          "mtime_ns": 1791382892098050500
+        },
+        {
+          "file": "archive\\過去\\allin_ercotplan_AB_7station_20261007_155605\\performance\\events.out.tfevents.1791416500.DESKTOP-63OJ20H.6908.0",
+          "bytes": 7243399,
+          "mtime_ns": 1791443276634924800
+        }
+      ],
+      "stop_state_unchanged": true,
+      "tensorboard_unchanged": true,
+      "actual_run_dir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\archive\\過去\\allin_ercotplan_AB_7station_20261007_155605",
+      "checkpoint_file_exists": true
+    }
+  },
+  "notified_events": [
+    "aemo_test_decline_1120_1160",
+    "ercot_1500",
+    "20station_user_stop_saved_1634_1595",
+    "ercot_1000",
+    "aemo_1000",
+    "windows_aemo_lower_sum_after1000",
+    "windows_ercot_saved_stop_1522",
+    "aemo_1500",
+    "windows_aemo_saved_stop_1594"
+  ],
+  "gpu": "54, 79 %, 11142 MiB, 16303 MiB",
+  "container_gpu_visible": true,
+  "mem_available_gib": 23.03,
+  "consecutive_connection_failures": 0,
+  "windows_checked_at": "2026-10-09T23:00:23.169077+09:00",
+  "windows_gpu": "49, 67 %, 9996 MiB",
+  "windows_available_ram_gib": 37.67,
+  "all_windows_targets_stopped": true,
+  "target2000_complete": false
+}

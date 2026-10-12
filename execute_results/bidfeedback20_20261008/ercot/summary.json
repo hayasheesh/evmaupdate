@@ -1,0 +1,439 @@
+{
+ "base": {
+  "cases": 120,
+  "tracking_env": 86.01496898500365,
+  "soc": 78.93917272121858,
+  "none": {
+   "submitted_kw_block_per_day": 104051.45326731385,
+   "passing_kw_block_per_day": 80415.66186715812,
+   "blocks_per_day": 40.53333333333333,
+   "block_pass_pct": 73.84868421052632,
+   "failed_blocks_per_day": 10.6,
+   "step_in_band_pct": 85.87924890350878,
+   "mean_err_over_award_pct": 5.346487266017435
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 104051.45326731385,
+   "passing_kw_block_per_day": 82863.1162507246,
+   "blocks_per_day": 40.53333333333333,
+   "block_pass_pct": 76.19243421052632,
+   "failed_blocks_per_day": 9.65,
+   "step_in_band_pct": 87.90433114035088,
+   "mean_err_over_award_pct": 5.346487266017435
+  }
+ },
+ "opt1_q075": {
+  "cases": 120,
+  "tracking_env": 86.90842272922774,
+  "soc": 77.40855050002183,
+  "none": {
+   "submitted_kw_block_per_day": 96626.66621937665,
+   "passing_kw_block_per_day": 76093.89557439338,
+   "blocks_per_day": 37.666666666666664,
+   "block_pass_pct": 75.53097345132744,
+   "failed_blocks_per_day": 9.216666666666667,
+   "step_in_band_pct": 86.65929203539822,
+   "mean_err_over_award_pct": 5.183878115886715
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 96626.66621937665,
+   "passing_kw_block_per_day": 78377.27167627512,
+   "blocks_per_day": 37.666666666666664,
+   "block_pass_pct": 77.87610619469027,
+   "failed_blocks_per_day": 8.333333333333334,
+   "step_in_band_pct": 88.49926253687316,
+   "mean_err_over_award_pct": 5.183878115886715
+  }
+ },
+ "opt1_q075s": {
+  "cases": 120,
+  "tracking_env": 86.90842272922774,
+  "soc": 77.40855050002183,
+  "none": {
+   "submitted_kw_block_per_day": 96626.66621937665,
+   "passing_kw_block_per_day": 76093.89557439338,
+   "blocks_per_day": 37.666666666666664,
+   "block_pass_pct": 75.53097345132744,
+   "failed_blocks_per_day": 9.216666666666667,
+   "step_in_band_pct": 86.65929203539822,
+   "mean_err_over_award_pct": 5.183878115886715
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 96626.66621937665,
+   "passing_kw_block_per_day": 78377.27167627512,
+   "blocks_per_day": 37.666666666666664,
+   "block_pass_pct": 77.87610619469027,
+   "failed_blocks_per_day": 8.333333333333334,
+   "step_in_band_pct": 88.49926253687316,
+   "mean_err_over_award_pct": 5.183878115886715
+  }
+ },
+ "opt1_q090": {
+  "cases": 120,
+  "tracking_env": 89.8842147907904,
+  "soc": 74.18655068691274,
+  "none": {
+   "submitted_kw_block_per_day": 71078.9322321488,
+   "passing_kw_block_per_day": 58556.86342362287,
+   "blocks_per_day": 27.433333333333334,
+   "block_pass_pct": 80.89307411907654,
+   "failed_blocks_per_day": 5.241666666666666,
+   "step_in_band_pct": 89.84912920210611,
+   "mean_err_over_award_pct": 4.749422213721589
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 71078.9322321488,
+   "passing_kw_block_per_day": 59851.038170733824,
+   "blocks_per_day": 27.433333333333334,
+   "block_pass_pct": 82.59416767922235,
+   "failed_blocks_per_day": 4.775,
+   "step_in_band_pct": 91.07432158768732,
+   "mean_err_over_award_pct": 4.749422213721589
+  }
+ },
+ "opt1_q090s": {
+  "cases": 120,
+  "tracking_env": 90.45018566758117,
+  "soc": 74.15050299241992,
+  "none": {
+   "submitted_kw_block_per_day": 71078.9322321488,
+   "passing_kw_block_per_day": 58972.55274673929,
+   "blocks_per_day": 27.433333333333334,
+   "block_pass_pct": 81.59173754556501,
+   "failed_blocks_per_day": 5.05,
+   "step_in_band_pct": 90.19846091535034,
+   "mean_err_over_award_pct": 4.676137907386789
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 71078.9322321488,
+   "passing_kw_block_per_day": 60247.51819203529,
+   "blocks_per_day": 27.433333333333334,
+   "block_pass_pct": 83.29283110571082,
+   "failed_blocks_per_day": 4.583333333333333,
+   "step_in_band_pct": 91.44390441474282,
+   "mean_err_over_award_pct": 4.676137907386789
+  }
+ },
+ "opt1_q095": {
+  "cases": 120,
+  "tracking_env": 85.28420881260634,
+  "soc": 70.24376475807382,
+  "none": {
+   "submitted_kw_block_per_day": 37822.05911110002,
+   "passing_kw_block_per_day": 30154.94099908176,
+   "blocks_per_day": 16.066666666666666,
+   "block_pass_pct": 77.74896265560166,
+   "failed_blocks_per_day": 3.575,
+   "step_in_band_pct": 85.85753803596127,
+   "mean_err_over_award_pct": 5.363906272779771
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 37822.05911110002,
+   "passing_kw_block_per_day": 30463.89084151211,
+   "blocks_per_day": 16.066666666666666,
+   "block_pass_pct": 78.52697095435684,
+   "failed_blocks_per_day": 3.45,
+   "step_in_band_pct": 86.86894882434302,
+   "mean_err_over_award_pct": 5.363906272779771
+  }
+ },
+ "opt1_q095s": {
+  "cases": 120,
+  "tracking_env": 89.71524581694378,
+  "soc": 70.36039218141326,
+  "none": {
+   "submitted_kw_block_per_day": 37822.05911110002,
+   "passing_kw_block_per_day": 31834.88145534632,
+   "blocks_per_day": 16.066666666666666,
+   "block_pass_pct": 81.01659751037344,
+   "failed_blocks_per_day": 3.05,
+   "step_in_band_pct": 87.93222683264177,
+   "mean_err_over_award_pct": 5.12551333704058
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 37822.05911110002,
+   "passing_kw_block_per_day": 32086.664206834434,
+   "blocks_per_day": 16.066666666666666,
+   "block_pass_pct": 81.69087136929461,
+   "failed_blocks_per_day": 2.941666666666667,
+   "step_in_band_pct": 88.8917704011065,
+   "mean_err_over_award_pct": 5.12551333704058
+  }
+ },
+ "opt2_r050": {
+  "cases": 120,
+  "tracking_env": 30.219386658574855,
+  "soc": 80.21780028069,
+  "none": {
+   "submitted_kw_block_per_day": 41338.92883918525,
+   "passing_kw_block_per_day": 8659.220165661052,
+   "blocks_per_day": 30.1,
+   "block_pass_pct": 16.029900332225914,
+   "failed_blocks_per_day": 25.275,
+   "step_in_band_pct": 31.639904023624954,
+   "mean_err_over_award_pct": 16.273082563765623
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 41338.92883918525,
+   "passing_kw_block_per_day": 9126.60675682318,
+   "blocks_per_day": 30.1,
+   "block_pass_pct": 17.109634551495017,
+   "failed_blocks_per_day": 24.95,
+   "step_in_band_pct": 33.910114433370246,
+   "mean_err_over_award_pct": 16.273082563765623
+  }
+ },
+ "opt2_r050s": {
+  "cases": 120,
+  "tracking_env": 70.66569461476283,
+  "soc": 76.14816071495355,
+  "none": {
+   "submitted_kw_block_per_day": 41338.92883918525,
+   "passing_kw_block_per_day": 21396.47963531989,
+   "blocks_per_day": 30.1,
+   "block_pass_pct": 48.83720930232558,
+   "failed_blocks_per_day": 15.4,
+   "step_in_band_pct": 70.80564784053156,
+   "mean_err_over_award_pct": 7.70464451212691
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 41338.92883918525,
+   "passing_kw_block_per_day": 21974.470387920745,
+   "blocks_per_day": 30.1,
+   "block_pass_pct": 50.221483942414174,
+   "failed_blocks_per_day": 14.983333333333333,
+   "step_in_band_pct": 72.69748984865264,
+   "mean_err_over_award_pct": 7.70464451212691
+  }
+ },
+ "opt2_r075": {
+  "cases": 120,
+  "tracking_env": 73.04660742988678,
+  "soc": 78.77456546088564,
+  "none": {
+   "submitted_kw_block_per_day": 71809.66373212988,
+   "passing_kw_block_per_day": 42665.497014536944,
+   "blocks_per_day": 35.3,
+   "block_pass_pct": 54.86307837582625,
+   "failed_blocks_per_day": 15.933333333333334,
+   "step_in_band_pct": 73.32782499213094,
+   "mean_err_over_award_pct": 7.531597277374309
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 71809.66373212988,
+   "passing_kw_block_per_day": 43795.78159678425,
+   "blocks_per_day": 35.3,
+   "block_pass_pct": 56.32672332389046,
+   "failed_blocks_per_day": 15.416666666666666,
+   "step_in_band_pct": 75.38951841359773,
+   "mean_err_over_award_pct": 7.531597277374309
+  }
+ },
+ "opt2_r075s": {
+  "cases": 120,
+  "tracking_env": 82.08987231407718,
+  "soc": 77.61483793921376,
+  "none": {
+   "submitted_kw_block_per_day": 71809.66373212988,
+   "passing_kw_block_per_day": 50674.12623853216,
+   "blocks_per_day": 35.3,
+   "block_pass_pct": 66.97355996222852,
+   "failed_blocks_per_day": 11.658333333333333,
+   "step_in_band_pct": 82.29461756373938,
+   "mean_err_over_award_pct": 6.043352041419963
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 71809.66373212988,
+   "passing_kw_block_per_day": 52130.341161909055,
+   "blocks_per_day": 35.3,
+   "block_pass_pct": 69.00377714825306,
+   "failed_blocks_per_day": 10.941666666666666,
+   "step_in_band_pct": 84.25794774944917,
+   "mean_err_over_award_pct": 6.043352041419963
+  }
+ },
+ "opt2_r090": {
+  "cases": 120,
+  "tracking_env": 85.1014509719616,
+  "soc": 78.77223592931563,
+  "none": {
+   "submitted_kw_block_per_day": 96968.55609187554,
+   "passing_kw_block_per_day": 73008.06765023721,
+   "blocks_per_day": 40.333333333333336,
+   "block_pass_pct": 72.00413223140495,
+   "failed_blocks_per_day": 11.291666666666666,
+   "step_in_band_pct": 84.93801652892562,
+   "mean_err_over_award_pct": 5.495273850475294
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 96968.55609187554,
+   "passing_kw_block_per_day": 74881.0754884993,
+   "blocks_per_day": 40.333333333333336,
+   "block_pass_pct": 73.88429752066116,
+   "failed_blocks_per_day": 10.533333333333333,
+   "step_in_band_pct": 86.80096418732782,
+   "mean_err_over_award_pct": 5.495273850475294
+  }
+ },
+ "opt2_r090s": {
+  "cases": 120,
+  "tracking_env": 85.80944575658987,
+  "soc": 78.52546575876195,
+  "none": {
+   "submitted_kw_block_per_day": 96968.55609187554,
+   "passing_kw_block_per_day": 74747.36709266328,
+   "blocks_per_day": 40.333333333333336,
+   "block_pass_pct": 73.53305785123968,
+   "failed_blocks_per_day": 10.675,
+   "step_in_band_pct": 85.68181818181819,
+   "mean_err_over_award_pct": 5.394913060405083
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 96968.55609187554,
+   "passing_kw_block_per_day": 76776.38616479326,
+   "blocks_per_day": 40.333333333333336,
+   "block_pass_pct": 75.68181818181819,
+   "failed_blocks_per_day": 9.808333333333334,
+   "step_in_band_pct": 87.58608815426997,
+   "mean_err_over_award_pct": 5.394913060405083
+  }
+ },
+ "opt4_t060": {
+  "cases": 120,
+  "tracking_env": 85.50954019912183,
+  "soc": 76.32418042385895,
+  "none": {
+   "submitted_kw_block_per_day": 94816.71989691326,
+   "passing_kw_block_per_day": 72933.09894006376,
+   "blocks_per_day": 34.833333333333336,
+   "block_pass_pct": 74.64114832535886,
+   "failed_blocks_per_day": 8.833333333333334,
+   "step_in_band_pct": 86.03668261562999,
+   "mean_err_over_award_pct": 5.2686936590026825
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 94816.71989691326,
+   "passing_kw_block_per_day": 75255.56265164775,
+   "blocks_per_day": 34.833333333333336,
+   "block_pass_pct": 77.00956937799043,
+   "failed_blocks_per_day": 8.008333333333333,
+   "step_in_band_pct": 87.98644338118022,
+   "mean_err_over_award_pct": 5.2686936590026825
+  }
+ },
+ "opt4_t060s": {
+  "cases": 120,
+  "tracking_env": 85.67929328554159,
+  "soc": 76.33785750944551,
+  "none": {
+   "submitted_kw_block_per_day": 94816.71989691326,
+   "passing_kw_block_per_day": 72964.78516705874,
+   "blocks_per_day": 34.833333333333336,
+   "block_pass_pct": 74.68899521531101,
+   "failed_blocks_per_day": 8.816666666666666,
+   "step_in_band_pct": 86.0805422647528,
+   "mean_err_over_award_pct": 5.264381661497511
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 94816.71989691326,
+   "passing_kw_block_per_day": 75271.19842292152,
+   "blocks_per_day": 34.833333333333336,
+   "block_pass_pct": 77.03349282296651,
+   "failed_blocks_per_day": 8.0,
+   "step_in_band_pct": 88.02631578947368,
+   "mean_err_over_award_pct": 5.264381661497511
+  }
+ },
+ "opt4_t075": {
+  "cases": 120,
+  "tracking_env": 83.99415659612087,
+  "soc": 74.04761504295584,
+  "none": {
+   "submitted_kw_block_per_day": 76078.2058147067,
+   "passing_kw_block_per_day": 60559.41378892795,
+   "blocks_per_day": 25.766666666666666,
+   "block_pass_pct": 77.03751617076325,
+   "failed_blocks_per_day": 5.916666666666667,
+   "step_in_band_pct": 86.71841310909875,
+   "mean_err_over_award_pct": 5.238110753945912
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 76078.2058147067,
+   "passing_kw_block_per_day": 61798.13598226056,
+   "blocks_per_day": 25.766666666666666,
+   "block_pass_pct": 78.81630012936611,
+   "failed_blocks_per_day": 5.458333333333333,
+   "step_in_band_pct": 88.2492453643812,
+   "mean_err_over_award_pct": 5.238110753945912
+  }
+ },
+ "opt4_t075s": {
+  "cases": 120,
+  "tracking_env": 85.61040055747354,
+  "soc": 74.38602390644512,
+  "none": {
+   "submitted_kw_block_per_day": 76078.2058147067,
+   "passing_kw_block_per_day": 60726.112748150415,
+   "blocks_per_day": 25.766666666666666,
+   "block_pass_pct": 77.23156532988357,
+   "failed_blocks_per_day": 5.866666666666666,
+   "step_in_band_pct": 86.90707201379905,
+   "mean_err_over_award_pct": 5.193516046495779
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 76078.2058147067,
+   "passing_kw_block_per_day": 61985.69001213334,
+   "blocks_per_day": 25.766666666666666,
+   "block_pass_pct": 79.07503234152652,
+   "failed_blocks_per_day": 5.391666666666667,
+   "step_in_band_pct": 88.43251401466149,
+   "mean_err_over_award_pct": 5.193516046495779
+  }
+ },
+ "opt4_t085": {
+  "cases": 120,
+  "tracking_env": 76.35956042088222,
+  "soc": 71.0307698694118,
+  "none": {
+   "submitted_kw_block_per_day": 49263.58999795828,
+   "passing_kw_block_per_day": 41492.270207555935,
+   "blocks_per_day": 14.266666666666667,
+   "block_pass_pct": 79.96495327102804,
+   "failed_blocks_per_day": 2.8583333333333334,
+   "step_in_band_pct": 86.58489096573209,
+   "mean_err_over_award_pct": 4.995362484329955
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 49263.58999795828,
+   "passing_kw_block_per_day": 42083.329400493305,
+   "blocks_per_day": 14.266666666666667,
+   "block_pass_pct": 81.13317757009345,
+   "failed_blocks_per_day": 2.691666666666667,
+   "step_in_band_pct": 87.9088785046729,
+   "mean_err_over_award_pct": 4.995362484329955
+  }
+ },
+ "opt4_t085s": {
+  "cases": 120,
+  "tracking_env": 78.54562744028257,
+  "soc": 72.40683962481829,
+  "none": {
+   "submitted_kw_block_per_day": 49263.58999795828,
+   "passing_kw_block_per_day": 41653.58801875472,
+   "blocks_per_day": 14.266666666666667,
+   "block_pass_pct": 80.49065420560747,
+   "failed_blocks_per_day": 2.783333333333333,
+   "step_in_band_pct": 87.06191588785047,
+   "mean_err_over_award_pct": 4.902125963539584
+  },
+  "forward": {
+   "submitted_kw_block_per_day": 49263.58999795828,
+   "passing_kw_block_per_day": 42260.11147112938,
+   "blocks_per_day": 14.266666666666667,
+   "block_pass_pct": 81.71728971962617,
+   "failed_blocks_per_day": 2.6083333333333334,
+   "step_in_band_pct": 88.4053738317757,
+   "mean_err_over_award_pct": 4.902125963539584
+  }
+ }
+}

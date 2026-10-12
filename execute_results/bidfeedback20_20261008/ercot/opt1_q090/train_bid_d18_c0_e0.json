@@ -1,0 +1,1 @@
+{"id": "train_bid_d18_c0_e0", "variant": "opt1_q090", "date": "2024-07-02", "source": "ercot_esr_base_point_minus_cop_plan:ercot_esr_plan_MADERO_ESR2_2026-07-24.csv", "ev_seed": 39018162, "tracking": 82.11382113821138, "soc": 70.49469964664311, "mae": 101.84146123833773}

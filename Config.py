@@ -56,6 +56,11 @@ LOCAL_CRITIC_HIDDEN_SIZE =256
 # SoC objective weighs against tracking without touching Q_MIX_GLOBAL_WEIGHT.
 # The environment's reward and its logs are unchanged.
 LOCAL_REWARD_SCALE =float (os .environ .get ("EVMA_LOCAL_REWARD_SCALE","1.0"))
+# Multiplier on the tracking reward in the global critics' TD target, the
+# counterpart of LOCAL_REWARD_SCALE. The global critic does not normalise its
+# reward, so the global Q gradient reaching the actor scales with this factor.
+# The environment's reward and its logs are unchanged.
+GLOBAL_REWARD_SCALE =float (os .environ .get ("EVMA_GLOBAL_REWARD_SCALE","1.0"))
 # The buffer is preallocated on the GPU, about 12.1 KB per transition at 20
 # stations; 3.5e5 lets two 20-station runs share one 16 GB card.
 MEMORY_SIZE =int (3.5e5 )if NUM_STATIONS >=20 else int (5e5 )
@@ -90,6 +95,17 @@ MIXER_B_MAX =float (os .environ .get ("EVMA_MIXER_B_MAX","50.0"))
 Q_MIX_GLOBAL_WEIGHT =float (os .environ .get ("EVMA_Q_MIX_GLOBAL_WEIGHT","0.5"))  # Weight assigned to the global-Q gradient.
 if not 0.0 <Q_MIX_GLOBAL_WEIGHT <=1.0 :
     raise ValueError ("EVMA_Q_MIX_GLOBAL_WEIGHT must be in (0, 1]")
+
+# Gradient through the rating and SoC bounds in the actor update. The critics
+# always see the clipped power the EV actually takes. "inward" keeps the
+# gradient inside the bounds and, for a clipped proposal, only the part that
+# moves it back toward the bound: a full EV gets no gradient asking for more
+# charge, which it cannot take, but still gets one asking for less.
+# "straight_through" passes every gradient as if nothing were clipped, so a
+# full EV is pushed to charge more whenever the critics want more power.
+ACTOR_BOUND_GRADIENT =os .environ .get ("EVMA_ACTOR_BOUND_GRADIENT","inward").strip ().lower ()
+if ACTOR_BOUND_GRADIENT not in ("inward","straight_through"):
+    raise ValueError ("EVMA_ACTOR_BOUND_GRADIENT must be 'inward' or 'straight_through'")
 
 
 # --- Learning algorithm ---

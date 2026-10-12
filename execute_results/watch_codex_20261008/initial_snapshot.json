@@ -1,0 +1,128 @@
+{
+  "checked_at": "2026-10-08T02:30:38+0900",
+  "runs": {
+    "aemo": {
+      "run_dir": "/home/hayashi/workspace/EVMALOCALUPDATE/archive/allin_aemoplan_AB_20station_20261007_042318",
+      "stage": "pretrain",
+      "error": null,
+      "processes": "launcher_pid=alive\nchild_pid=alive",
+      "episode": 1087,
+      "stdout_age_s": 6,
+      "latest_summary": "[TEST1080 summary] episodes=5 | local=0.1101 | global=0.2347 | SoC actor/physical=86.32/86.32% (2495/2495/2898 EV) | deficit=16.65kWh | MARL/Central=78.29/78.29% | MAE=121.5->121.5kW (963/1230 MARL steps) | surplus=78.34% | supply=71.53% | duration=35.4s",
+      "test_average_last6": [
+        {
+          "episode": 980,
+          "tracking_pct": 79.59349593495935,
+          "soc_pct": 85.59254680205343,
+          "sum": 165.18604273701277,
+          "mae_kw": 117.52401616380602
+        },
+        {
+          "episode": 1000,
+          "tracking_pct": 79.67479674796748,
+          "soc_pct": 85.12989443145216,
+          "sum": 164.80469117941965,
+          "mae_kw": 119.35431458906933
+        },
+        {
+          "episode": 1020,
+          "tracking_pct": 78.86178861788618,
+          "soc_pct": 85.49757550669537,
+          "sum": 164.35936412458153,
+          "mae_kw": 117.6301776275762
+        },
+        {
+          "episode": 1040,
+          "tracking_pct": 78.61788617886178,
+          "soc_pct": 85.81251079194307,
+          "sum": 164.43039697080485,
+          "mae_kw": 120.65774401425274
+        },
+        {
+          "episode": 1060,
+          "tracking_pct": 78.78048780487805,
+          "soc_pct": 85.67767234739226,
+          "sum": 164.4581601522703,
+          "mae_kw": 120.36346991431722
+        },
+        {
+          "episode": 1080,
+          "tracking_pct": 78.29268292682927,
+          "soc_pct": 86.31708184314952,
+          "sum": 164.6097647699788,
+          "mae_kw": 121.51525814788928
+        }
+      ],
+      "stderr_errors": {},
+      "gradient_health": [
+        "   window |     Qg | gfrac gG/gL    cos | a_clip gc_clip gc_raw | gc_loss lc_loss     td",
+        " 800-899  |   9.14 | 0.567  1.50 -0.446 |  0.218   0.986   8.98 |   0.602   0.121  0.625",
+        " 900-999  |   9.43 | 0.587  1.59 -0.382 |  0.286   0.988   8.79 |   0.573   0.121  0.595",
+        "1000-1099 |   9.64 | 0.604  1.73 -0.462 |  0.329   0.983   9.12 |   0.526   0.123  0.549"
+      ]
+    },
+    "ercot": {
+      "run_dir": "/home/hayashi/workspace/EVMALOCALUPDATE/archive/allin_ercotplan_AB_20station_20261007_042436",
+      "stage": "pretrain",
+      "error": null,
+      "processes": "launcher_pid=alive\nchild_pid=alive",
+      "episode": 1060,
+      "stdout_age_s": 2,
+      "latest_summary": "[TEST1040 summary] episodes=5 | local=0.0858 | global=0.5094 | SoC actor/physical=77.74/77.74% (2251/2251/2898 EV) | deficit=16.22kWh | MARL/Central=84.55/84.55% | MAE=76.1->76.1kW (1040/1230 MARL steps) | surplus=83.52% | supply=85.08% | duration=37.4s",
+      "test_average_last6": [
+        {
+          "episode": 940,
+          "tracking_pct": 81.38211382113822,
+          "soc_pct": 78.7269852347052,
+          "sum": 160.10909905584342,
+          "mae_kw": 79.93206291008644
+        },
+        {
+          "episode": 960,
+          "tracking_pct": 82.92682926829268,
+          "soc_pct": 77.9655920127277,
+          "sum": 160.89242128102038,
+          "mae_kw": 75.12634898331964
+        },
+        {
+          "episode": 980,
+          "tracking_pct": 83.2520325203252,
+          "soc_pct": 77.93793050681063,
+          "sum": 161.18996302713583,
+          "mae_kw": 77.71152542078183
+        },
+        {
+          "episode": 1000,
+          "tracking_pct": 84.95934959349594,
+          "soc_pct": 77.38384190869249,
+          "sum": 162.34319150218843,
+          "mae_kw": 73.66914325776102
+        },
+        {
+          "episode": 1020,
+          "tracking_pct": 84.0650406504065,
+          "soc_pct": 78.18721345187566,
+          "sum": 162.25225410228217,
+          "mae_kw": 76.61978252013483
+        },
+        {
+          "episode": 1040,
+          "tracking_pct": 84.5528455284553,
+          "soc_pct": 77.73639198098839,
+          "sum": 162.2892375094437,
+          "mae_kw": 76.1414248820002
+        }
+      ],
+      "stderr_errors": {},
+      "gradient_health": [
+        "   window |     Qg | gfrac gG/gL    cos | a_clip gc_clip gc_raw | gc_loss lc_loss     td",
+        " 800-899  |  10.40 | 0.558  1.50 -0.528 |  0.182   0.991   8.92 |   0.485   0.121  0.508",
+        " 900-999  |  10.51 | 0.566  1.58 -0.414 |  0.239   0.994   8.62 |   0.468   0.122  0.490",
+        "1000-1099 |  10.63 | 0.564  1.52 -0.420 |  0.272   0.992   8.73 |   0.456   0.123  0.478"
+      ]
+    }
+  },
+  "gpu": "52, 82 %, 11142 MiB, 16303 MiB",
+  "container_gpu_visible": true,
+  "mem_available_gib": 23.01
+}

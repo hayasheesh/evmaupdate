@@ -1,0 +1,45 @@
+{
+  "project": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE",
+  "started_at": "2026-10-06T02:04:21",
+  "orchestrator_pid": 34388,
+  "power_settings_touched": false,
+  "banks": {
+    "aemo": {
+      "state": "running",
+      "started_at": "2026-10-06T02:04:21",
+      "pids": [
+        13972,
+        10916
+      ]
+    },
+    "ercot": {
+      "state": "running",
+      "started_at": "2026-10-06T02:04:21",
+      "pids": [
+        21176,
+        13724
+      ]
+    },
+    "pjm": {
+      "state": "running",
+      "started_at": "2026-10-06T02:04:21",
+      "pids": [
+        23676,
+        28728
+      ]
+    }
+  },
+  "trainings": {
+    "aemo": {
+      "state": "pending"
+    },
+    "ercot": {
+      "state": "pending"
+    },
+    "pjm": {
+      "state": "pending"
+    }
+  },
+  "stage": "running",
+  "updated_at": "2026-10-06T02:24:22"
+}

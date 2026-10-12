@@ -1,0 +1,17 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "python 'C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\.codex\\hooks\\yomiyasu_check.py' 2>/dev/null || true",
+            "timeout": 90,
+            "statusMessage": "yomiyasu の確認"
+          }
+        ]
+      }
+    ]
+  }
+}

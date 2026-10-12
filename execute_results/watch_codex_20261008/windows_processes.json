@@ -1,0 +1,14 @@
+[
+  {
+    "ProcessId": 33520,
+    "CommandLine": "\"C:\\Users\\admin\\AppData\\Local\\Programs\\Python\\Python310\\python.exe\"  -X utf8 -u \"C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\hyb_cap77wd_7station_20261009\\stage_worker.py\" aemo pretrain "
+  },
+  {
+    "ProcessId": 34224,
+    "CommandLine": "\"C:\\Users\\admin\\AppData\\Local\\Programs\\Python\\Python310\\python.exe\"  -X utf8 -u \"C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\hyb_cap77wd_7station_20261009\\stage_worker.py\" ercot pretrain "
+  },
+  {
+    "ProcessId": 18324,
+    "CommandLine": "C:\\Users\\admin\\AppData\\Local\\Programs\\Python\\Python310\\python.exe kk_groups.py"
+  }
+]

@@ -206,3 +206,24 @@ def test_below_floor_direction_keeps_priority_over_other_active_directions():
 
     assert [(entry[2], entry[3]) for entry in below_floor] == [(0, "up")]
     assert len(active) == 2
+
+
+def test_the_assessment_i_margin_keeps_the_bid_off_the_fleet_limits():
+    import numpy as np
+    from training.blockwise_bid import assessment_i_bounds_with_control_margin
+
+    lower, upper = assessment_i_bounds_with_control_margin(
+        np.array([-300.0, -20.0]), np.array([500.0, 20.0]), 25.0
+    )
+    # A wide block is pulled in by the margin on each side.
+    assert lower[0] == -275.0 and upper[0] == 475.0
+    # A block narrower than twice the margin keeps one point, inside the limits.
+    assert lower[1] == upper[1] == 0.0
+
+
+def test_the_bid_cache_key_changes_with_the_assessment_i_margin(monkeypatch):
+    import training.lower_bid_training as lbt
+
+    before = lbt.upper_bid_bank_settings()
+    monkeypatch.setattr(lbt, "ASSESSMENT_I_CONTROL_MARGIN_KW", before["assessment_i_control_margin_kw"] + 10.0)
+    assert lbt.upper_bid_bank_settings() != before
