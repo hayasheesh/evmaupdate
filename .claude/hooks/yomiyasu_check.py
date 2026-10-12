@@ -39,6 +39,9 @@ def sentences(text: str):
         stripped = line.strip()
         if in_code or not stripped or stripped.startswith(("#", "|", "\\[", "\\]", "$$", ">")):
             continue
+        # 参考文献の行（「- [Key2024] 著者, 題名, …」）は英語の書誌なので数えない。
+        if re.match(r"^\s*[-*] \[[A-Za-z][^\]]*\d{4}[a-z]?\]", line):
+            continue
         body = re.sub(r"^\s*(?:[-*] |\d+\. )", "", line)
         for s in re.split(r"(?<=。)", body):
             s = s.strip()

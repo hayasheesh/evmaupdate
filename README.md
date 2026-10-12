@@ -2,7 +2,9 @@
 
 MARLで分散制御するEV-VPPが二次調整力②の供出要件を満たせるかを、入札から当日制御まで通して評価する研究コード。
 
-- 主題と貢献: [研究の全体像](docs/研究の全体像.md)
+- 論文の筋（主題・課題・貢献）: [論文のひな形](docs/論文のひな形.md)（監修済み）
+- これまでの結果と足す実験: [論文の結果と実験計画](docs/論文の結果と実験計画.md)
+- 前提と設計: [研究の全体像](docs/研究の全体像.md)
 - 入札器: [入札器の問題設定](docs/入札器の問題設定.md)
 - 指令: [指令データ](docs/指令データ.md)
 - 市場の規定: [市場規定と海外事例](docs/市場規定と海外事例.md)
@@ -40,7 +42,7 @@ python pre_train.py
 学習の仕方は `EVMA_MARL_ALGORITHM` で選ぶ。
 
 - `hybrid`（既定）：本研究の学習法。stationごとのSoC用critic、全体の追従用critic（QMIX風の混合器）、2つの勾配を混ぜた行動器の更新、TD3式の工夫を持つ
-- `maddpg`：Lowe et al.（2017）のMADDPG。論文で標準実装との差を示すための比較用。stationごとに1つのcriticが全stationの観測と行動を見て、そのstationの報酬（SoC用と追従用の和）を1つのγ（既定0.95）で学ぶ。行動器・観測・行動の制限・学習率などは `hybrid` と同じにしてある。詳細は `training/Agent/standard_maddpg.py`
+- `maddpg`：Lowe et al.（2017）のMADDPG。査読への備えとして、標準実装との差を測る比較用。stationごとに1つのcriticが全stationの観測と行動を見て、そのstationの報酬（SoC用と追従用の和）を1つのγ（既定0.95）で学ぶ。行動器・観測・行動の制限・学習率などは `hybrid` と同じにしてある。詳細は `training/Agent/standard_maddpg.py`
 
 行動器が出した電力は、EVの定格とSoCの上下限で切ってから実行する。criticも、切った後の電力で評価する。行動器を更新するとき、切った箇所の勾配をどう扱うかは `EVMA_ACTOR_BOUND_GRADIENT` で選ぶ。
 

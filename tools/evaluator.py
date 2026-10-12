@@ -156,7 +156,17 @@ def _bid_envelope_for_env (local_env ,service_date ,bank_dir ):
     np .where (regulation >idle_eps ,frac *down_by_step ,frac *(up_by_step +down_by_step )),
     )
     expected =np .maximum (expected ,1e-6 )
-    if not np .allclose (expected ,tol [:steps ],atol =1e-3 ,rtol =1e-4 ):
+    # A step whose target sits on the baseline can still carry the band of one
+    # direction: fixed_bid_tracking_bands takes the direction from the signal
+    # (any value above its eps), so a signal small enough to move the target
+    # by less than idle_eps reads as up or down there and as idle here.
+    # Accept either direction's band on idle steps.
+    idle =np .abs (regulation )<=idle_eps
+    tol_s =tol [:steps ]
+    either =(np .isclose (np .maximum (frac *up_by_step ,1e-6 ),tol_s ,atol =1e-3 ,rtol =1e-4 )
+    |np .isclose (np .maximum (frac *down_by_step ,1e-6 ),tol_s ,atol =1e-3 ,rtol =1e-4 ))
+    matches =np .isclose (expected ,tol_s ,atol =1e-3 ,rtol =1e-4 )|(idle &either )
+    if not np .all (matches ):
         return None
 
     return {

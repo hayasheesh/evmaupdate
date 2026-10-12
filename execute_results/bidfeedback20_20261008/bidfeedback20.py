@@ -1,4 +1,4 @@
-"""貢献3の案1・2・4を、研究室の20 stationの行動器で測る（学習のやり直しなし）。
+"""入札後の調整の案1・2・4を、研究室の20 stationの行動器で測る（学習のやり直しなし）。
 
     python bidfeedback20.py <aemo|ercot> run --variants base opt2_r075 opt2_r050 [--workers 9]
     python bidfeedback20.py <aemo|ercot> fit

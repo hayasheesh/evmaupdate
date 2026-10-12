@@ -1,4 +1,4 @@
-"""論文のひな形の表3（6 station）：同じ未見の指令とEVで、全情報のLPで成り立つか、中央のルールベース、分散MARLを並べる。
+"""同じ未見の指令とEVで、全情報のLPで成り立つか、中央のルールベース、分散MARLを並べる。
 
     python run_table3.py <aemo|ercot> <lp|marl|marl_force|rule> [commands_per_day] [ev_seeds] [workers]
 
@@ -23,7 +23,7 @@ import time
 from pathlib import Path
 
 # 学習が GPU を使っているので、ここでは CPU だけで動かす。
-os.environ['CUDA_VISIBLE_DEVICES'] = ''
+os.environ['CUDA_VISIBLE_DEVICES'] = '-1'  # Windows では空の文字列だと変数が消え、GPU が見えてしまう
 HERE = Path(__file__).resolve().parent
 # 既定は Windows の 6 station。研究室の 20 station では TABLE3_SW_DIR に wr_gs_20station_{task}_20261011 を渡す（{task} は市場名）。
 SW_PATTERN = os.environ.get('TABLE3_SW_DIR', str(HERE.parent / 'wr_gs_6station_20261011'))
@@ -56,6 +56,8 @@ def model_dir_and_episode(task):
     _setup(task)
     d = sorted((_CACHE['root'] / 'archive').glob(f"{_CACHE['model']}_2*"))[-1]
     ep = max(int(p.name[4:]) for p in (d / 'results').glob('TEST*') if p.name[4:].isdigit())
+    # TABLE3_EPISODE で保存点を固定する（学習が進んだあとに、前と同じ保存点で測り直すため）。
+    ep = int(os.environ.get('TABLE3_EPISODE', ep))
     return d, ep
 
 
@@ -219,6 +221,13 @@ def run_episode(args):
         hit_key = 'central_departing_evs_soc_met' if 'central_departing_evs_soc_met' in m else 'departing_evs_soc_met'
         out.update({'soc_hit_pct': 100.0 * int(m[hit_key]) / max(dep, 1), 'departed_evs': dep})
         out.update(_judge(pre, tol, tracking, part, award))
+        if os.environ.get('TABLE3_BLOCKS') == '1':
+            # コマごとの上げ・下げの約定量と合否（約定量の大きさごとの合格率を出すため）。
+            step_pass = np.abs(pre) <= tol + 1e-6
+            out['blocks'] = [{'k': k, 'up': float(up[k]), 'down': float(down[k]),
+                              'pass': bool(np.mean(step_pass[k * 6:(k + 1) * 6]) >= 0.90),
+                              'max_err_kw': float(np.max(np.abs(pre[k * 6:(k + 1) * 6]))),
+                              'band_kw': float(np.min(tol[k * 6:(k + 1) * 6]))} for k in range(48) if part[k]]
     out['seconds'] = time.time() - t0
     return out
 

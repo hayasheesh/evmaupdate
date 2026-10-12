@@ -1,0 +1,38 @@
+{
+  "wr_cap77wd_min70_margin7_validation_5_6station_128cmd_3ev_aemo_plan_deviation": {
+    "commands": 640,
+    "trials": 1920,
+    "feasible": 1906,
+    "infeasible": 12,
+    "unknown": 2,
+    "bid_days": 5,
+    "ev_seeds_per_command": 3,
+    "success_rate": null,
+    "success_rate_lower_bound": 0.9927083333333333,
+    "success_rate_upper_bound": 0.99375
+  },
+  "wr_cap77wd_min70_margin7_validation_5_6station_128cmd_minmedmax_aemo_plan_deviation": {
+    "commands": 640,
+    "trials": 1920,
+    "feasible": 1808,
+    "infeasible": 107,
+    "unknown": 5,
+    "bid_days": 5,
+    "ev_seeds_per_command": 3,
+    "success_rate": null,
+    "success_rate_lower_bound": 0.9416666666666667,
+    "success_rate_upper_bound": 0.9442708333333333
+  },
+  "wr_cap77wd_min70_margin7_validation_5_6station_256cmd_low2max_aemo_plan_deviation": {
+    "commands": 640,
+    "trials": 1920,
+    "feasible": 1905,
+    "infeasible": 14,
+    "unknown": 1,
+    "bid_days": 5,
+    "ev_seeds_per_command": 3,
+    "success_rate": null,
+    "success_rate_lower_bound": 0.9921875,
+    "success_rate_upper_bound": 0.9927083333333333
+  }
+}

@@ -1,0 +1,28 @@
+{
+  "task": "aemo",
+  "started_at": "2026-10-12T13:24:21",
+  "stages": {
+    "train_bank": {
+      "state": "done",
+      "pid": 23428,
+      "started_at": "2026-10-12T13:24:21",
+      "exit_code": 0,
+      "finished_at": "2026-10-12T13:24:29"
+    },
+    "test_bank": {
+      "state": "done",
+      "pid": 17292,
+      "started_at": "2026-10-12T13:24:21",
+      "exit_code": 0,
+      "finished_at": "2026-10-12T13:24:30"
+    },
+    "pretrain": {
+      "state": "done",
+      "pid": 17560,
+      "started_at": "2026-10-12T13:24:30",
+      "exit_code": 0,
+      "finished_at": "2026-10-13T01:15:46"
+    }
+  },
+  "result": "complete"
+}

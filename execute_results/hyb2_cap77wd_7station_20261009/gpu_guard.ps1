@@ -24,7 +24,7 @@ function Write-Line($path, $text) {
     $sw.WriteLine($text); $sw.Close()
 }
 function Get-Trainers {
-    Get-CimInstance Win32_Process -Filter "Name='python.exe'" | Where-Object { $_.CommandLine -match '(hyb2_cap77wd_7station_20261009|obsdrop_cap77wd_7station_20261010|wr_cap77wd_6station_20261010|wr_gs_6station_20261011)\\stage_worker.py' }
+    Get-CimInstance Win32_Process -Filter "Name='python.exe'" | Where-Object { $_.CommandLine -match '(hyb2_cap77wd_7station_20261009|obsdrop_cap77wd_7station_20261010|wr_cap77wd_6station_20261010|wr_gs_6station_20261011|maddpg_6station_20261012|pjm_bank_6station_20261012|abg_6station_20261012|resbid_6station_20261012)\\stage_worker.py' }
 }
 function Get-Lhm {
     try { $j = Invoke-RestMethod -Uri 'http://127.0.0.1:8085/data.json' -TimeoutSec 5 } catch { return @($null, $null) }
