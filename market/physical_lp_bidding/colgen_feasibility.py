@@ -49,6 +49,8 @@ import numpy as np
 from scipy import sparse
 from scipy.optimize import linprog
 
+from market.bid_participation import resolved_idle_band_fraction
+
 STEPS = 288
 DT_HOURS = 5.0 / 60.0
 # How far outside its tracking band a five-minute value may sit and still
@@ -315,6 +317,12 @@ def affine_tracking_bands(
     lower_rows = np.zeros((steps, size), dtype=float)
     upper_rows = np.zeros((steps, size), dtype=float)
     band = max(float(cfg.assessment_band_fraction), 0.0)
+    # The band of an instruction s is (band + signal_band * s) * width; the
+    # signal is data here, so the row stays linear in the width.
+    signal_band = max(float(getattr(cfg, "band_signal_fraction", 0.0)), 0.0)
+    idle_band = max(
+        resolved_idle_band_fraction(band, getattr(cfg, "idle_band_fraction", None)), 0.0
+    )
 
     def endpoint(block: int, up_value: float, down_value: float):
         if not (up_active[block] or down_active[block]):
@@ -326,23 +334,25 @@ def affine_tracking_bands(
         effective_up = 0.0
         effective_down = 0.0
         if up_value > cfg.eps and up_active[block]:
-            lo[blocks + block] = -(up_value + band)
-            hi[blocks + block] = -(up_value - band)
+            width = band + signal_band * float(up_value)
+            lo[blocks + block] = -(up_value + width)
+            hi[blocks + block] = -(up_value - width)
             effective_up = float(up_value)
         elif down_value > cfg.eps and down_active[block]:
-            lo[2 * blocks + block] = down_value - band
-            hi[2 * blocks + block] = down_value + band
+            width = band + signal_band * float(down_value)
+            lo[2 * blocks + block] = down_value - width
+            hi[2 * blocks + block] = down_value + width
             effective_down = float(down_value)
         elif cfg.enforce_idle_baseline:
-            # The idle band is band * (U + D), so both width columns enter the
-            # same row and the row is exact: no supporting hyperplane has to be
-            # chosen, and no later cut can find the block held to less.
+            # The idle band is idle_band * (U + D), so both width columns enter
+            # the same row and the row is exact: no supporting hyperplane has to
+            # be chosen, and no later cut can find the block held to less.
             if up_active[block]:
-                lo[blocks + block] = -band
-                hi[blocks + block] = band
+                lo[blocks + block] = -idle_band
+                hi[blocks + block] = idle_band
             if down_active[block]:
-                lo[2 * blocks + block] = -band
-                hi[2 * blocks + block] = band
+                lo[2 * blocks + block] = -idle_band
+                hi[2 * blocks + block] = idle_band
         else:
             return None
         return lo, hi, effective_up, effective_down

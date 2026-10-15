@@ -1,0 +1,554 @@
+{
+  "aemo_raw": [
+    {
+      "bess_kw": 0.0,
+      "bess_kwh": 0,
+      "sets": 40,
+      "failed_blocks": 196,
+      "block_pass_pct": 89.79166666666667,
+      "monthly_expected_failed_blocks": 98.0,
+      "soc_hit_pct": 87.56650128214969,
+      "inference_ms_p95_mean": 3.014096124788921
+    },
+    {
+      "bess_kw": 100.0,
+      "bess_kwh": 131.57894736842104,
+      "sets": 40,
+      "failed_blocks": 62,
+      "block_pass_pct": 96.77083333333333,
+      "monthly_expected_failed_blocks": 31.0,
+      "soc_hit_pct": 87.56650128214969,
+      "inference_ms_p95_mean": 3.215442125192567
+    },
+    {
+      "bess_kw": 200.0,
+      "bess_kwh": 263.1578947368421,
+      "sets": 40,
+      "failed_blocks": 28,
+      "block_pass_pct": 98.54166666666667,
+      "monthly_expected_failed_blocks": 14.0,
+      "soc_hit_pct": 87.56650128214969,
+      "inference_ms_p95_mean": 3.0256888753956446
+    },
+    {
+      "bess_kw": 300.0,
+      "bess_kwh": 394.7368421052632,
+      "sets": 40,
+      "failed_blocks": 8,
+      "block_pass_pct": 99.58333333333333,
+      "monthly_expected_failed_blocks": 4.0,
+      "soc_hit_pct": 87.56650128214969,
+      "inference_ms_p95_mean": 3.0944598749465513
+    },
+    {
+      "bess_kw": 400.0,
+      "bess_kwh": 526.3157894736842,
+      "sets": 40,
+      "failed_blocks": 1,
+      "block_pass_pct": 99.94791666666667,
+      "monthly_expected_failed_blocks": 0.5,
+      "soc_hit_pct": 87.56650128214969,
+      "inference_ms_p95_mean": 3.2677406248330954
+    },
+    {
+      "bess_kw": 500.0,
+      "bess_kwh": 657.8947368421052,
+      "sets": 40,
+      "failed_blocks": 0,
+      "block_pass_pct": 100.0,
+      "monthly_expected_failed_blocks": 0.0,
+      "soc_hit_pct": 87.56650128214969,
+      "inference_ms_p95_mean": 3.0277592501352046
+    },
+    {
+      "bess_kw": 600.0,
+      "bess_kwh": 789.4736842105264,
+      "sets": 40,
+      "failed_blocks": 0,
+      "block_pass_pct": 100.0,
+      "monthly_expected_failed_blocks": 0.0,
+      "soc_hit_pct": 87.56650128214969,
+      "inference_ms_p95_mean": 3.1687083746601274
+    },
+    {
+      "bess_kw": 800.0,
+      "bess_kwh": 1052.6315789473683,
+      "sets": 40,
+      "failed_blocks": 0,
+      "block_pass_pct": 100.0,
+      "monthly_expected_failed_blocks": 0.0,
+      "soc_hit_pct": 87.56650128214969,
+      "inference_ms_p95_mean": 3.3429284999874653
+    },
+    {
+      "bess_kw": 1000.0,
+      "bess_kwh": 1315.7894736842104,
+      "sets": 40,
+      "failed_blocks": 0,
+      "block_pass_pct": 100.0,
+      "monthly_expected_failed_blocks": 0.0,
+      "soc_hit_pct": 87.56650128214969,
+      "inference_ms_p95_mean": 3.084359500107894
+    }
+  ],
+  "aemo_force": [
+    {
+      "bess_kw": 0.0,
+      "bess_kwh": 0,
+      "sets": 40,
+      "failed_blocks": 366,
+      "block_pass_pct": 80.9375,
+      "monthly_expected_failed_blocks": 183.0,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.2864191247790586
+    },
+    {
+      "bess_kw": 100.0,
+      "bess_kwh": 131.57894736842104,
+      "sets": 40,
+      "failed_blocks": 216,
+      "block_pass_pct": 88.75,
+      "monthly_expected_failed_blocks": 108.0,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.331176374849747
+    },
+    {
+      "bess_kw": 200.0,
+      "bess_kwh": 263.1578947368421,
+      "sets": 40,
+      "failed_blocks": 137,
+      "block_pass_pct": 92.86458333333334,
+      "monthly_expected_failed_blocks": 68.5,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.0613027500294265
+    },
+    {
+      "bess_kw": 300.0,
+      "bess_kwh": 394.7368421052632,
+      "sets": 40,
+      "failed_blocks": 80,
+      "block_pass_pct": 95.83333333333334,
+      "monthly_expected_failed_blocks": 40.0,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.08835899967562
+    },
+    {
+      "bess_kw": 400.0,
+      "bess_kwh": 526.3157894736842,
+      "sets": 40,
+      "failed_blocks": 36,
+      "block_pass_pct": 98.125,
+      "monthly_expected_failed_blocks": 18.0,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.2886160003727127
+    },
+    {
+      "bess_kw": 500.0,
+      "bess_kwh": 657.8947368421052,
+      "sets": 40,
+      "failed_blocks": 19,
+      "block_pass_pct": 99.01041666666667,
+      "monthly_expected_failed_blocks": 9.5,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.278988750471399
+    },
+    {
+      "bess_kw": 600.0,
+      "bess_kwh": 789.4736842105264,
+      "sets": 40,
+      "failed_blocks": 8,
+      "block_pass_pct": 99.58333333333333,
+      "monthly_expected_failed_blocks": 4.0,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.2485861258646764
+    },
+    {
+      "bess_kw": 800.0,
+      "bess_kwh": 1052.6315789473683,
+      "sets": 40,
+      "failed_blocks": 7,
+      "block_pass_pct": 99.63541666666667,
+      "monthly_expected_failed_blocks": 3.5,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.0135298751611117
+    },
+    {
+      "bess_kw": 1000.0,
+      "bess_kwh": 1315.7894736842104,
+      "sets": 40,
+      "failed_blocks": 0,
+      "block_pass_pct": 100.0,
+      "monthly_expected_failed_blocks": 0.0,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.01283112402416
+    }
+  ],
+  "ercot_raw": [
+    {
+      "bess_kw": 0.0,
+      "bess_kwh": 0,
+      "sets": 40,
+      "failed_blocks": 245,
+      "block_pass_pct": 87.23958333333334,
+      "monthly_expected_failed_blocks": 122.5,
+      "soc_hit_pct": 83.64607864909848,
+      "inference_ms_p95_mean": 3.089523124608604
+    },
+    {
+      "bess_kw": 100.0,
+      "bess_kwh": 131.57894736842104,
+      "sets": 40,
+      "failed_blocks": 121,
+      "block_pass_pct": 93.69791666666667,
+      "monthly_expected_failed_blocks": 60.5,
+      "soc_hit_pct": 83.64607864909848,
+      "inference_ms_p95_mean": 2.9925210002693348
+    },
+    {
+      "bess_kw": 200.0,
+      "bess_kwh": 263.1578947368421,
+      "sets": 40,
+      "failed_blocks": 86,
+      "block_pass_pct": 95.52083333333333,
+      "monthly_expected_failed_blocks": 43.0,
+      "soc_hit_pct": 83.64607864909848,
+      "inference_ms_p95_mean": 3.005497375024788
+    },
+    {
+      "bess_kw": 300.0,
+      "bess_kwh": 394.7368421052632,
+      "sets": 40,
+      "failed_blocks": 60,
+      "block_pass_pct": 96.875,
+      "monthly_expected_failed_blocks": 30.0,
+      "soc_hit_pct": 83.64607864909848,
+      "inference_ms_p95_mean": 3.266545374672205
+    },
+    {
+      "bess_kw": 400.0,
+      "bess_kwh": 526.3157894736842,
+      "sets": 40,
+      "failed_blocks": 40,
+      "block_pass_pct": 97.91666666666666,
+      "monthly_expected_failed_blocks": 20.0,
+      "soc_hit_pct": 83.64607864909848,
+      "inference_ms_p95_mean": 3.112023624653375
+    },
+    {
+      "bess_kw": 500.0,
+      "bess_kwh": 657.8947368421052,
+      "sets": 40,
+      "failed_blocks": 28,
+      "block_pass_pct": 98.54166666666667,
+      "monthly_expected_failed_blocks": 14.0,
+      "soc_hit_pct": 83.64607864909848,
+      "inference_ms_p95_mean": 3.0245410005409212
+    },
+    {
+      "bess_kw": 600.0,
+      "bess_kwh": 789.4736842105264,
+      "sets": 40,
+      "failed_blocks": 12,
+      "block_pass_pct": 99.375,
+      "monthly_expected_failed_blocks": 6.0,
+      "soc_hit_pct": 83.64607864909848,
+      "inference_ms_p95_mean": 3.1630048750503192
+    },
+    {
+      "bess_kw": 800.0,
+      "bess_kwh": 1052.6315789473683,
+      "sets": 40,
+      "failed_blocks": 0,
+      "block_pass_pct": 100.0,
+      "monthly_expected_failed_blocks": 0.0,
+      "soc_hit_pct": 83.64607864909848,
+      "inference_ms_p95_mean": 3.287285250517016
+    },
+    {
+      "bess_kw": 1000.0,
+      "bess_kwh": 1315.7894736842104,
+      "sets": 40,
+      "failed_blocks": 0,
+      "block_pass_pct": 100.0,
+      "monthly_expected_failed_blocks": 0.0,
+      "soc_hit_pct": 83.64607864909848,
+      "inference_ms_p95_mean": 3.299321874501402
+    }
+  ],
+  "ercot_force": [
+    {
+      "bess_kw": 0.0,
+      "bess_kwh": 0,
+      "sets": 40,
+      "failed_blocks": 514,
+      "block_pass_pct": 73.22916666666667,
+      "monthly_expected_failed_blocks": 257.0,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.0153077495651814
+    },
+    {
+      "bess_kw": 100.0,
+      "bess_kwh": 131.57894736842104,
+      "sets": 40,
+      "failed_blocks": 384,
+      "block_pass_pct": 80.0,
+      "monthly_expected_failed_blocks": 192.0,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 2.9991078753937472
+    },
+    {
+      "bess_kw": 200.0,
+      "bess_kwh": 263.1578947368421,
+      "sets": 40,
+      "failed_blocks": 296,
+      "block_pass_pct": 84.58333333333333,
+      "monthly_expected_failed_blocks": 148.0,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.2078582502253994
+    },
+    {
+      "bess_kw": 300.0,
+      "bess_kwh": 394.7368421052632,
+      "sets": 40,
+      "failed_blocks": 222,
+      "block_pass_pct": 88.4375,
+      "monthly_expected_failed_blocks": 111.0,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.0317038744578895
+    },
+    {
+      "bess_kw": 400.0,
+      "bess_kwh": 526.3157894736842,
+      "sets": 40,
+      "failed_blocks": 147,
+      "block_pass_pct": 92.34375,
+      "monthly_expected_failed_blocks": 73.5,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.002297124976394
+    },
+    {
+      "bess_kw": 500.0,
+      "bess_kwh": 657.8947368421052,
+      "sets": 40,
+      "failed_blocks": 92,
+      "block_pass_pct": 95.20833333333333,
+      "monthly_expected_failed_blocks": 46.0,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.2478491249003127
+    },
+    {
+      "bess_kw": 600.0,
+      "bess_kwh": 789.4736842105264,
+      "sets": 40,
+      "failed_blocks": 50,
+      "block_pass_pct": 97.39583333333334,
+      "monthly_expected_failed_blocks": 25.0,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.1910647496624733
+    },
+    {
+      "bess_kw": 800.0,
+      "bess_kwh": 1052.6315789473683,
+      "sets": 40,
+      "failed_blocks": 11,
+      "block_pass_pct": 99.42708333333333,
+      "monthly_expected_failed_blocks": 5.5,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.023862375330282
+    },
+    {
+      "bess_kw": 1000.0,
+      "bess_kwh": 1315.7894736842104,
+      "sets": 40,
+      "failed_blocks": 0,
+      "block_pass_pct": 100.0,
+      "monthly_expected_failed_blocks": 0.0,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.028459874676628
+    }
+  ],
+  "pjm_raw": [
+    {
+      "bess_kw": 0.0,
+      "bess_kwh": 0,
+      "sets": 40,
+      "failed_blocks": 481,
+      "block_pass_pct": 74.94791666666667,
+      "monthly_expected_failed_blocks": 240.5,
+      "soc_hit_pct": 72.35088064296785,
+      "inference_ms_p95_mean": 3.1400703748931846
+    },
+    {
+      "bess_kw": 100.0,
+      "bess_kwh": 131.57894736842104,
+      "sets": 40,
+      "failed_blocks": 90,
+      "block_pass_pct": 95.3125,
+      "monthly_expected_failed_blocks": 45.0,
+      "soc_hit_pct": 72.35088064296785,
+      "inference_ms_p95_mean": 3.103595500524534
+    },
+    {
+      "bess_kw": 200.0,
+      "bess_kwh": 263.1578947368421,
+      "sets": 40,
+      "failed_blocks": 13,
+      "block_pass_pct": 99.32291666666667,
+      "monthly_expected_failed_blocks": 6.5,
+      "soc_hit_pct": 72.35088064296785,
+      "inference_ms_p95_mean": 3.0680714999107295
+    },
+    {
+      "bess_kw": 300.0,
+      "bess_kwh": 394.7368421052632,
+      "sets": 40,
+      "failed_blocks": 0,
+      "block_pass_pct": 100.0,
+      "monthly_expected_failed_blocks": 0.0,
+      "soc_hit_pct": 72.35088064296785,
+      "inference_ms_p95_mean": 3.1472631256383465
+    },
+    {
+      "bess_kw": 400.0,
+      "bess_kwh": 526.3157894736842,
+      "sets": 40,
+      "failed_blocks": 0,
+      "block_pass_pct": 100.0,
+      "monthly_expected_failed_blocks": 0.0,
+      "soc_hit_pct": 72.35088064296785,
+      "inference_ms_p95_mean": 3.4384687503734312
+    },
+    {
+      "bess_kw": 500.0,
+      "bess_kwh": 657.8947368421052,
+      "sets": 40,
+      "failed_blocks": 0,
+      "block_pass_pct": 100.0,
+      "monthly_expected_failed_blocks": 0.0,
+      "soc_hit_pct": 72.35088064296785,
+      "inference_ms_p95_mean": 3.495600375217691
+    },
+    {
+      "bess_kw": 600.0,
+      "bess_kwh": 789.4736842105264,
+      "sets": 40,
+      "failed_blocks": 0,
+      "block_pass_pct": 100.0,
+      "monthly_expected_failed_blocks": 0.0,
+      "soc_hit_pct": 72.35088064296785,
+      "inference_ms_p95_mean": 3.53316212496793
+    },
+    {
+      "bess_kw": 800.0,
+      "bess_kwh": 1052.6315789473683,
+      "sets": 40,
+      "failed_blocks": 0,
+      "block_pass_pct": 100.0,
+      "monthly_expected_failed_blocks": 0.0,
+      "soc_hit_pct": 72.35088064296785,
+      "inference_ms_p95_mean": 3.549107874450783
+    },
+    {
+      "bess_kw": 1000.0,
+      "bess_kwh": 1315.7894736842104,
+      "sets": 40,
+      "failed_blocks": 0,
+      "block_pass_pct": 100.0,
+      "monthly_expected_failed_blocks": 0.0,
+      "soc_hit_pct": 72.35088064296785,
+      "inference_ms_p95_mean": 3.5744095001155074
+    }
+  ],
+  "pjm_force": [
+    {
+      "bess_kw": 0.0,
+      "bess_kwh": 0,
+      "sets": 40,
+      "failed_blocks": 809,
+      "block_pass_pct": 57.86458333333333,
+      "monthly_expected_failed_blocks": 404.5,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.5604552498716657
+    },
+    {
+      "bess_kw": 100.0,
+      "bess_kwh": 131.57894736842104,
+      "sets": 40,
+      "failed_blocks": 549,
+      "block_pass_pct": 71.40625,
+      "monthly_expected_failed_blocks": 274.5,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.5317275000306836
+    },
+    {
+      "bess_kw": 200.0,
+      "bess_kwh": 263.1578947368421,
+      "sets": 40,
+      "failed_blocks": 473,
+      "block_pass_pct": 75.36458333333333,
+      "monthly_expected_failed_blocks": 236.5,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.636148625137139
+    },
+    {
+      "bess_kw": 300.0,
+      "bess_kwh": 394.7368421052632,
+      "sets": 40,
+      "failed_blocks": 391,
+      "block_pass_pct": 79.63541666666667,
+      "monthly_expected_failed_blocks": 195.5,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.6716743744182168
+    },
+    {
+      "bess_kw": 400.0,
+      "bess_kwh": 526.3157894736842,
+      "sets": 40,
+      "failed_blocks": 311,
+      "block_pass_pct": 83.80208333333333,
+      "monthly_expected_failed_blocks": 155.5,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.5742391252642847
+    },
+    {
+      "bess_kw": 500.0,
+      "bess_kwh": 657.8947368421052,
+      "sets": 40,
+      "failed_blocks": 221,
+      "block_pass_pct": 88.48958333333333,
+      "monthly_expected_failed_blocks": 110.5,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.3997656252176967
+    },
+    {
+      "bess_kw": 600.0,
+      "bess_kwh": 789.4736842105264,
+      "sets": 40,
+      "failed_blocks": 135,
+      "block_pass_pct": 92.96875,
+      "monthly_expected_failed_blocks": 67.5,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.474647375423956
+    },
+    {
+      "bess_kw": 800.0,
+      "bess_kwh": 1052.6315789473683,
+      "sets": 40,
+      "failed_blocks": 35,
+      "block_pass_pct": 98.17708333333334,
+      "monthly_expected_failed_blocks": 17.5,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.4693782497561187
+    },
+    {
+      "bess_kw": 1000.0,
+      "bess_kwh": 1315.7894736842104,
+      "sets": 40,
+      "failed_blocks": 0,
+      "block_pass_pct": 100.0,
+      "monthly_expected_failed_blocks": 0.0,
+      "soc_hit_pct": 100.0,
+      "inference_ms_p95_mean": 3.4601913749156665
+    }
+  ]
+}

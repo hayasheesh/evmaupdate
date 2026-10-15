@@ -1,0 +1,97 @@
+[
+  {
+    "day": 0,
+    "service_date": "2024-01-04",
+    "forecast_seed": 1073003,
+    "candidate_count": 128,
+    "three_indices": [
+      118,
+      19,
+      18
+    ],
+    "four_indices": [
+      118,
+      19,
+      121,
+      18
+    ],
+    "nested": true,
+    "baseline_physical_forecasts_verified": true
+  },
+  {
+    "day": 1,
+    "service_date": "2024-02-01",
+    "forecast_seed": 1074012,
+    "candidate_count": 128,
+    "three_indices": [
+      23,
+      50,
+      125
+    ],
+    "four_indices": [
+      23,
+      50,
+      12,
+      125
+    ],
+    "nested": true,
+    "baseline_physical_forecasts_verified": true
+  },
+  {
+    "day": 2,
+    "service_date": "2024-03-01",
+    "forecast_seed": 1075021,
+    "candidate_count": 128,
+    "three_indices": [
+      5,
+      94,
+      70
+    ],
+    "four_indices": [
+      5,
+      94,
+      11,
+      70
+    ],
+    "nested": true,
+    "baseline_physical_forecasts_verified": true
+  },
+  {
+    "day": 3,
+    "service_date": "2024-04-01",
+    "forecast_seed": 1076030,
+    "candidate_count": 128,
+    "three_indices": [
+      109,
+      96,
+      40
+    ],
+    "four_indices": [
+      109,
+      96,
+      1,
+      40
+    ],
+    "nested": true,
+    "baseline_physical_forecasts_verified": true
+  },
+  {
+    "day": 4,
+    "service_date": "2024-05-07",
+    "forecast_seed": 1077039,
+    "candidate_count": 128,
+    "three_indices": [
+      32,
+      59,
+      27
+    ],
+    "four_indices": [
+      32,
+      59,
+      17,
+      27
+    ],
+    "nested": true,
+    "baseline_physical_forecasts_verified": true
+  }
+]

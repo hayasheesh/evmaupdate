@@ -1,0 +1,130 @@
+[
+ {
+  "id": "rule20_pjm",
+  "cwd": ".",
+  "args": [
+   "execute_results/paper_eval_20261014/run_eval.py",
+   "--task",
+   "pjm",
+   "--stage-dir",
+   "{ROOT}/execute_results/resbid_20station_20261014",
+   "--run-dir",
+   "{ROOT}/archive/wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502",
+   "--episode",
+   "100",
+   "--output",
+   "{ROOT}/execute_results/paper_eval_20261014/rule20_pjm_v2",
+   "--modes",
+   "rule",
+   "--workers",
+   "2"
+  ]
+ },
+ {
+  "id": "bess20_aemo_raw",
+  "cwd": ".",
+  "args": [
+   "execute_results/paper_eval_20261014/eval_bess.py",
+   "--task",
+   "aemo",
+   "--model",
+   "{ROOT}/archive/wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053",
+   "--episode",
+   "2000",
+   "--stage-dir",
+   "resbid_20station_20261014",
+   "--prefix",
+   "bess20",
+   "--sizes",
+   "0,250,500,750,1000,1250,1500,2000,2500,3000,3500,4000",
+   "--workers",
+   "2"
+  ]
+ },
+ {
+  "id": "bess20_ercot_raw",
+  "cwd": ".",
+  "args": [
+   "execute_results/paper_eval_20261014/eval_bess.py",
+   "--task",
+   "ercot",
+   "--model",
+   "{ROOT}/archive/wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521",
+   "--episode",
+   "2000",
+   "--stage-dir",
+   "resbid_20station_20261014",
+   "--prefix",
+   "bess20",
+   "--sizes",
+   "0,250,500,750,1000,1250,1500,2000,2500,3000,3500,4000",
+   "--workers",
+   "2"
+  ]
+ },
+ {
+  "id": "bess20_aemo_force",
+  "cwd": ".",
+  "args": [
+   "execute_results/paper_eval_20261014/eval_bess.py",
+   "--task",
+   "aemo",
+   "--force",
+   "--model",
+   "{ROOT}/archive/wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053",
+   "--episode",
+   "2000",
+   "--stage-dir",
+   "resbid_20station_20261014",
+   "--prefix",
+   "bess20",
+   "--sizes",
+   "0,250,500,750,1000,1250,1500,2000,2500,3000,3500,4000",
+   "--workers",
+   "2"
+  ]
+ },
+ {
+  "id": "bess20_ercot_force",
+  "cwd": ".",
+  "args": [
+   "execute_results/paper_eval_20261014/eval_bess.py",
+   "--task",
+   "ercot",
+   "--force",
+   "--model",
+   "{ROOT}/archive/wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521",
+   "--episode",
+   "2000",
+   "--stage-dir",
+   "resbid_20station_20261014",
+   "--prefix",
+   "bess20",
+   "--sizes",
+   "0,250,500,750,1000,1250,1500,2000,2500,3000,3500,4000",
+   "--workers",
+   "2"
+  ]
+ },
+ {
+  "id": "bess20_ercot_raw_ext",
+  "cwd": ".",
+  "args": [
+   "execute_results/paper_eval_20261014/eval_bess.py",
+   "--task",
+   "ercot",
+   "--model",
+   "{ROOT}/archive/wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521",
+   "--episode",
+   "2000",
+   "--stage-dir",
+   "resbid_20station_20261014",
+   "--prefix",
+   "bess20",
+   "--sizes",
+   "4500,5000,5500,6000,7000,8000",
+   "--workers",
+   "2"
+  ]
+ }
+]

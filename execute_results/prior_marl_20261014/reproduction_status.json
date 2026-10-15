@@ -1,0 +1,67 @@
+{
+  "time": "2026-10-14T15:16:43.540474+09:00",
+  "paper_url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=6229136",
+  "paper_sha256": "24ba68006a970d47140e6e9e64d00d3d90de1efee687a6f0c9dc209ff6f5f6db",
+  "paper_pages": 20,
+  "status": "excluded_partial_prototype",
+  "training_started": true,
+  "evaluation_complete": false,
+  "faithful_end_to_end_reproduction": false,
+  "known_training_parameters": {
+    "actor_lr": 0.0001,
+    "critic_lr": 0.001,
+    "gamma": 0.99,
+    "batch_size": 256,
+    "replay_capacity": 100000,
+    "tau": 0.005,
+    "episodes": 10000
+  },
+  "implementation_choices": [
+    "two_hidden_layer_relu_actor_with_tanh_output",
+    "global_token_pooling_attention_critic",
+    "caller_provides_group_membership_and_feature_action_embedding"
+  ],
+  "results": null,
+  "component_tests": {
+    "passed": 10,
+    "failed": 0
+  },
+  "known_training_parameters_source": "Table 1 and Table 2",
+  "source_conflicts": [
+    {
+      "parameter": "replay_capacity",
+      "table_2": 100000,
+      "figure_3": 1000000
+    },
+    {
+      "parameter": "critic_architecture",
+      "section_3_2_3": "attention over aggregate and group tokens",
+      "figure_4": "local group critics and non-monotonic global Q mixing; relationship unspecified"
+    }
+  ],
+  "components_implemented": true,
+  "implementation_mode": "algorithm_port_with_our_reward",
+  "adapted_agent_implemented": true,
+  "original_missing_parameters": [
+    "reward_weights",
+    "soc_reward_formula",
+    "group_membership_rule",
+    "group_count",
+    "group_update_frequency",
+    "reference_power_allocation",
+    "network_width",
+    "attention_heads",
+    "action_embedding",
+    "follower_critic_definition",
+    "exploration_noise",
+    "market_data",
+    "ev_distribution_parameters",
+    "evaluation_seeds",
+    "response_accuracy_definition"
+  ],
+  "applied_configuration": "method_config.json",
+  "stage": "AEMO6 reward tuning",
+  "test_notes": "component and agent update/resume tests, 10 passed",
+  "full_algorithm_reproduction": false,
+  "paper_eligible": false
+}

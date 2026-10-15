@@ -273,3 +273,330 @@
 1013_0045 lab wr_obsdrop_cap77wd_aemoplan_20station_gs025_20261011_073829 ep2000: ratio 0.606 (hobo 0.584) local 10.31 (hobo 10.32) global 15.76 (hobo 16.02) cos -0.392 soc/track 81.2/92.7
 1013_0045 lab wr_obsdrop_cap77wd_ercotplan_20station_gs025_20261011_073917 ep2000: ratio 0.591 (hobo 0.584) local 10.95 (hobo 10.32) global 16.15 (hobo 16.02) cos -0.463 soc/track 80.7/90.6
 1013_0045 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep1139: ratio 0.663 (hobo 0.54) local 5.51 (hobo 5.78) global 12.41 (hobo 7.44) cos -0.26 soc/track 77.7/92.9
+1013_1022 lab wr_obsdrop_cap77wd_aemoplan_20station_gs025_20261011_073829 ep2000: ratio 0.606 (hobo 0.584) local 10.31 (hobo 10.32) global 15.76 (hobo 16.02) cos -0.392 soc/track 81.2/92.7
+1013_1022 lab wr_obsdrop_cap77wd_ercotplan_20station_gs025_20261011_073917 ep2000: ratio 0.591 (hobo 0.584) local 10.95 (hobo 10.32) global 16.15 (hobo 16.02) cos -0.463 soc/track 80.7/90.6
+1013_1022 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep1290: ratio 0.659 (hobo 0.56) local 7.2 (hobo 6.4) global 15.76 (hobo 8.97) cos -0.336 soc/track 81.6/94.3
+1013_1054 lab wr_obsdrop_cap77wd_aemoplan_20station_gs025_20261011_073829 ep2000: ratio 0.606 (hobo 0.584) local 10.31 (hobo 10.32) global 15.76 (hobo 16.02) cos -0.392 soc/track 81.2/92.7
+1013_1054 lab wr_obsdrop_cap77wd_ercotplan_20station_gs025_20261011_073917 ep2000: ratio 0.591 (hobo 0.584) local 10.95 (hobo 10.32) global 16.15 (hobo 16.02) cos -0.463 soc/track 80.7/90.6
+1013_1054 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep1402: ratio 0.653 (hobo 0.579) local 8.62 (hobo 7.49) global 17.98 (hobo 11.34) cos -0.272 soc/track 83.1/94.8
+1013_1125 lab wr_obsdrop_cap77wd_aemoplan_20station_gs025_20261011_073829 ep2000: ratio 0.606 (hobo 0.584) local 10.31 (hobo 10.32) global 15.76 (hobo 16.02) cos -0.392 soc/track 81.2/92.7
+1013_1126 lab wr_obsdrop_cap77wd_ercotplan_20station_gs025_20261011_073917 ep2000: ratio 0.591 (hobo 0.584) local 10.95 (hobo 10.32) global 16.15 (hobo 16.02) cos -0.463 soc/track 80.7/90.6
+1013_1126 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep1510: ratio 0.622 (hobo 0.579) local 9.84 (hobo 7.49) global 18.25 (hobo 11.34) cos -0.273 soc/track 82.9/95.5
+1013_1133 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep1530: ratio 0.63 (hobo 0.579) local 10.1 (hobo 7.49) global 19.64 (hobo 11.34) cos -0.283 soc/track 84.0/95.8
+1013_1133 lab wr_cap77wd_pjmplan_6station_resbid_tanh_ls717_20261013_021247 ep59: ratio 0.465 (hobo 0.623) local 0.38 (hobo 2.3) global 0.32 (hobo 4.83) cos 0.557 soc/track 23.2/9.7 OFF:localx0.2,globalx0.1
+1013_1142 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep1553: ratio 0.632 (hobo 0.579) local 10.32 (hobo 7.49) global 20.09 (hobo 11.34) cos -0.312 soc/track 84.3/95.6
+1013_1142 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep20: ratio 0.768 (hobo 0.623) local 0.44 (hobo 2.3) global 1.0 (hobo 4.83) cos 0.164 soc/track 19.8/39.5 OFF:ratio,localx0.2,globalx0.2
+1013_1142 lab wr_cap77wd_pjmplan_6station_resbid_tanh_ls717_20261013_021247 ep80: ratio 0.495 (hobo 0.623) local 0.3 (hobo 2.3) global 0.27 (hobo 4.83) cos 0.606 soc/track 25.0/9.5 OFF:localx0.1,globalx0.1
+1013_1151 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep1576: ratio 0.635 (hobo 0.579) local 10.46 (hobo 7.49) global 20.41 (hobo 11.34) cos -0.357 soc/track 83.7/95.5
+1013_1151 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep42: ratio 0.684 (hobo 0.623) local 0.27 (hobo 2.3) global 0.58 (hobo 4.83) cos 0.332 soc/track 22.1/36.7 OFF:localx0.1,globalx0.1
+1013_1151 lab wr_cap77wd_pjmplan_6station_resbid_tanh_ls717_20261013_021247 ep101: ratio 0.52 (hobo 0.623) local 0.25 (hobo 2.3) global 0.24 (hobo 4.83) cos 0.551 soc/track 27.2/9.6 OFF:localx0.1,globalx0.0
+1013_1222 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep1651: ratio 0.652 (hobo 0.586) local 10.8 (hobo 9.42) global 22.8 (hobo 14.84) cos -0.319 soc/track 84.5/96.0
+1013_1222 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep116: ratio 0.514 (hobo 0.623) local 0.72 (hobo 2.3) global 0.91 (hobo 4.83) cos -0.277 soc/track 24.0/34.7 OFF:localx0.3,globalx0.2
+1013_1222 lab wr_cap77wd_pjmplan_6station_resbid_tanh_ls717_20261013_021247 ep180: ratio 0.599 (hobo 0.623) local 0.6 (hobo 2.3) global 2.08 (hobo 4.83) cos -0.07 soc/track 38.9/10.5 OFF:localx0.3
+1013_1253 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep1727: ratio 0.657 (hobo 0.586) local 11.24 (hobo 9.42) global 24.91 (hobo 14.84) cos -0.376 soc/track 85.6/96.4
+1013_1253 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep193: ratio 0.585 (hobo 0.623) local 1.96 (hobo 2.3) global 3.56 (hobo 4.83) cos -0.447 soc/track 23.1/34.9
+1013_1253 lab wr_cap77wd_pjmplan_6station_resbid_tanh_ls717_20261013_021247 ep256: ratio 0.666 (hobo 0.608) local 1.76 (hobo 2.93) global 5.77 (hobo 5.33) cos -0.223 soc/track 45.6/10.6
+1013_1324 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep1804: ratio 0.67 (hobo 0.584) local 11.28 (hobo 10.32) global 26.25 (hobo 16.02) cos -0.281 soc/track 84.3/95.6
+1013_1324 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep270: ratio 0.605 (hobo 0.608) local 2.57 (hobo 2.93) global 4.93 (hobo 5.33) cos -0.324 soc/track 27.0/37.0
+1013_1324 lab wr_cap77wd_pjmplan_6station_resbid_tanh_ls717_20261013_021247 ep334: ratio 0.656 (hobo 0.608) local 2.19 (hobo 2.93) global 6.0 (hobo 5.33) cos -0.36 soc/track 48.1/12.0
+1013_1355 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep1890: ratio 0.665 (hobo 0.584) local 11.59 (hobo 10.32) global 25.81 (hobo 16.02) cos -0.19 soc/track 86.5/96.1
+1013_1355 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep349: ratio 0.581 (hobo 0.608) local 2.82 (hobo 2.93) global 4.84 (hobo 5.33) cos -0.321 soc/track 29.1/40.8
+1013_1355 lab wr_cap77wd_pjmplan_6station_resbid_tanh_ls717_20261013_021247 ep415: ratio 0.672 (hobo 0.546) local 2.54 (hobo 3.76) global 6.83 (hobo 5.18) cos -0.228 soc/track 47.0/13.6
+1013_1427 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep1972: ratio 0.671 (hobo 0.584) local 11.41 (hobo 10.32) global 27.33 (hobo 16.02) cos -0.24 soc/track 86.6/96.5
+1013_1427 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep428: ratio 0.622 (hobo 0.546) local 2.97 (hobo 3.76) global 6.22 (hobo 5.18) cos -0.335 soc/track 31.6/42.9
+1013_1427 lab wr_cap77wd_pjmplan_6station_resbid_tanh_ls717_20261013_021247 ep500: ratio 0.682 (hobo 0.546) local 3.02 (hobo 3.76) global 9.26 (hobo 5.18) cos -0.255 soc/track 35.4/14.3
+1013_1443 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_1443 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep478: ratio 0.643 (hobo 0.546) local 3.06 (hobo 3.76) global 6.95 (hobo 5.18) cos -0.35 soc/track 34.0/43.7
+1013_1443 lab wr_cap77wd_pjmplan_6station_resbid_tanh_ls717_20261013_021247 ep546: ratio 0.702 (hobo 0.546) local 2.74 (hobo 3.76) global 9.33 (hobo 5.18) cos -0.195 soc/track 54.6/14.7
+1013_1445 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_1445 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep486: ratio 0.641 (hobo 0.546) local 3.06 (hobo 3.76) global 6.96 (hobo 5.18) cos -0.34 soc/track 34.5/44.2
+1013_1445 lab wr_cap77wd_pjmplan_6station_resbid_tanh_ls717_20261013_021247 ep549: ratio 0.705 (hobo 0.546) local 2.73 (hobo 3.76) global 9.51 (hobo 5.18) cos -0.189 soc/track 55.8/14.7
+1013_1516 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_1517 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep591: ratio 0.667 (hobo 0.546) local 3.18 (hobo 3.76) global 7.84 (hobo 5.18) cos -0.29 soc/track 39.4/51.0
+1013_1517 lab wr_cap77wd_pjmplan_6station_resbid_tanh_ls717_20261013_021247 ep633: ratio 0.764 (hobo 0.522) local 2.59 (hobo 5.19) global 11.44 (hobo 6.24) cos -0.088 soc/track 52.0/16.2 OFF:ratio
+1013_1521 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_1521 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep604: ratio 0.667 (hobo 0.522) local 3.2 (hobo 5.19) global 7.91 (hobo 6.24) cos -0.255 soc/track 40.7/51.8
+1013_1521 lab wr_cap77wd_pjmplan_6station_resbid_tanh_ls717_20261013_021247 ep649: ratio 0.766 (hobo 0.522) local 2.7 (hobo 5.19) global 11.89 (hobo 6.24) cos -0.106 soc/track 47.5/17.0 OFF:ratio
+1013_1555 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep683: ratio 0.69 (hobo 0.522) local 3.32 (hobo 5.19) global 9.15 (hobo 6.24) cos -0.168 soc/track 45.1/53.0
+1013_1555 lab wr_cap77wd_pjmplan_6station_resbid_tanh_ls717_20261013_021247 ep729: ratio 0.766 (hobo 0.522) local 3.23 (hobo 5.19) global 14.39 (hobo 6.24) cos -0.163 soc/track 37.3/19.2 OFF:ratio
+1013_1556 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_1556 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep686: ratio 0.687 (hobo 0.522) local 3.32 (hobo 5.19) global 9.06 (hobo 6.24) cos -0.204 soc/track 45.4/53.4
+1013_1556 lab wr_cap77wd_pjmplan_6station_resbid_tanh_ls717_20261013_021247 ep732: ratio 0.765 (hobo 0.522) local 3.23 (hobo 5.19) global 14.31 (hobo 6.24) cos -0.171 soc/track 37.0/19.4 OFF:ratio
+1013_1627 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_1627 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep754: ratio 0.684 (hobo 0.522) local 3.44 (hobo 5.19) global 8.96 (hobo 6.24) cos -0.199 soc/track 47.8/58.4
+1013_1627 lab wr_cap77wd_pjmplan_6station_resbid_tanh_ls717_20261013_021247 ep802: ratio 0.743 (hobo 0.53) local 3.25 (hobo 5.85) global 13.09 (hobo 7.17) cos -0.14 soc/track 33.8/25.1
+1013_1659 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_1659 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep820: ratio 0.706 (hobo 0.53) local 3.6 (hobo 5.85) global 10.59 (hobo 7.17) cos -0.232 soc/track 51.7/63.6
+1013_1659 lab wr_cap77wd_pjmplan_6station_resbid_tanh_ls717_20261013_021247 ep873: ratio 0.715 (hobo 0.53) local 3.24 (hobo 5.85) global 11.08 (hobo 7.17) cos -0.193 soc/track 36.3/32.7
+1013_1714 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_1714 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep855: ratio 0.715 (hobo 0.53) local 3.77 (hobo 5.85) global 11.57 (hobo 7.17) cos -0.189 soc/track 54.4/67.0
+1013_1717 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_1717 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep860: ratio 0.715 (hobo 0.53) local 3.78 (hobo 5.85) global 11.55 (hobo 7.17) cos -0.172 soc/track 54.9/67.4
+1013_1717 lab wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep2: ratio 0.327 (hobo 0.623) local 2.24 (hobo 2.3) global 0.62 (hobo 4.83) cos -0.087 soc/track 15.2/10.9 OFF:ratio,globalx0.1
+1013_1748 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_1748 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep925: ratio 0.707 (hobo 0.53) local 4.06 (hobo 5.85) global 11.65 (hobo 7.17) cos -0.143 soc/track 59.2/74.2
+1013_1748 lab wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep72: ratio 0.629 (hobo 0.623) local 0.38 (hobo 2.3) global 0.53 (hobo 4.83) cos 0.455 soc/track 23.6/9.5 OFF:localx0.2,globalx0.1
+1013_1754 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_1754 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep936: ratio 0.704 (hobo 0.53) local 4.1 (hobo 5.85) global 11.54 (hobo 7.17) cos -0.174 soc/track 60.2/75.6
+1013_1754 lab wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep83: ratio 0.632 (hobo 0.623) local 0.46 (hobo 2.3) global 0.68 (hobo 4.83) cos 0.373 soc/track 23.9/9.5 OFF:localx0.2,globalx0.1
+1013_1755 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_1755 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep939: ratio 0.706 (hobo 0.53) local 4.1 (hobo 5.85) global 11.62 (hobo 7.17) cos -0.165 soc/track 60.3/75.9
+1013_1756 lab wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep86: ratio 0.634 (hobo 0.623) local 0.48 (hobo 2.3) global 0.73 (hobo 4.83) cos 0.358 soc/track 24.3/9.5 OFF:localx0.2,globalx0.2
+1013_1802 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_1802 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep949: ratio 0.705 (hobo 0.53) local 4.14 (hobo 5.85) global 11.58 (hobo 7.17) cos -0.161 soc/track 61.4/76.6
+1013_1802 lab wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep97: ratio 0.634 (hobo 0.623) local 0.54 (hobo 2.3) global 0.81 (hobo 4.83) cos 0.309 soc/track 24.7/9.6 OFF:localx0.2,globalx0.2
+1013_1833 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_1833 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep999: ratio 0.706 (hobo 0.53) local 4.34 (hobo 5.85) global 12.38 (hobo 7.17) cos -0.054 soc/track 64.7/82.1
+1013_1833 lab wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep143: ratio 0.635 (hobo 0.623) local 0.93 (hobo 2.3) global 1.36 (hobo 4.83) cos -0.09 soc/track 30.3/10.1 OFF:globalx0.3
+1013_1859 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_1859 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1048: ratio 0.711 (hobo 0.54) local 4.57 (hobo 5.78) global 13.66 (hobo 7.44) cos -0.073 soc/track 66.4/86.0
+1013_1900 lab wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep200: ratio 0.561 (hobo 0.608) local 1.7 (hobo 2.93) global 2.22 (hobo 5.33) cos -0.447 soc/track 33.0/10.8
+1013_1920 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_1920 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1092: ratio 0.706 (hobo 0.54) local 4.89 (hobo 5.78) global 13.78 (hobo 7.44) cos -0.162 soc/track 68.7/87.9
+1013_1920 lab wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep243: ratio 0.516 (hobo 0.608) local 2.85 (hobo 2.93) global 3.46 (hobo 5.33) cos -0.667 soc/track 28.9/11.6
+1013_1951 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_1951 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1144: ratio 0.707 (hobo 0.54) local 5.27 (hobo 5.78) global 14.68 (hobo 7.44) cos -0.175 soc/track 71.4/89.4
+1013_1952 lab wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep300: ratio 0.52 (hobo 0.608) local 4.03 (hobo 2.93) global 4.87 (hobo 5.33) cos -0.674 soc/track 25.2/12.9
+1013_2008 lab wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306 ep2000: ratio 0.663 (hobo 0.584) local 11.46 (hobo 10.32) global 25.94 (hobo 16.02) cos -0.278 soc/track 86.7/96.5
+1013_2008 lab wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1174: ratio 0.7 (hobo 0.54) local 5.53 (hobo 5.78) global 15.09 (hobo 7.44) cos -0.252 soc/track 73.3/90.4
+1013_2008 lab wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep328: ratio 0.528 (hobo 0.608) local 4.23 (hobo 2.93) global 5.18 (hobo 5.33) cos -0.594 soc/track 25.9/13.1
+1013_2058 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1201: ratio 0.697 (hobo 0.56) local 5.74 (hobo 6.4) global 15.27 (hobo 8.97) cos -0.252 soc/track 74.7/91.4
+1013_2058 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep366: ratio 0.549 (hobo 0.608) local 4.58 (hobo 2.93) global 5.74 (hobo 5.33) cos -0.517 soc/track 27.0/13.9
+1013_2129 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1255: ratio 0.693 (hobo 0.56) local 6.07 (hobo 6.4) global 15.61 (hobo 8.97) cos -0.244 soc/track 74.6/92.5
+1013_2130 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep418: ratio 0.563 (hobo 0.546) local 4.99 (hobo 3.76) global 6.57 (hobo 5.18) cos -0.453 soc/track 27.6/15.0
+1013_2201 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1307: ratio 0.689 (hobo 0.56) local 6.31 (hobo 6.4) global 16.42 (hobo 8.97) cos -0.21 soc/track 74.2/92.6
+1013_2201 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep473: ratio 0.58 (hobo 0.546) local 5.29 (hobo 3.76) global 7.95 (hobo 5.18) cos -0.412 soc/track 29.4/16.3
+1014_0302 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1346: ratio 0.687 (hobo 0.56) local 6.58 (hobo 6.4) global 18.01 (hobo 8.97) cos -0.252 soc/track 74.6/93.5
+1014_0302 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep510: ratio 0.598 (hobo 0.546) local 5.46 (hobo 3.76) global 8.84 (hobo 5.18) cos -0.471 soc/track 32.1/17.5
+1014_0332 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1346: ratio 0.687 (hobo 0.56) local 6.58 (hobo 6.4) global 18.01 (hobo 8.97) cos -0.252 soc/track 74.6/93.5
+1014_0333 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep551: ratio 0.615 (hobo 0.546) local 5.66 (hobo 3.76) global 10.01 (hobo 5.18) cos -0.521 soc/track 33.1/19.2
+1014_0404 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1393: ratio 0.692 (hobo 0.56) local 6.83 (hobo 6.4) global 19.24 (hobo 8.97) cos -0.241 soc/track 74.3/94.3
+1014_0404 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep599: ratio 0.597 (hobo 0.546) local 5.91 (hobo 3.76) global 9.76 (hobo 5.18) cos -0.429 soc/track 34.4/21.4
+1014_0435 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1435: ratio 0.701 (hobo 0.579) local 7.01 (hobo 7.49) global 20.51 (hobo 11.34) cos -0.348 soc/track 74.9/94.6
+1014_0435 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep641: ratio 0.578 (hobo 0.522) local 6.18 (hobo 5.19) global 9.38 (hobo 6.24) cos -0.405 soc/track 35.4/23.0
+1014_0506 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1480: ratio 0.708 (hobo 0.579) local 7.37 (hobo 7.49) global 21.55 (hobo 11.34) cos -0.348 soc/track 75.4/95.4
+1014_0506 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep687: ratio 0.589 (hobo 0.522) local 6.43 (hobo 5.19) global 10.75 (hobo 6.24) cos -0.513 soc/track 36.0/25.7
+1014_0537 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1523: ratio 0.694 (hobo 0.579) local 7.78 (hobo 7.49) global 20.49 (hobo 11.34) cos -0.192 soc/track 76.7/95.7
+1014_0537 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep731: ratio 0.591 (hobo 0.522) local 6.7 (hobo 5.19) global 11.54 (hobo 6.24) cos -0.494 soc/track 36.2/28.8
+1014_0608 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1567: ratio 0.695 (hobo 0.579) local 8.15 (hobo 7.49) global 21.81 (hobo 11.34) cos -0.137 soc/track 77.4/95.8
+1014_0608 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep777: ratio 0.57 (hobo 0.522) local 7.1 (hobo 5.19) global 10.95 (hobo 6.24) cos -0.432 soc/track 38.8/32.7
+1014_0639 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1611: ratio 0.7 (hobo 0.586) local 8.55 (hobo 9.42) global 23.68 (hobo 14.84) cos -0.246 soc/track 79.5/96.4
+1014_0640 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep821: ratio 0.566 (hobo 0.53) local 7.46 (hobo 5.85) global 10.95 (hobo 7.17) cos -0.426 soc/track 43.0/37.6
+1014_0710 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1657: ratio 0.686 (hobo 0.586) local 9.21 (hobo 9.42) global 23.96 (hobo 14.84) cos -0.333 soc/track 80.5/96.9
+1014_0711 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep868: ratio 0.575 (hobo 0.53) local 7.83 (hobo 5.85) global 11.98 (hobo 7.17) cos -0.403 soc/track 45.4/43.7
+1014_0742 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1700: ratio 0.679 (hobo 0.586) local 9.64 (hobo 9.42) global 24.29 (hobo 14.84) cos -0.351 soc/track 80.3/97.0
+1014_0742 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep911: ratio 0.584 (hobo 0.53) local 8.22 (hobo 5.85) global 13.31 (hobo 7.17) cos -0.464 soc/track 48.0/50.2
+1014_0813 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1744: ratio 0.687 (hobo 0.586) local 10.01 (hobo 9.42) global 25.92 (hobo 14.84) cos -0.276 soc/track 80.0/96.7
+1014_0813 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep958: ratio 0.575 (hobo 0.53) local 8.66 (hobo 5.85) global 13.87 (hobo 7.17) cos -0.492 soc/track 49.5/59.1
+1014_0839 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1783: ratio 0.691 (hobo 0.586) local 10.28 (hobo 9.42) global 26.37 (hobo 14.84) cos -0.258 soc/track 79.9/96.3
+1014_0840 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep997: ratio 0.588 (hobo 0.53) local 9.09 (hobo 5.85) global 15.61 (hobo 7.17) cos -0.556 soc/track 52.3/67.5
+1014_0840 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1784: ratio 0.69 (hobo 0.586) local 10.29 (hobo 9.42) global 26.27 (hobo 14.84) cos -0.251 soc/track 79.9/96.3
+1014_0841 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep999: ratio 0.588 (hobo 0.53) local 9.11 (hobo 5.85) global 15.66 (hobo 7.17) cos -0.565 soc/track 52.6/67.8
+1014_0852 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1800: ratio 0.68 (hobo 0.584) local 10.39 (hobo 10.32) global 25.63 (hobo 16.02) cos -0.26 soc/track 80.2/96.0
+1014_0852 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep1013: ratio 0.586 (hobo 0.54) local 9.26 (hobo 5.78) global 15.88 (hobo 7.44) cos -0.513 soc/track 53.8/70.5
+1014_0853 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep6: ratio 0.43 (hobo 0.623) local 1.01 (hobo 2.3) global 0.66 (hobo 4.83) cos -0.266 soc/track 19.0/48.9 OFF:globalx0.1
+1014_0923 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1845: ratio 0.679 (hobo 0.584) local 10.86 (hobo 10.32) global 26.89 (hobo 16.02) cos -0.404 soc/track 80.3/95.9
+1014_0924 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep1060: ratio 0.589 (hobo 0.54) local 9.74 (hobo 5.78) global 16.37 (hobo 7.44) cos -0.499 soc/track 58.1/76.9
+1014_0924 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep40: ratio 0.443 (hobo 0.623) local 0.34 (hobo 2.3) global 0.32 (hobo 4.83) cos -0.087 soc/track 21.2/52.7 OFF:localx0.1,globalx0.1
+1014_0955 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1890: ratio 0.672 (hobo 0.584) local 11.21 (hobo 10.32) global 27.52 (hobo 16.02) cos -0.451 soc/track 80.2/96.5
+1014_0955 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep1103: ratio 0.577 (hobo 0.54) local 10.25 (hobo 5.78) global 15.86 (hobo 7.44) cos -0.422 soc/track 59.0/78.9
+1014_0955 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep73: ratio 0.403 (hobo 0.623) local 0.28 (hobo 2.3) global 0.25 (hobo 4.83) cos -0.217 soc/track 24.0/56.0 OFF:localx0.1,globalx0.1
+1014_1025 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1929: ratio 0.672 (hobo 0.584) local 11.52 (hobo 10.32) global 28.36 (hobo 16.02) cos -0.306 soc/track 80.1/96.4
+1014_1026 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep1145: ratio 0.568 (hobo 0.54) local 10.68 (hobo 5.78) global 15.62 (hobo 7.44) cos -0.405 soc/track 60.9/79.5
+1014_1026 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep109: ratio 0.418 (hobo 0.623) local 0.47 (hobo 2.3) global 0.46 (hobo 4.83) cos -0.409 soc/track 26.0/57.3 OFF:localx0.2,globalx0.1
+1014_1057 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1984: ratio 0.68 (hobo 0.584) local 12.03 (hobo 10.32) global 29.82 (hobo 16.02) cos -0.222 soc/track 81.1/96.2
+1014_1057 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep1200: ratio 0.572 (hobo 0.56) local 11.22 (hobo 6.4) global 16.54 (hobo 8.97) cos -0.454 soc/track 63.3/80.4
+1014_1058 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep143: ratio 0.45 (hobo 0.623) local 1.15 (hobo 2.3) global 1.22 (hobo 4.83) cos -0.69 soc/track 27.1/58.8 OFF:globalx0.3
+1014_1058 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep31: ratio 0.457 (hobo 0.623) local 0.43 (hobo 2.3) global 0.36 (hobo 4.83) cos 0.277 soc/track 20.3/47.2 OFF:localx0.2,globalx0.1
+1014_1104 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep1986: ratio 0.682 (hobo 0.584) local 12.04 (hobo 10.32) global 30.1 (hobo 16.02) cos -0.223 soc/track 81.2/96.2
+1014_1104 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep1201: ratio 0.575 (hobo 0.56) local 11.23 (hobo 6.4) global 16.83 (hobo 8.97) cos -0.457 soc/track 63.3/80.4
+1014_1105 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep151: ratio 0.468 (hobo 0.623) local 1.34 (hobo 2.3) global 1.46 (hobo 4.83) cos -0.733 soc/track 27.1/58.5 OFF:globalx0.3
+1014_1105 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep39: ratio 0.42 (hobo 0.623) local 0.37 (hobo 2.3) global 0.29 (hobo 4.83) cos 0.179 soc/track 21.0/47.3 OFF:localx0.2,globalx0.1
+1015_1045 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep2000: ratio 0.68 (hobo 0.584) local 12.09 (hobo 10.32) global 29.61 (hobo 16.02) cos -0.229 soc/track 80.9/96.2
+1015_1045 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep2000: ratio 0.602 (hobo 0.584) local 12.49 (hobo 10.32) global 21.75 (hobo 16.02) cos -0.481 soc/track 70.3/86.7
+1015_1045 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep1906: ratio 0.692 (hobo 0.584) local 9.49 (hobo 10.32) global 27.88 (hobo 16.02) cos -0.295 soc/track 86.0/97.7
+1015_1045 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep1771: ratio 0.618 (hobo 0.586) local 11.45 (hobo 9.42) global 21.56 (hobo 14.84) cos -0.454 soc/track 78.3/97.6
+1015_1115 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep2000: ratio 0.68 (hobo 0.584) local 12.09 (hobo 10.32) global 29.61 (hobo 16.02) cos -0.229 soc/track 80.9/96.2
+1015_1115 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep2000: ratio 0.602 (hobo 0.584) local 12.49 (hobo 10.32) global 21.75 (hobo 16.02) cos -0.481 soc/track 70.3/86.7
+1015_1115 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep1951: ratio 0.695 (hobo 0.584) local 9.65 (hobo 10.32) global 28.51 (hobo 16.02) cos -0.287 soc/track 86.0/97.4
+1015_1115 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep1812: ratio 0.625 (hobo 0.584) local 11.72 (hobo 10.32) global 22.86 (hobo 16.02) cos -0.503 soc/track 78.8/97.4
+1015_1150 win wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145 ep2000: ratio 0.68 (hobo 0.584) local 12.09 (hobo 10.32) global 29.61 (hobo 16.02) cos -0.229 soc/track 80.9/96.2
+1015_1151 win wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409 ep2000: ratio 0.602 (hobo 0.584) local 12.49 (hobo 10.32) global 21.75 (hobo 16.02) cos -0.481 soc/track 70.3/86.7
+1015_1151 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_1209 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_1209 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep1888: ratio 0.626 (hobo 0.584) local 12.04 (hobo 10.32) global 23.39 (hobo 16.02) cos -0.343 soc/track 80.2/96.9
+1015_1209 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep15: ratio 0.365 (hobo 0.623) local 0.75 (hobo 2.3) global 0.31 (hobo 4.83) cos 0.063 soc/track 18.1/10.0 OFF:ratio,localx0.3,globalx0.1
+1015_1239 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_1240 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep1918: ratio 0.633 (hobo 0.584) local 12.29 (hobo 10.32) global 24.63 (hobo 16.02) cos -0.314 soc/track 80.3/97.0
+1015_1240 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep47: ratio 0.476 (hobo 0.623) local 0.49 (hobo 2.3) global 0.35 (hobo 4.83) cos 0.221 soc/track 21.1/10.4 OFF:localx0.2,globalx0.1
+1015_1310 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_1310 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep1949: ratio 0.634 (hobo 0.584) local 12.38 (hobo 10.32) global 24.89 (hobo 16.02) cos -0.258 soc/track 80.6/97.1
+1015_1310 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep80: ratio 0.485 (hobo 0.623) local 0.48 (hobo 2.3) global 0.39 (hobo 4.83) cos 0.261 soc/track 23.7/10.0 OFF:localx0.2,globalx0.1
+1015_1324 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_1324 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep1964: ratio 0.625 (hobo 0.584) local 12.48 (hobo 10.32) global 24.05 (hobo 16.02) cos -0.251 soc/track 81.1/97.7
+1015_1324 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep95: ratio 0.489 (hobo 0.623) local 0.56 (hobo 2.3) global 0.51 (hobo 4.83) cos 0.166 soc/track 24.5/10.0 OFF:localx0.2,globalx0.1
+1015_1354 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_1354 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep1996: ratio 0.622 (hobo 0.584) local 12.55 (hobo 10.32) global 24.3 (hobo 16.02) cos -0.274 soc/track 80.8/97.8
+1015_1355 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep125: ratio 0.506 (hobo 0.623) local 0.78 (hobo 2.3) global 0.82 (hobo 4.83) cos -0.053 soc/track 27.7/10.1 OFF:globalx0.2
+1015_1424 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_1425 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1015_1425 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep161: ratio 0.483 (hobo 0.623) local 1.3 (hobo 2.3) global 1.32 (hobo 4.83) cos -0.532 soc/track 31.1/10.5 OFF:globalx0.3
+1015_1455 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_1455 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1015_1455 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep197: ratio 0.486 (hobo 0.623) local 1.88 (hobo 2.3) global 1.87 (hobo 4.83) cos -0.845 soc/track 32.9/10.9
+1015_1525 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_1525 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1015_1525 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep236: ratio 0.495 (hobo 0.608) local 2.29 (hobo 2.93) global 2.3 (hobo 5.33) cos -0.931 soc/track 33.9/11.2
+1015_1546 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_1547 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1015_1547 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep265: ratio 0.5 (hobo 0.608) local 2.63 (hobo 2.93) global 2.64 (hobo 5.33) cos -0.931 soc/track 32.7/11.6
+1015_1622 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_1622 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1015_1622 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep303: ratio 0.5 (hobo 0.608) local 3.13 (hobo 2.93) global 3.17 (hobo 5.33) cos -0.927 soc/track 30.0/12.6
+1015_1635 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_1635 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1015_1635 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep318: ratio 0.498 (hobo 0.608) local 3.36 (hobo 2.93) global 3.38 (hobo 5.33) cos -0.922 soc/track 28.9/13.0
+1015_1651 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_1651 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1015_1651 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep335: ratio 0.497 (hobo 0.608) local 3.55 (hobo 2.93) global 3.56 (hobo 5.33) cos -0.927 soc/track 27.6/13.5
+1015_1717 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_1717 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1015_1717 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep360: ratio 0.495 (hobo 0.608) local 3.75 (hobo 2.93) global 3.72 (hobo 5.33) cos -0.914 soc/track 26.7/14.5
+1015_2124 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_2124 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1015_2125 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep647: ratio 0.501 (hobo 0.522) local 5.71 (hobo 5.19) global 6.03 (hobo 6.24) cos -0.895 soc/track 40.3/25.8
+1015_2125 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep477: ratio 0.559 (hobo 0.546) local 5.16 (hobo 3.76) global 7.28 (hobo 5.18) cos -0.574 soc/track 29.5/26.5
+1015_2155 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep56: ratio 0.612 (hobo 0.623) local 0.28 (hobo 2.3) global 0.5 (hobo 4.83) cos 0.549 soc/track 21.9/41.5 OFF:localx0.1,globalx0.1
+1015_2155 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_2155 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1015_2156 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep676: ratio 0.51 (hobo 0.522) local 5.94 (hobo 5.19) global 6.53 (hobo 6.24) cos -0.904 soc/track 42.2/26.8
+1015_2156 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep551: ratio 0.568 (hobo 0.546) local 5.63 (hobo 3.76) global 8.99 (hobo 5.18) cos -0.575 soc/track 27.3/31.9
+1015_2225 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep124: ratio 0.52 (hobo 0.623) local 0.99 (hobo 2.3) global 1.56 (hobo 4.83) cos -0.136 soc/track 23.0/40.4 OFF:globalx0.3
+1015_2225 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_2225 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1015_2225 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep702: ratio 0.505 (hobo 0.522) local 6.14 (hobo 5.19) global 6.64 (hobo 6.24) cos -0.898 soc/track 43.4/28.3
+1015_2225 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep620: ratio 0.57 (hobo 0.522) local 6.1 (hobo 5.19) global 9.91 (hobo 6.24) cos -0.42 soc/track 27.6/37.4
+1015_2257 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep218: ratio 0.622 (hobo 0.608) local 2.34 (hobo 2.93) global 5.04 (hobo 5.33) cos -0.289 soc/track 22.5/40.4
+1015_2257 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_2257 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1015_2258 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep740: ratio 0.503 (hobo 0.522) local 6.4 (hobo 5.19) global 6.91 (hobo 6.24) cos -0.882 soc/track 45.5/31.2
+1015_2258 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep700: ratio 0.57 (hobo 0.522) local 6.63 (hobo 5.19) global 10.96 (hobo 6.24) cos -0.414 soc/track 31.4/46.1
+1015_2327 lab wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913 ep26: ratio 0.762 (hobo 0.623) local 0.33 (hobo 2.3) global 0.84 (hobo 4.83) cos 0.373 soc/track 19.9/52.3 OFF:ratio,localx0.1,globalx0.2
+1015_2327 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep278: ratio 0.632 (hobo 0.608) local 2.56 (hobo 2.93) global 5.62 (hobo 5.33) cos -0.406 soc/track 24.9/43.2
+1015_2327 lab wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405 ep26: ratio 0.402 (hobo 0.623) local 0.56 (hobo 2.3) global 0.32 (hobo 4.83) cos 0.054 soc/track 19.4/14.5 OFF:localx0.2,globalx0.1
+1015_2327 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_2327 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1015_2327 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep769: ratio 0.504 (hobo 0.522) local 6.6 (hobo 5.19) global 7.14 (hobo 6.24) cos -0.884 soc/track 47.7/34.8
+1015_2327 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep780: ratio 0.542 (hobo 0.522) local 7.3 (hobo 5.19) global 10.76 (hobo 6.24) cos -0.47 soc/track 35.0/57.6
+1015_2346 lab wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913 ep62: ratio 0.591 (hobo 0.623) local 0.34 (hobo 2.3) global 0.57 (hobo 4.83) cos 0.298 soc/track 23.4/56.3 OFF:localx0.1,globalx0.1
+1015_2346 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep308: ratio 0.604 (hobo 0.608) local 2.64 (hobo 2.93) global 5.19 (hobo 5.33) cos -0.294 soc/track 26.5/45.9
+1015_2346 lab wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405 ep43: ratio 0.431 (hobo 0.623) local 0.48 (hobo 2.3) global 0.33 (hobo 4.83) cos 0.072 soc/track 21.6/14.4 OFF:localx0.2,globalx0.1
+1015_2346 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1015_2346 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1015_2346 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep786: ratio 0.494 (hobo 0.522) local 6.7 (hobo 5.19) global 6.99 (hobo 6.24) cos -0.87 soc/track 49.2/37.0
+1015_2346 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep831: ratio 0.543 (hobo 0.53) local 7.7 (hobo 5.85) global 11.46 (hobo 7.17) cos -0.427 soc/track 38.1/65.5
+1016_0010 lab wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913 ep108: ratio 0.542 (hobo 0.623) local 0.67 (hobo 2.3) global 0.86 (hobo 4.83) cos 0.089 soc/track 24.8/55.9 OFF:localx0.3,globalx0.2
+1016_0010 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep356: ratio 0.607 (hobo 0.608) local 2.73 (hobo 2.93) global 5.5 (hobo 5.33) cos -0.277 soc/track 30.0/47.0
+1016_0010 lab wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405 ep65: ratio 0.448 (hobo 0.623) local 0.41 (hobo 2.3) global 0.31 (hobo 4.83) cos 0.145 soc/track 23.3/14.4 OFF:localx0.2,globalx0.1
+1016_0010 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1016_0010 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1016_0010 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep801: ratio 0.498 (hobo 0.53) local 6.79 (hobo 5.85) global 7.22 (hobo 7.17) cos -0.872 soc/track 50.7/39.3
+1016_0010 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep888: ratio 0.563 (hobo 0.53) local 8.15 (hobo 5.85) global 13.1 (hobo 7.17) cos -0.433 soc/track 40.6/75.6
+1016_0025 lab wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913 ep136: ratio 0.512 (hobo 0.623) local 1.15 (hobo 2.3) global 1.63 (hobo 4.83) cos -0.206 soc/track 25.0/56.3
+1016_0025 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep382: ratio 0.619 (hobo 0.608) local 2.78 (hobo 2.93) global 5.81 (hobo 5.33) cos -0.279 soc/track 32.0/48.7
+1016_0025 lab wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405 ep79: ratio 0.454 (hobo 0.623) local 0.39 (hobo 2.3) global 0.31 (hobo 4.83) cos 0.154 soc/track 24.4/14.4 OFF:localx0.2,globalx0.1
+1016_0025 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1016_0025 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1016_0026 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep815: ratio 0.502 (hobo 0.53) local 6.87 (hobo 5.85) global 7.5 (hobo 7.17) cos -0.884 soc/track 52.0/40.8
+1016_0026 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep911: ratio 0.566 (hobo 0.53) local 8.36 (hobo 5.85) global 13.67 (hobo 7.17) cos -0.517 soc/track 42.8/79.3
+1016_0053 lab wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913 ep187: ratio 0.594 (hobo 0.623) local 1.91 (hobo 2.3) global 3.52 (hobo 4.83) cos -0.378 soc/track 24.0/57.0
+1016_0053 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep429: ratio 0.641 (hobo 0.546) local 2.85 (hobo 3.76) global 6.49 (hobo 5.18) cos -0.274 soc/track 33.9/50.0
+1016_0053 lab wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405 ep100: ratio 0.469 (hobo 0.623) local 0.39 (hobo 2.3) global 0.33 (hobo 4.83) cos 0.087 soc/track 26.1/14.5 OFF:localx0.2,globalx0.1
+1016_0053 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1016_0053 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1016_0054 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep838: ratio 0.499 (hobo 0.53) local 7.02 (hobo 5.85) global 7.61 (hobo 7.17) cos -0.869 soc/track 54.4/43.8
+1016_0054 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep962: ratio 0.548 (hobo 0.53) local 8.86 (hobo 5.85) global 13.32 (hobo 7.17) cos -0.459 soc/track 44.3/85.9
+1016_0143 lab wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913 ep277: ratio 0.65 (hobo 0.608) local 2.58 (hobo 2.93) global 6.39 (hobo 5.33) cos -0.205 soc/track 27.1/57.5
+1016_0143 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep516: ratio 0.645 (hobo 0.546) local 3.0 (hobo 3.76) global 6.98 (hobo 5.18) cos -0.201 soc/track 37.7/51.3
+1016_0143 lab wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405 ep137: ratio 0.52 (hobo 0.623) local 0.5 (hobo 2.3) global 0.51 (hobo 4.83) cos -0.059 soc/track 30.3/14.6 OFF:localx0.2,globalx0.1
+1016_0143 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1016_0144 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1016_0144 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep878: ratio 0.496 (hobo 0.53) local 7.23 (hobo 5.85) global 7.8 (hobo 7.17) cos -0.858 soc/track 57.4/50.2
+1016_0144 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep1050: ratio 0.536 (hobo 0.54) local 9.69 (hobo 5.78) global 14.11 (hobo 7.44) cos -0.508 soc/track 49.3/94.1
+1016_0215 lab wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913 ep332: ratio 0.648 (hobo 0.608) local 2.82 (hobo 2.93) global 6.91 (hobo 5.33) cos -0.096 soc/track 28.3/61.1
+1016_0215 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep573: ratio 0.654 (hobo 0.546) local 3.13 (hobo 3.76) global 7.47 (hobo 5.18) cos -0.337 soc/track 39.3/56.4
+1016_0215 lab wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405 ep161: ratio 0.53 (hobo 0.623) local 0.9 (hobo 2.3) global 0.95 (hobo 4.83) cos -0.302 soc/track 30.6/15.0 OFF:globalx0.2
+1016_0215 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1016_0215 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1016_0215 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep900: ratio 0.513 (hobo 0.53) local 7.38 (hobo 5.85) global 8.55 (hobo 7.17) cos -0.892 soc/track 58.8/53.3
+1016_0215 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep1104: ratio 0.546 (hobo 0.54) local 10.11 (hobo 5.78) global 14.37 (hobo 7.44) cos -0.39 soc/track 50.3/95.6
+1016_0246 lab wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913 ep392: ratio 0.654 (hobo 0.608) local 2.88 (hobo 2.93) global 6.97 (hobo 5.33) cos -0.167 soc/track 31.4/63.4
+1016_0246 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep627: ratio 0.658 (hobo 0.522) local 3.31 (hobo 5.19) global 7.87 (hobo 6.24) cos -0.257 soc/track 42.9/57.6
+1016_0246 lab wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405 ep188: ratio 0.526 (hobo 0.623) local 1.83 (hobo 2.3) global 1.83 (hobo 4.83) cos -0.584 soc/track 28.4/15.8
+1016_0246 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1016_0247 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1016_0247 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep923: ratio 0.513 (hobo 0.53) local 7.55 (hobo 5.85) global 8.67 (hobo 7.17) cos -0.898 soc/track 60.3/57.7
+1016_0247 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep1161: ratio 0.558 (hobo 0.54) local 10.7 (hobo 5.78) global 16.18 (hobo 7.44) cos -0.39 soc/track 54.0/95.8
+1016_0318 lab wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913 ep448: ratio 0.657 (hobo 0.546) local 2.84 (hobo 3.76) global 7.21 (hobo 5.18) cos -0.294 soc/track 35.4/64.1
+1016_0318 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep684: ratio 0.652 (hobo 0.522) local 3.61 (hobo 5.19) global 8.57 (hobo 6.24) cos -0.212 soc/track 45.6/59.0
+1016_0318 lab wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405 ep208: ratio 0.517 (hobo 0.608) local 2.61 (hobo 2.93) global 2.63 (hobo 5.33) cos -0.742 soc/track 26.0/16.6
+1016_0318 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1016_0318 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1016_0318 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep949: ratio 0.516 (hobo 0.53) local 7.74 (hobo 5.85) global 9.07 (hobo 7.17) cos -0.887 soc/track 61.1/64.4
+1016_0319 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep1217: ratio 0.561 (hobo 0.56) local 11.02 (hobo 6.4) global 17.28 (hobo 8.97) cos -0.51 soc/track 56.8/95.6
+1016_0350 lab wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913 ep503: ratio 0.679 (hobo 0.546) local 2.79 (hobo 3.76) global 7.68 (hobo 5.18) cos -0.28 soc/track 38.1/65.8
+1016_0350 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep738: ratio 0.648 (hobo 0.522) local 3.89 (hobo 5.19) global 8.8 (hobo 6.24) cos -0.217 soc/track 47.5/63.0
+1016_0350 lab wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405 ep233: ratio 0.497 (hobo 0.608) local 3.51 (hobo 2.93) global 3.5 (hobo 5.33) cos -0.891 soc/track 23.5/17.7
+1016_0350 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1016_0350 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1016_0350 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep974: ratio 0.516 (hobo 0.53) local 7.9 (hobo 5.85) global 9.26 (hobo 7.17) cos -0.885 soc/track 62.9/69.3
+1016_0350 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep1274: ratio 0.546 (hobo 0.56) local 11.15 (hobo 6.4) global 16.36 (hobo 8.97) cos -0.414 soc/track 57.4/95.9
+1016_0421 lab wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913 ep560: ratio 0.682 (hobo 0.546) local 2.82 (hobo 3.76) global 7.68 (hobo 5.18) cos -0.265 soc/track 41.5/67.8
+1016_0421 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep793: ratio 0.657 (hobo 0.522) local 4.18 (hobo 5.19) global 9.77 (hobo 6.24) cos -0.27 soc/track 48.8/68.6
+1016_0422 lab wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405 ep258: ratio 0.485 (hobo 0.608) local 4.24 (hobo 2.93) global 4.19 (hobo 5.33) cos -0.962 soc/track 21.8/18.9
+1016_0422 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1016_0422 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1016_0422 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep999: ratio 0.495 (hobo 0.53) local 8.04 (hobo 5.85) global 8.76 (hobo 7.17) cos -0.86 soc/track 64.4/75.8
+1016_0422 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep1328: ratio 0.551 (hobo 0.56) local 11.28 (hobo 6.4) global 16.59 (hobo 8.97) cos -0.384 soc/track 57.6/96.5
+1016_0453 lab wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913 ep616: ratio 0.66 (hobo 0.522) local 2.91 (hobo 5.19) global 7.22 (hobo 6.24) cos -0.274 soc/track 45.2/71.7
+1016_0453 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep849: ratio 0.678 (hobo 0.53) local 4.55 (hobo 5.85) global 11.85 (hobo 7.17) cos -0.317 soc/track 52.6/73.3
+1016_0453 lab wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405 ep283: ratio 0.487 (hobo 0.608) local 4.6 (hobo 2.93) global 4.58 (hobo 5.33) cos -0.967 soc/track 21.8/19.8
+1016_0453 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1016_0453 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1016_0453 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep1021: ratio 0.505 (hobo 0.54) local 8.14 (hobo 5.78) global 9.25 (hobo 7.44) cos -0.878 soc/track 65.7/80.4
+1016_0453 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep1385: ratio 0.577 (hobo 0.56) local 11.23 (hobo 6.4) global 18.56 (hobo 8.97) cos -0.481 soc/track 59.1/97.2
+1016_0525 lab wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913 ep678: ratio 0.669 (hobo 0.522) local 3.05 (hobo 5.19) global 7.98 (hobo 6.24) cos -0.217 soc/track 47.8/74.8
+1016_0525 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep907: ratio 0.686 (hobo 0.53) local 4.97 (hobo 5.85) global 13.44 (hobo 7.17) cos -0.311 soc/track 58.0/78.1
+1016_0525 lab wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405 ep304: ratio 0.489 (hobo 0.608) local 4.83 (hobo 2.93) global 4.89 (hobo 5.33) cos -0.962 soc/track 22.0/20.9
+1016_0525 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1016_0525 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1016_0525 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep1049: ratio 0.502 (hobo 0.54) local 8.3 (hobo 5.78) global 9.34 (hobo 7.44) cos -0.884 soc/track 67.9/83.9
+1016_0525 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep1440: ratio 0.559 (hobo 0.579) local 11.44 (hobo 7.49) global 17.32 (hobo 11.34) cos -0.484 soc/track 59.8/97.9
+1016_0556 lab wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913 ep732: ratio 0.662 (hobo 0.522) local 3.19 (hobo 5.19) global 7.77 (hobo 6.24) cos -0.245 soc/track 51.2/77.2
+1016_0556 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep962: ratio 0.681 (hobo 0.53) local 5.45 (hobo 5.85) global 13.7 (hobo 7.17) cos -0.31 soc/track 61.7/83.9
+1016_0556 lab wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405 ep329: ratio 0.488 (hobo 0.608) local 5.13 (hobo 2.93) global 5.23 (hobo 5.33) cos -0.955 soc/track 22.3/21.6
+1016_0556 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1016_0556 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1016_0557 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep1075: ratio 0.496 (hobo 0.54) local 8.47 (hobo 5.78) global 9.34 (hobo 7.44) cos -0.863 soc/track 68.6/85.8
+1016_0557 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep1497: ratio 0.539 (hobo 0.579) local 11.66 (hobo 7.49) global 16.45 (hobo 11.34) cos -0.341 soc/track 60.1/97.9
+1016_0628 lab wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913 ep791: ratio 0.676 (hobo 0.522) local 3.42 (hobo 5.19) global 9.09 (hobo 6.24) cos -0.24 soc/track 54.8/78.5
+1016_0628 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep1017: ratio 0.68 (hobo 0.54) local 5.93 (hobo 5.78) global 14.67 (hobo 7.44) cos -0.276 soc/track 65.2/88.4
+1016_0629 lab wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405 ep355: ratio 0.498 (hobo 0.608) local 5.43 (hobo 2.93) global 5.79 (hobo 5.33) cos -0.946 soc/track 22.6/22.7
+1016_0629 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1016_0629 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1016_0629 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep1100: ratio 0.495 (hobo 0.54) local 8.64 (hobo 5.78) global 9.38 (hobo 7.44) cos -0.84 soc/track 68.7/86.4
+1016_0629 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep1553: ratio 0.554 (hobo 0.579) local 11.84 (hobo 7.49) global 18.15 (hobo 11.34) cos -0.386 soc/track 60.0/97.9
+1016_0701 lab wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913 ep850: ratio 0.711 (hobo 0.53) local 3.71 (hobo 5.85) global 11.45 (hobo 7.17) cos -0.196 soc/track 58.3/81.0
+1016_0701 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep1077: ratio 0.68 (hobo 0.54) local 6.43 (hobo 5.78) global 15.97 (hobo 7.44) cos -0.349 soc/track 69.5/91.7
+1016_0701 lab wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405 ep381: ratio 0.496 (hobo 0.608) local 5.71 (hobo 2.93) global 6.12 (hobo 5.33) cos -0.933 soc/track 22.8/24.1
+1016_0701 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1016_0701 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1016_0701 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep1122: ratio 0.486 (hobo 0.54) local 8.79 (hobo 5.78) global 9.27 (hobo 7.44) cos -0.793 soc/track 69.4/87.0
+1016_0701 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep1609: ratio 0.599 (hobo 0.586) local 11.94 (hobo 9.42) global 21.58 (hobo 14.84) cos -0.517 soc/track 60.5/97.7
+1016_0733 lab wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913 ep908: ratio 0.709 (hobo 0.53) local 4.08 (hobo 5.85) global 11.95 (hobo 7.17) cos -0.411 soc/track 61.7/85.3
+1016_0733 lab wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020 ep1132: ratio 0.683 (hobo 0.54) local 6.95 (hobo 5.78) global 17.27 (hobo 7.44) cos -0.399 soc/track 70.9/92.7
+1016_0733 lab wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405 ep403: ratio 0.499 (hobo 0.546) local 5.95 (hobo 3.76) global 6.57 (hobo 5.18) cos -0.929 soc/track 22.9/24.9
+1016_0733 lab wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053 ep2000: ratio 0.696 (hobo 0.584) local 9.74 (hobo 10.32) global 28.41 (hobo 16.02) cos -0.187 soc/track 86.4/97.3
+1016_0734 lab wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521 ep2000: ratio 0.628 (hobo 0.584) local 12.53 (hobo 10.32) global 24.97 (hobo 16.02) cos -0.254 soc/track 80.6/97.8
+1016_0734 lab wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502 ep1149: ratio 0.473 (hobo 0.54) local 8.94 (hobo 5.78) global 8.94 (hobo 7.44) cos -0.77 soc/track 70.3/87.2
+1016_0734 win wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534 ep1667: ratio 0.573 (hobo 0.586) local 11.96 (hobo 9.42) global 20.08 (hobo 14.84) cos -0.529 soc/track 61.6/97.5

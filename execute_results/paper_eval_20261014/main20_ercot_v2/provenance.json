@@ -1,0 +1,35 @@
+{
+  "task": "ercot",
+  "run": "wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521",
+  "episode": 2000,
+  "stage_dir": "/workspace/EVMALOCALUPDATE/execute_results/resbid_20station_20261014",
+  "evaluation_sha256": "a1c3de47613ce26cef8f04059c7ff3ba074990fb48b609fcdc1181dd240a9901",
+  "actors_sha256": {
+    "actor_5_ep2000.pth": "7cbaa353a8b6f93504bdf3919825b423a8a814e6f25f52a4b301c0286300d665",
+    "actor_12_ep2000.pth": "291665727f91ccd74b62edaa49322469548373f4da4007fbeaaf316ca9f0ca68",
+    "actor_6_ep2000.pth": "76b2efd48d73906cbb93febb8a3baf9fce2a310bc68ae2a5b1157d0771c0d1a2",
+    "actor_16_ep2000.pth": "478d9e58904d8861f455d5f597bee25682f79cfe234c05d53e9413b8480688c9",
+    "actor_14_ep2000.pth": "fa9834dbb406ee5757b1c2a160ca7e4443cf4e267b3008eac93f1d3a7f6cc651",
+    "actor_11_ep2000.pth": "8eba07e5b67f0b80e228f82298fe80fc1cd5c2e291e90d5dbedfc4fdf8c1ffc7",
+    "actor_7_ep2000.pth": "79f369c3b37682d506c8f8e8ac2886bfc35adadaa64acae064d6440d13f0e272",
+    "actor_1_ep2000.pth": "f1c7b5d86662375154f3a26ed1b59eaaa1bdd95d592fb7fc43e9e48d9afeaa69",
+    "actor_0_ep2000.pth": "b60f020d48fc8f4e8294a2638a2834ccd6f52eb1422cfcbeaa51a4c34d5434aa",
+    "actor_15_ep2000.pth": "ff5f008686531294388ed7c3f9982ade965cbdc7406a8447ad6daf8e962033d4",
+    "actor_4_ep2000.pth": "2f42bf9cd459cb26b3a43eb59036fd438fa46dc3ae0cbba6506a2e8c4027fa3e",
+    "actor_13_ep2000.pth": "367e9080d6b18651a77fcc24eb4a3109139344cfbdb28ea38f6e0ba3ad7b36bb",
+    "actor_19_ep2000.pth": "1210c19fb0169057b5b64cddc37f9ed67df4890e6c14b60e54a14c07988a4df3",
+    "actor_18_ep2000.pth": "be6aebb588689991e7a426b5d83137288886db5b5e25758aabe1076e9784bb5e",
+    "actor_3_ep2000.pth": "0e6d4cfdacd0301a32d97170497d815826402a7d090c5af83d2e9ec74baa6b76",
+    "actor_9_ep2000.pth": "9e8b3aca6ed6ddd242aba8fd679ccaee3bb06798f399e837de4bdc7418b8d519",
+    "actor_2_ep2000.pth": "04f5e0acbac44f9d79c31db8ed996e3dc511da4da4249b174012dfa2153e12df",
+    "actor_10_ep2000.pth": "34ae9525088d29728d77e345c750b56a0ff0e03ed423faf88db61523b3df860f",
+    "actor_17_ep2000.pth": "7288e52b096d4878a03b8eb64d366c975b5784b7acf890812222d8efb0d9d0ea",
+    "actor_8_ep2000.pth": "2c814b00b958c247a0900806b149e288af376299d00711a34f71ba5e0b53bf3b"
+  },
+  "sets": {
+    "days": 5,
+    "commands": 4,
+    "ev_seeds": 2,
+    "seed_formula": "4000000 + 1000*day + 10*command + ev_seed"
+  }
+}

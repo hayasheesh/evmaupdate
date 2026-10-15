@@ -1,0 +1,21 @@
+{
+  "task": "aemo",
+  "run": "wr_cap77wd_aemoplan_6station_resbid_abg_20261013_114010",
+  "episode": 2000,
+  "stage_dir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\abg_resbid_6station_20261013",
+  "evaluation_sha256": "a1c3de47613ce26cef8f04059c7ff3ba074990fb48b609fcdc1181dd240a9901",
+  "actors_sha256": {
+    "actor_0_ep2000.pth": "b022f90c0bc1857780900fd1ca393e162fe56608ed5bcc820deb988c5b2c66e9",
+    "actor_1_ep2000.pth": "28e99aab2a5a3aced5dab6ff6637fe9c249f3d3d5661f59db595be07ca4e77a4",
+    "actor_2_ep2000.pth": "8cade0d0bd7d92d3e718524432f047f6442a41e0ffe80cc1ecd7b1edb0b947f9",
+    "actor_3_ep2000.pth": "f8d27d63845629d7e6e810b318c933d7b47b93de153e87d3f92149ea5818e354",
+    "actor_4_ep2000.pth": "15ca030a4c80f950514d4f080f492b4c237036d8b77d21a4dae30d5035d6920b",
+    "actor_5_ep2000.pth": "01fc56851c91695ff4b6edd5201c0b2b1422591956290b235b09f6db868b15a6"
+  },
+  "sets": {
+    "days": 5,
+    "commands": 4,
+    "ev_seeds": 2,
+    "seed_formula": "4000000 + 1000*day + 10*command + ev_seed"
+  }
+}

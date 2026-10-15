@@ -1,409 +1,371 @@
-% 論文のひな形（docs/論文のひな形.md、監修済み）の LaTeX 版。
-% 題目・要旨・2章・3章・参考文献は、ひな形の文言をそのまま写す。4章「結果」に、今ある結果を入れる。
-% 図は docs/paper/make_figs.py で作る。PDF は docs/paper/build.sh（Tectonic、XeLaTeX）で作る。
-\documentclass[10pt,a4paper]{article}
-\usepackage[margin=20mm]{geometry}
-\usepackage{xeCJK}
-\setCJKmainfont[BoldFont=Yu Gothic Bold]{Yu Mincho}
-\setCJKsansfont[BoldFont=Yu Gothic Bold]{Yu Gothic}
-\xeCJKsetcharclass{"2460}{"24FF}{1} % 丸数字（二次②など）を和文の字体で出す
-\usepackage{amsmath}
-\usepackage{booktabs}
+% Content source: overview/draft_ja_tsg_20261015.docx
+\documentclass[lettersize,journal]{IEEEtran}
+\usepackage{amsmath,amsfonts}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{array}
+\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage{textcomp}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{verbatim}
 \usepackage{graphicx}
-\usepackage{caption}
-\usepackage{enumitem}
+\usepackage{cite}
+\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
+% updated with editorial comments 8/9/2021
+
+
+% Japanese draft: preserve IEEEtran's page geometry and type sizes.
+\usepackage{xeCJK}
+\setmainfont{Times New Roman}
+\setsansfont{Arial}
+\setmonofont{Courier New}
+\setCJKmainfont[Scale=0.92,BoldFont={Yu Mincho Demibold}]{Yu Mincho}
+\setCJKsansfont[Scale=0.92,BoldFont={Yu Gothic Bold}]{Yu Gothic}
+\xeCJKsetcharclass{"2460}{"24FF}{1}
+\usepackage{booktabs}
 \usepackage{xcolor}
-\usepackage{placeins}
-\usepackage[hidelinks]{hyperref}
-\captionsetup{font=small,labelfont=bf}
-\renewcommand{\figurename}{図}
-\renewcommand{\tablename}{表}
-\setlist{itemsep=2pt,topsep=3pt}
-\setlength{\emergencystretch}{2em}
-\newcommand{\pend}[1]{\textcolor{red!70!black}{【#1】}}
-\newcommand{\src}[1]{\textcolor{black!60}{［#1］}}
+\newlength{\tablecontentwidth}
+\newcommand{\draftnote}[1]{{\color{black!65}\small #1\par}}
 
 \begin{document}
+\title{MARLで制御するEV群は調整力市場に参加し続けられるか}
+\author{Koshin Hayashi, Sihui Xue, and Daisuke Kodaira}
+\markboth{IEEE Transactions on Smart Grid}{Hayashi \MakeLowercase{\textit{et al.}}: EV群の調整力供出}
+\maketitle
+\begin{abstract}地理的に分散したEVをまとめ上げ、VPPとして需給調整市場に参入する試みは多くなされている。その際分散制御に強いmarlが多く使われ、高い性能が報告されている。しかし、多くは簡略化した環境を想定し、また実際に市場の規則と照らし合わせて達成可能かを判定したものは少ない。本研究では、実際の状況に近いEV環境を用意し、また複数の需給調整市場の実過去指令を用いてシミュレーション環境を構築し、そこで先行研究の方式を再現し、市場の判定に照らし合わせた。その上で、制御の難しさを複数の側面に切り分け、それらに対応した、この実際の環境にも適用できる入札・制御システムを構築した。その結果、先行研究が///の性能に対し、このシステムは///の結果になった。\end{abstract}
+\begin{IEEEkeywords}電気自動車、マルチエージェント強化学習、******\end{IEEEkeywords}
+\section{はじめに}
+\draftnote{【予定】背景、先行研究の3つの課題、貢献。参考文献はこの節で多く引く。}
+EVの充電を束ねて調整力として売る仕組みは、仮想発電所（VPP）の一つとして研究が進んでいる。EVを動かす権利は、多くの場合、充電ステーション（以下station）の側にある。市場に入札するのはアグリゲーターだが、各stationは自局の利用者の都合を優先し、見合う対価がなければ指令に従わない。各stationが自局のEVだけを見て動く分散制御は、この状況に合う。中央に全EVの状態を集めずに済むので、通信と計算の負担が小さく、利用者の情報も外に出ない。
 
-\begin{center}
-{\Large\bfseries 論文のひな形（結果入り）}\\[4pt]
-{\small 題目・要旨・2章・3章は docs/論文のひな形.md（監修済み）の文言のまま。4章の結果は 2026-10-13 時点の測定。}
-\end{center}
+EV群を調整力の指令に追従させる制御として、学習や分散最適化を使う方式が多く提案されている\cite{ref2,ref3,ref4,ref5,ref6,ref7}\cite{ref17}。マルチエージェント強化学習（MARL）では、Wangらが、EV1台ずつのMARLでPJMのRegDに追従させ、平均の誤差5.53\%を報告した\cite{ref2}。著者らの既発表の論文も、stationごとのMADDPGで、帯に入った時刻の割合97\%を報告した\cite{ref1}。これらの研究が報告する値は、誤差1〜6\%、追従率95〜97\%と高い。
 
-\section*{題目}
-\begin{itemize}
-\item MARLで制御するEV群は本当に調整力市場に参加し続けられるか
-\item 市場の判定で見たEV群の調整力供出：入札から分散制御までを通した分析
-\end{itemize}
+ただし、これらの評価には3つの課題がある。1つ目は、評価の環境が簡略化されていることである。多くは合成した信号を使い、評価には平均誤差率やRMSEのような平均の指標を使う\cite{ref2}\cite{ref3}\cite{ref7}。実際の市場は、平均ではなく区間ごとの合否で判定する。日本の二次調整力②は、30分コマの1分値30点のうち27点が「指令量±約定量の10\%」に入れば合格とし、同じリソースが1か月に3回不適合になると新規取引を停止しうる\cite{ref15}。PJMの性能スコアを収入に入れた研究\cite{ref5}や、平均誤差率を市場の閾値と比べた研究\cite{ref7}はあるが、コマごとの合否と参加の停止までを扱った評価は見当たらない。日本の二次②の指令のように、エネルギーの収支が0にならない指令で動くかも分かっていない。
 
-\section*{要旨}
-\begin{itemize}
-\item 問題：EVを動かす権利は各stationにある。プライバシーや計算量、通信遅延的にも、分散制御は多くの魅力がある。そのため、EV群を調整力市場に参加させる際には、marlによる制御が多く提唱されている。それらは高い追従性能を報告しているが、多くはかなり簡略化された状況を想定しており、更に実際の市場の評価を使っているものは少ない。　（or 日本のような、合格型の市場でも合格できるかは分からない。）
-\item 問い：stationごとに分散MARLで動かすEV群は、市場に参加し続けられるか。できないなら、難しさはどこにあるか また、どうやったら参加できそうになるか
-\item 方法：実際の状況の難しさを強調した（再現した）環境（前日に指令は未知、ＥＶも分布は予測は出来るが、実際にいつ来るか、どういうものが来るかは分からず、またユーザの充電需要は必ず満たす必要がある）を使い、先行研究で提唱された方法で制御してみる。（liuのやり方、下記の自分たちのやり方1)　その結果を基に、難しさの原因となった点を分析し、自分たちのやり方を改善し、再度この改善版で性能を評価する。
-\item 主な結果（インサイト）
-  \begin{itemize}
-  \item 先行研究の方式は平均誤差率0.18〜0.28\%と高い性能を示した。しかし、それでも日本の需給調整市場の達成要求には届かず、更に一部の日には、SoC達成率が最低38\%まで下がるなど、十分な性能は得られなかった、
-  \item やり方1での性能は、指令が完全に既知であれば、***の性能だった。　中央観測を許すと、ルールベースでもEVが完全既知なら、***の性能だった。　EVも指令も完全に既知だと***の性能だった。しかし分散MARLで履行すると、合格率は***\%で性能がかなり落ちた。
-  \item 色々条件を変えて制御してみることで、性能が落ちる原因は、主に指令未知、EV未知、制御がリアルタイム、分散実行におけるmaeがあるのに小さい入札が続くため難しい、分散実行でのlocalとの取り合いという5点にあると分析できた。それらに対応し、同時にできるだけ多く入札するため、改善版のシステムを作った。
-  \item 改善版のシステムは、先行研究における方法より高い性能を得られた。また、デンマークのp90には参加できそうだった。しかし、日本の需給調整市場の要求する精度には届かなかった。
-  \end{itemize}
-\end{itemize}
+2つ目は、性能が足りないときに、どこに難しさがあるかが分からないことである。入札と制御を同時に検証した論文は少なく、同時に扱ったものも、入札と制御の効果を切り分けられない構造になっている。入札の段階で無理な量を約束したのか、制御が指令を外したのかが分からなければ、何を直せばよいかも決まらない。
 
-\setcounter{section}{1}
-\section{先行研究の課題}
-\setcounter{subsection}{4}
-\subsection{先行研究の課題}
+3つ目は、実際の状況の難しさを入れた環境で動く入札と制御のシステムがないことである。前日の入札の時点では、当日の指令もEVの来方も分からない。利用者の充電需要は必ず満たさなければならない。入札の側では、EVと指令の両方の不確実性を扱う頑健な入札\cite{ref9}\cite{ref10}\cite{ref11}があるが、学習した制御器の誤差や、市場の追従の合否は扱っていない。
 
-\textbf{課題1：先行研究では、実際の市場の指令を使っていないなど、簡略化された環境での数字のみが報告されている。}
+本研究は、これら3つの課題に次のように応える。課題1に対しては、先行研究の方式を可能な限り再現し、日本の二次②の判定で性能を測る。課題2に対しては、入札と制御が使える情報を一つずつ変えて性能を測り、難しさを5つの原因に分けて影響を測る。課題3に対しては、分かった原因に合わせて入札器を直し、残る誤差を連系点の蓄電池で埋めるシステムを作る。あわせて、制御の処理時間が5分の指令の間隔に収まることを確かめる。評価には、AEMOとERCOTの計画からのずれとPJMのRegDという複数の市場の実指令と、実際の充電セッションのデータを使う。
 
-\textbf{Multi-Agent Deep Reinforcement Learning for EV Aggregator Bidding in Renewable-Dominated Electricity Markets
-no data was usedとなっていて、実際の指令を使っていない}
+\begin{table*}[!t]
+\caption{追従の判定：市場ごとの比較\cite{ref15}\cite{ref16}\cite{ref22}\cite{ref23}}
+\label{tab:1}
+\centering\footnotesize
+\setlength{\tablecontentwidth}{\dimexpr\linewidth-8\tabcolsep\relax}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.1594203\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1797504\tablecontentwidth}>{\raggedright\arraybackslash}p{0.2260467\tablecontentwidth}>{\raggedright\arraybackslash}p{0.2463768\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1884058\tablecontentwidth}@{}}
+\toprule
+市場 & 判定の単位 & 許容 & 続けて参加する条件 & 外れたとき \\
+\midrule
+日本 二次② & 1分値・30分コマ & 約定量の±10\% & 30点中27点。月3回の不適合で停止のおそれ & コマの料金を返す \\
+PJM & 10秒・5分の点数 & 誤差÷(0.5|信号|＋0.5 AReg) & 100時間の平均40\%以上 & 点数に比例。25\%未満は0 \\
+CAISO & 4秒・15分 & 偏差の和÷設定値の和 & 月平均25\%以上 & 支払いに精度を掛ける \\
+ERCOT & 5分平均 & max(X\%, Y MW) & 月の区間の85\% & 報告 \\
+ドイツ aFRR & 1秒 & 許容の幅＋5\% & 5\%を超えた不足を計上 & 不足量×価格 \\
+英国 DC & 20 Hz・30分 & 3\%で減額、7\%で0 & 期間内の最悪値 & 支払いの減額 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+\section{問題設定}
+\subsection{市場の規則}
+本研究は、日本の二次調整力②（以下、二次②）を単独で約定した場合の規則で評価する。二次②は前日に30分コマごとに約定し、指令は5分ごとに出る。判定は2段ある。アセスメントIは、約定した量を30分出し続けられるかを確かめる。アセスメントIIは、1分値で30点のうち27点が指令量±約定量の10\%の帯に入るかを判定する。不適合のコマはΔkW料金を全額返し、同じリソースが1か月に3回不適合になると新規取引を停止されうる\cite{ref15}。平日に1日48コマ入札すると月のコマは960前後になるので、停止を避けるにはコマの合格率を99.69\%以上に保つ必要がある。
 
-\textbf{実際の状況に近い環境での性能も報告されているが、marlによる制御ではなく、また一部の指令(pjm)しか取り扱ってないため、別の市場でも行けるか分からない}
+現行の二次②の商品は上げだけである。本研究は、下げも約定できると仮定する。海外には下げも調達する市場があり、ドイツのaFRRは上げと下げを別の商品で、PJMは上下を1つの双方向の商品で調達する。シミュレーションは5分刻みで、指令が一定の5分間はEVの電力も一定に保つ。そのため5分ごとの判定は1分ごとの判定と同じ結果になり、5分の時刻を1つ外したコマは1分ごとの判定でも不合格になる。
 
-\textbf{課題2：何が難しさを出しているかが分からない。}
+\subsection{EV群と指令}
+stationは職場と住宅に限る。職場はACNのJPLとCaltechの実セッション\cite{ref13}、住宅はノルウェーの住宅の実セッション\cite{ref14}を使い、EVの定格はすべて7.7 kWとした。6 stationは職場3局と住宅3局、20 stationは職場10局と住宅10局である。到着時刻、到着時のSoC、必要なSoCは各stationの実セッションから引き、入札と評価は平日に限る。出発時に必要なSoCは必ず満たす。
 
-\textbf{課題3：今回の研究で想定しているような、実際の状況の難しさを再現した環境でも動かせる入札・制御システムがない}
+指令には、AEMOとERCOTの計画からのずれと、PJMのRegDを使う\cite{ref24}。AEMOとERCOTの指令は、二次②と同じくエネルギーの収支が0にならない。指令の日付は設計用、学習用、評価用に分け、重ならないように使う。
 
-\section{本研究の貢献（本文）}
+\subsection{情報の制約と評価の方法}
+前日の入札の時点では、当日の指令とEVの実現は分からない。入札器が使えるのは、EVの到着の予測分布と過去の指令だけである。当日の各stationの行動器が使えるのは、自局の情報、前日の入札、当日の指令、1つ前の時刻の全体のずれだけである。全体のずれは連系点の蓄電池が使う値と同じで、蓄電池を置く以上その計測はシステムにある。
 
-本研究は、2.5の3つの課題に次のように応える。
+評価は、検証用の平日5日、学習に使っていない指令4本、EVの乱数2通りを組み合わせた40組で行う。入札が物理的に成り立つかは、別に未見通過率で測る。未見通過率は、検証用の5日、未見の指令128本、独立なEVの実現3通りの1,920組のうち、入札を守る充放電が存在する組の割合である。
 
-\begin{enumerate}
-\item \textbf{課題1に対して}：先行研究のやり方を可能な限り再現し、性能を見た
-\item \textbf{課題2に対して}：制御の前提を変えて性能を測ることで、何が難しさを生むかを分解して影響度を
-\end{enumerate}
-\textbf{課題3に対して}：２で分かった難しさを基に、marlでも行けるような入札システムと、bessを補助的に使うシステムを作った
+\begin{table}[!t]
+\caption{環境と評価の条件}
+\label{tab:2}
+\centering\footnotesize
+\setlength{\tablecontentwidth}{\dimexpr\linewidth-2\tabcolsep\relax}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.1791045\tablecontentwidth}>{\raggedright\arraybackslash}p{0.8208955\tablecontentwidth}@{}}
+\toprule
+項目 & 設定 \\
+\midrule
+station & 6（職場3・住宅3）と20（職場10・住宅10） \\
+EV & ACN（JPL、Caltech）とノルウェーの住宅の実セッション。定格7.7 kW \\
+指令 & AEMO・ERCOT（計画からのずれ）、PJM RegD \\
+規則 & 日本の二次②（アセスメントI・II）。下げも約定できると仮定 \\
+入札 & 前日、30分コマ48、設計用の指令128本、EVの実現3通り \\
+評価 & 検証用の平日5日 × 未見の指令4本 × EVの乱数2通り＝40組 \\
+学習 & CTDE、2000回。行動器は自局・入札・指令・1つ前の全体のずれ \\
+\bottomrule
+\end{tabular}
+\end{table}
+\section{入札器}
+\draftnote{【予定】実際の原稿では式に番号を付けて組む。}
+入札器は、1日48コマの基準電力 \(b_t\)、上げの量 \(u_t\)、下げの量 \(d_t\) を決める。目的は1日の供出容量の和を最大にすることで、隣り合う参加コマの基準電力の差に罰を掛ける。各方向は、出さないか最低入札量 q 以上かのどちらかである。
+
+\begin{equation}\max \sum_t (u_t+d_t)-w\sum_t |b_{t+1}-b_t|\label{eq:1}\end{equation}
+\begin{equation}u_t\in\{0\}\cup[q,\bar{u}_t],\quad d_t\in\{0\}\cup[q,\bar{d}_t]\label{eq:2}\end{equation}
+\begin{equation}b_t-u_t\ge P_t^{\min}+m,\quad b_t+d_t\le P_t^{\max}-m\label{eq:3}\end{equation}
+\begin{equation}\forall s\in S:\ \exists y_s,\quad g(x,y_s,\xi_s)\le0\label{eq:4}\end{equation}
+入札は、選んだEVの実現と設計用の指令128本のすべての組 S で、出発時のSoCを守りながら帯の中に追従できる充放電が存在するように決める（式4）。\(y_s\) は組ごとに変えてよい運転計画で、g はEVの接続時間、充放電の上下限、SoCの推移、出発時のSoC、帯への追従の条件を表す。式3はアセスメントIで、\(P_t^{\min}\) と \(P_t^{\max}\) は、コマの30分間接続しているEVが出発時に必要なエネルギーを残して出し続けられる電力である。EVごとのエネルギーの上下の包絡は、文献\cite{ref20}の仮想蓄電池の作り方にならう。
+
+組の数は数百に及び、すべてを一つのLPにすると解けない。そこで、基準電力と量の144変数を主問題とし、各組の実行可能性を列生成で確かめるBendersの分解で解く。成り立たない組からは、Farkasの補題による切除平面を主問題に返す。反復のあいだで解が振れないように、前の解に近い解を選ぶ。最初の候補は、組ごとのエネルギーの収支だけを見る集計のLPで作り、その値を量の上限にも使う。最低入札量を保った解がないときは、最低入札量を外したLPから価値の小さい方向を1つ選んで外し、解き直す。
+
+入札器には、下位の制御器の誤差を2つの形で入れる。1つは最低入札量 q である。帯は約定量の10\%なので、制御器の誤差より狭い帯のコマに入札すると、いくら学習しても合格できない。そこで、充電需要を外して指令の追従だけで学習した制御器の5分ごとの誤差から帯の下限を決め、それを0.1で割った値を q とする。もう1つはアセスメントIの余裕 m で、出力の上下限の近くで制御器が外すのを避けるため、範囲を誤差の分だけ内側に狭める。6 stationでは帯の下限を7 kW（q = 70 kW）、m = 7 kWとした。
+
+約定量の和だけを目的にすると、基準電力は解き方の都合で隣のコマと大きく跳ねる。跳ねた基準電力では制御器が外しやすいので、隣り合う参加コマの基準電力の差に重み w = 0.5 の罰を掛ける（式1）。EVの実現は128本の候補から、30分ごとの接続充電電力が少ない2本と、セッション数が最も多い1本を選ぶ。選び方の妥当性はV-Dで示す。
+
+\section{分散制御器}
+各stationの制御器には、著者らの既発表の論文\cite{ref1}のMADDPG\cite{ref21}をそのまま使う。学習時は批評家が全体を見るが、実行時の行動器は自局の情報だけを使う。局所の批評家（出発時のSoC）と大域の批評家（全体の追従）の勾配を0.5ずつ混ぜて行動器を学習する。学習率、割引率、勾配の上限、探索のノイズ、リプレイの大きさも既発表の論文と同じである。
+
+既発表の論文から変えたのは4点である。第一に、観測に、参加しているコマかどうか、1つ前の時刻の全体のずれ、前日の入札の先読み（24コマ分と指令の大きさ）を足した。第二に、大域の報酬を、帯の内側を満点とする形から、帯を使わない式5の形に変えた。帯の内側を満点にすると、帯の中に収まった時点で学習が進まなくなり、誤差がそれ以上小さくならなかった。第三に、EVの定格を7.7 kWにそろえたことで小さくなった局所の勾配を戻すため、局所の報酬を7.17倍にした。第四に、行動の上下限では内向きの勾配だけを通す。
+
+\begin{equation}\begin{gathered}r_t=1-2\tanh(e_t/s)\quad(e_t\le e_0),\\\text{その先は直線}\end{gathered}\label{eq:5}\end{equation}
+制御器の後ろには2つの層を置く。強制充電の層は、このままでは出発時のSoCに届かなくなるEVだけを充電させる。既発表の論文の安全層にあたる。連系点の蓄電池は、EV群全体に残った誤差を埋める。蓄電池が使うのは、行動器と同じ1つ前の時刻の全体のずれである。蓄電池の大きさは、不適合を消すのに要る最小にとどめる。
 
 \section{結果}
+\subsection{先行研究の方式}
+入札と実時間の配分の両方のコードが公開されている方式として、LiuとLyuらの方式\cite{ref8}を本研究の環境に移した。6 stationの40組で、蓄電池は使っていない（表III）。平均誤差率は0.18〜0.28\%と小さかった。それでも30分コマは1日に0.6〜1.0コマ不合格になり、月3回の不適合に3〜5日で届く。出発時のSoC達成率は平均89\%で、最小は37.5\%だった。達成率が大きく下がったのは、指令が長い時間一方向に偏った日である。本研究の入札器の入札にLiuとLyuの配分を組み合わせても、30分コマの合格率は97.0〜98.0\%だった。
 
-この章の数値には出所を付ける。\src{実測} は測定、\src{計算} は測定の記録からの計算、\src{コード確認} はコードの事実である。MARLの値は、学習の途中の保存点のものである。\pend{ } の中は、まだ測っていない箇所である。
-
-\subsection*{評価の環境}
-
-ひな形の方法にある「実際の状況の難しさ」は、次の3つで作る。前日には当日の指令が分からず、入札器は過去の実指令から引いた設計用の指令128本を使う。EVは分布だけが分かり、入札器は128通りのEVの実現から選んだ3通りを使う。出発するEVのSoCは、目標（上限80\%）に必ず届ける。\src{コード確認}
-
-\begin{table}[htbp]
-\centering\small
-\caption{評価の条件}
-\begin{tabular}{ll}
-\toprule
-項目 & 値 \\
-\midrule
-局 & 6 station（職場3・住宅3）と20 station（職場10・住宅10） \\
-EVの定格 & 全EV 7.7~kW \\
-入札日 & 平日だけ \\
-最低入札量と余裕 & 6 station 70~kW・7~kW、20 station 250~kW・25~kW（仮の値） \\
-指令 & AEMOとERCOTの計画からのずれ \\
-評価の組 & 検証用の平日5日 × 評価用の指令4本 × EVの乱数2通り ＝ 40組 \\
-合否 & 30分コマの1分値30点のうち27点が「指令量 ± 約定量の10\%」に入れば合格 \\
-停止 & 同じリソースで月3回の不適合で新規取引を停止されうる（取引規程 本則 第41条） \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-シミュレーションは5分刻みである。5分の時刻を1つ外すと、1分値で5点を外す。そのため、5分を1つでも外したコマは不合格になる。平日だけ48コマに入札すると、月のコマは960前後になる。停止を避けるには、30分コマの合格率を99.69\%以上に保つ必要がある。\src{計算}
-
-\subsection{課題1に対して}
-
-\subsubsection{Liu/Lyuのやり方での結果}
-
-入札と実時間の配分の両方のコードが公開されている方式として、Liu, Lyuら \cite{Liu2025} を本研究の環境に移した。6 stationの40組で回し、蓄電池は使っていない。\src{実測}
-
-\begin{table}[htbp]
+\draftnote{【予定】先行研究のMARL（MARL-AFM\cite{ref12}）は未測定。同じ入札、指令、EVで測り、表IIIに加える。}
+\begin{table*}[!t]
+\caption{先行研究の方式の成績（6 station、40組）}
+\label{tab:3}
 \centering\footnotesize
-\caption{Liu/Lyuのやり方を移した結果（6 station、40組）}
-\label{tab:liu}
-\resizebox{\linewidth}{!}{%
-\begin{tabular}{llrrrrrr}
+\setlength{\tablecontentwidth}{\dimexpr\linewidth-10\tabcolsep\relax}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.2906742\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1453371\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1279774\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1162697\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1861122\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1336294\tablecontentwidth}@{}}
 \toprule
-入札と配分 & 市場 & 5分の合格率 & 30分コマの合格率 & 不合格コマ/日 & SoC達成率（平均/最小） & 平均誤差率 & 入札量 \\
+方式 & 市場 & 5分 & コマ/日 & SoC（平均/最小） & 入札量 \\
 \midrule
-Liu/Lyuの入札と配分 & AEMO & 99.5\% & 97.8\% & 1.02 & 89.0\% / 37.5\% & 0.18\% & 20,095 \\
-Liu/Lyuの入札と配分 & ERCOT & 99.3\% & 98.1\% & 0.60 & 88.9\% / 58.4\% & 0.28\% & 12,681 \\
-本研究の入札とLiu/Lyuの配分 & AEMO & 99.1\% & 98.0\% & 0.97 & 93.3\% / 46.9\% & 0.34\% & 15,749 \\
-本研究の入札とLiu/Lyuの配分 & ERCOT & 98.7\% & 97.0\% & 1.43 & 93.1\% / 66.3\% & 0.53\% & 16,220 \\
+Liu/Lyu の入札と配分 & AEMO & 99.5\% & 1.02 & 89.0/37.5\% & 20,095 \\
+Liu/Lyu の入札と配分 & ERCOT & 99.3\% & 0.60 & 88.9/58.4\% & 12,681 \\
+本研究の入札＋Liu/Lyu の配分 & AEMO & 99.1\% & 0.97 & 93.3/46.9\% & 15,749 \\
+本研究の入札＋Liu/Lyu の配分 & ERCOT & 98.7\% & 1.43 & 93.1/66.3\% & 16,220 \\
+MARL-AFM\cite{ref12} & AEMO・ERCOT & 未測定 & 未測定 & 未測定 & 未測定 \\
 \bottomrule
-\end{tabular}}
+\end{tabular}
+\end{table*}
+\subsection{最初のやり方}
+最初のやり方は、最低入札量を置かず、設計用の指令128本と無作為に選んだEVの実現3通りで入札し、同じ設定のMARLで制御する。7 stationの旧環境では、全情報のLPで成り立つ組が73〜82\%あったのに対し、分散MARLで1日すべて帯に入った組は0〜0.3\%だった（表IV）。
 
-\smallskip
-入札量は kW・コマ／日。平均誤差率は約定量に対する平均の絶対誤差の比。
-\end{table}
-
-平均誤差率は0.18〜0.28\%と小さい。それでも30分コマは1日に0.6〜1.0コマ不合格になり、月3回の不適合に3〜5日で届く。\src{計算} SoC達成率が大きく下がったのは、指令が長い時間一方向に偏った回である。本研究の入札とLiu/Lyuの配分では、AEMOの2024-02-01の指令3がその例だった。この指令は、基準の電力より充電を減らす向きに合計 $-380$~kWh 偏っていた。SoC達成率は、EVの乱数2通りで47\%と57\%だった。\src{実測} Liu/Lyuの計画は、電池残量を指令の分布の期待値で進める。設計用の指令の平均はほぼ0なので、偏りを見込めない。\src{コード確認}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.95\linewidth]{figs/fig_liu.png}
-\caption{Liu/Lyuのやり方を移した結果。(a) 1組ごとのSoC達成率。(b) 1日の不合格のコマ。破線は、平日20日で月3回になる水準。}
-\label{fig:liu}
-\end{figure}
-
-入札のランプの機会制約は入れていない。5分刻みの指令から求めると、全範囲を動くのに要る時間が308〜3208分になり、入札がほぼ0になるためである。\src{実測} 測ったのは5日分で、日の数を増やした検証と信頼区間はまだない。
-
-\subsubsection{先行研究のMARLのやり方での性能}
-
-\pend{未測定。再現する先行研究のMARLを、文献で調べている途中。入札は、アセスメントIだけを満たす簡単なもの（予測したEV群が30分出し続けられる電力を各コマの上げ・下げにする）で測る}
-
-\subsection{課題2・3に対して}
-
-\subsubsection{最初のやり方での結果}
-
-最初のやり方は、最低入札量を置かず、設計用の指令128本とEVの実現3通りで入札する。論文には、今の環境で測り直した値を使う。\pend{今の環境（6・20 station、7.7~kW、平日）で測り直す。EVの実現を無作為に選ぶ型を入札器に足し、MARLを1000回以上学習する}
-
-参考として、条件の違う旧環境（2026-10-02）で測った値を表\ref{tab:old}に示す。局はBoulderの街中の3局を含む7 stationで、EVの定格は11〜50~kW、入札日に休日を含む。EVの実現は、SoCの需要の最小・中央・最大で選んだ3通りである。評価は、検証用の5日 × 設計外の指令24本 × EV 3通りの360組である。\src{実測}
-
-\begin{table}[htbp]
-\centering\small
-\caption{旧環境での参考の値（7 station、360組）}
-\label{tab:old}
-\resizebox{\linewidth}{!}{%
-\begin{tabular}{llrrrr}
-\toprule
-市場 & 方法 & 1日すべて満たした組 & 30分コマの合格率 & 5分の追従率 & SoC達成率 \\
-\midrule
-AEMO & 全情報のLP & 73.3〜74.7\%が成り立つ & — & — & — \\
-AEMO & 中央のルールベース & 47.5\% & 94.1\% & 96.6\% & 100\% \\
-AEMO & 各時刻の中央LP（先を見ない） & 0.3\% & 77.4\% & 84.8\% & 99.7\% \\
-AEMO & 分散MARL（行動器だけ） & 0.3\% & 80.7\% & 90.5\% & 82.8\% \\
-ERCOT & 全情報のLP & 80.8〜81.7\%が成り立つ & — & — & — \\
-ERCOT & 分散MARL（行動器だけ） & 0\% & 80.3\% & 88.7\% & 65.8\% \\
-\bottomrule
-\end{tabular}}
-\end{table}
-
-\subsubsection{制御の前提を変えた性能}
-
-\paragraph{制御が使える情報を変える}
-同じ40組で、制御が使える情報を変えて並べた（表\ref{tab:cond}、図\ref{fig:controllers}）。全情報のLPは、その日の指令とEVをすべて知ったうえで、評価する5分すべてを帯に入れ、出発するEVのSoCをすべて目標に届ける充放電があるかを判定する。中央観測のルールベースは、今の指令と、今つながっている全EVを見て配る。分散MARLは、今の指令と自局のEVだけを見る。\src{実測}
-
-\begin{table}[htbp]
+\draftnote{【予定】今の環境での値（実験B0）は測定中。表IVの旧環境の値をB0の結果で置き換え、入札にかかった時間も並べる。}
+\begin{table*}[!t]
+\caption{最初のやり方の成績（7 stationの旧環境の参考値。B0 の結果で置き換える）}
+\label{tab:4}
 \centering\footnotesize
-\caption{制御が使える情報と性能（40組。LPは成り立つ組、制御器は1日のすべての5分を帯に入れた組）}
-\label{tab:cond}
-\begin{tabular}{lrrrrrrr}
+\setlength{\tablecontentwidth}{\dimexpr\linewidth-8\tabcolsep\relax}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.1969697\tablecontentwidth}>{\raggedright\arraybackslash}p{0.3333333\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1969697\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1363636\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1363636\tablecontentwidth}@{}}
 \toprule
-& \multicolumn{3}{c}{1日すべて帯の中の組} & \multicolumn{2}{c}{30分コマの合格率} & \multicolumn{2}{c}{SoC達成率} \\
-\cmidrule(lr){2-4}\cmidrule(lr){5-6}\cmidrule(lr){7-8}
-規模・市場 & LP & ルール & MARL & ルール & MARL & ルール & MARL \\
+市場 & 方法 & 1日すべて & 5分 & SoC \\
 \midrule
-6 station AEMO & 39/40 & 30/40 & 2/40 & 98.1\% & 82.4\% & 100\% & 78.8\% \\
-6 station ERCOT & 40/40 & 32/40 & 0/40 & 98.1\% & 73.9\% & 100\% & 74.9\% \\
-20 station AEMO & 40/40 & 33/40 & 3/40 & 98.8\% & 84.2\% & 100\% & 85.7\% \\
-20 station ERCOT & 39/40 & 27/40 & 1/40 & 96.7\% & 80.6\% & 100\% & 81.2\% \\
+AEMO & 全情報のLP & 73.3〜74.7\% & — & — \\
+AEMO & 中央のルールベース & 47.5\% & 96.6\% & 100\% \\
+AEMO & 分散MARL & 0.3\% & 90.5\% & 82.8\% \\
+ERCOT & 全情報のLP & 80.8〜81.7\% & — & — \\
+ERCOT & 分散MARL & 0\% & 88.7\% & 65.8\% \\
+AEMO・ERCOT & やり方1（今の環境） & 未測定 & 未測定 & 未測定 \\
 \bottomrule
 \end{tabular}
+\end{table*}
+\subsection{難しさの分解}
+入札器に、評価する組の当日の指令やEVを前もって渡して入札し直した（図1）。指令を知っても入札量は2〜5ポイントしか増えなかった。EVを知ると、入札量は両方を知る場合の96〜98\%まで増えた。前日の入札量を小さくしている主な原因は、EVが分からないことである。EVが分からないことによる損は、6 stationで27〜28ポイント、20 stationで13ポイントで、station数が増えると小さくなった。
 
-\smallskip
-ルールは中央観測のルールベース、MARLは分散MARL（行動器だけ）。MARLは6 stationがep1100、20 stationがep1600（AEMO）とep1540（ERCOT）。20 station ERCOTのLPは、1組が時間内に判定できなかった。ルールベースのSoC 100\%は、出発に間に合わなくなるEVを強制的に充電する層による。不適合の数と5分ごとの合格率は表\ref{tab:market}にある。
-\end{table}
-
-\begin{figure}[htbp]
+\draftnote{【予定】図1は改善版の入札器で測った。ひな形どおりにするには、やり方1の入札器で測り直す。}
+\begin{figure}[!t]
 \centering
-\includegraphics[width=0.9\linewidth]{figs/fig_controllers.png}
-\caption{同じ40組での30分コマの合格率。破線は、日本の二次②で停止を避ける水準（99.69\%）。}
-\label{fig:controllers}
+\includegraphics[width=\linewidth]{draft_assets/figure_01.png}
+\caption{入札時に知る情報と入札量。指令とEVの両方を知る入札量に対する比。}
+\label{fig:1}
 \end{figure}
+入札を固定し、制御が使える情報を変えて並べた（図2）。その日の指令とEVを全部知るLPでは、40組のうち39〜40組で入札が成り立った。今つながっている全EVを中央で見るルールベースは、1日すべて帯に入った組が20〜32組だった。各stationが自局のEVだけを見る分散MARLでは0〜9組だった。
 
-\paragraph{前日に知っている情報を変える}
-入札器に、評価する組の当日の指令やEVを前もって渡して入札し直した（表\ref{tab:info}、図\ref{fig:info}）。入札器のほかの条件（最低入札量、余裕、アセスメントI）は本線と同じである。どの入札も、その組の当日の指令とEVで全情報のLPが成り立つかを判定した。\src{実測}
-
-\begin{table}[htbp]
-\centering\small
-\caption{前日に知っている情報と入札量（6 station、40組。入札量は kW・コマ／日の組の平均）}
-\label{tab:info}
-\begin{tabular}{llrrr}
-\toprule
-市場 & 前日に知っている情報 & 入札量 & 本線との比 & 当日の指令とEVで成り立つ組 \\
-\midrule
-AEMO & なし（本線） & 15,749 & 1.00 & 39/40 \\
-AEMO & 当日の指令だけ & 16,806 & 1.07 & 39/40 \\
-AEMO & 当日のEVだけ & 22,150 & 1.41 & 40/40 \\
-AEMO & 当日の指令とEV（上限） & 22,963 & 1.46 & 40/40 \\
-\midrule
-ERCOT & なし（本線） & 16,220 & 1.00 & 40/40 \\
-ERCOT & 当日の指令だけ & 16,807 & 1.04 & 40/40 \\
-ERCOT & 当日のEVだけ & 22,463 & 1.38 & 40/40 \\
-ERCOT & 当日の指令とEV（上限） & 22,964 & 1.42 & 40/40 \\
-\bottomrule
-\end{tabular}
-\end{table}
-
-\begin{figure}[htbp]
+\draftnote{【予定】先のEVまで知るルールベース（実験B2）と、先の指令を知る制御（実験C1）は未測定。}
+\begin{figure}[!t]
 \centering
-\includegraphics[width=0.9\linewidth]{figs/fig_information.png}
-\caption{前日に知っている情報と入札量。}
-\label{fig:info}
+\includegraphics[width=\linewidth]{draft_assets/figure_02.png}
+\caption{制御の前提と、1日すべて帯の中に入った組の数（6 station、40組）。「未」は未測定。}
+\label{fig:2}
 \end{figure}
+分散MARLの30分コマの合格率は、帯が狭いコマほど下がった（図3）。帯が10 kW未満のコマでは52〜79\%で、30 kW以上では95〜100\%だった。中央のルールベースは、どの幅でも93\%以上だった。分散MARLの5分ごとの平均誤差は5.2〜6.4 kWで、最低入札量のコマの帯（7 kW）とほぼ同じ幅である。
 
-指令とEVの両方を知っていれば、本線より42〜46\%多く入札しても、40組すべてで帯と出発時SoCを満たせる。EVだけを知れば38〜41\%多く入札でき、上限に近い。指令だけを知っても、増加は4〜7\%にとどまる。前日の入札を小さくしている主な原因は、EVが分からないことである。
-
-入札器は、設計用の指令で一度も出ない向きの入札を0にする。当日の指令が分かっていれば、出ない向きに入札しても判定では外れない。そのため、指令を知る行では全コマで上げと下げの両方を許した。当日の指令が出す向きだけに入札すると、上限はAEMOで5,973、ERCOTで9,204になる。
-
-要旨の4つの条件との対応は次のとおりである。
-\begin{itemize}
-\item 指令が完全に既知：入札量は本線の1.04〜1.07倍。制御器の合格率は\pend{未測定}
-\item 中央観測を許し、EVが完全既知（先のEVまで知る）のルールベース：\pend{未測定。今のルールベースは今つながっているEVだけを見る}
-\item EVも指令も完全に既知：入札量は本線の1.42〜1.46倍で、40組すべてが成り立つ（上限）
-\item 分散MARL：30分コマの合格率は73.9〜84.2\%（学習途中の行動器）
-\end{itemize}
-
-\subsubsection{難しい点と、その影響}
-
-ひな形の5つの原因ごとに、今ある測定を並べる。
-
-\paragraph{原因1：指令が分からない}
-当日の指令を前日に知っても、入札量は1.04〜1.07倍にとどまった（表\ref{tab:info}）。設計用の指令を128本から256本に増やしても、未見通過率はほぼ変わらなかった（図\ref{fig:evsel}）。\src{実測}
-
-\paragraph{原因2：EVが分からない}
-当日のEVを前日に知ると、入札量は1.38〜1.41倍になった（表\ref{tab:info}）。EVの実現の選び方を変えると、入札量と未見通過率が引き換えになる（図\ref{fig:evsel}）。6 stationでSoCの需要の最小・中央・最大を選ぶと、入札量は16〜17\%増え、未見通過率は3〜5ポイント下がった。20 stationでは、入札量の増加は4\%で、未見通過率はほぼ同じだった。\src{実測}
-
-\begin{figure}[htbp]
+\begin{figure}[!t]
 \centering
-\includegraphics[width=0.9\linewidth]{figs/fig_ev_selection.png}
-\caption{EVの実現の選び方と設計用の指令の本数による、入札量と未見通過率。未見通過率は、検証用の5日 × 設計外の指令128本 × EV 3通りの1,920組で、入札が物理的に成り立つ割合。}
-\label{fig:evsel}
+\includegraphics[width=\linewidth]{draft_assets/figure_03.png}
+\caption{帯の幅ごとの30分コマの合格率（6 station、40組）。実線は分散MARL、破線は中央のルールベース。}
+\label{fig:3}
 \end{figure}
+局所の目的との取り合いを見るため、大域の批評家だけで学習した行動器（ABG）と本線を比べた（図4）。ABGは平均誤差が0.8〜0.9 kW小さく、5分ごとの追従率はAEMOで同じ、ERCOTで1.4ポイント高かった。その代わり、出発時のSoC達成率は49〜56\%に下がった。本線の行動器に届く局所と大域の勾配の余弦は−0.2〜−0.7で、2つの目的の勾配が逆を向いていた。
 
-\pend{指令の本数（64、128、256、512）× EVの実現の数（1〜4）の表は未測定}
-
-\paragraph{原因3：制御が実時間である}
-全情報のLPで成り立つのに、中央のルールベースが帯を外した組は、40組のうち7〜13組あった（表\ref{tab:cond}）。旧環境の7 stationでは、先を見ずに各時刻で解く中央LPの30分コマの合格率が77.4\%で、ルールベースの94.1\%より低かった（表\ref{tab:old}）。\src{実測}
-
-\paragraph{原因4：分散で動かすと誤差が残るのに、小さい入札が続く}
-行動器の5分ごとの誤差の平均（MAE）は、学習の途中で最も小さい時でも、6 stationで7.2〜7.4~kWだった。最低入札量70~kWのコマの帯は7~kWで、MAEとほぼ同じ幅である。帯の幅ごとに30分コマの合格率を数えると、分散MARLは帯が10~kW未満のコマで45\%前後、30~kW以上のコマで92〜98\%だった（図\ref{fig:band}）。中央のルールベースは、どの幅でも96\%以上だった。\src{実測}
-
-\begin{figure}[htbp]
+\begin{figure}[!t]
 \centering
-\includegraphics[width=0.9\linewidth]{figs/fig_band.png}
-\caption{帯の幅（約定量の10\%）ごとの30分コマの合格率（6 station、40組、MARLはep1100）。帯の幅は、コマの中の6つの5分のうち最も狭い帯で数えた。}
-\label{fig:band}
+\includegraphics[width=\linewidth]{draft_assets/figure_04.png}
+\caption{大域の批評家だけで学習した行動器（ABG）と本線。濃い色がGLOBAL（5分ごとの追従率）、淡い色がLOCAL（出発時のSoC達成率）。}
+\label{fig:4}
 \end{figure}
+5つの原因、すなわち指令が分からないこと、EVが分からないこと、実時間で制御すること、分散で誤差が残るのに小さい入札が続くこと、局所の目的と取り合うことの影響を、同じ物差しで並べたのが図5である。
 
-\paragraph{原因5：分散で動かすと、局所の目的と取り合う}
-大域批評家だけで学習した行動器（ABG）と本線を、同じ時期（ep500〜600）で比べた（図\ref{fig:abg}）。ABGは追従率が2.7〜4.5ポイント高く、MAEは約4.8~kWと本線の7.6~kWより小さかった。SoC達成率は9〜15ポイント低かった。本線の行動器に届く局所と大域の勾配の余弦は、$-0.3$〜$-0.8$だった。\src{実測}
-
-\begin{figure}[htbp]
+\draftnote{【予定】物差しの決め方から未着手（実験C0）。B0、B2、C1を待つ。}
+\begin{figure}[!t]
 \centering
-\includegraphics[width=0.9\linewidth]{figs/fig_abg.png}
-\caption{本線（局所と大域の批評家）とABG（大域だけ）の、学習中のテストの追従率とSoC達成率（6 station）。ABGは学習中。}
-\label{fig:abg}
+\includegraphics[width=\linewidth]{draft_assets/figure_05.png}
+\caption{5つの原因の影響度（未作成、予定の大きさ）。}
+\label{fig:5}
 \end{figure}
+\subsection{改善版の入札器}
+EVの実現の数と選び方、設計用の指令の本数を変えて入札し、未見通過率を測った（表V、図6）。未見通過率を大きく動かしたのは、EVの実現の数と選び方だった。EVの実現が1〜2通りでは94.4〜95.3\%に下がり、4〜6通りでは100\%だった。無作為に3通り選ぶと95.2〜96.6\%だった。設計用の指令は8本まで減らしても99.6\%で、本線と信頼区間が重なった。本線の選び方（接続の少ない2通りと最多の1通り）は、99.8\%の未見通過率を保ちながら、4通りより4\%多く入札できる。
 
-\subsubsection{直した版の入札＋制御の性能}
-
-原因ごとに、入札と制御を次のように直す。EVの実現は、接続の少ない2通りと最多の1通りで選ぶ（原因2、入札器に入れた）。最低入札量は、ABGの5分ごとの誤差の分位点から決める（原因4、分位点 $q$ は未決）。大域と局所の勾配の大きさは、報酬の倍率でそろえる（原因5）。観測には、1つ前の時刻の全体のずれと入札の先読みを入れる（原因5、学習中）。残る誤差は、連系点の蓄電池で埋める。
-
-\paragraph{蓄電池}
-中央のルールベースに蓄電池を足し、6 stationの40組で30分コマの合格率を測った（図\ref{fig:bess}）。不適合が0になる最小の出力は、AEMOが600~kW、ERCOTが400~kWだった。99.69\%に届くのは、AEMOで200~kW、ERCOTで200〜300~kWの間である。容量は30分を定格で出せる量とした。蓄電池が出した電力量は、調整の電力量の3〜4.5\%だった。\src{実測}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.6\linewidth]{figs/fig_bess.png}
-\caption{中央のルールベースに蓄電池を足したときの30分コマの合格率（6 station、40組）。破線は99.69\%。}
-\label{fig:bess}
-\end{figure}
-
-\paragraph{市場の要求との照合}
-今ある評価の40組を、日本の二次②とデンマークのP90の基準に当てた（表\ref{tab:market}、図\ref{fig:p90}）。P90には、5分ごとの合格率を当てる。Energinetは、入札時点の予測した容量を90\%以上の時間で出せることを求める（Prequalification v2.1.3 §10.2.2）。\src{計算}
-
-\begin{table}[htbp]
+\draftnote{【予定】予測精度の3水準とAEMOは測定中。本線を選んだ基準は、測定がそろってから書く。}
+\begin{table}[!t]
+\caption{EVの選び方と設計用の指令の本数（6 station ERCOT、1,920組）}
+\label{tab:5}
 \centering\footnotesize
-\caption{市場の基準との照合（40組）}
-\label{tab:market}
-\resizebox{\linewidth}{!}{%
-\begin{tabular}{llrrrrr}
+\setlength{\tablecontentwidth}{\dimexpr\linewidth-4\tabcolsep\relax}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.4626866\tablecontentwidth}>{\raggedright\arraybackslash}p{0.2985075\tablecontentwidth}>{\raggedright\arraybackslash}p{0.2388060\tablecontentwidth}@{}}
 \toprule
-規模・市場 & 方法 & 30分コマの合格率 & 不適合/日 & 月20日の不適合 & 5分の合格率 & 5分が90\%未満の日 \\
+変種 & 入札量（kW・コマ/日） & 未見通過率 \\
 \midrule
-6 AEMO & Liu/Lyuの入札と配分 & 97.80\% & 1.02 & 20回 & 99.5\% & 0/40 \\
-6 AEMO & 中央のルールベース & 98.12\% & 0.90 & 18回 & 98.9\% & 1/40 \\
-6 AEMO & 分散MARL（ep1100） & 82.40\% & 8.45 & 169回 & 90.2\% & 15/40 \\
-20 AEMO & 中央のルールベース & 98.75\% & 0.60 & 12回 & 99.4\% & 0/40 \\
-20 AEMO & 分散MARL（ep1600） & 84.17\% & 7.60 & 152回 & 93.1\% & 10/40 \\
-\midrule
-6 ERCOT & Liu/Lyuの入札と配分 & 98.09\% & 0.60 & 12回 & 99.3\% & 0/40 \\
-6 ERCOT & 中央のルールベース & 98.07\% & 0.93 & 18回 & 98.6\% & 1/40 \\
-6 ERCOT & 分散MARL（ep1100） & 73.91\% & 12.53 & 250回 & 81.8\% & 24/40 \\
-20 ERCOT & 中央のルールベース & 96.67\% & 1.60 & 32回 & 97.4\% & 4/40 \\
-20 ERCOT & 分散MARL（ep1540） & 80.62\% & 9.30 & 186回 & 86.4\% & 19/40 \\
-\bottomrule
-\end{tabular}}
-\end{table}
-
-\begin{figure}[htbp]
-\centering
-\includegraphics[width=0.9\linewidth]{figs/fig_p90.png}
-\caption{1組ごとの5分ごとの合格率の分布。破線はP90の基準（90\%）。}
-\label{fig:p90}
-\end{figure}
-
-日本の二次②の要求（30分コマの合格率99.69\%）には、どの方法も届いていない。最も高い20 station AEMOの中央のルールベースでも、月に12回前後の不適合になる。P90は、中央のルールベースとLiu/Lyuが97〜99.5\%で満たす。分散MARLは、AEMOで90.2\%（6 station）と93.1\%（20 station）で基準を超え、ERCOTは81.8\%と86.4\%で届いていない。日ごとに見ると、AEMOのMARLでも40日のうち10〜15日は90\%を下回る。
-
-\paragraph{学習中のMARL}
-改善版のMARLを40組で測った値は、まだない。\pend{改善版のMARLを1000回以上学習し、強制充電と蓄電池を通す前と後の両方を40組で測る} 学習中の途中のテストは表\ref{tab:training}のとおりである。\src{実測}
-
-\begin{table}[htbp]
-\centering\small
-\caption{学習中のMARL（6 station、途中のテスト）}
-\label{tab:training}
-\begin{tabular}{lrrr}
-\toprule
-実行 & 回数 & SoC達成率 / 追従率 & 100回平均の和（最高値） \\
-\midrule
-AEMO、観測に全体のずれと入札の先読み（研究室） & ep460 & 61.7\% / 92.6\% & 154.0 \\
-AEMO、本線（収束で停止） & ep1420 & — & 166.4（ep1120） \\
-PJM、本線 & ep320 & 52.9\% / 85.1\% & 134.1 \\
+本線（指令128本、下2上1） & 16,220 & 99.79\% \\
+指令8・16・32・64本 & 16,634〜16,786 & 99.64\% \\
+EV 1通り / 2通り & 18,218 / 18,119 & 94.43\% / 95.31\% \\
+EV 4通り / 6通り & 15,571 / 15,145 & 100\% / 100\% \\
+下1・中央・最大 & 17,647 & 98.07\% \\
+無作為3通り（3回） & 18,814〜20,799 & 95.16〜96.61\% \\
+予測精度95・91・85\% & 測定中 & 測定中 \\
+AEMO の全部 & 測定中 & 測定中 \\
 \bottomrule
 \end{tabular}
 \end{table}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\linewidth]{draft_assets/figure_06.png}
+\caption{入札量と未見通過率（6 station ERCOT、1,920組）。}
+\label{fig:6}
+\end{figure}
+最低入札量と余裕を変えたときの成功率を図7に示す。
 
-\FloatBarrier
-\subsection*{まだ測っていないもの}
-\begin{itemize}
-\item 先行研究のMARLのやり方（再現する方式を調べている途中）
-\item 最初のやり方を今の環境で測り直した値
-\item 先の指令を知る制御器と、先のEVを知る中央のルールベースの合格率
-\item 指令の本数 × EVの実現の数の表、最低入札量を振った比較
-\item 収束したABGと本線の、同じ40組での比較
-\item 改善版のMARLの40組での性能と、その市場の基準との照合
-\item 最低入札量の分位点 $q$（未決）
-\end{itemize}
+\draftnote{【予定】未測定（実験C4）。分位点 q の決め方が未決。}
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\linewidth]{draft_assets/figure_07.png}
+\caption{最低入札量と余裕を変えたときの成功率（未測定、予定の大きさ）。}
+\label{fig:7}
+\end{figure}
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=\linewidth]{draft_assets/figure_08.png}
+\caption{最終版の成績（6・20 station × 指令4種）。30分コマの合格率、5分ごとの合格率、出発時のSoC達成率。赤い破線は日本の二次②で月3回の不適合を避けるのに要るコマの合格率。6 station AEMOの行動器＋強制充電は30分コマの値だけ。}
+\label{fig:8}
+\end{figure*}
+\subsection{最終版の性能}
+最終版の成績を図8に示す。分散MARLの30分コマの合格率は、6 stationで74.9〜89.8\%、20 stationで88.6〜90.7\%だった。5分ごとの合格率は89.5〜95.9\%、出発時のSoC達成率は72.4〜89.0\%だった。強制充電の層を足すとSoC達成率は100\%になったが、30分コマの合格率は57.9〜87.0\%に下がった。中央のルールベース（上下限と出発時刻からEVごとの範囲を求め、指令を配る。\cite{ref18}\cite{ref19}に近い形）は、30分コマの合格率が93.1〜98.8\%、SoC達成率が100\%だった。
 
-\section*{参考文献（確認の状況つき）}
+\draftnote{【予定】20 station PJMのMARLは学習中。GBの2条件は回すかが未定。}
+市場の要求と照らすと（表VI）、分散MARLは月20日の運用に換算して90〜241回の不適合を出し、日本の二次②の停止の基準（月3回）に大きく届かない。中央のルールベースでも12〜66回で、どの方法も届いていない。
 
-確認の状況は、本文を読んだもの［本文］、要旨だけを読んだもの［要旨］、書誌だけを確かめたもの［書誌］で示す。
+\draftnote{【予定】デンマークのP90\cite{ref22}との照合は、5分ごとの合格率と未見通過率のどちらで行うかが未決。}
+\begin{table*}[!t]
+\caption{市場の要求との照合（40組。不適合は月20日に換算）}
+\label{tab:6}
+\centering\footnotesize
+\setlength{\tablecontentwidth}{\dimexpr\linewidth-10\tabcolsep\relax}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.1076923\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1538462\tablecontentwidth}>{\raggedright\arraybackslash}p{0.2461538\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1538462\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1846154\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1538462\tablecontentwidth}@{}}
+\toprule
+規模 & 市場 & 方法 & 30分コマ & 月の不適合 & 5分 \\
+\midrule
+6 & AEMO & 分散MARL & 89.8\% & 98 & 95.0\% \\
+6 & AEMO & ルールベース & 98.1\% & 18 & 98.9\% \\
+6 & ERCOT & 分散MARL & 87.2\% & 123 & 91.2\% \\
+6 & PJM & 分散MARL & 74.9\% & 241 & 89.5\% \\
+20 & AEMO & 分散MARL & 90.7\% & 90 & 95.9\% \\
+20 & ERCOT & 分散MARL & 88.6\% & 109 & 92.5\% \\
+20 & PJM & ルールベース & 93.1\% & 66 & 98.3\% \\
+20 & PJM & 分散MARL & 学習中 & 学習中 & 学習中 \\
+\bottomrule
+\end{tabular}
+\end{table*}
+\subsection{蓄電池と処理時間}
+連系点の蓄電池の出力を振り、月あたりの不適合を数えた（図9）。6 stationでは、行動器と蓄電池で月3回未満にするには300〜800 kWが要り、強制充電を足すと1,000 kWが要った。20 stationでは、行動器と蓄電池でAEMOが1,500 kW、ERCOTが3,500 kWで月3回未満になった。どの組も蓄電池のSoCを50\%から始めており、6 stationの40組のうち28〜36組で、蓄電池は始めより少ない電力量で1日を終えた。何日も続けて運用するなら、充電し直す分を含めて大きさを見直す必要がある。
 
-\begingroup
-\renewcommand{\section}[2]{}% thebibliography が出す見出しを消し、上の見出しだけにする
-\begin{thebibliography}{99}\small
-\bibitem{Chen2019} H. Chen, Y. Zhang, M. C. Caramanis, A. K. Coskun, ``EnergyQARE: QoS-aware data center participation in smart grid regulation service reserve provision,'' ACM TOMPECS, vol. 4, no. 1, 2019. doi:10.1145/3243172［要旨。入札の選び方は Zhang2022 の記述による］
-\bibitem{Chen2024} Chen, Lyu ら, 仮想発電所の実時間運用, Applied Energy, 2024［本文、書誌の細部は要確認］
-\bibitem{Escudero2012} J. J. Escudero-Garzás, A. García-Armada, G. Seco-Granados, ``Fair design of plug-in electric vehicles aggregator for V2G regulation,'' IEEE TVT, vol. 61, no. 8, pp. 3406--3419, 2012. doi:10.1109/TVT.2012.2212218［本文（著者原稿版）］
-\bibitem{Gade2024} P. A. V. Gade, H. W. Bindner, J. Kazempour, ``Leveraging P90 requirement: flexible resources bidding in Nordic ancillary service markets,'' IEEE SmartGridComm, 2024. doi:10.1109/SmartGridComm60555.2024.10738114［本文（arXiv版）］
-\bibitem{Gao2026} S. Gao ら, ``Leveraging the charging flexibility of electric vehicles in sequential electricity markets with frequency regulation limit,'' IJEPES, vol. 175, 111592, 2026. doi:10.1016/j.ijepes.2026.111592［要旨］
-\bibitem{Habibifar2020} R. Habibifar, A. A. Lekvan, M. Ehsan, ``A risk-constrained decision support tool for EV aggregators participating in energy and frequency regulation markets,'' EPSR, vol. 185, 106367, 2020. doi:10.1016/j.epsr.2020.106367［要旨］
-\bibitem{Hayashi2026} K. Hayashi, S. Xue, D. Kodaira, ``Hierarchical multi-agent reinforcement learning control for electric-vehicle virtual power plants in balancing markets,'' IEEE Access, vol. 14, pp. 89505--89517, 2026. doi:10.1109/ACCESS.2026.3698457［本文］
-\bibitem{Herstad2026} T. R. Herstad, J. Kazempour, L. Mitridati, B. Zwart, ``Bidding in ancillary service markets: an analytical approach using extreme value theory,'' Computational Management Science, 2026. doi:10.1007/s10287-025-00549-y［本文（arXiv版）］
-\bibitem{Liu2025} Q. Liu, R. Lyu, Z. Zhai, Y. Shen, X. Liu, H. Guo, ``Integrating fast-response capability into virtual power plant operation for ancillary services,'' IEEE PowerTech, 2025［本文、コード］
-\bibitem{Lu2024} X. Lu, L. Wang, ``Cloud-edge collaboration control strategy for electric vehicle aggregators participating in frequency and voltage regulation,'' IEEE OJVT, vol. 5, pp. 1532--1544, 2024. doi:10.1109/OJVT.2024.3471252［本文］
-\bibitem{Lunde2025} G. A. Lunde, E. V. Damm, P. A. V. Gade, J. Kazempour, ``Aggregator of electric vehicles bidding in Nordic FCR-D markets: a chance-constrained program,'' IEEE TPWRS, 2025. doi:10.1109/TPWRS.2025.3558868［本文（arXiv版）］
-\bibitem{Lyu2023} R. Lyu ら, ``Co-optimizing bidding and power allocation of an EV aggregator,'' IEEE TSG, 2023［本文、コード］
-\bibitem{Niazi2026} M. A. Niazi, V. Kumar, T. Chen, M. Zhu, ``Scalable co-optimization of virtual power plants in frequency regulation markets: integrating stochastic bidding and mean field games,'' Energy, vol. 358, 141360, 2026. doi:10.1016/j.energy.2026.141360［本文］
-\bibitem{Pavic2023} I. Pavić, H. Pandžić, T. Capuder, EVアグリゲータの予備力入札, IEEE TPWRS, vol. 38, no. 1, pp. 396--410, 2023. doi:10.1109/TPWRS.2022.3160195［本文（arXiv版）、題名は要確認］
-\bibitem{Peng2026} B. Peng, S. Liao, J. Xu, L. Han, ``Coordinated bidding and distributed tracking control for secondary frequency regulation in multi-site charging networks with charging service safeguards,'' Energies, vol. 19, no. 9, 2031, 2026. doi:10.3390/en19092031［本文］
-\bibitem{Pieper2021} N. Pieper, T. Warendorf, J. Myrzik, ``A smart charging algorithm considering multiple revenue opportunities,'' IEEE SEST, 2021. doi:10.1109/SEST50973.2021.9543150［コード］
-\bibitem{Stein2024} A. Stein, S. Beichter, J. Hage, M. Beichter, B. Schwarz, S. Waczowicz, M. Hiller, V. Hagenmeyer, N. Munzke, R. Mikut, ``Forecasting electric vehicle charging behavior in workplace charging infrastructure with limited privacy-restricted real data,'' IEEE ITEC, 2024. doi:10.1109/ITEC60657.2024.10598951［本文（誤差の定義と表IIIだけ）］
-\bibitem{Thran2025} J. Thrän, J. Mareček, R. N. Shorten, T. C. Green, ``Reserve provision from electric vehicles: aggregate boundaries and stochastic model predictive control,'' IEEE TPWRS, 2025. doi:10.1109/TPWRS.2025.3539863［本文（arXiv版）、コード］
-\bibitem{Wang2024} Wang ら, EV1台ずつの多エージェント強化学習による周波数調整, EPSR, 2024［本文、書誌の細部は要確認］
-\bibitem{WangQ2025} Q. Wang, C. Huang, C. Wang, K. Li, M. Shafie-khah, ``Risk-averse frequency regulation strategy of electric vehicle aggregator considering multiple uncertainties,'' Applied Energy, vol. 382, 125259, 2025. doi:10.1016/j.apenergy.2024.125259［本文］
-\bibitem{XuB2025} B. Xu, W. Luan, B. Zhao, C. Long, ``Frequency regulation provision by EV aggregator with dynamic balance between user charging anxiety and aggregate flexibility,'' IEEE TSG, vol. 16, no. 4, pp. 2953--2967, 2025. doi:10.1109/TSG.2025.3570439［本文］
-\bibitem{XuM2024} M. Xu, Y. Guo, H. Sun, ``Bidding and dispatch strategies with flexibility quantification and pricing for electric vehicle aggregator in joint energy-regulation market,'' arXiv:2411.02089, 2024［本文、コード］
-\bibitem{Zhang2022} Y. Zhang, D. C. Wilson, I. C. Paschalidis, A. K. Coskun, ``HPC data center participation in demand response: an adaptive policy with QoS assurance,'' IEEE TSUSC, vol. 7, no. 1, pp. 157--171, 2022. doi:10.1109/TSUSC.2021.3077254［本文］
-\bibitem{EPRX} 電力需給調整力取引所, 取引規程（本則、別冊）, Ver.18［本文］
-\bibitem{PJM12} PJM, Manual 12: Balancing Operations［本文］
+\begin{figure}[!t]
+\centering
+\includegraphics[width=\linewidth]{draft_assets/figure_09.png}
+\caption{蓄電池の出力と、月20日に換算した不適合の回数。不適合0は0.3の位置に描いた。点線は月3回。20 stationの一部は測定中。}
+\label{fig:9}
+\end{figure}
+行動器、強制充電、蓄電池を含む制御の1ステップは、6 stationで95\%点が13〜16 ms、最大80 msだった（表VII）。5分の指令の間隔に対して十分に短い。
+
+\draftnote{【予定】20 stationの処理時間と、入札の作成時間は未測定。}
+\begin{table}[!t]
+\caption{処理時間}
+\label{tab:7}
+\centering\footnotesize
+\setlength{\tablecontentwidth}{\dimexpr\linewidth-4\tabcolsep\relax}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.4776119\tablecontentwidth}>{\raggedright\arraybackslash}p{0.2238806\tablecontentwidth}>{\raggedright\arraybackslash}p{0.2985075\tablecontentwidth}@{}}
+\toprule
+処理 & 規模 & 値 \\
+\midrule
+制御の1ステップ（行動器・強制充電・蓄電池） & 6 station & 95\%点 13〜16 ms、最大 80 ms \\
+制御の1ステップ & 20 station & 未測定 \\
+入札の作成（1日） & 6・20 station & 未測定 \\
+\bottomrule
+\end{tabular}
+\end{table}
+\subsection{PJMの規則での判定}
+同じ入札と制御の40組を、PJMの5分の点数で採点し直した（表VIII）\cite{ref16}。5分に1点で採点しているので、PJMの10秒ごとの採点より粗い。分散MARLの点数の平均は94.5\%で、支払いが0になる25\%未満の5分は0.03\%だった。直近100時間の平均の最小は92.3\%で、参加資格の基準（40\%）を保った。日本の判定では74.9\%のコマしか合格しない制御が、PJMの規則では支払いの減りもわずかで参加を続けられる。
+
+\draftnote{【予定】PJMの規則で入札から学習まで行った結果（実験D4）は学習待ち。}
+\begin{table*}[!t]
+\caption{日本の判定とPJMの判定（6 station PJM、40組）}
+\label{tab:8}
+\centering\footnotesize
+\setlength{\tablecontentwidth}{\dimexpr\linewidth-8\tabcolsep\relax}
+\begin{tabular}{@{}>{\raggedright\arraybackslash}p{0.3088235\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1617647\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1911765\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1617647\tablecontentwidth}>{\raggedright\arraybackslash}p{0.1764706\tablecontentwidth}@{}}
+\toprule
+方法 & 日本の30分コマ & PJM 5分の点数 & 支払い0の5分 & 100時間平均の最小 \\
+\midrule
+分散MARL & 74.9\% & 94.5\% & 0.03\% & 92.3\% \\
+行動器＋強制充電 & 57.9\% & 88.1\% & 1.5\% & 83.9\% \\
+中央のルールベース & 95.1\% & 99.4\% & 0.18\% & 98.1\% \\
+PJMの規則で入札・学習 & — & 学習待ち & 学習待ち & 学習待ち \\
+\bottomrule
+\end{tabular}
+\end{table*}
+\section{おわりに}
+本研究は、分散MARLで動かすEV群が日本の二次調整力②の判定で市場に参加し続けられるかを、前日の入札から当日の制御までを一つのシステムとして測った。先行研究の方式は平均の誤差が小さいにもかかわらずコマの判定で外し、分散MARLは原因に合わせて入札器を直しても、月3回の不適合の基準に届かなかった。
+
+難しさを分けると、前日の入札量を小さくしている主な原因はEVが分からないことで、指令が分からないことの影響は小さかった。制御の側では、帯の狭いコマで分散の誤差が合否を分け、局所の目的との取り合いが追従の誤差を残していた。中央で全EVを見るルールベースは高い合格率を出したので、プライバシーの制約がなく、全stationが中央の目標に従える状況なら、ルールベースを使うのがよい。
+
+日本の二次②は、コマごとの合否と月3回の停止によって、PJMのような点数型の市場より厳しい。同じ制御がPJMの点数では参加を続けられたことから、分散MARLを使えるかどうかは、市場の判定の形で大きく変わる。
+
+本研究には限界がある。シミュレーションは5分刻みで、評価は検証用の5日に限る。蓄電池の大きさは1日ごとの評価で決めており、何日も続けた運用での充電し直しは含めていない。
+
+\begin{thebibliography}{24}
+\bibitem{ref1} K. Hayashi, S. Xue, and D. Kodaira, "Hierarchical multi-agent reinforcement learning control for electric-vehicle virtual power plants in balancing markets," IEEE Access（巻・年は要確認）.
+\bibitem{ref2} Wang ほか, EV1台ずつのMARLによる周波数調整, Electric Power Systems Research, 2024（書誌は要確認）.
+\bibitem{ref3} Niazi ほか, 確率入札と平均場ゲームによる配分, Energy, 2026（書誌は要確認）.
+\bibitem{ref4} Peng ほか, 入札と15分の計画とstationの双対分解による追従, Energies, 2026（書誌は要確認）.
+\bibitem{ref5} Xu ほか, 充電の不安と柔軟性を考えたDRLによる入札と配分（書誌は要確認）.
+\bibitem{ref6} Zhang ほか, 平均場ゲームによるVPPの周波数調整, IEEE Trans. Smart Grid, 2025（書誌は要確認）.
+\bibitem{ref7} Yi ほか, 2段の深層強化学習によるVPPの配分, IEEE Trans. Smart Grid, 2022（書誌は要確認）.
+\bibitem{ref8} Liu, Lyu ほか, "Integrating fast-response capability into virtual power plant operation for ancillary services," IEEE PowerTech, 2025（書誌は要確認）.
+\bibitem{ref9} Lyu ほか, 入札とEVごとの配分の確率計画, IEEE Trans. Smart Grid, 2023（書誌は要確認）.
+\bibitem{ref10} Wang ほか, 不履行のリスクを入れた入札, Applied Energy, 2025（書誌は要確認）.
+\bibitem{ref11} Lunde ほか, 北欧FCR-DのP90要件を満たすEVの入札, arXiv:2404.12818.
+\bibitem{ref12} Wang ほか, MARL-AFM, SSRN 6229136（プレプリント、書誌は要確認）.
+\bibitem{ref13} ACN-Data（Caltech、JPL）の充電セッションデータ（書誌は要確認）.
+\bibitem{ref14} ノルウェーの住宅の充電セッションデータ（書誌は要確認）.
+\bibitem{ref15} 電力需給調整力取引所, 取引規程（本則 Ver.18、別冊）.
+\bibitem{ref16} PJM, Manual 12 Rev.57, Manual 11 Rev.137, Manual 28 Rev.104, Operating Agreement Schedule 1 §3.2.
+\bibitem{ref17} Muramatsu ほか, 集中のQPによる追従, CEP, 2025（書誌は要確認）.
+\bibitem{ref18} Escudero-Garzás ほか, 水張りによるEVへの調整指令の配分, 2012（書誌は要確認）.
+\bibitem{ref19} Lu and Wang, 充電器群ごとの上下限と比例配分, 2024（書誌は要確認）.
+\bibitem{ref20} Hagstrom and Herre, EV集約の仮想蓄電池, arXiv:2511.19715.
+\bibitem{ref21} R. Lowe ほか, "Multi-agent actor-critic for mixed cooperative-competitive environments," NeurIPS, 2017.
+\bibitem{ref22} Energinet, Prequalification of ancillary services v2.1.3.
+\bibitem{ref23} CAISO Tariff §8.2.3.1.1; ERCOT Nodal Protocols §8.1.1.4.1.
+\bibitem{ref24} AEMO・ERCOTの計画と実績の公開データ、PJM RTO Regulation Signal Data（書誌は要確認）.
 \end{thebibliography}
-\endgroup
-
 \end{document}

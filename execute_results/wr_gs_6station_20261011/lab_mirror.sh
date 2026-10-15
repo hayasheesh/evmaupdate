@@ -16,6 +16,8 @@ for LABRUN in $(timeout 60 $SSH smartgrid-gpu "for d in /home/hayashi/workspace/
   for d in performance runs; do
     timeout 300 $SCP "smartgrid-gpu:$LABRUN/$d/events.out.tfevents.*" $MIRROR/$d/ 2>/dev/null
   done
+  # 学習状態以外を丸ごと写した実行（LAB_MIRROR.txt が「研究室PCの実行の写し。」で始まる）は、説明を書き換えない
+  grep -q '^研究室PCの実行の写し。' $MIRROR/LAB_MIRROR.txt 2>/dev/null ||
   printf '%s\n' "研究室PCの実行の一部の写し（グラフ・CSV・テスト記録・TensorBoardの記録）。学習状態とチェックポイントは入っていない。" "元: smartgrid-gpu:$LABRUN" "更新: $(date '+%Y-%m-%d %H:%M')" > $MIRROR/LAB_MIRROR.txt
   echo "mirrored $(basename "$LABRUN") -> $DEST"
 done

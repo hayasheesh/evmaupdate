@@ -1,0 +1,18 @@
+[
+ {
+  "id": "pjmrule20_pretrain",
+  "cwd": ".",
+  "min_free_gb": 6,
+  "requires": [
+   "execute_results/bid_banks/wr_cap77wd_pjmrule75_min200_margin25_validation_5_20station_128cmd_3ev_pjm_regd_phase_shift/manifest.json",
+   "execute_results/bid_banks/wr_cap77wd_pjmrule75_min200_margin25_train_25_20station_128cmd_3ev_pjm_regd_phase_shift/manifest.json",
+   "execute_results/queue_20261015/DONE_pjmrule20_train_bank",
+   "execute_results/queue_20261015/DONE_pjmrule20_test_bank"
+  ],
+  "args": [
+   "execute_results/pjmrule_20station_20261015/stage_worker.py",
+   "pjm",
+   "pretrain"
+  ]
+ }
+]

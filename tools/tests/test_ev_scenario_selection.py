@@ -131,3 +131,21 @@ def test_default_selection_is_three_low_picks_then_maximum():
     assert EnvConfig.LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION == "low_connection_3_max_count"
     assert EnvConfig.LOWER_TRAIN_UPPER_BID_EV_SCENARIOS == 4
     assert EnvConfig.LOWER_TRAIN_UPPER_BID_EV_SCENARIO_LAYOUT.startswith("low3max_4of")
+
+
+def test_the_random_selection_repeats_for_the_same_seed(monkeypatch):
+    candidates = [_fleet(10 + i % 5, 10, 10, extra=i) for i in range(20)]
+    monkeypatch.setattr(lbt, "LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION", "random_3")
+    monkeypatch.setattr(lbt, "LOWER_TRAIN_UPPER_BID_EV_SCENARIOS", 3)
+    with pytest.raises(ValueError):
+        lbt._select_ev_scenarios(candidates)
+    first = lbt._select_ev_scenarios(candidates, seed=1073003)[1]
+    again = lbt._select_ev_scenarios(candidates, seed=1073003)[1]
+    other = lbt._select_ev_scenarios(candidates, seed=1074012)[1]
+    picks = [row["candidate_index"] for row in first]
+    assert first == again
+    assert len(set(picks)) == 3
+    assert picks != [row["candidate_index"] for row in other]
+    assert [row["label"] for row in first] == ["random_1", "random_2", "random_3"]
+    settings = lbt.upper_bid_bank_settings()
+    assert settings["ev_scenario_selection"] == "three_uniformly_random_candidates"

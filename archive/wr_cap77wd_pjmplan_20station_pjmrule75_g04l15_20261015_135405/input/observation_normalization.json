@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "source": "/workspace/EVMALOCALUPDATE/execute_results/bid_banks/wr_cap77wd_pjmrule75_min200_margin25_train_25_20station_128cmd_3ev_pjm_regd_phase_shift",
+  "quantile": 0.95,
+  "demand_center_kw": 0.0,
+  "demand_scale_kw": 782.9088470458983,
+  "instruction_scale_scale_kw": 959.1934204101562,
+  "command_scale": "bank",
+  "sample_counts": {
+    "demand_kw": 921600,
+    "instruction_scale_kw": 921600
+  },
+  "bank_dates": 25,
+  "bank_scenario_episodes": 3200
+}

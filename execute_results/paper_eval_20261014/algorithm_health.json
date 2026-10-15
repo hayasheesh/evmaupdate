@@ -1,0 +1,13 @@
+{
+  "time": "2026-10-16T07:42:02.453692+09:00",
+  "methods": {
+    "prior_marl_20261014": {
+      "status": "excluded_partial_prototype"
+    },
+    "prior_marl_full_20261014": {
+      "stage": "deferred",
+      "model": null,
+      "pid": null
+    }
+  }
+}

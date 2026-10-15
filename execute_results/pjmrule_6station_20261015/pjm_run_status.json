@@ -1,0 +1,25 @@
+{
+  "task": "pjm",
+  "started_at": "2026-10-15T15:40:36",
+  "stages": {
+    "test_bank": {
+      "state": "done",
+      "pid": 38540,
+      "started_at": "2026-10-15T15:40:36",
+      "exit_code": 0,
+      "finished_at": "2026-10-15T16:11:19"
+    },
+    "train_bank": {
+      "state": "done",
+      "pid": 33248,
+      "started_at": "2026-10-15T15:40:36",
+      "exit_code": 0,
+      "finished_at": "2026-10-15T18:05:15"
+    },
+    "pretrain": {
+      "state": "running",
+      "pid": 2376,
+      "started_at": "2026-10-15T18:05:15"
+    }
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "task": "ercot",
+  "started_at": "2026-10-13T11:39:41",
+  "stages": {
+    "pretrain": {
+      "state": "done",
+      "pid": 21228,
+      "started_at": "2026-10-13T11:39:41",
+      "exit_code": 0,
+      "finished_at": "2026-10-13T17:59:13"
+    }
+  },
+  "result": "complete"
+}

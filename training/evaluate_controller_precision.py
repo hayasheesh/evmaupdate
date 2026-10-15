@@ -646,7 +646,14 @@ def _evaluate_controller_precision_impl(
             # blocks a perfect allocation would have saved. Count blocks
             # that are failed and hold at least one unreachable step
             # separately from blocks failed only at reachable steps.
-            band_frac_for_rows = float(fixed_bid.get("assessment_band_fraction", 0.10) or 0.10)
+            from market.bid_participation import resolved_idle_band_fraction, tracking_band_fields
+            _band_fields = tracking_band_fields(fixed_bid)
+            # The narrowest band, at zero instruction; under the PJM rule the
+            # band also grows with the instruction (EnvConfig.MARKET_TRACKING_RULE).
+            band_frac_for_rows = _band_fields["assessment_band_fraction"]
+            idle_frac_for_rows = resolved_idle_band_fraction(
+                band_frac_for_rows, _band_fields["idle_band_fraction"]
+            )
             _blk = np.arange(EPISODE_STEPS) // STEPS_PER_BLOCK
             _blk_assessed = np.zeros(N_BLOCKS, dtype=bool)
             _blk_failed = np.zeros(N_BLOCKS, dtype=bool)
@@ -823,7 +830,7 @@ def _evaluate_controller_precision_impl(
                     "service_date": str(service_date),
                     "band_up_kw": float(up_plan[b]) * band_frac_for_rows,
                     "band_down_kw": float(down_plan[b]) * band_frac_for_rows,
-                    "band_idle_kw": float(up_plan[b] + down_plan[b]) * band_frac_for_rows,
+                    "band_idle_kw": float(up_plan[b] + down_plan[b]) * idle_frac_for_rows,
                     "utilization": float(
                         np.mean(np.abs(disp[s0:s1] - float(base_b)))
                         / max(float(up_plan[b] + down_plan[b]), 1e-9)

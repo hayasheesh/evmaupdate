@@ -37,6 +37,13 @@ from EnvConfig import (
     LOWER_TRAIN_UPPER_BID_EV_SCENARIOS,
     LOWER_TRAIN_RESEARCH_MINIMUM_BID_QUANTITY_KW,
     LOWER_BID_LOOKAHEAD_BLOCKS,
+    MARKET_TRACKING_RULE,
+    PJM_INTERVAL_SCORE_FLOOR,
+    CAPABILITY_DURATION_HOURS,
+    MARKET_MINIMUM_BID_QUANTITY_KW,
+    SYMMETRIC_AWARD,
+    TRACKING_BAND_SIGNAL_FRACTION,
+    TRACKING_IDLE_BAND_FRACTION,
 )
 from market.activation_scenarios import (
     LOWER_CONTROL_POOL,
@@ -48,7 +55,8 @@ from market.activation_scenarios import (
 from market.bid_participation import (
     participation_by_block,
     participation_by_step,
-    zero_instruction_tolerance_by_block,
+    step_tolerance_kw,
+    tracking_band_fields,
 )
 from market.bid_env import (
     N_BLOCKS,
@@ -464,7 +472,39 @@ def _select_ev_scenarios_low_connection(
     return selected, metadata
 
 
+# Offset of the random selection's generator from the day's forecast seed.
+RANDOM_EV_SELECTION_SEED_OFFSET = 20_261_015
+
+
+def _select_ev_scenarios_random(ev_candidates: list[list], *, seed: int, count: int = 3):
+    """``count`` candidates drawn uniformly without replacement, seeded by ``seed``.
+
+    The first method (B0) takes its realizations this way; the same day and
+    seed always give the same picks.
+    """
+
+    candidates = list(ev_candidates)
+    if len(candidates) < int(count):
+        raise ValueError(f"at least {count} candidate EV realizations are required")
+    rng = np.random.default_rng([RANDOM_EV_SELECTION_SEED_OFFSET, int(seed)])
+    picks = [int(i) for i in rng.choice(len(candidates), int(count), replace=False)]
+    ranked_indices = sorted(range(len(candidates)), key=lambda index: (len(candidates[index]), index))
+    count_rank = {index: rank for rank, index in enumerate(ranked_indices)}
+    metadata = [
+        {
+            "label": f"random_{k + 1}",
+            "candidate_index": index,
+            "rank_zero_based": int(count_rank[index]),
+            "candidate_count": int(len(candidates)),
+            "ev_count": int(len(candidates[index])),
+        }
+        for k, index in enumerate(picks)
+    ]
+    return [candidates[index] for index in picks], metadata
+
+
 # selection -> (ev_scenario_selection, bank_bid_contract, low_picks, count_picks).
+# low_picks "random" draws at random (_select_ev_scenarios_random).
 _EV_SCENARIO_SELECTIONS = {
     "session_count": (
         "minimum_lower_median_maximum_by_session_count",
@@ -490,15 +530,30 @@ _EV_SCENARIO_SELECTIONS = {
         3,
         ("maximum",),
     ),
+    "random_3": (
+        "three_uniformly_random_candidates",
+        "fixed_random3_ev_all_commands_k0",
+        "random",
+        None,
+    ),
 }
 
 
-def _select_ev_scenarios(ev_candidates: list[list]):
-    """The realizations of LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION."""
+def _select_ev_scenarios(ev_candidates: list[list], *, seed: int | None = None):
+    """The realizations of LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION.
+
+    ``seed`` (the day's forecast seed) is used only by the random selection.
+    """
 
     _, _, low_picks, count_picks = _EV_SCENARIO_SELECTIONS[
         LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION
     ]
+    if low_picks == "random":
+        if seed is None:
+            raise ValueError("the random EV selection needs the day's seed")
+        return _select_ev_scenarios_random(
+            ev_candidates, seed=seed, count=int(LOWER_TRAIN_UPPER_BID_EV_SCENARIOS)
+        )
     if low_picks is None:
         return _select_ev_scenarios_by_count(ev_candidates)
     return _select_ev_scenarios_low_connection(
@@ -946,6 +1001,7 @@ def _ev_scenario_bank_key(
             _select_ev_scenarios_by_count,
             _connected_charge_kw_by_block,
             _select_ev_scenarios_low_connection,
+            _select_ev_scenarios_random,
             _select_ev_scenarios,
         ),
         "selection": str(LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION),
@@ -1017,7 +1073,7 @@ def _selected_ev_scenario_bank(
         service_date=service_date,
         workers=workers,
     )
-    ev_bank, selection = _select_ev_scenarios(candidates)
+    ev_bank, selection = _select_ev_scenarios(candidates, seed=seed)
     _store_cache_entry(
         path, key, "ev_scenarios", {"ev_bank": ev_bank, "selection": selection}
     )
@@ -1152,6 +1208,21 @@ def upper_bid_bank_settings() -> dict[str, object]:
         "five_minute_response_band": False,
         "baseline_step_weight": float(LOWER_TRAIN_UPPER_BID_BASELINE_STEP_WEIGHT),
         "assessment_i_control_margin_kw": float(ASSESSMENT_I_CONTROL_MARGIN_KW),
+        # Only bids under the PJM rule carry these, so the settings, and the
+        # cache keys hashed from them, of Assessment-II bids stay as they were.
+        **(
+            {
+                "market_tracking_rule": "pjm_performance_score",
+                "pjm_interval_score_floor": float(PJM_INTERVAL_SCORE_FLOOR),
+                "band_signal_fraction": float(TRACKING_BAND_SIGNAL_FRACTION),
+                "idle_band_fraction": float(TRACKING_IDLE_BAND_FRACTION),
+                "symmetric_award": bool(SYMMETRIC_AWARD),
+                "capability_duration_hours": float(CAPABILITY_DURATION_HOURS),
+                "market_minimum_bid_quantity_kw": float(MARKET_MINIMUM_BID_QUANTITY_KW),
+            }
+            if MARKET_TRACKING_RULE == "pjm"
+            else {}
+        ),
     }
 
 
@@ -1216,6 +1287,42 @@ def _bid_build_log(message: str) -> None:
             f.write(f"{timestamp} {line}\n")
 
 
+def _band_settings(band_fraction=None, band_signal_fraction=None, idle_band_fraction=None) -> dict:
+    """Keyword arguments of market.bid_participation.step_tolerance_kw.
+
+    With nothing given, the band of the current rule (EnvConfig). A caller that
+    passes only ``band_fraction`` gets the Assessment-II reading of it (no
+    signal term, the same fraction at idle), as before the PJM rule existed.
+    """
+
+    if band_fraction is None:
+        return {
+            "band_fraction": float(LOWER_TRAIN_UPPER_BID_REWARD_BAND_FRAC),
+            "band_signal_fraction": float(
+                TRACKING_BAND_SIGNAL_FRACTION if band_signal_fraction is None else band_signal_fraction
+            ),
+            "idle_band_fraction": (
+                TRACKING_IDLE_BAND_FRACTION if idle_band_fraction is None else idle_band_fraction
+            ),
+        }
+    return {
+        "band_fraction": max(float(band_fraction), 0.0),
+        "band_signal_fraction": float(band_signal_fraction or 0.0),
+        "idle_band_fraction": idle_band_fraction,
+    }
+
+
+def _stored_band_settings(fixed_bid: dict) -> dict:
+    """The band keyword arguments a stored bid was built with."""
+
+    band = tracking_band_fields(fixed_bid)
+    return {
+        "band_fraction": band["assessment_band_fraction"],
+        "band_signal_fraction": band["band_signal_fraction"],
+        "idle_band_fraction": band["idle_band_fraction"],
+    }
+
+
 def _bid_to_target_and_tolerance(
     base_series,
     baseline_plan,
@@ -1223,6 +1330,8 @@ def _bid_to_target_and_tolerance(
     down_plan,
     *,
     band_fraction: float | None = None,
+    band_signal_fraction: float | None = None,
+    idle_band_fraction: float | None = None,
 ):
     base = np.asarray(base_series, dtype=np.float32).reshape(-1)[:EPISODE_STEPS]
     if base.size < EPISODE_STEPS:
@@ -1241,17 +1350,8 @@ def _bid_to_target_and_tolerance(
     target = np.zeros(EPISODE_STEPS, dtype=np.float32)
     tol = np.zeros(EPISODE_STEPS, dtype=np.float32)
     regulation_all = np.zeros(EPISODE_STEPS, dtype=np.float32)
-    frac = max(float(
-        LOWER_TRAIN_UPPER_BID_REWARD_BAND_FRAC
-        if band_fraction is None
-        else band_fraction
-    ), 0.0)
+    band = _band_settings(band_fraction, band_signal_fraction, idle_band_fraction)
     participating = participation_by_block(up, down)
-    zero_instruction_tol = zero_instruction_tolerance_by_block(
-        up,
-        down,
-        band_fraction=frac,
-    )
     for b in range(N_BLOCKS):
         s0 = b * STEPS_PER_BLOCK
         s1 = s0 + STEPS_PER_BLOCK
@@ -1262,9 +1362,7 @@ def _bid_to_target_and_tolerance(
         block_target, regulation = baseline_aware_target_series(base[s0:s1], baseline[b], up[b], down[b])
         target[s0:s1] = block_target
         regulation_all[s0:s1] = regulation
-        direction_tol = np.where(regulation < -1e-6, frac * up[b], frac * down[b])
-        idle_tol = zero_instruction_tol[b]
-        tol[s0:s1] = np.where(np.abs(regulation) <= 1e-6, idle_tol, direction_tol)
+        tol[s0:s1] = step_tolerance_kw(regulation, up[b], down[b], **band)
     tol = np.maximum(tol, 1e-6).astype(np.float32)
     return target, tol, regulation_all
 
@@ -1277,6 +1375,8 @@ def _bid_to_target_tol_from_activation(
     down_proxy,
     *,
     band_fraction: float | None = None,
+    band_signal_fraction: float | None = None,
+    idle_band_fraction: float | None = None,
 ):
     baseline = np.asarray(baseline_plan, dtype=float).reshape(-1)[:N_BLOCKS]
     up = np.asarray(up_plan, dtype=float).reshape(-1)[:N_BLOCKS]
@@ -1297,17 +1397,8 @@ def _bid_to_target_tol_from_activation(
     target = np.zeros(EPISODE_STEPS, dtype=np.float32)
     tol = np.zeros(EPISODE_STEPS, dtype=np.float32)
     regulation_all = np.zeros(EPISODE_STEPS, dtype=np.float32)
-    frac = max(float(
-        LOWER_TRAIN_UPPER_BID_REWARD_BAND_FRAC
-        if band_fraction is None
-        else band_fraction
-    ), 0.0)
+    band = _band_settings(band_fraction, band_signal_fraction, idle_band_fraction)
     participating = participation_by_block(up, down)
-    zero_instruction_tol = zero_instruction_tolerance_by_block(
-        up,
-        down,
-        band_fraction=frac,
-    )
     for b in range(N_BLOCKS):
         s0 = b * STEPS_PER_BLOCK
         s1 = s0 + STEPS_PER_BLOCK
@@ -1319,9 +1410,7 @@ def _bid_to_target_tol_from_activation(
         regulation = down[b] * down_p[s0:s1] - up[b] * up_p[s0:s1]
         target[s0:s1] = float(baseline[b]) + regulation
         regulation_all[s0:s1] = regulation
-        direction_tol = np.where(regulation < -1e-6, frac * up[b], frac * down[b])
-        idle_tol = zero_instruction_tol[b]
-        tol[s0:s1] = np.where(np.abs(regulation) <= 1e-6, idle_tol, direction_tol)
+        tol[s0:s1] = step_tolerance_kw(regulation, up[b], down[b], **band)
     tol = np.maximum(tol, 1e-6).astype(np.float32)
     return target.astype(np.float32), tol, regulation_all.astype(np.float32)
 
@@ -1672,7 +1761,7 @@ def build_fixed_upper_bid_training_episode(
         down,
         scenario.get("up_proxy"),
         scenario.get("down_proxy"),
-        band_fraction=fixed_bid.get("assessment_band_fraction"),
+        **_stored_band_settings(fixed_bid),
     )
     scenario_name = str(scenario.get("name", f"scenario_{s_idx}"))
     info = _submitted_bid_info(

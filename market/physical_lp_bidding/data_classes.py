@@ -116,7 +116,18 @@ class BiddingLPConfig:
     blocks: int = 48
     steps_per_block: int = 6
     dt_hours: float = 5.0 / 60.0
+    # An instruction of fraction s of the award A is held to
+    # (assessment_band_fraction + band_signal_fraction * s) * A, and a step
+    # without an instruction to idle_band_fraction * (U + D); None there means
+    # assessment_band_fraction. Assessment II is (0.1, 0, None). The PJM
+    # performance-score rule is ((1 - theta) / 2, (1 - theta) / 2,
+    # (1 - theta) / 4) with symmetric_award (EnvConfig.MARKET_TRACKING_RULE).
     assessment_band_fraction: float = 0.10
+    band_signal_fraction: float = 0.0
+    idle_band_fraction: float | None = None
+    # Up and down are one quantity (PJM's AReg): the master holds U = D in every
+    # block, and a block takes part in both directions or in neither.
+    symmetric_award: bool = False
     # Secondary Reserve 2 allows the resource its five-minute response time
     # after a changed simple-dispatch instruction. During that response the
     # admissible interval spans the old and new instruction bands.
@@ -226,6 +237,32 @@ def baseline_step_matrix(participating, blocks: int) -> np.ndarray:
     matrix[np.arange(pairs.size), pairs] = -1.0
     matrix[np.arange(pairs.size), pairs + 1] = 1.0
     return matrix
+
+
+def symmetric_award_rows(blocks: int) -> tuple[np.ndarray, np.ndarray]:
+    """``U = D`` in every block as rows ``A x <= 0`` over x = (baseline, up, down)."""
+
+    blocks = int(blocks)
+    index = np.arange(blocks)
+    rows = np.zeros((2 * blocks, 3 * blocks))
+    rows[index, blocks + index] = 1.0
+    rows[index, 2 * blocks + index] = -1.0
+    rows[blocks + index, blocks + index] = -1.0
+    rows[blocks + index, 2 * blocks + index] = 1.0
+    return rows, np.zeros(2 * blocks)
+
+
+def symmetric_widths(up, down, *, floor: float = 0.0) -> tuple[np.ndarray, np.ndarray]:
+    """One width for both directions: the smaller of the two, or zero below ``floor``.
+
+    A symmetric award must be deliverable both ways, so a block keeps the
+    smaller width, and a block that cannot reach the floor in one direction
+    takes part in neither.
+    """
+
+    width = np.minimum(np.asarray(up, dtype=float), np.asarray(down, dtype=float))
+    width = np.where(width >= float(floor), np.maximum(width, 0.0), 0.0)
+    return width, width.copy()
 
 
 def project_assessment_i(problem: "JointBiddingProblem", baseline, up, down):

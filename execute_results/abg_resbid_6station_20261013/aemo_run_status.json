@@ -1,0 +1,14 @@
+{
+  "task": "aemo",
+  "started_at": "2026-10-13T11:39:41",
+  "stages": {
+    "pretrain": {
+      "state": "done",
+      "pid": 19892,
+      "started_at": "2026-10-13T11:39:41",
+      "exit_code": 0,
+      "finished_at": "2026-10-13T18:57:01"
+    }
+  },
+  "result": "complete"
+}

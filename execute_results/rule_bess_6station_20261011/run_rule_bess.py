@@ -6,11 +6,13 @@
 蓄電池の容量は EnvConfig の既定と同じ式で出力から決める（目標SoC 50%から下限10%まで、30分を定格で出せる量）。
 EnvConfig は 500 局に広げたときの上限（局あたり 2 MW 未満）で出力を検査するので、環境を作った後に出力と容量を上書きする。
 誤差は蓄電池の前（EVだけ）と後（連系点）の両方を記録する。
+20 station では LIU_LYU_SW_DIR に resbid_20station_20261014 を、LIU_LYU_TAG に 20station_ を渡す（結果のファイル名の頭に付く）。
 """
 from __future__ import annotations
 
 import json
 import multiprocessing as mp
+import os
 import sys
 import time
 from pathlib import Path
@@ -122,7 +124,7 @@ def main():
     n_ev = int(sys.argv[4]) if len(sys.argv) > 4 else 2
     workers = int(sys.argv[5]) if len(sys.argv) > 5 else 8
     mp.set_start_method('spawn', force=True)
-    out = HERE / f'result_{task}_rule_bess_{n_cmd}cmd_{n_ev}ev.jsonl'
+    out = HERE / f'result_{os.environ.get("LIU_LYU_TAG", "")}{task}_rule_bess_{n_cmd}cmd_{n_ev}ev.jsonl'
     # 済んだエピソードは飛ばし、その不適合も数に入れる（途中で止めた後の再開）。
     done = {}
     if out.exists():

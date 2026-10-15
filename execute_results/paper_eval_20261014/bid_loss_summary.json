@@ -1,0 +1,512 @@
+{
+  "definition": "loss = 100 * (1 - mean_capacity / mean_oracle_capacity)",
+  "capacity_unit": "kW・コマ／日（上げと下げの合計）",
+  "sweep": {
+    "aemo_known_85_low2max": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 15807.937161089829,
+      "oracle_ratio_pct": 68.8400559688829,
+      "loss_pct": 31.159944031117114,
+      "feasible": 39,
+      "infeasible": 1,
+      "unknown": 0
+    },
+    "aemo_known_85_minmedmax": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 18337.658120991116,
+      "oracle_ratio_pct": 79.85642899027305,
+      "loss_pct": 20.14357100972696,
+      "feasible": 37,
+      "infeasible": 3,
+      "unknown": 0
+    },
+    "aemo_known_85_random3": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 18982.29138512972,
+      "oracle_ratio_pct": 82.66366370600402,
+      "loss_pct": 17.33633629399598,
+      "feasible": 38,
+      "infeasible": 2,
+      "unknown": 0
+    },
+    "aemo_known_91_low2max": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 16806.379454596045,
+      "oracle_ratio_pct": 73.18805043939793,
+      "loss_pct": 26.811949560602077,
+      "feasible": 39,
+      "infeasible": 1,
+      "unknown": 0
+    },
+    "aemo_known_91_minmedmax": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 19367.705778694915,
+      "oracle_ratio_pct": 84.34205780346714,
+      "loss_pct": 15.65794219653286,
+      "feasible": 39,
+      "infeasible": 1,
+      "unknown": 0
+    },
+    "aemo_known_91_random3": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 20597.132636319377,
+      "oracle_ratio_pct": 89.69593875744994,
+      "loss_pct": 10.304061242550066,
+      "feasible": 38,
+      "infeasible": 2,
+      "unknown": 0
+    },
+    "aemo_known_95_low2max": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 17746.649849933317,
+      "oracle_ratio_pct": 77.28271921124919,
+      "loss_pct": 22.717280788750827,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "aemo_known_95_minmedmax": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 20230.865027563766,
+      "oracle_ratio_pct": 88.10092465602833,
+      "loss_pct": 11.899075343971688,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "aemo_known_95_random3": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 20709.133091612333,
+      "oracle_ratio_pct": 90.18367586902484,
+      "loss_pct": 9.816324130975163,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "aemo_unknown_85_low2max": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 15022.44435900205,
+      "oracle_ratio_pct": 65.41940924516138,
+      "loss_pct": 34.58059075483861,
+      "feasible": 39,
+      "infeasible": 1,
+      "unknown": 0
+    },
+    "aemo_unknown_85_minmedmax": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 17540.312938476116,
+      "oracle_ratio_pct": 76.38416778177343,
+      "loss_pct": 23.615832218226572,
+      "feasible": 37,
+      "infeasible": 3,
+      "unknown": 0
+    },
+    "aemo_unknown_85_random3": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 18174.855956097123,
+      "oracle_ratio_pct": 79.14746171459687,
+      "loss_pct": 20.85253828540312,
+      "feasible": 37,
+      "infeasible": 3,
+      "unknown": 0
+    },
+    "aemo_unknown_91_low2max": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 15748.790218731208,
+      "oracle_ratio_pct": 68.5824841692949,
+      "loss_pct": 31.4175158307051,
+      "feasible": 39,
+      "infeasible": 1,
+      "unknown": 0
+    },
+    "aemo_unknown_91_minmedmax": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 18400.82457512474,
+      "oracle_ratio_pct": 80.13150487105386,
+      "loss_pct": 19.86849512894614,
+      "feasible": 38,
+      "infeasible": 2,
+      "unknown": 0
+    },
+    "aemo_unknown_91_random3": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 19715.522510437244,
+      "oracle_ratio_pct": 85.85672243276436,
+      "loss_pct": 14.143277567235646,
+      "feasible": 37,
+      "infeasible": 3,
+      "unknown": 0
+    },
+    "aemo_unknown_95_low2max": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 16833.754835174783,
+      "oracle_ratio_pct": 73.30726414274237,
+      "loss_pct": 26.69273585725763,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "aemo_unknown_95_minmedmax": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 19304.944059642963,
+      "oracle_ratio_pct": 84.06874445409007,
+      "loss_pct": 15.931255545909927,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "aemo_unknown_95_random3": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 19854.727368403626,
+      "oracle_ratio_pct": 86.46292867687404,
+      "loss_pct": 13.53707132312596,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "ercot_known_85_low2max": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 15808.10547730712,
+      "oracle_ratio_pct": 68.8385836593837,
+      "loss_pct": 31.1614163406163,
+      "feasible": 38,
+      "infeasible": 2,
+      "unknown": 0
+    },
+    "ercot_known_85_minmedmax": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 18335.515344239488,
+      "oracle_ratio_pct": 79.84453980106889,
+      "loss_pct": 20.15546019893111,
+      "feasible": 38,
+      "infeasible": 2,
+      "unknown": 0
+    },
+    "ercot_known_85_random3": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 18980.8558009553,
+      "oracle_ratio_pct": 82.6547641560486,
+      "loss_pct": 17.34523584395141,
+      "feasible": 37,
+      "infeasible": 3,
+      "unknown": 0
+    },
+    "ercot_known_91_low2max": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 16807.028514097532,
+      "oracle_ratio_pct": 73.18853230668336,
+      "loss_pct": 26.811467693316636,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "ercot_known_91_minmedmax": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 19365.835688542524,
+      "oracle_ratio_pct": 84.33121237034578,
+      "loss_pct": 15.668787629654224,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "ercot_known_91_random3": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 20595.75112660408,
+      "oracle_ratio_pct": 89.68704940587841,
+      "loss_pct": 10.312950594121585,
+      "feasible": 38,
+      "infeasible": 2,
+      "unknown": 0
+    },
+    "ercot_known_95_low2max": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 17745.696827688207,
+      "oracle_ratio_pct": 77.27609342058679,
+      "loss_pct": 22.72390657941322,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "ercot_known_95_minmedmax": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 20230.60125327806,
+      "oracle_ratio_pct": 88.09695373380372,
+      "loss_pct": 11.903046266196293,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "ercot_known_95_random3": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 20709.70273956294,
+      "oracle_ratio_pct": 90.18326747913527,
+      "loss_pct": 9.816732520864734,
+      "feasible": 39,
+      "infeasible": 1,
+      "unknown": 0
+    },
+    "ercot_unknown_85_low2max": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 15313.800705218635,
+      "oracle_ratio_pct": 66.6860651013887,
+      "loss_pct": 33.313934898611286,
+      "feasible": 39,
+      "infeasible": 1,
+      "unknown": 0
+    },
+    "ercot_unknown_85_minmedmax": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 17886.22084510008,
+      "oracle_ratio_pct": 77.8880247075235,
+      "loss_pct": 22.111975292476505,
+      "feasible": 39,
+      "infeasible": 1,
+      "unknown": 0
+    },
+    "ercot_unknown_85_random3": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 18499.992228659063,
+      "oracle_ratio_pct": 80.5607771632503,
+      "loss_pct": 19.439222836749714,
+      "feasible": 37,
+      "infeasible": 3,
+      "unknown": 0
+    },
+    "ercot_unknown_91_low2max": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 16219.990203250598,
+      "oracle_ratio_pct": 70.63219271681216,
+      "loss_pct": 29.36780728318784,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "ercot_unknown_91_minmedmax": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 18824.038140776967,
+      "oracle_ratio_pct": 81.97187994611264,
+      "loss_pct": 18.028120053887363,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "ercot_unknown_91_random3": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 20021.033353342016,
+      "oracle_ratio_pct": 87.18436130248561,
+      "loss_pct": 12.815638697514387,
+      "feasible": 38,
+      "infeasible": 2,
+      "unknown": 0
+    },
+    "ercot_unknown_95_low2max": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 17229.859956053355,
+      "oracle_ratio_pct": 75.02981035437084,
+      "loss_pct": 24.97018964562917,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "ercot_unknown_95_minmedmax": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 19746.25881877939,
+      "oracle_ratio_pct": 85.9878175539567,
+      "loss_pct": 14.012182446043298,
+      "feasible": 39,
+      "infeasible": 0,
+      "unknown": 1
+    },
+    "ercot_unknown_95_random3": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 20191.915012244797,
+      "oracle_ratio_pct": 87.92848914178424,
+      "loss_pct": 12.071510858215762,
+      "feasible": 38,
+      "infeasible": 1,
+      "unknown": 1
+    }
+  },
+  "information": {
+    "6_aemo_oracle": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 22963.28342358603,
+      "oracle_ratio_pct": 100.0,
+      "loss_pct": 0.0,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "6_aemo_cmd": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 16806.379454596045,
+      "oracle_ratio_pct": 73.18805043939793,
+      "loss_pct": 26.811949560602077,
+      "feasible": 39,
+      "infeasible": 1,
+      "unknown": 0
+    },
+    "6_aemo_ev": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 22150.330780214084,
+      "oracle_ratio_pct": 96.45977176531757,
+      "loss_pct": 3.54022823468243,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "6_aemo_main": {
+      "capacity_kw_block_day": 15748.917922296658,
+      "oracle_ratio_pct": 68.58304028996412
+    },
+    "20_aemo_oracle": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 77557.67443670647,
+      "oracle_ratio_pct": 100.0,
+      "loss_pct": 0.0,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "20_aemo_cmd": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 67892.60014827887,
+      "oracle_ratio_pct": 87.53821029495268,
+      "loss_pct": 12.46178970504731,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "20_aemo_ev": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 74983.38640408433,
+      "oracle_ratio_pct": 96.6808081194815,
+      "loss_pct": 3.3191918805185017,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "20_aemo_main": {
+      "capacity_kw_block_day": 65010.78934943676,
+      "oracle_ratio_pct": 83.82250992129862
+    },
+    "6_ercot_oracle": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 22964.019067455414,
+      "oracle_ratio_pct": 100.0,
+      "loss_pct": 0.0,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "6_ercot_cmd": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 16807.028514097532,
+      "oracle_ratio_pct": 73.18853230668336,
+      "loss_pct": 26.811467693316636,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "6_ercot_ev": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 22463.206874513817,
+      "oracle_ratio_pct": 97.8191439770604,
+      "loss_pct": 2.1808560229395924,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "6_ercot_main": {
+      "capacity_kw_block_day": 16219.990203250603,
+      "oracle_ratio_pct": 70.63219271681217
+    },
+    "20_ercot_oracle": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 77560.70873525536,
+      "oracle_ratio_pct": 100.0,
+      "loss_pct": 0.0,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "20_ercot_cmd": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 67886.69347218235,
+      "oracle_ratio_pct": 87.52717010865106,
+      "loss_pct": 12.472829891348935,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "20_ercot_ev": {
+      "complete": true,
+      "sets": 40,
+      "capacity_kw_block_day": 76186.12410927397,
+      "oracle_ratio_pct": 98.22773070489416,
+      "loss_pct": 1.7722692951058328,
+      "feasible": 40,
+      "infeasible": 0,
+      "unknown": 0
+    },
+    "20_ercot_main": {
+      "capacity_kw_block_day": 66089.5131290623,
+      "oracle_ratio_pct": 85.21004282548695
+    }
+  },
+  "calibration": {
+    "wape_91": 8.779941891853056,
+    "k95": 0.4312,
+    "wape_95": 5.000255903408915,
+    "sigma85": 0.1851,
+    "wape_85": 15.00120848509469,
+    "mix95": "station_swap"
+  }
+}

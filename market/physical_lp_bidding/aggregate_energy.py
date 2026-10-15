@@ -203,6 +203,17 @@ def _solve_aggregate_lp(
         ub_rhs.append(np.asarray(sustained_power_max, dtype=float).reshape(blocks))
         ub_count += blocks
 
+    # A symmetric award (cfg.symmetric_award): up - down <= 0 and
+    # down - up <= 0 in every block.
+    if bool(getattr(cfg, "symmetric_award", False)):
+        for sign in (1.0, -1.0):
+            row_ids = ub_count + block_index
+            ub_rows += [row_ids, row_ids]
+            ub_cols += [blocks + block_index, 2 * blocks + block_index]
+            ub_vals += [np.full(blocks, sign), np.full(blocks, -sign)]
+            ub_rhs.append(np.zeros(blocks))
+            ub_count += blocks
+
     # Baseline steps: z_j >= |baseline[k+1] - baseline[k]| for each adjacent
     # participating pair, as two rows D x - z <= 0 and -D x - z <= 0.
     if n_step:
@@ -295,6 +306,11 @@ def energy_feasible_initial_bid(
     down_cap = np.asarray(down_cap, dtype=float).reshape(blocks)
     up_active = up_cap >= floor - tolerance
     down_active = down_cap >= floor - tolerance
+    symmetric = bool(getattr(cfg, "symmetric_award", False))
+    if symmetric:
+        # Both directions or neither (cfg.symmetric_award).
+        up_active = up_active & down_active
+        down_active = up_active.copy()
     initial_capacity = float(np.sum(np.where(up_active, up_cap, 0.0)) + np.sum(np.where(down_active, down_cap, 0.0)))
 
     envelopes: dict[int, FleetEnvelope] = {}
@@ -368,6 +384,9 @@ def energy_feasible_initial_bid(
         down = np.where(down_active, strict["down"], 0.0)
         below_up = up_active & (up < floor - tolerance)
         below_down = down_active & (down < floor - tolerance)
+        if symmetric:
+            below_up = below_up | below_down
+            below_down = below_up.copy()
         row["capacity_kw_block"] = float(np.sum(up) + np.sum(down))
         row["below_floor_up"] = np.flatnonzero(below_up).astype(int).tolist()
         row["below_floor_down"] = np.flatnonzero(below_down).astype(int).tolist()

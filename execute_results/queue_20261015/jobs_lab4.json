@@ -1,0 +1,145 @@
+[
+ {
+  "id": "bess20_ercot_force_ext",
+  "cwd": ".",
+  "min_free_gb": 8,
+  "args": [
+   "execute_results/paper_eval_20261014/eval_bess.py",
+   "--task",
+   "ercot",
+   "--force",
+   "--model",
+   "{ROOT}/archive/wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521",
+   "--episode",
+   "2000",
+   "--stage-dir",
+   "resbid_20station_20261014",
+   "--prefix",
+   "bess20",
+   "--sizes",
+   "4500,5000,5500,6000,7000,8000",
+   "--workers",
+   "2"
+  ]
+ },
+ {
+  "id": "rulebess20_aemo",
+  "cwd": "execute_results/rule_bess_6station_20261011",
+  "min_free_gb": 12,
+  "env": {
+   "LIU_LYU_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014",
+   "LIU_LYU_TAG": "20station_"
+  },
+  "args": [
+   "run_rule_bess.py",
+   "aemo",
+   "0,250,500,750,1000,1250,1500,2000,2500,3000,3500,4000",
+   "4",
+   "2",
+   "4"
+  ],
+  "wait_while_running": [
+   "run.py ercot"
+  ]
+ },
+ {
+  "id": "rulebess20_ercot",
+  "cwd": "execute_results/rule_bess_6station_20261011",
+  "min_free_gb": 12,
+  "env": {
+   "LIU_LYU_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014",
+   "LIU_LYU_TAG": "20station_"
+  },
+  "args": [
+   "run_rule_bess.py",
+   "ercot",
+   "0,250,500,750,1000,1250,1500,2000,2500,3000,3500,4000",
+   "4",
+   "2",
+   "4"
+  ],
+  "wait_while_running": [
+   "run.py ercot"
+  ]
+ },
+ {
+  "id": "rulebess20_pjm",
+  "cwd": "execute_results/rule_bess_6station_20261011",
+  "min_free_gb": 12,
+  "env": {
+   "LIU_LYU_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014",
+   "LIU_LYU_TAG": "20station_"
+  },
+  "args": [
+   "run_rule_bess.py",
+   "pjm",
+   "0,250,500,750,1000,1250,1500,2000,2500,3000,3500,4000",
+   "4",
+   "2",
+   "4"
+  ],
+  "wait_while_running": [
+   "run.py ercot"
+  ]
+ },
+ {
+  "id": "pjm20_info_main",
+  "cwd": "execute_results/info_bid_20station_20261013",
+  "min_free_gb": 8,
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "TABLE3_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014"
+  },
+  "args": [
+   "info_bid.py",
+   "pjm",
+   "main",
+   "4"
+  ]
+ },
+ {
+  "id": "pjm20_info_oracle",
+  "cwd": "execute_results/info_bid_20station_20261013",
+  "min_free_gb": 8,
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "TABLE3_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014"
+  },
+  "args": [
+   "info_bid.py",
+   "pjm",
+   "oracle",
+   "4"
+  ]
+ },
+ {
+  "id": "pjm20_info_cmd",
+  "cwd": "execute_results/info_bid_20station_20261013",
+  "min_free_gb": 8,
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "TABLE3_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014"
+  },
+  "args": [
+   "info_bid.py",
+   "pjm",
+   "cmd",
+   "4"
+  ]
+ },
+ {
+  "id": "pjm20_info_ev",
+  "cwd": "execute_results/info_bid_20station_20261013",
+  "min_free_gb": 10,
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "TABLE3_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014"
+  },
+  "args": [
+   "info_bid.py",
+   "pjm",
+   "ev",
+   "3"
+  ]
+ }
+]

@@ -503,6 +503,9 @@ _EV_SCENARIO_SELECTIONS = {
     "low_connection_2_max_count": ("low2max", 3),
     "low_connection_1_median_max_count": ("low1medmax", 3),
     "low_connection_3_max_count": ("low3max", 4),
+    # The first method (B0): three of the candidates drawn uniformly at random,
+    # seeded by the day's forecast seed.
+    "random_3": ("random3", 3),
 }
 if LOWER_TRAIN_UPPER_BID_EV_SCENARIO_SELECTION not in _EV_SCENARIO_SELECTIONS:
     raise ValueError(
@@ -562,7 +565,50 @@ LOWER_TRAIN_UPPER_BID_BASELINE_MAX_KW = float(os.environ.get("EVMA_LOWER_TRAIN_U
 # Jointly choose one day-ahead baseline/up/down profile against every selected
 # EV realization and all 128 design commands.
 # Departure SoC and every assessed 5-minute tracking point are hard constraints.
-LOWER_TRAIN_UPPER_BID_REWARD_BAND_FRAC = float(os.environ.get("EVMA_LOWER_TRAIN_UPPER_BID_REWARD_BAND_FRAC", 0.10))
+#
+# The market rule a bid is held to (EVMA_MARKET_TRACKING_RULE). Each assessed
+# 5-minute step must stay within a band of
+#   (band_fraction + signal_fraction * s) * award
+# around its instruction, s being the instruction as a fraction of the award,
+# and a step without an instruction within idle_fraction * (up + down).
+#   japan: Secondary Reserve 2 Assessment II, 10 % of the award (0.1, 0, 0.1).
+#          Assessment I checks the power the fleet can hold for the 30-minute
+#          block.
+#   pjm:   PJM Regulation performance score (Manual 12 Rev.57 4.4.5, OA
+#          Schedule 1 3.2.2(j)): 1 - |response - signal| / (0.5 * interval
+#          average |signal| + 0.5 * AReg), averaged over the samples of the
+#          5-minute interval. This model has one sample per interval, so a score
+#          of at least PJM_INTERVAL_SCORE_FLOOR (theta) is an error within
+#          (1 - theta) / 2 * (1 + s) * AReg. AReg is one quantity for both
+#          directions (Manual 12 4.3), so up and down are bid equal, and the
+#          idle band (1 - theta) / 2 * AReg is (1 - theta) / 4 * (up + down).
+#          Regulation capability is half the resource's MW range (Manual 11
+#          3.5), with no duration attached, so the fleet range is taken over one
+#          5-minute step. PJM's 10-second latency allowance is shorter than a
+#          step and has no counterpart here.
+MARKET_TRACKING_RULE = os.environ.get("EVMA_MARKET_TRACKING_RULE", "").strip() or "japan"
+if MARKET_TRACKING_RULE not in ("japan", "pjm"):
+    raise ValueError(f"EVMA_MARKET_TRACKING_RULE must be japan or pjm, not {MARKET_TRACKING_RULE!r}")
+PJM_INTERVAL_SCORE_FLOOR = float(os.environ.get("EVMA_PJM_INTERVAL_SCORE_FLOOR", 0.75))
+if MARKET_TRACKING_RULE == "pjm":
+    if not 0.0 <= PJM_INTERVAL_SCORE_FLOOR < 1.0:
+        raise ValueError("EVMA_PJM_INTERVAL_SCORE_FLOOR must be in [0, 1)")
+    if os.environ.get("EVMA_LOWER_TRAIN_UPPER_BID_REWARD_BAND_FRAC", "").strip():
+        raise ValueError(
+            "under the PJM rule the band follows EVMA_PJM_INTERVAL_SCORE_FLOOR; "
+            "unset EVMA_LOWER_TRAIN_UPPER_BID_REWARD_BAND_FRAC"
+        )
+    LOWER_TRAIN_UPPER_BID_REWARD_BAND_FRAC = 0.5 * (1.0 - PJM_INTERVAL_SCORE_FLOOR)
+    TRACKING_BAND_SIGNAL_FRACTION = LOWER_TRAIN_UPPER_BID_REWARD_BAND_FRAC
+    TRACKING_IDLE_BAND_FRACTION = 0.5 * LOWER_TRAIN_UPPER_BID_REWARD_BAND_FRAC
+    SYMMETRIC_AWARD = True
+    CAPABILITY_DURATION_HOURS = 5.0 / 60.0
+else:
+    LOWER_TRAIN_UPPER_BID_REWARD_BAND_FRAC = float(os.environ.get("EVMA_LOWER_TRAIN_UPPER_BID_REWARD_BAND_FRAC", 0.10))
+    TRACKING_BAND_SIGNAL_FRACTION = 0.0
+    TRACKING_IDLE_BAND_FRACTION = LOWER_TRAIN_UPPER_BID_REWARD_BAND_FRAC
+    SYMMETRIC_AWARD = False
+    CAPABILITY_DURATION_HOURS = 0.5
 # Participation floor. Two separate requirements, and the binding one is not
 # the market's.
 #
@@ -631,9 +677,11 @@ ASSESSMENT_I_CONTROL_MARGIN_KW = (
     float(_margin_env) if _margin_env
     else _ASSESSMENT_I_CONTROL_MARGIN_KW_BY_STATIONS.get(NUM_STATIONS, 0.0)
 )
+# EPRX: 1 MW per non-zero direction. PJM: 0.1 MW of regulation capability
+# (Manual 11 Rev.137 3.2).
 MARKET_MINIMUM_BID_QUANTITY_KW = float(os.environ.get(
     "EVMA_MARKET_MINIMUM_BID_QUANTITY_KW",
-    1000.0,
+    100.0 if MARKET_TRACKING_RULE == "pjm" else 1000.0,
 ))
 # The initial bid is also the per-block upper limit of the Benders search. It
 # comes from an aggregate LP that checks the fleet's cumulative energy over the
@@ -685,8 +733,10 @@ LOWER_TRAIN_UPPER_BID_BENDERS_MAX_TOTAL_CUTS = int(os.environ.get(
 ))
 LOWER_TRAIN_RESEARCH_MINIMUM_BID_QUANTITY_KW = os.environ.get(
     "EVMA_LOWER_TRAIN_RESEARCH_MINIMUM_BID_QUANTITY_KW",
-    # The larger of the scaled market minimum and the award whose 10% band the
-    # controller can actually hold. Empty when the band is not set for this
+    # The larger of the scaled market minimum and the award whose narrowest band
+    # (band_fraction of the award: 10 % under the Japanese rule, (1 - theta) / 2
+    # at zero instruction under PJM) the controller can actually hold. Empty
+    # when the band is not set for this
     # station count; training.blockwise_bid.minimum_bid_quantity_kw then refuses
     # to build a bid.
     str(

@@ -1,0 +1,21 @@
+{
+  "task": "ercot",
+  "run": "wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145",
+  "episode": 2000,
+  "stage_dir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\resbid_6station_20261012",
+  "evaluation_sha256": "a1c3de47613ce26cef8f04059c7ff3ba074990fb48b609fcdc1181dd240a9901",
+  "actors_sha256": {
+    "actor_0_ep2000.pth": "edeab792cbf7b51070bbf67fe746061ecddcd98e7024bc64b914689fc177369f",
+    "actor_1_ep2000.pth": "5a775dacc6fa8286075446fb861bf201d046298613765283ad72b3a067cbcca8",
+    "actor_2_ep2000.pth": "d94ba6a1f466d2a0cdfe4149dcb4733504469ddbbe8509cb862c7cd19b1c1b54",
+    "actor_3_ep2000.pth": "ab98fba75c57397c74c00edd7d4b10d7c87cc2850f8cfec4011b15e14b0e159c",
+    "actor_4_ep2000.pth": "61069c45b132b1797bf97f06e9d1e261004145994d96149bbd6d138d372803f7",
+    "actor_5_ep2000.pth": "816f697bcf7c66a4d37158be1ff5165359c67bb9bdd43da88b92be26b78b6286"
+  },
+  "sets": {
+    "days": 5,
+    "commands": 4,
+    "ev_seeds": 2,
+    "seed_formula": "4000000 + 1000*day + 10*command + ev_seed"
+  }
+}

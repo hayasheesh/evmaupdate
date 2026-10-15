@@ -1,0 +1,7 @@
+{
+  "time": "2026-10-14T17:38:06.591811+09:00",
+  "status": "excluded_partial_prototype",
+  "reason": "Upper bid actor, original hierarchical critic updates and group-reference generation are not verified",
+  "saved_training_episode": 87,
+  "paper_eligible": false
+}

@@ -1,0 +1,35 @@
+{
+  "task": "aemo",
+  "run": "wr_cap77wd_aemoplan_20station_resbid_abg_20261013_101724",
+  "episode": 1920,
+  "stage_dir": "/workspace/EVMALOCALUPDATE/execute_results/abg_resbid_20station_20261013",
+  "evaluation_sha256": "a1c3de47613ce26cef8f04059c7ff3ba074990fb48b609fcdc1181dd240a9901",
+  "actors_sha256": {
+    "actor_2_ep1920.pth": "f486b98ab35b48f223cc44ee8eefb2bbe26198a929a0d13d7c827eb6bf59548f",
+    "actor_17_ep1920.pth": "e90ef9736b61a59be98922730eca8bcade27683bb48724c4582fddeb1de40da9",
+    "actor_12_ep1920.pth": "730e7c5d74dacb964ba6869d8042fa59d5bddbaeab002f977d81e5bf6d62f7b2",
+    "actor_4_ep1920.pth": "1a9596f7a8d2fb042f96dfc713181e46790e51e3f140ad8c6e069761040984c6",
+    "actor_9_ep1920.pth": "75064cbf4e79052b391196888be9ed2d0a1639decf450a2a42a07ec430033710",
+    "actor_14_ep1920.pth": "e0a787ae5b65ba4bc7c9f478ddb95b41a0fe03f354330bb5a2b47980a28814df",
+    "actor_6_ep1920.pth": "9571dea0ab5ec1bb687e8b17d5445dc6bbd715286a1de281640b22d14ab1b1ac",
+    "actor_15_ep1920.pth": "08d24d263a94a535f7b26eefef87761bd327c705b4c949913cb8adca62cc2208",
+    "actor_13_ep1920.pth": "65af22dafb96c1e5436a698d3746054c7104b4cf302b309eae66b0fff31ea398",
+    "actor_3_ep1920.pth": "5a10a76a0370e54a0dc8cde692059c0eb0aba19982018368e20a5e28d2c158e1",
+    "actor_7_ep1920.pth": "0e2dd4c90de3c7cac0d6b4f5621c0d6981524be3d0e6ce424bec3c8c9d6117e0",
+    "actor_8_ep1920.pth": "8552eb3e41403f969a1603c2d5220e48e0ada6d250fb4e1983922b44435b1a8c",
+    "actor_11_ep1920.pth": "9d2e5f170d9c07eceb25fcac74e961c50699a9550b62bbab443095b56101eaa1",
+    "actor_19_ep1920.pth": "cab5c8b44e221bd97f9b62b1f403f67ac44f48e347e2c9a283f1799d38824d48",
+    "actor_18_ep1920.pth": "113e216d8a3c57ff4b0eacdadf1f8c35e6326b7551d0629c89fe13344979c33d",
+    "actor_5_ep1920.pth": "8deabb3f8caec852d59de0f9147b36b9429d780df9ff2aeada26c20df32ca733",
+    "actor_1_ep1920.pth": "56d7be2f18481ddb28bd03f4dada658f3ad0da55243ee48b385458f24c750853",
+    "actor_10_ep1920.pth": "fddcc4fbf3326a480836d47fdc9152bb6f5a3cfc9f72f27b15fc058aede53cd9",
+    "actor_16_ep1920.pth": "7d2e15910d03fbcf4397d150768e0a8fef92fe70c81d4361dd3a8ae0559ee194",
+    "actor_0_ep1920.pth": "89fb54826fdbba851630066097d13d79dbe28f59d64a6273cdb909bfc1c693c8"
+  },
+  "sets": {
+    "days": 5,
+    "commands": 4,
+    "ev_seeds": 2,
+    "seed_formula": "4000000 + 1000*day + 10*command + ev_seed"
+  }
+}

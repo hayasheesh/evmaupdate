@@ -22,6 +22,12 @@ import numpy as np
 
 from EnvConfig import (
     ASSESSMENT_I_CONTROL_MARGIN_KW,
+    CAPABILITY_DURATION_HOURS,
+    MARKET_TRACKING_RULE,
+    PJM_INTERVAL_SCORE_FLOOR,
+    SYMMETRIC_AWARD,
+    TRACKING_BAND_SIGNAL_FRACTION,
+    TRACKING_IDLE_BAND_FRACTION,
     LOWER_TRAIN_UPPER_BID_BENDERS_CUTS_PER_ROUND,
     LOWER_TRAIN_UPPER_BID_BENDERS_MAX_ROUNDS,
     LOWER_TRAIN_UPPER_BID_BENDERS_MAX_TOTAL_CUTS,
@@ -49,6 +55,28 @@ from market.sustained_capability import (
 
 
 REVIEWED_FIXED_EV_30MIN_CAPABILITY = "reviewed_fixed_ev_bank_30min"
+# Under the PJM rule the capability is the fleet's power range over one
+# 5-minute step (EnvConfig.CAPABILITY_DURATION_HOURS).
+REVIEWED_FIXED_EV_5MIN_POWER_RANGE = "reviewed_fixed_ev_bank_5min_power_range"
+CAPABILITY_POLICY = (
+    REVIEWED_FIXED_EV_5MIN_POWER_RANGE
+    if MARKET_TRACKING_RULE == "pjm"
+    else REVIEWED_FIXED_EV_30MIN_CAPABILITY
+)
+
+
+def tracking_rule_fields() -> dict:
+    """The band and award settings a bid is built with, stored alongside it."""
+
+    fields = {
+        "market_tracking_rule": str(MARKET_TRACKING_RULE),
+        "band_signal_fraction": float(TRACKING_BAND_SIGNAL_FRACTION),
+        "idle_band_fraction": float(TRACKING_IDLE_BAND_FRACTION),
+        "symmetric_award": bool(SYMMETRIC_AWARD),
+    }
+    if MARKET_TRACKING_RULE == "pjm":
+        fields["pjm_interval_score_floor"] = float(PJM_INTERVAL_SCORE_FLOOR)
+    return fields
 
 
 def _observed_activation_directions_by_block(
@@ -218,11 +246,12 @@ def _reviewed_fixed_ev_assessment_i_bounds(lbt, ev_bank) -> tuple[np.ndarray, np
     up_kw, down_kw = sustained_capability_quantile(
         bank,
         quantile=0.0,
-        duration_hours=0.5,
+        duration_hours=float(CAPABILITY_DURATION_HOURS),
     )
     lbt._bid_build_log(
         "blockwise-bid-search: reviewed Assessment-I capability from the "
-        f"fixed {len(bank)}-realization EV bank, 30min product duration: "
+        f"fixed {len(bank)}-realization EV bank, "
+        f"{60.0 * float(CAPABILITY_DURATION_HOURS):.0f}min duration: "
         f"up median {float(np.median(up_kw)):.0f}kW "
         f"down median {float(np.median(down_kw)):.0f}kW "
         "(no auxiliary capability draws)"
@@ -951,8 +980,20 @@ def build_blockwise_bid_for_day(
     )
     if not np.isfinite(selected_band_fraction) or selected_band_fraction < 0.0:
         raise ValueError("assessment_band_fraction must be finite and non-negative")
+    if MARKET_TRACKING_RULE == "pjm" and not np.isclose(
+        selected_band_fraction, LOWER_TRAIN_UPPER_BID_REWARD_BAND_FRAC
+    ):
+        raise ValueError(
+            "under the PJM rule the band follows EVMA_PJM_INTERVAL_SCORE_FLOOR; "
+            "do not pass assessment_band_fraction"
+        )
     cfg = BiddingLPConfig(
         assessment_band_fraction=selected_band_fraction,
+        band_signal_fraction=float(TRACKING_BAND_SIGNAL_FRACTION),
+        idle_band_fraction=(
+            float(TRACKING_IDLE_BAND_FRACTION) if MARKET_TRACKING_RULE == "pjm" else None
+        ),
+        symmetric_award=bool(SYMMETRIC_AWARD),
         scenario_workers=max(1, int(scenario_workers)),
         time_limit_s=(
             float(LOWER_TRAIN_UPPER_BID_PHYSICAL_LP_TIME_LIMIT_S)
@@ -1032,8 +1073,16 @@ def build_blockwise_bid_for_day(
     observed_up, observed_down = _observed_activation_directions_by_block(
         forecast_payloads
     )
-    up_limit = np.where(observed_up, up_limit, 0.0)
-    down_limit = np.where(observed_down, down_limit, 0.0)
+    if SYMMETRIC_AWARD:
+        # One quantity for both directions: a block the commands move at all
+        # takes the smaller of its two caps in both.
+        observed = observed_up | observed_down
+        common_limit = np.where(observed, np.minimum(up_limit, down_limit), 0.0)
+        up_limit = common_limit
+        down_limit = common_limit.copy()
+    else:
+        up_limit = np.where(observed_up, up_limit, 0.0)
+        down_limit = np.where(observed_down, down_limit, 0.0)
     initial_activations_per_ev = len(forecast_payloads)
     initial_scenario_count = len(ev_bank) * initial_activations_per_ev
     lbt._bid_build_log(
@@ -1140,6 +1189,13 @@ def build_blockwise_bid_for_day(
                 f"certified {label} submission fell below participation floor "
                 f"in blocks {np.flatnonzero(too_small).astype(int).tolist()}"
             )
+    if SYMMETRIC_AWARD:
+        asymmetric = np.abs(up_plan - down_plan) > 1e-3
+        if np.any(asymmetric):
+            raise RuntimeError(
+                "certified bid is not symmetric in blocks "
+                f"{np.flatnonzero(asymmetric).astype(int).tolist()}"
+            )
     assessment_i_tolerance_kw = 1e-3
     up_breach = (baseline_plan - up_plan) < sustained_power_min - assessment_i_tolerance_kw
     down_breach = (baseline_plan + down_plan) > sustained_power_max + assessment_i_tolerance_kw
@@ -1156,6 +1212,8 @@ def build_blockwise_bid_for_day(
         up_plan,
         down_plan,
         band_fraction=selected_band_fraction,
+        band_signal_fraction=float(cfg.band_signal_fraction),
+        idle_band_fraction=cfg.idle_band_fraction,
     )
     offered_capacity = lbt._capacity_objective_kw_block(up_plan, down_plan)
     result = lbt.SubmittedBidResult(
@@ -1194,14 +1252,15 @@ def build_blockwise_bid_for_day(
         "minimum_bid_quantity_mode": "configured_floor",
         "award_assumption": "full_award",
         "assessment_band_fraction": float(selected_band_fraction),
+        **tracking_rule_fields(),
         "ev_information_regime": information_regime,
         "all_command_scenarios": True,
         "allowed_command_failures": 0,
-        "assessment_i_capability_policy": REVIEWED_FIXED_EV_30MIN_CAPABILITY,
+        "assessment_i_capability_policy": CAPABILITY_POLICY,
         "assessment_i_capability_ev_scenarios": int(len(ev_bank)),
         "ev_scenario_candidate_count": int(candidate_count),
         "ev_scenario_selection": list(ev_scenario_selection),
-        "assessment_i_capability_duration_minutes": 30.0,
+        "assessment_i_capability_duration_minutes": 60.0 * float(CAPABILITY_DURATION_HOURS),
         "apply_transition_band": False,
         "per_block_baseline_search": True,
         "per_block_delta_kw_quantity_search": True,
@@ -1288,13 +1347,14 @@ def build_blockwise_bid_for_day(
         "service_date": service_date,
         "forecast_seed": int(seed),
         "assessment_band_fraction": float(selected_band_fraction),
+        **tracking_rule_fields(),
         "bid_objective": "total_ev_regulation_capacity_kw_block",
         "ev_information_regime": information_regime,
         "all_command_scenarios": True,
         "allowed_command_failures": 0,
-        "assessment_i_capability_policy": REVIEWED_FIXED_EV_30MIN_CAPABILITY,
+        "assessment_i_capability_policy": CAPABILITY_POLICY,
         "assessment_i_capability_ev_scenarios": int(len(ev_bank)),
-        "assessment_i_capability_duration_minutes": 30.0,
+        "assessment_i_capability_duration_minutes": 60.0 * float(CAPABILITY_DURATION_HOURS),
         "apply_transition_band": False,
         "bid_ev_scenario_bank": certification_ev_bank,
         "ev_scenario_candidate_count": int(candidate_count),

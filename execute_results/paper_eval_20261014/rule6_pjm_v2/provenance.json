@@ -1,0 +1,21 @@
+{
+  "task": "pjm",
+  "run": "wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409",
+  "episode": 2000,
+  "stage_dir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\resbid_6station_20261012",
+  "evaluation_sha256": "a1c3de47613ce26cef8f04059c7ff3ba074990fb48b609fcdc1181dd240a9901",
+  "actors_sha256": {
+    "actor_0_ep2000.pth": "6ab60e6b9eeabcae26e77a98e86dd85dac16681b097aeed9f8bff02706522255",
+    "actor_1_ep2000.pth": "f4a871f8db70f88532413c9339f23d358a4e6b5393243412733c804ddc5f0b9c",
+    "actor_2_ep2000.pth": "94ab3bf0de3a57e16668ccd1686019e14ac1dc047ea214d1cca2e6a06c7ac390",
+    "actor_3_ep2000.pth": "f1ce481eca179849aaf2aff73497b3e80bc38a6251022b101821bd7dd2996e5d",
+    "actor_4_ep2000.pth": "7971cb2fa42169019aad6ee2711dc02bb5a7636f532cc6d2a4d0a74ef5969519",
+    "actor_5_ep2000.pth": "c42805c6ae185963e21eae387f6703a36bf216a3cab73afae746ea6384a43174"
+  },
+  "sets": {
+    "days": 5,
+    "commands": 4,
+    "ev_seeds": 2,
+    "seed_formula": "4000000 + 1000*day + 10*command + ev_seed"
+  }
+}

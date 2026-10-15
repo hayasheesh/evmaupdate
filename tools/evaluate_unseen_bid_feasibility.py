@@ -36,6 +36,7 @@ if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
 from market.physical_lp_bidding.colgen_feasibility import certify
+from market.bid_participation import tracking_band_fields
 from market.physical_lp_bidding.data_classes import BiddingLPConfig
 from market.physical_lp_bidding.joint_validation import fixed_bid_tracking_bands
 from training.bid_bank import BidBank
@@ -149,7 +150,7 @@ def evaluate_day(
     )
 
     cfg = BiddingLPConfig(
-        assessment_band_fraction=float(fixed_bid["assessment_band_fraction"]),
+        **tracking_band_fields(fixed_bid),
         apply_transition_band=bool(fixed_bid["apply_transition_band"]),
     )
     baseline = np.asarray(fixed_bid["baseline_plan"], dtype=float)

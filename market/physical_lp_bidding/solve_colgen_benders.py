@@ -28,6 +28,8 @@ from .data_classes import (
     assessment_i_rows,
     baseline_step_matrix,
     project_assessment_i,
+    symmetric_award_rows,
+    symmetric_widths,
 )
 from .prefix_circulation import (
     master_cut as circulation_master_cut,
@@ -618,6 +620,15 @@ def solve_joint_hard_bidding_benders(
         initial_solution.down_kw,
     )
     threshold = max(float(minimum_active_width_kw), cfg.eps * 10.0)
+    symmetric = bool(getattr(cfg, "symmetric_award", False))
+    if symmetric:
+        # One width for both directions, held equal by the master's rows.
+        initial_up, initial_down = symmetric_widths(
+            initial_up, initial_down, floor=threshold
+        )
+        symmetric_matrix, symmetric_rhs = symmetric_award_rows(cfg.blocks)
+        assessment_matrix = np.vstack([assessment_matrix, symmetric_matrix])
+        assessment_rhs = np.concatenate([assessment_rhs, symmetric_rhs])
     up_active = initial_up >= threshold
     down_active = initial_down >= threshold
     # A direction under the threshold is outside the pattern: no oracle band

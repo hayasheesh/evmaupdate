@@ -1,0 +1,145 @@
+[
+ {
+  "id": "sel_aemo_cnt6_build",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "min_free_gb": 12,
+  "env": {
+   "CUDA_VISIBLE_DEVICES": ""
+  },
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "cnt6"
+  ],
+  "wait_while_running": [
+   "run.py ercot"
+  ]
+ },
+ {
+  "id": "liu20_aemo_bid",
+  "cwd": "execute_results/liu_lyu_2025_port_20261011",
+  "min_free_gb": 12,
+  "env": {
+   "LIU_LYU_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014",
+   "LIU_LYU_TAG": "20station_",
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "run_port.py",
+   "aemo",
+   "bid",
+   "4",
+   "2",
+   "4"
+  ],
+  "wait_while_running": [
+   "run.py ercot"
+  ]
+ },
+ {
+  "id": "liu20_aemo_theirs",
+  "cwd": "execute_results/liu_lyu_2025_port_20261011",
+  "min_free_gb": 12,
+  "env": {
+   "LIU_LYU_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014",
+   "LIU_LYU_TAG": "20station_",
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "run_port.py",
+   "aemo",
+   "theirs",
+   "4",
+   "2",
+   "4"
+  ],
+  "wait_while_running": [
+   "run.py ercot"
+  ]
+ },
+ {
+  "id": "liu20_aemo_fixed",
+  "cwd": "execute_results/liu_lyu_2025_port_20261011",
+  "min_free_gb": 12,
+  "env": {
+   "LIU_LYU_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014",
+   "LIU_LYU_TAG": "20station_",
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "run_port.py",
+   "aemo",
+   "fixed",
+   "4",
+   "2",
+   "4"
+  ],
+  "wait_while_running": [
+   "run.py ercot"
+  ]
+ },
+ {
+  "id": "liu20_ercot_bid",
+  "cwd": "execute_results/liu_lyu_2025_port_20261011",
+  "min_free_gb": 12,
+  "env": {
+   "LIU_LYU_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014",
+   "LIU_LYU_TAG": "20station_",
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "run_port.py",
+   "ercot",
+   "bid",
+   "4",
+   "2",
+   "4"
+  ],
+  "wait_while_running": [
+   "run.py ercot"
+  ]
+ },
+ {
+  "id": "liu20_ercot_theirs",
+  "cwd": "execute_results/liu_lyu_2025_port_20261011",
+  "min_free_gb": 12,
+  "env": {
+   "LIU_LYU_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014",
+   "LIU_LYU_TAG": "20station_",
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "run_port.py",
+   "ercot",
+   "theirs",
+   "4",
+   "2",
+   "4"
+  ],
+  "wait_while_running": [
+   "run.py ercot"
+  ]
+ },
+ {
+  "id": "liu20_ercot_fixed",
+  "cwd": "execute_results/liu_lyu_2025_port_20261011",
+  "min_free_gb": 12,
+  "env": {
+   "LIU_LYU_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014",
+   "LIU_LYU_TAG": "20station_",
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "run_port.py",
+   "ercot",
+   "fixed",
+   "4",
+   "2",
+   "4"
+  ],
+  "wait_while_running": [
+   "run.py ercot"
+  ]
+ }
+]

@@ -3,11 +3,11 @@ import json
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-NAMES = {'oracle': '指令とEVを知る（両方の向き）', 'oracle_used': '指令とEVを知る（指令が使う向きだけ）',
+NAMES = {'main': '本線の入札をそのまま判定（全情報のLP）', 'oracle': '指令とEVを知る（両方の向き）', 'oracle_used': '指令とEVを知る（指令が使う向きだけ）',
          'cmd': '指令だけを知る', 'ev': 'EVだけを知る'}
 print('| 市場 | 条件 | 組 | 入札量（kW・コマ／日） | 本線の入札量 | 本線との比 | 当日の指令とEVで成り立つ組 |')
 print('|---|---|---|---|---|---|---|')
-for task in ('aemo', 'ercot'):
+for task in ('aemo', 'ercot', 'pjm'):
     for mode in NAMES:
         f = HERE / f'result_{task}_{mode}.jsonl'
         if not f.exists():

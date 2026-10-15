@@ -7,7 +7,7 @@ prod_aemoplan128_AB_20station_5080_scaledreward（追従95.5%・SoC 89.5%、定�
 
     python stage_worker.py <task> <stage>
 
-task は aemo。stage は preflight / train_bank / test_bank / pretrain。
+task は aemo、ercot、pjm（疑似指令 pjm_regd_phase_shift）。2026-10-13 からこの設定を本線とする。stage は preflight / train_bank / test_bank / pretrain。
   - EVの定格はすべて7.7 kW（EnvConfig の既定）。報酬の kW 定数は平均定格の比0.307で縮める（150→46.0 kW、60→18.4 kW）
   - 最低入札量70 kW（帯7 kW）、アセスメントIの余裕7 kW（7 station の仮の値8 kW を 6/7 倍して丸めた仮の値）
   - station は EVMA_STATION_ROSTER=workplace_residential（職場と住宅を交互に並べる）
@@ -30,11 +30,25 @@ BANKS = ROOT / 'execute_results' / 'bid_banks'
 SELECTION = 'low_connection_2_max_count'
 BANK_PREFIX = 'wr_cap77wd_min70_margin7'
 TASKS = {
-    'aemo': ('aemo_plan_deviation', 'wr_cap77wd_aemoplan_6station_resbid_tanh'),
-    'ercot': ('ercot_plan_deviation', 'wr_cap77wd_ercotplan_6station_resbid_tanh'),
+    'aemo': ('aemo_plan_deviation', 'wr_cap77wd_aemoplan_6station_resbid_tanh_ls717'),
+    'ercot': ('ercot_plan_deviation', 'wr_cap77wd_ercotplan_6station_resbid_tanh_ls717'),
+    'pjm': ('pjm_regd_phase_shift', 'wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15'),
 }
+# PJM だけ報酬の倍率を変える（2026-10-13、利用者の指示「HOBO と同じような GRAD になるように調整」）。
+# 倍率1・局所7.17倍の版（wr_cap77wd_pjmplan_6station_resbid_tanh_ls717、ep729 で止めた）は、
+#   - 1コマあたりの大域の報酬の大きさが3.6で AEMO（1.5）の2.4倍、大域の批評家の勾配は学習の初めから上限5を超えた
+#   - ep729 の行動器の勾配が 大域14.4・局所3.2（hobo100100 6.24・5.19）、大域の割合0.766（同0.522）だった
+# 大域を 1.5/3.6 ≒ 6.24/14.4 ≒ 0.4 倍、局所をさらに 1.5 倍（ep300〜650 の局所は hobo100100 の0.5〜0.75倍）にする。
+TASK_FLAGS = {'pjm': {'EVMA_GLOBAL_REWARD_SCALE': '0.4', 'EVMA_LOCAL_REWARD_SCALE': repr(25.085 / 7.7 * 2.2 * 1.5)}}
+LOCAL_SCALE_FACTOR = {'pjm': 1.5}
+GLOBAL_SCALE = {'pjm': 0.4}
 # EV realizations are shared between the AEMO and ERCOT banks of the same day.
+# 局所（SoC）の報酬は 25.085/7.7 = 3.26 倍（定格7.7 kW で局所の勾配が0.307倍になる分を戻す）。倍率1の Windows の版（wr_cap77wd_aemoplan_6station_resbid_tanh）は
+# ep59 で行動器の勾配が 局所0.24・大域0.52（hobo100100 の約1/10）、大域の割合0.694（hobo100100 0.623）だった。研究室で一から回す。
 FLAGS = {'EVMA_EV_CANDIDATE_CACHE': '1', 'EVMA_GLOBAL_BALANCE_REWARD_SHAPE': 'tanh_linear',
+         # 局所3.26倍の版（resbid_tanh_ls326）は ep329 で 局所1.32・大域5.05（hobo100100 2.93・5.33）、大域の割合0.741 と上がり続けた。
+         # 大きさを hobo100100 に寄せるため、局所をさらに 2.93/1.32 ≒ 2.2 倍にする（大域は倍率1のまま）。
+         'EVMA_LOCAL_REWARD_SCALE': repr(25.085 / 7.7 * 2.2),
          'EVMA_STATION_ROSTER': 'workplace_residential',
          'EVMA_LOWER_CONTROLLER_MIN_TRACKING_BAND_KW': '7', 'EVMA_ASSESSMENT_I_CONTROL_MARGIN_KW': '7',
          'EVMA_OBSERVE_FLEET_RESIDUAL': '1', 'EVMA_OBSERVE_BID_CONTEXT': '1', 'EVMA_OBSERVE_TRACKING_BAND': '0'}
@@ -64,6 +78,7 @@ def configure(task: str):
         'EVMA_LOWER_TRAIN_BID_BANK_DIR': str(train_bank),
         'EVMA_LOWER_TRAIN_TEST_BID_BANK_DIR': str(test_bank),
         **FLAGS,
+        **TASK_FLAGS.get(task, {}),
     })
     for key in ('OMP_NUM_THREADS', 'MKL_NUM_THREADS', 'OPENBLAS_NUM_THREADS', 'NUMEXPR_NUM_THREADS'):
         os.environ[key] = '1'
@@ -86,7 +101,8 @@ def check(config, task: str) -> dict:
     assert config.MARL_ALGORITHM == 'hybrid'
     assert config.ACTIVATION_SIGNAL_SET == signal_set
     assert config.Q_MIX_GLOBAL_WEIGHT == 0.5
-    assert config.LOCAL_REWARD_SCALE == 1.0 and config.GLOBAL_REWARD_SCALE == 1.0
+    assert abs(config.LOCAL_REWARD_SCALE - 2.2 * LOCAL_SCALE_FACTOR.get(task, 1.0) / EnvConfig.RATING_KW_SCALE) < 1e-9
+    assert config.GLOBAL_REWARD_SCALE == GLOBAL_SCALE.get(task, 1.0)
     assert config.ACTOR_BOUND_GRADIENT == 'inward'
     assert config.MEMORY_SIZE == 500000
     assert EnvConfig.EV_CHARGER_MAX_POWER_OPTIONS_KW == (7.7, 7.7, 7.7, 7.7)

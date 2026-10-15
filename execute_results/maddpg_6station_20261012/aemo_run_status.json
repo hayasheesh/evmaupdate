@@ -17,12 +17,11 @@
       "finished_at": "2026-10-12T13:24:30"
     },
     "pretrain": {
-      "state": "done",
-      "pid": 17560,
-      "started_at": "2026-10-12T13:24:30",
-      "exit_code": 0,
-      "finished_at": "2026-10-13T01:15:46"
+      "state": "running",
+      "pid": 25968,
+      "started_at": "2026-10-13T10:16:00",
+      "resumed_from": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\archive\\wr_obsdrop_cap77wd_aemoplan_6station_maddpg_20261012_132458",
+      "previous_result": null
     }
-  },
-  "result": "complete"
+  }
 }

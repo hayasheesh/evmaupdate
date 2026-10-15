@@ -11,17 +11,23 @@ variant:
 force=1 で、本研究の force 充電（出発に間に合わなくなるEVを充電する層）を Liu/Lyu の配分の後に重ねる（既定0）。
 
 指令は soc_miss_analysis.py と同じ holdout の指令（評価用）、EVの乱数も同じ式。BESS は使わない。
+
+LIU_LYU_SW_DIR で入札と環境の設定（stage_worker.py の configure(task)・banks(task)）を読むフォルダを替える。
+既定は wr_cap77wd_6station_20261010（6 station の AEMO・ERCOT）。PJM の 6 station は resbid_6station_20261012、
+20 station は resbid_20station_20261014。LIU_LYU_TAG は結果と Liu/Lyu の入札のファイル名の頭に付ける（例 20station_）。
 """
 from __future__ import annotations
 
 import json
 import multiprocessing as mp
+import os
 import sys
 import time
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-SW_DIR = HERE.parent / 'wr_cap77wd_6station_20261010'
+SW_DIR = Path(os.environ.get('LIU_LYU_SW_DIR', str(HERE.parent / 'wr_cap77wd_6station_20261010')))
+TAG = os.environ.get('LIU_LYU_TAG', '')
 
 
 def _setup(task):
@@ -134,7 +140,7 @@ def run_episode(args):
     fixed_bid = dict(base_bid, activation_scenario_payload=list(payloads), activation_scenarios=len(payloads), activation_mode=mode)
     bid_info = {}
     if variant in ('theirs', 'theirs_ramp'):
-        cache = HERE / 'their_bids' / f'{task}_day{day}_{"ramp" if variant == "theirs_ramp" else "noramp"}.json'
+        cache = HERE / 'their_bids' / f'{TAG}{task}_day{day}_{"ramp" if variant == "theirs_ramp" else "noramp"}.json'
         if cache.exists():
             tb = json.loads(cache.read_text(encoding='utf-8'))
         else:
@@ -229,7 +235,7 @@ def bid_stage(args):
     out['service_date'] = str(fixed_bid.get('service_date'))
     out['our_offered_capacity_kw_block'] = float(np.sum(fixed_bid['up_plan'] + fixed_bid['down_plan']))
     out['their_offered_capacity_kw_block'] = float(np.sum(bid['up_plan'] + bid['down_plan']))
-    p = HERE / 'their_bids' / f'{task}_day{day}_{"ramp" if ramp else "noramp"}.json'
+    p = HERE / 'their_bids' / f'{TAG}{task}_day{day}_{"ramp" if ramp else "noramp"}.json'
     p.parent.mkdir(exist_ok=True)
     p.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding='utf-8')
     return {'day': day, 'ramp': ramp, 'seconds': out['seconds'], 'their_capacity': out['their_offered_capacity_kw_block'],
@@ -249,7 +255,7 @@ def main():
                 print(json.dumps(r, ensure_ascii=False), flush=True)
         return
     jobs = [(task, variant, force, d, c, e, n_cmd) for d in range(5) for c in range(n_cmd) for e in range(n_ev)]
-    out = HERE / f'result_{task}_{variant}_force{force}_{n_cmd}cmd_{n_ev}ev.jsonl'
+    out = HERE / f'result_{TAG}{task}_{variant}_force{force}_{n_cmd}cmd_{n_ev}ev.jsonl'
     with mp.Pool(workers) as pool, open(out, 'w', encoding='utf-8') as f:
         for r in pool.imap_unordered(run_episode, jobs):
             f.write(json.dumps(r, ensure_ascii=False) + '\n')

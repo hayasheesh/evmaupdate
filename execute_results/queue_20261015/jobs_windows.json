@@ -1,0 +1,200 @@
+[
+ {
+  "id": "pjmscore_japanbid_6station",
+  "cwd": ".",
+  "args": [
+   "execute_results/pjmrule_6station_20261015/report_pjm.py",
+   "execute_results/paper_eval_20261014/main6_pjm_v2/result_pjm_marl_4cmd_2ev.jsonl",
+   "execute_results/paper_eval_20261014/main6_pjm_v2/result_pjm_marl_force_4cmd_2ev.jsonl",
+   "execute_results/paper_eval_20261014/rule6_pjm_v2/result_pjm_rule_4cmd_2ev.jsonl"
+  ]
+ },
+ {
+  "id": "liu_pjm6_bid",
+  "cwd": "execute_results/liu_lyu_2025_port_20261011",
+  "priority": "below_normal",
+  "env": {
+   "LIU_LYU_SW_DIR": "{ROOT}/execute_results/resbid_6station_20261012",
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "run_port.py",
+   "pjm",
+   "bid",
+   "4",
+   "2",
+   "5"
+  ]
+ },
+ {
+  "id": "liu_pjm6_theirs",
+  "cwd": "execute_results/liu_lyu_2025_port_20261011",
+  "priority": "below_normal",
+  "env": {
+   "LIU_LYU_SW_DIR": "{ROOT}/execute_results/resbid_6station_20261012",
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "run_port.py",
+   "pjm",
+   "theirs",
+   "4",
+   "2",
+   "6"
+  ]
+ },
+ {
+  "id": "liu_pjm6_fixed",
+  "cwd": "execute_results/liu_lyu_2025_port_20261011",
+  "priority": "below_normal",
+  "env": {
+   "LIU_LYU_SW_DIR": "{ROOT}/execute_results/resbid_6station_20261012",
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "run_port.py",
+   "pjm",
+   "fixed",
+   "4",
+   "2",
+   "6"
+  ]
+ },
+ {
+  "id": "sel_ercot_unseen_cmd256",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "priority": "below_normal",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "table.py",
+   "unseen",
+   "ercot",
+   "cmd256",
+   "8"
+  ]
+ },
+ {
+  "id": "sel_ercot_unseen_sel_minmedmax",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "priority": "below_normal",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "table.py",
+   "unseen",
+   "ercot",
+   "sel_minmedmax",
+   "8"
+  ]
+ },
+ {
+  "id": "rulebess6_pjm",
+  "cwd": "execute_results/rule_bess_6station_20261011",
+  "priority": "below_normal",
+  "env": {
+   "LIU_LYU_SW_DIR": "{ROOT}/execute_results/resbid_6station_20261012",
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "run_rule_bess.py",
+   "pjm",
+   "0,25,50,75,100,150,200,300,400,500,600,800,1000",
+   "4",
+   "2",
+   "8"
+  ]
+ },
+ {
+  "id": "sel_aemo_unseen_acc95_low2max",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "priority": "below_normal",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "acc95_low2max",
+   "8"
+  ]
+ },
+ {
+  "id": "sel_aemo_unseen_acc91_low2max",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "priority": "below_normal",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "acc91_low2max",
+   "8"
+  ]
+ },
+ {
+  "id": "sel_aemo_unseen_acc85_low2max",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "priority": "below_normal",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "acc85_low2max",
+   "8"
+  ]
+ },
+ {
+  "id": "sel_aemo_unseen_acc95_random0",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "priority": "below_normal",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "acc95_random0",
+   "8"
+  ]
+ },
+ {
+  "id": "sel_aemo_unseen_acc91_random0",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "priority": "below_normal",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "acc91_random0",
+   "8"
+  ]
+ },
+ {
+  "id": "sel_aemo_unseen_acc85_random0",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "priority": "below_normal",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "acc85_random0",
+   "8"
+  ]
+ }
+]

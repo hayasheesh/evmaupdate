@@ -1,8 +1,8 @@
 #!/bin/bash
-# 図を作り直してから、paper.tex を PDF にする（Tectonic、XeLaTeX）。
+# paper.tex を PDF にする（Tectonic / XeLaTeX、IEEEtran journal）。
 #   bash docs/paper/build.sh
 # Tectonic は C:/Users/admin/tools/tectonic/tectonic.exe（0.16.9）。初回だけパッケージを取りに行く。
 set -e
 cd "$(dirname "$0")"
-PYTHONIOENCODING=utf-8 python make_figs.py
-/c/Users/admin/tools/tectonic/tectonic.exe -X compile paper.tex
+/c/Users/admin/tools/tectonic/tectonic.exe -X compile --keep-logs build_tsg.tex
+cp build_tsg.pdf paper.pdf

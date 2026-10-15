@@ -1,0 +1,51 @@
+[
+ {
+  "id": "b0_aemo_test_bank",
+  "cwd": ".",
+  "priority": "below_normal",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "execute_results/b0_6station_20261015/stage_worker.py",
+   "aemo",
+   "test_bank",
+   "2",
+   "3"
+  ]
+ },
+ {
+  "id": "b0_aemo_train_bank",
+  "cwd": ".",
+  "priority": "below_normal",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "execute_results/b0_6station_20261015/stage_worker.py",
+   "aemo",
+   "train_bank",
+   "3",
+   "3"
+  ]
+ },
+ {
+  "id": "b0_aemo_portable",
+  "cwd": ".",
+  "args": [
+   "execute_results/queue_20261015/make_portable_bank.py",
+   "wr_cap77wd_b0_min1_margin0_step0_rand3_validation_5_6station_128cmd_3ev_aemo_plan_deviation",
+   "wr_cap77wd_b0_min1_margin0_step0_rand3_train_25_6station_128cmd_3ev_aemo_plan_deviation"
+  ]
+ },
+ {
+  "id": "b0_aemo_copy_to_lab",
+  "cwd": ".",
+  "args": [
+   "execute_results/queue_20261015/copy_bank_to_lab.py",
+   "--portable",
+   "wr_cap77wd_b0_min1_margin0_step0_rand3_validation_5_6station_128cmd_3ev_aemo_plan_deviation",
+   "wr_cap77wd_b0_min1_margin0_step0_rand3_train_25_6station_128cmd_3ev_aemo_plan_deviation"
+  ]
+ }
+]

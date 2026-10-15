@@ -1,0 +1,50 @@
+{
+  "aemo_raw": {
+    "sets": 40,
+    "outcomes_match_previous": true,
+    "mean_episode_full_step_p95_ms": 13.107715873920824,
+    "max_full_simulation_step_ms": 53.696500006481074,
+    "minimum_end_minus_start_energy_kwh": -112.14359316130435,
+    "episodes_ending_below_start": 29
+  },
+  "aemo_force": {
+    "sets": 40,
+    "outcomes_match_previous": true,
+    "mean_episode_full_step_p95_ms": 15.378521874354192,
+    "max_full_simulation_step_ms": 21.99500000278931,
+    "minimum_end_minus_start_energy_kwh": -484.89145254356805,
+    "episodes_ending_below_start": 33
+  },
+  "ercot_raw": {
+    "sets": 40,
+    "outcomes_match_previous": true,
+    "mean_episode_full_step_p95_ms": 12.973094876087998,
+    "max_full_simulation_step_ms": 56.00199999753386,
+    "minimum_end_minus_start_energy_kwh": -214.0144020898294,
+    "episodes_ending_below_start": 28
+  },
+  "ercot_force": {
+    "sets": 40,
+    "outcomes_match_previous": true,
+    "mean_episode_full_step_p95_ms": 15.50672175040745,
+    "max_full_simulation_step_ms": 79.64100000390317,
+    "minimum_end_minus_start_energy_kwh": -490.3028757053503,
+    "episodes_ending_below_start": 32
+  },
+  "pjm_raw": {
+    "sets": 40,
+    "outcomes_match_previous": true,
+    "mean_episode_full_step_p95_ms": 13.129183749351796,
+    "max_full_simulation_step_ms": 21.225100004812703,
+    "minimum_end_minus_start_energy_kwh": -140.3932701050968,
+    "episodes_ending_below_start": 36
+  },
+  "pjm_force": {
+    "sets": 40,
+    "outcomes_match_previous": true,
+    "mean_episode_full_step_p95_ms": 15.183151124401775,
+    "max_full_simulation_step_ms": 27.38810000300873,
+    "minimum_end_minus_start_energy_kwh": -516.6957162476418,
+    "episodes_ending_below_start": 40
+  }
+}

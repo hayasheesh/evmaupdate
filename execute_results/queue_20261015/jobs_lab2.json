@@ -1,0 +1,32 @@
+[
+ {
+  "id": "pjmrule20_test_bank",
+  "cwd": ".",
+  "min_free_gb": 14,
+  "args": [
+   "execute_results/pjmrule_20station_20261015/stage_worker.py",
+   "pjm",
+   "test_bank",
+   "2",
+   "3"
+  ],
+  "wait_while_running": [
+   "run.py ercot"
+  ]
+ },
+ {
+  "id": "pjmrule20_train_bank",
+  "cwd": ".",
+  "min_free_gb": 14,
+  "args": [
+   "execute_results/pjmrule_20station_20261015/stage_worker.py",
+   "pjm",
+   "train_bank",
+   "3",
+   "3"
+  ],
+  "wait_while_running": [
+   "run.py ercot"
+  ]
+ }
+]

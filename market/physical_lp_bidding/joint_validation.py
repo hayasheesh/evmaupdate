@@ -5,8 +5,10 @@ from __future__ import annotations
 import numpy as np
 
 from market.bid_participation import (
+    instruction_band_coefficient,
     masked_pass_rate,
     participation_by_block,
+    resolved_idle_band_fraction,
     zero_instruction_tolerance_by_block,
 )
 
@@ -257,9 +259,20 @@ def fixed_bid_tracking_bands(
     zero_tolerance = zero_instruction_tolerance_by_block(
         up_kw,
         down_kw,
-        band_fraction=config.assessment_band_fraction,
+        band_fraction=resolved_idle_band_fraction(
+            config.assessment_band_fraction,
+            getattr(config, "idle_band_fraction", None),
+        ),
         eps=config.eps,
     )
+
+    def coefficient(signal: float) -> float:
+        return float(instruction_band_coefficient(
+            signal,
+            band_fraction=config.assessment_band_fraction,
+            band_signal_fraction=getattr(config, "band_signal_fraction", 0.0),
+        ))
+
     targets = np.zeros(config.steps, dtype=float)
     tolerances = np.full(config.steps, np.inf, dtype=float)
     band_lower = np.full(config.steps, -np.inf, dtype=float)
@@ -278,9 +291,7 @@ def fixed_bid_tracking_bands(
             targets[step] = (
                 baseline[block] - up_kw[block] * up_signal[step]
             )
-            tolerances[step] = (
-                config.assessment_band_fraction * up_kw[block]
-            )
+            tolerances[step] = coefficient(up_signal[step]) * up_kw[block]
         elif (
             down_signal[step] > config.eps
             and down_kw[block] > config.eps
@@ -288,9 +299,7 @@ def fixed_bid_tracking_bands(
             targets[step] = (
                 baseline[block] + down_kw[block] * down_signal[step]
             )
-            tolerances[step] = (
-                config.assessment_band_fraction * down_kw[block]
-            )
+            tolerances[step] = coefficient(down_signal[step]) * down_kw[block]
         elif config.enforce_idle_baseline:
             targets[step] = baseline[block]
             tolerances[step] = zero_tolerance[block]

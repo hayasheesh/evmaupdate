@@ -1,0 +1,29 @@
+[
+ {
+  "id": "b0_aemo_rehome",
+  "cwd": ".",
+  "requires": [
+   "execute_results/bid_banks/wr_cap77wd_b0_min1_margin0_step0_rand3_validation_5_6station_128cmd_3ev_aemo_plan_deviation/manifest.json",
+   "execute_results/bid_banks/wr_cap77wd_b0_min1_margin0_step0_rand3_train_25_6station_128cmd_3ev_aemo_plan_deviation/manifest.json"
+  ],
+  "args": [
+   "execute_results/queue_20261015/rehome_bank_manifest.py",
+   "wr_cap77wd_b0_min1_margin0_step0_rand3_validation_5_6station_128cmd_3ev_aemo_plan_deviation",
+   "wr_cap77wd_b0_min1_margin0_step0_rand3_train_25_6station_128cmd_3ev_aemo_plan_deviation"
+  ]
+ },
+ {
+  "id": "b0_aemo_pretrain",
+  "cwd": ".",
+  "min_free_gb": 6,
+  "requires": [
+   "execute_results/bid_banks/wr_cap77wd_b0_min1_margin0_step0_rand3_validation_5_6station_128cmd_3ev_aemo_plan_deviation/manifest.json",
+   "execute_results/bid_banks/wr_cap77wd_b0_min1_margin0_step0_rand3_train_25_6station_128cmd_3ev_aemo_plan_deviation/manifest.json"
+  ],
+  "args": [
+   "execute_results/b0_6station_20261015/stage_worker.py",
+   "aemo",
+   "pretrain"
+  ]
+ }
+]

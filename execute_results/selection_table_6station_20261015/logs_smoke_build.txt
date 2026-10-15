@@ -1,0 +1,81 @@
+[bid-bank] solve index=0 day=2024-01-04 seed=1073003
+[upper-bid] physical-joint: selected EV scenario low_connection_1 candidate=119/128 rank=40/128 evs=121
+[upper-bid] physical-joint: selected EV scenario low_connection_2 candidate=20/128 rank=20/128 evs=117
+[upper-bid] physical-joint: selected EV scenario maximum candidate=19/128 rank=128/128 evs=144
+[upper-bid] blockwise-bid-search: reviewed Assessment-I capability from the fixed 3-realization EV bank, 30min product duration: up median 160kW down median 173kW (no auxiliary capability draws)
+[upper-bid] blockwise-bid-search: outer participation active-set with column-generation feasibility cuts for baseline and per-block up/down delta-kW quantities (minimum bid quantity=70.0kW)
+[upper-bid] energy-initial-bid: 24 scenarios over 3 EV realization(s); Assessment-I seed capacity 15936 kW-block; vehicles with unreachable targets=0
+[upper-bid] energy-initial-bid: iteration 0: capacity 15915 kW-block, below floor up=0 down=0, LP 1.7s (14013 vars)
+[upper-bid] physical-hard-refit: strict decomposed Benders round=0
+[upper-bid] blockwise-bid-search: benders: round-0-column-generation batch completed 24 scenarios in 5.3s wall; slowest=2 0.8s; cached-columns-dropped=0
+[upper-bid] blockwise-bid-search: benders: round 0/200 feasible/infeasible/unknown 24/0/0 cuts 0 oracle 5s
+[upper-bid] blockwise-bid-search: benders: round-0-dispatch batch completed 24 scenarios in 4.5s wall; slowest=23 0.8s; cached-columns-dropped=0
+[upper-bid] physical-hard-refit: strict result round=0 complete=True stop=pool_certified cuts=0
+[upper-bid] physical-joint: certified recourse 8/24 rounds=0 status=optimal
+[upper-bid] physical-joint: certified recourse 16/24 rounds=0 status=optimal
+[upper-bid] physical-joint: certified recourse 24/24 rounds=0 status=optimal
+[bid-bank] solve index=1 day=2024-02-01 seed=1074012
+[upper-bid] physical-joint: selected EV scenario low_connection_1 candidate=24/128 rank=26/128 evs=120
+[upper-bid] physical-joint: selected EV scenario low_connection_2 candidate=51/128 rank=75/128 evs=127
+[upper-bid] physical-joint: selected EV scenario maximum candidate=126/128 rank=128/128 evs=152
+[upper-bid] blockwise-bid-search: reviewed Assessment-I capability from the fixed 3-realization EV bank, 30min product duration: up median 185kW down median 185kW (no auxiliary capability draws)
+[upper-bid] blockwise-bid-search: outer participation active-set with column-generation feasibility cuts for baseline and per-block up/down delta-kW quantities (minimum bid quantity=70.0kW)
+[upper-bid] energy-initial-bid: 24 scenarios over 3 EV realization(s); Assessment-I seed capacity 16159 kW-block; vehicles with unreachable targets=0
+[upper-bid] energy-initial-bid: iteration 0: capacity 16135 kW-block, below floor up=0 down=0, LP 1.5s (14015 vars)
+[upper-bid] physical-hard-refit: strict decomposed Benders round=0
+[upper-bid] blockwise-bid-search: benders: round-0-column-generation batch completed 24 scenarios in 5.1s wall; slowest=0 0.8s; cached-columns-dropped=0
+[upper-bid] blockwise-bid-search: benders: round 0/200 feasible/infeasible/unknown 24/0/0 cuts 0 oracle 4s
+[upper-bid] blockwise-bid-search: benders: round-0-dispatch batch completed 24 scenarios in 4.6s wall; slowest=8 0.8s; cached-columns-dropped=0
+[upper-bid] physical-hard-refit: strict result round=0 complete=True stop=pool_certified cuts=0
+[upper-bid] physical-joint: certified recourse 8/24 rounds=0 status=optimal
+[upper-bid] physical-joint: certified recourse 16/24 rounds=0 status=optimal
+[upper-bid] physical-joint: certified recourse 24/24 rounds=0 status=optimal
+[bid-bank] solve index=2 day=2024-03-01 seed=1075021
+[upper-bid] physical-joint: selected EV scenario low_connection_1 candidate=6/128 rank=4/128 evs=115
+[upper-bid] physical-joint: selected EV scenario low_connection_2 candidate=95/128 rank=1/128 evs=110
+[upper-bid] physical-joint: selected EV scenario maximum candidate=71/128 rank=128/128 evs=148
+[upper-bid] blockwise-bid-search: reviewed Assessment-I capability from the fixed 3-realization EV bank, 30min product duration: up median 153kW down median 154kW (no auxiliary capability draws)
+[upper-bid] blockwise-bid-search: outer participation active-set with column-generation feasibility cuts for baseline and per-block up/down delta-kW quantities (minimum bid quantity=70.0kW)
+[upper-bid] energy-initial-bid: 24 scenarios over 3 EV realization(s); Assessment-I seed capacity 15105 kW-block; vehicles with unreachable targets=0
+[upper-bid] energy-initial-bid: iteration 0: capacity 15082 kW-block, below floor up=0 down=0, LP 1.5s (14015 vars)
+[upper-bid] physical-hard-refit: strict decomposed Benders round=0
+[upper-bid] blockwise-bid-search: benders: round-0-column-generation batch completed 24 scenarios in 5.1s wall; slowest=0 0.7s; cached-columns-dropped=0
+[upper-bid] blockwise-bid-search: benders: round 0/200 feasible/infeasible/unknown 24/0/0 cuts 0 oracle 4s
+[upper-bid] blockwise-bid-search: benders: round-0-dispatch batch completed 24 scenarios in 4.4s wall; slowest=19 0.7s; cached-columns-dropped=0
+[upper-bid] physical-hard-refit: strict result round=0 complete=True stop=pool_certified cuts=0
+[upper-bid] physical-joint: certified recourse 8/24 rounds=0 status=optimal
+[upper-bid] physical-joint: certified recourse 16/24 rounds=0 status=optimal
+[upper-bid] physical-joint: certified recourse 24/24 rounds=0 status=optimal
+[bid-bank] solve index=3 day=2024-04-01 seed=1076030
+[upper-bid] physical-joint: selected EV scenario low_connection_1 candidate=110/128 rank=10/128 evs=115
+[upper-bid] physical-joint: selected EV scenario low_connection_2 candidate=97/128 rank=20/128 evs=118
+[upper-bid] physical-joint: selected EV scenario maximum candidate=41/128 rank=128/128 evs=141
+[upper-bid] blockwise-bid-search: reviewed Assessment-I capability from the fixed 3-realization EV bank, 30min product duration: up median 158kW down median 162kW (no auxiliary capability draws)
+[upper-bid] blockwise-bid-search: outer participation active-set with column-generation feasibility cuts for baseline and per-block up/down delta-kW quantities (minimum bid quantity=70.0kW)
+[upper-bid] energy-initial-bid: 24 scenarios over 3 EV realization(s); Assessment-I seed capacity 14947 kW-block; vehicles with unreachable targets=0
+[upper-bid] energy-initial-bid: iteration 0: capacity 14922 kW-block, below floor up=0 down=0, LP 2.0s (14013 vars)
+[upper-bid] physical-hard-refit: strict decomposed Benders round=0
+[upper-bid] blockwise-bid-search: benders: round-0-column-generation batch completed 24 scenarios in 5.2s wall; slowest=2 0.8s; cached-columns-dropped=0
+[upper-bid] blockwise-bid-search: benders: round 0/200 feasible/infeasible/unknown 24/0/0 cuts 0 oracle 5s
+[upper-bid] blockwise-bid-search: benders: round-0-dispatch batch completed 24 scenarios in 4.2s wall; slowest=16 0.7s; cached-columns-dropped=0
+[upper-bid] physical-hard-refit: strict result round=0 complete=True stop=pool_certified cuts=0
+[upper-bid] physical-joint: certified recourse 8/24 rounds=0 status=optimal
+[upper-bid] physical-joint: certified recourse 16/24 rounds=0 status=optimal
+[upper-bid] physical-joint: certified recourse 24/24 rounds=0 status=optimal
+[bid-bank] solve index=4 day=2024-05-07 seed=1077039
+[upper-bid] physical-joint: selected EV scenario low_connection_1 candidate=33/128 rank=8/128 evs=113
+[upper-bid] physical-joint: selected EV scenario low_connection_2 candidate=60/128 rank=49/128 evs=123
+[upper-bid] physical-joint: selected EV scenario maximum candidate=28/128 rank=128/128 evs=143
+[upper-bid] blockwise-bid-search: reviewed Assessment-I capability from the fixed 3-realization EV bank, 30min product duration: up median 146kW down median 146kW (no auxiliary capability draws)
+[upper-bid] blockwise-bid-search: outer participation active-set with column-generation feasibility cuts for baseline and per-block up/down delta-kW quantities (minimum bid quantity=70.0kW)
+[upper-bid] energy-initial-bid: 24 scenarios over 3 EV realization(s); Assessment-I seed capacity 15136 kW-block; vehicles with unreachable targets=0
+[upper-bid] energy-initial-bid: iteration 0: capacity 15114 kW-block, below floor up=0 down=0, LP 1.6s (14011 vars)
+[upper-bid] physical-hard-refit: strict decomposed Benders round=0
+[upper-bid] blockwise-bid-search: benders: round-0-column-generation batch completed 24 scenarios in 5.2s wall; slowest=0 0.8s; cached-columns-dropped=0
+[upper-bid] blockwise-bid-search: benders: round 0/200 feasible/infeasible/unknown 24/0/0 cuts 0 oracle 5s
+[upper-bid] blockwise-bid-search: benders: round-0-dispatch batch completed 24 scenarios in 4.6s wall; slowest=18 0.8s; cached-columns-dropped=0
+[upper-bid] physical-hard-refit: strict result round=0 complete=True stop=pool_certified cuts=0
+[upper-bid] physical-joint: certified recourse 8/24 rounds=0 status=optimal
+[upper-bid] physical-joint: certified recourse 16/24 rounds=0 status=optimal
+[upper-bid] physical-joint: certified recourse 24/24 rounds=0 status=optimal
+[bid-bank] complete=True days=5/5 dir=C:\Users\admin\Desktop\EVMALOCALUPDATE\execute_results\bid_banks\wr_cap77wd_min70_margin7_validation_5_6station_8cmd_low2max_aemo_plan_deviation

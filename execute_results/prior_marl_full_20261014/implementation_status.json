@@ -1,0 +1,81 @@
+{
+  "verified": true,
+  "verification_scope": "All published algorithm components implemented; unspecified details completed explicitly in method_spec.md",
+  "original_authors_code_equivalence": "unconfirmed",
+  "price_clearing_reproduction": false,
+  "components": {
+    "upper_bid_policy": {
+      "source_checked": true,
+      "implemented": true,
+      "tested": true,
+      "source": "Table1; section3.2.1; section3.4",
+      "unspecified_details": "method_spec.md"
+    },
+    "lower_ev_policies": {
+      "source_checked": true,
+      "implemented": true,
+      "tested": true,
+      "source": "Table1; section3.2.1",
+      "unspecified_details": "method_spec.md"
+    },
+    "dynamic_grouping": {
+      "source_checked": true,
+      "implemented": true,
+      "tested": true,
+      "source": "section3.2.2; Figure4",
+      "unspecified_details": "method_spec.md"
+    },
+    "group_reference_generation": {
+      "source_checked": true,
+      "implemented": true,
+      "tested": true,
+      "source": "section3.2.2; section3.3.2",
+      "unspecified_details": "method_spec.md"
+    },
+    "attention_value_network": {
+      "source_checked": true,
+      "implemented": true,
+      "tested": true,
+      "source": "section3.2.3; equations8,10",
+      "unspecified_details": "method_spec.md"
+    },
+    "group_value_mixing": {
+      "source_checked": true,
+      "implemented": true,
+      "tested": true,
+      "source": "Figure4 non-monotonic mixing network",
+      "unspecified_details": "method_spec.md"
+    },
+    "all_actor_critic_updates": {
+      "source_checked": true,
+      "implemented": true,
+      "tested": true,
+      "source": "section3.4; equations13-15",
+      "unspecified_details": "method_spec.md"
+    },
+    "bid_control_feedback": {
+      "source_checked": true,
+      "implemented": true,
+      "tested": true,
+      "source": "section3.3.3; section3.4",
+      "unspecified_details": "method_spec.md"
+    }
+  },
+  "pytest": {
+    "command": "python -m pytest execute_results/prior_marl_full_20261014/test_full_afm.py -q --disable-warnings",
+    "passed": 8,
+    "seconds": 33.65
+  },
+  "source_pdf_sha256": "24ba68006a970d47140e6e9e64d00d3d90de1efee687a6f0c9dc209ff6f5f6db",
+  "method_files_sha256": {
+    "data.py": "186fd1a796cc6f9d42cd1bcf7dda7df40d9fc4ad9f7e13e3ab5bf0140804ae8c",
+    "driver.py": "5d6b29750d843d2d29e8aa6b03179f7a8a66391a9269a705d0140e7b4cbefa0a",
+    "evaluate.py": "7e716b3cb373c4ff4714d014f122554272ecc1335178231b024df455e13f3c0e",
+    "networks.py": "2e1880b57d942c66b9fed1c21bfa2b34702026577500130151ab40ed29dfb2ef",
+    "run_pipeline.py": "b8034c268f01d726edc010667d9d58969b066efb25746b510704222e26a9b03f",
+    "settings.py": "aaffa2f61240c3f25e6a58d1b5ff553187fd7239e1136f4880a8c87b9f5984ff",
+    "test_full_afm.py": "d1f00b5a6d8c49c1557feec089170fd6c69bb2b4bcb4d4cfa4e289c5b6bf7e53"
+  },
+  "result_status": "performance_unmeasured",
+  "time": "2026-10-14T21:17:45.038536+09:00"
+}

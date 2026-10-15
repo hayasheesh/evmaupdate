@@ -1,0 +1,12 @@
+{
+  "time": "2026-10-14T22:38:46.378906+09:00",
+  "stage": "deferred",
+  "reason": "user requested this experiment last",
+  "run": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\prior_marl_full_20261014\\runs\\aemo6_full_trial_l05",
+  "checkpoint": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\prior_marl_full_20261014\\runs\\aemo6_full_trial_l05\\checkpoint.pth",
+  "completed_environment_episodes": 140,
+  "completed_training_episode": 116,
+  "updates": 33321,
+  "bid_updates": 125,
+  "saved_at": "2026-10-14T22:36:26.747908+09:00"
+}

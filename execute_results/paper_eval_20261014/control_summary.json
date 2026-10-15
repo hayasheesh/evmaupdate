@@ -1,0 +1,4529 @@
+{
+  "main6_aemo": {
+    "model": "wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306",
+    "episode": 2000,
+    "sets": 40,
+    "soc_hit_pct": 87.56650128214969,
+    "step_pass_pct": 95.03472222222221,
+    "block_pass_pct": 89.79166666666667,
+    "failed_blocks": 196,
+    "assessed_blocks": 1920,
+    "mae_kw": 5.173462290397017,
+    "mean_error_to_award_pct": 3.4083065917627122,
+    "below_p90_sets": 9,
+    "monthly_failed_blocks_20days": 98.0,
+    "global_tracking_pct": 95.03472222222221,
+    "local_soc_pct": 87.56650128214969,
+    "global_local_sum": 182.60122350437192,
+    "abs_error_quantiles_kw": {
+      "50": 2.932760238647461,
+      "80": 7.639054107666016,
+      "90": 12.04599771499634,
+      "95": 17.3835536956787,
+      "98": 25.430785369873025,
+      "99": 32.33405487060546
+    },
+    "by_band": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 104,
+        "pass_pct": 68.26923076923077,
+        "global_tracking_pct": 87.98076923076923,
+        "assessed_5min_points": 624,
+        "first_step_mae_kw": 5.227774863059704
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 15,
+        "blocks": 392,
+        "pass_pct": 77.55102040816327,
+        "global_tracking_pct": 88.73299319727892,
+        "assessed_5min_points": 2352,
+        "first_step_mae_kw": 6.802367929293185
+      },
+      {
+        "from_kw": 15,
+        "to_kw": 20,
+        "blocks": 256,
+        "pass_pct": 89.0625,
+        "global_tracking_pct": 94.3359375,
+        "assessed_5min_points": 1536,
+        "first_step_mae_kw": 5.179530317895114
+      },
+      {
+        "from_kw": 20,
+        "to_kw": 30,
+        "blocks": 636,
+        "pass_pct": 93.23899371069182,
+        "global_tracking_pct": 96.5670859538784,
+        "assessed_5min_points": 3816,
+        "first_step_mae_kw": 4.792214823031576
+      },
+      {
+        "from_kw": 30,
+        "to_kw": null,
+        "blocks": 532,
+        "pass_pct": 99.24812030075188,
+        "global_tracking_pct": 99.56140350877193,
+        "assessed_5min_points": 3192,
+        "first_step_mae_kw": 4.151821138547327
+      }
+    ],
+    "by_baseline_step": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 1560,
+        "pass_pct": 89.87179487179488,
+        "global_tracking_pct": 95.03205128205127,
+        "assessed_5min_points": 9360,
+        "first_step_mae_kw": 5.129357312753415
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 25,
+        "blocks": 224,
+        "pass_pct": 89.28571428571429,
+        "global_tracking_pct": 95.23809523809523,
+        "assessed_5min_points": 1344,
+        "first_step_mae_kw": 4.740450892065253
+      },
+      {
+        "from_kw": 25,
+        "to_kw": 50,
+        "blocks": 80,
+        "pass_pct": 85.0,
+        "global_tracking_pct": 92.29166666666667,
+        "assessed_5min_points": 480,
+        "first_step_mae_kw": 5.5659385323524475
+      },
+      {
+        "from_kw": 50,
+        "to_kw": 100,
+        "blocks": 16,
+        "pass_pct": 100.0,
+        "global_tracking_pct": 100.0,
+        "assessed_5min_points": 96,
+        "first_step_mae_kw": 6.520006537437439
+      },
+      {
+        "from_kw": 100,
+        "to_kw": null,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      }
+    ],
+    "band_by_baseline_step": [
+      {
+        "band_from_kw": 0,
+        "band_to_kw": 10,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 94,
+            "pass_pct": 67.02127659574468,
+            "global_tracking_pct": 87.2340425531915,
+            "assessed_5min_points": 564,
+            "first_step_mae_kw": 5.366894463275341
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 4,
+            "pass_pct": 50.0,
+            "global_tracking_pct": 87.5,
+            "assessed_5min_points": 24,
+            "first_step_mae_kw": 4.778196334838867
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 2,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 12,
+            "first_step_mae_kw": 4.761772155761719
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 2,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 12,
+            "first_step_mae_kw": 4.613731384277344
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 10,
+        "band_to_kw": 15,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 306,
+            "pass_pct": 77.45098039215686,
+            "global_tracking_pct": 88.0718954248366,
+            "assessed_5min_points": 1836,
+            "first_step_mae_kw": 7.0083938533184575
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 62,
+            "pass_pct": 77.41935483870968,
+            "global_tracking_pct": 90.59139784946237,
+            "assessed_5min_points": 372,
+            "first_step_mae_kw": 6.053938035042055
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 8,
+            "pass_pct": 62.5,
+            "global_tracking_pct": 89.58333333333334,
+            "assessed_5min_points": 48,
+            "first_step_mae_kw": 3.888400077819824
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 2,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 12,
+            "first_step_mae_kw": 8.562376976013184
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 15,
+        "band_to_kw": 20,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 210,
+            "pass_pct": 90.0,
+            "global_tracking_pct": 95.31746031746032,
+            "assessed_5min_points": 1260,
+            "first_step_mae_kw": 5.3667653310866585
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 20,
+            "pass_pct": 90.0,
+            "global_tracking_pct": 94.16666666666667,
+            "assessed_5min_points": 120,
+            "first_step_mae_kw": 1.840949821472168
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 16,
+            "pass_pct": 68.75,
+            "global_tracking_pct": 78.125,
+            "assessed_5min_points": 96,
+            "first_step_mae_kw": 7.537840187549591
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 20,
+        "band_to_kw": 30,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 546,
+            "pass_pct": 93.22344322344323,
+            "global_tracking_pct": 96.48962148962148,
+            "assessed_5min_points": 3276,
+            "first_step_mae_kw": 4.745071197385753
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 46,
+            "pass_pct": 95.65217391304348,
+            "global_tracking_pct": 98.18840579710145,
+            "assessed_5min_points": 276,
+            "first_step_mae_kw": 4.934784469397171
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 32,
+            "pass_pct": 87.5,
+            "global_tracking_pct": 94.27083333333334,
+            "assessed_5min_points": 192,
+            "first_step_mae_kw": 5.840545654296875
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 4,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 24,
+            "first_step_mae_kw": 3.257213592529297
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 30,
+        "band_to_kw": null,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 404,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 2424,
+            "first_step_mae_kw": 4.046809940423706
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 92,
+            "pass_pct": 95.65217391304348,
+            "global_tracking_pct": 97.46376811594203,
+            "assessed_5min_points": 552,
+            "first_step_mae_kw": 4.386793198792831
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 22,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 132,
+            "first_step_mae_kw": 4.415519714355469
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 8,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 48,
+            "first_step_mae_kw": 8.117379188537598
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      }
+    ]
+  },
+  "abg6_aemo": {
+    "model": "wr_cap77wd_aemoplan_6station_resbid_abg_20261013_114010",
+    "episode": 2000,
+    "sets": 40,
+    "soc_hit_pct": 49.43579679384637,
+    "step_pass_pct": 95.02604166666667,
+    "block_pass_pct": 91.14583333333334,
+    "failed_blocks": 170,
+    "assessed_blocks": 1920,
+    "mae_kw": 4.255160021277455,
+    "mean_error_to_award_pct": 2.837460044812926,
+    "below_p90_sets": 8,
+    "monthly_failed_blocks_20days": 85.0,
+    "global_tracking_pct": 95.02604166666667,
+    "local_soc_pct": 49.43579679384637,
+    "global_local_sum": 144.46183846051304,
+    "abs_error_quantiles_kw": {
+      "50": 1.7637901306152344,
+      "80": 5.5028305053710955,
+      "90": 11.012229156494143,
+      "95": 18.03506202697754,
+      "98": 27.12463043212889,
+      "99": 35.241320228576654
+    },
+    "by_band": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 104,
+        "pass_pct": 84.61538461538461,
+        "global_tracking_pct": 94.87179487179486,
+        "assessed_5min_points": 624,
+        "first_step_mae_kw": 2.900065108560599
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 15,
+        "blocks": 392,
+        "pass_pct": 78.57142857142857,
+        "global_tracking_pct": 87.5,
+        "assessed_5min_points": 2352,
+        "first_step_mae_kw": 6.296582965218291
+      },
+      {
+        "from_kw": 15,
+        "to_kw": 20,
+        "blocks": 256,
+        "pass_pct": 86.328125,
+        "global_tracking_pct": 92.3828125,
+        "assessed_5min_points": 1536,
+        "first_step_mae_kw": 5.506671117153019
+      },
+      {
+        "from_kw": 20,
+        "to_kw": 30,
+        "blocks": 636,
+        "pass_pct": 94.9685534591195,
+        "global_tracking_pct": 96.85534591194968,
+        "assessed_5min_points": 3816,
+        "first_step_mae_kw": 3.483487734254801
+      },
+      {
+        "from_kw": 30,
+        "to_kw": null,
+        "blocks": 532,
+        "pass_pct": 99.43609022556392,
+        "global_tracking_pct": 99.68671679197995,
+        "assessed_5min_points": 3192,
+        "first_step_mae_kw": 3.3674394138213386
+      }
+    ],
+    "by_baseline_step": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 1560,
+        "pass_pct": 91.85897435897435,
+        "global_tracking_pct": 95.47008547008548,
+        "assessed_5min_points": 9360,
+        "first_step_mae_kw": 3.9973123933451298
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 25,
+        "blocks": 224,
+        "pass_pct": 91.07142857142857,
+        "global_tracking_pct": 95.61011904761905,
+        "assessed_5min_points": 1344,
+        "first_step_mae_kw": 4.620485148259571
+      },
+      {
+        "from_kw": 25,
+        "to_kw": 50,
+        "blocks": 80,
+        "pass_pct": 80.0,
+        "global_tracking_pct": 86.25,
+        "assessed_5min_points": 480,
+        "first_step_mae_kw": 6.163456380367279
+      },
+      {
+        "from_kw": 50,
+        "to_kw": 100,
+        "blocks": 16,
+        "pass_pct": 87.5,
+        "global_tracking_pct": 97.91666666666666,
+        "assessed_5min_points": 96,
+        "first_step_mae_kw": 9.869797229766846
+      },
+      {
+        "from_kw": 100,
+        "to_kw": null,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      }
+    ],
+    "band_by_baseline_step": [
+      {
+        "band_from_kw": 0,
+        "band_to_kw": 10,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 94,
+            "pass_pct": 85.1063829787234,
+            "global_tracking_pct": 94.68085106382979,
+            "assessed_5min_points": 564,
+            "first_step_mae_kw": 2.9439351488935186
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 4,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 24,
+            "first_step_mae_kw": 1.3215627670288086
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 2,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 12,
+            "first_step_mae_kw": 5.091800689697266
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 2,
+            "pass_pct": 0.0,
+            "global_tracking_pct": 83.33333333333334,
+            "assessed_5min_points": 12,
+            "first_step_mae_kw": 3.512754440307617
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 10,
+        "band_to_kw": 15,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 306,
+            "pass_pct": 79.41176470588235,
+            "global_tracking_pct": 87.03703703703704,
+            "assessed_5min_points": 1836,
+            "first_step_mae_kw": 6.208616554347518
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 62,
+            "pass_pct": 75.80645161290323,
+            "global_tracking_pct": 88.70967741935483,
+            "assessed_5min_points": 372,
+            "first_step_mae_kw": 6.569519442896689
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 8,
+            "pass_pct": 50.0,
+            "global_tracking_pct": 83.33333333333334,
+            "assessed_5min_points": 48,
+            "first_step_mae_kw": 5.2064971923828125
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 2,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 12,
+            "first_step_mae_kw": 3.6752166748046875
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 15,
+        "band_to_kw": 20,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 210,
+            "pass_pct": 89.52380952380953,
+            "global_tracking_pct": 95.63492063492063,
+            "assessed_5min_points": 1260,
+            "first_step_mae_kw": 4.806733247779665
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 20,
+            "pass_pct": 90.0,
+            "global_tracking_pct": 94.16666666666667,
+            "assessed_5min_points": 120,
+            "first_step_mae_kw": 4.291082191467285
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 16,
+            "pass_pct": 50.0,
+            "global_tracking_pct": 59.375,
+            "assessed_5min_points": 96,
+            "first_step_mae_kw": 11.394915997982025
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 20,
+        "band_to_kw": 30,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 546,
+            "pass_pct": 94.87179487179486,
+            "global_tracking_pct": 96.91697191697192,
+            "assessed_5min_points": 3276,
+            "first_step_mae_kw": 3.4127725585476383
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 46,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 276,
+            "first_step_mae_kw": 2.784098231274149
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 32,
+            "pass_pct": 87.5,
+            "global_tracking_pct": 90.10416666666666,
+            "assessed_5min_points": 192,
+            "first_step_mae_kw": 6.21579122543335
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 4,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 24,
+            "first_step_mae_kw": 3.0800552368164062
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 30,
+        "band_to_kw": null,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 404,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 2424,
+            "first_step_mae_kw": 2.9367647648300275
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 92,
+            "pass_pct": 96.73913043478261,
+            "global_tracking_pct": 98.18840579710145,
+            "assessed_5min_points": 552,
+            "first_step_mae_kw": 4.440239719722582
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 22,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 132,
+            "first_step_mae_kw": 2.728043469515714
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 8,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 48,
+            "first_step_mae_kw": 16.402574062347412
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      }
+    ]
+  },
+  "rule6_aemo": {
+    "model": null,
+    "episode": null,
+    "sets": 40,
+    "soc_hit_pct": 100.0,
+    "step_pass_pct": 98.93229166666666,
+    "block_pass_pct": 98.125,
+    "failed_blocks": 36,
+    "assessed_blocks": 1920,
+    "mae_kw": 0.6797190343385511,
+    "mean_error_to_award_pct": 0.4273467555955868,
+    "below_p90_sets": 1,
+    "monthly_failed_blocks_20days": 18.0,
+    "global_tracking_pct": 98.93229166666666,
+    "local_soc_pct": 100.0,
+    "global_local_sum": 198.93229166666666,
+    "abs_error_quantiles_kw": {
+      "50": 5.340576171875e-05,
+      "80": 0.00010967254638671875,
+      "90": 0.000152587890625,
+      "95": 0.0001983642578125,
+      "98": 0.0002760219573974595,
+      "99": 21.17918823242141
+    },
+    "by_band": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 104,
+        "pass_pct": 99.03846153846155,
+        "global_tracking_pct": 99.67948717948718,
+        "assessed_5min_points": 624,
+        "first_step_mae_kw": 5.56907974756681e-05
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 15,
+        "blocks": 392,
+        "pass_pct": 96.68367346938776,
+        "global_tracking_pct": 98.42687074829932,
+        "assessed_5min_points": 2352,
+        "first_step_mae_kw": 1.0857224196803814
+      },
+      {
+        "from_kw": 15,
+        "to_kw": 20,
+        "blocks": 256,
+        "pass_pct": 96.09375,
+        "global_tracking_pct": 97.4609375,
+        "assessed_5min_points": 1536,
+        "first_step_mae_kw": 1.967606100719422
+      },
+      {
+        "from_kw": 20,
+        "to_kw": 30,
+        "blocks": 636,
+        "pass_pct": 98.58490566037736,
+        "global_tracking_pct": 99.13522012578616,
+        "assessed_5min_points": 3816,
+        "first_step_mae_kw": 0.27554448911885043
+      },
+      {
+        "from_kw": 30,
+        "to_kw": null,
+        "blocks": 532,
+        "pass_pct": 99.43609022556392,
+        "global_tracking_pct": 99.62406015037594,
+        "assessed_5min_points": 3192,
+        "first_step_mae_kw": 0.15115602429311975
+      }
+    ],
+    "by_baseline_step": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 1560,
+        "pass_pct": 98.46153846153847,
+        "global_tracking_pct": 99.11324786324786,
+        "assessed_5min_points": 9360,
+        "first_step_mae_kw": 0.6502640063946064
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 25,
+        "blocks": 224,
+        "pass_pct": 96.42857142857143,
+        "global_tracking_pct": 98.13988095238095,
+        "assessed_5min_points": 1344,
+        "first_step_mae_kw": 0.43078017766986576
+      },
+      {
+        "from_kw": 25,
+        "to_kw": 50,
+        "blocks": 80,
+        "pass_pct": 95.0,
+        "global_tracking_pct": 96.875,
+        "assessed_5min_points": 480,
+        "first_step_mae_kw": 0.9258384346961975
+      },
+      {
+        "from_kw": 50,
+        "to_kw": 100,
+        "blocks": 16,
+        "pass_pct": 100.0,
+        "global_tracking_pct": 100.0,
+        "assessed_5min_points": 96,
+        "first_step_mae_kw": 6.29425048828125e-05
+      },
+      {
+        "from_kw": 100,
+        "to_kw": null,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      }
+    ],
+    "band_by_baseline_step": [
+      {
+        "band_from_kw": 0,
+        "band_to_kw": 10,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 94,
+            "pass_pct": 98.93617021276596,
+            "global_tracking_pct": 99.64539007092199,
+            "assessed_5min_points": 564,
+            "first_step_mae_kw": 5.780065313298651e-05
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 4,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 24,
+            "first_step_mae_kw": 5.53131103515625e-05
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 2,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 12,
+            "first_step_mae_kw": 2.288818359375e-05
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 2,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 12,
+            "first_step_mae_kw": 2.47955322265625e-05
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 10,
+        "band_to_kw": 15,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 306,
+            "pass_pct": 96.73202614379085,
+            "global_tracking_pct": 98.36601307189542,
+            "assessed_5min_points": 1836,
+            "first_step_mae_kw": 1.3382263160219379
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 62,
+            "pass_pct": 95.16129032258065,
+            "global_tracking_pct": 98.11827956989248,
+            "assessed_5min_points": 372,
+            "first_step_mae_kw": 0.2597433174810102
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 8,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 48,
+            "first_step_mae_kw": 6.198883056640625e-05
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 2,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 12,
+            "first_step_mae_kw": 1.52587890625e-05
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 15,
+        "band_to_kw": 20,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 210,
+            "pass_pct": 97.14285714285714,
+            "global_tracking_pct": 97.93650793650794,
+            "assessed_5min_points": 1260,
+            "first_step_mae_kw": 2.2522621733801707
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 20,
+            "pass_pct": 90.0,
+            "global_tracking_pct": 95.0,
+            "assessed_5min_points": 120,
+            "first_step_mae_kw": 5.741119384765625e-05
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 16,
+            "pass_pct": 87.5,
+            "global_tracking_pct": 92.70833333333334,
+            "assessed_5min_points": 96,
+            "first_step_mae_kw": 1.9206286072731018
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 20,
+        "band_to_kw": 30,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 546,
+            "pass_pct": 98.71794871794873,
+            "global_tracking_pct": 99.23687423687424,
+            "assessed_5min_points": 3276,
+            "first_step_mae_kw": 0.24158862678013443
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 46,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 276,
+            "first_step_mae_kw": 7.804580356763756e-05
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 32,
+            "pass_pct": 93.75,
+            "global_tracking_pct": 95.83333333333334,
+            "assessed_5min_points": 192,
+            "first_step_mae_kw": 1.3542159795761108
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 4,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 24,
+            "first_step_mae_kw": 2.956390380859375e-05
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 30,
+        "band_to_kw": null,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 404,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 2424,
+            "first_step_mae_kw": 6.613212794360548e-05
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 92,
+            "pass_pct": 96.73913043478261,
+            "global_tracking_pct": 97.82608695652173,
+            "assessed_5min_points": 552,
+            "first_step_mae_kw": 0.8737577666407046
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 22,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 132,
+            "first_step_mae_kw": 7.109208540482955e-05
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 8,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 48,
+            "first_step_mae_kw": 0.0001010894775390625
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      }
+    ]
+  },
+  "main6_ercot": {
+    "model": "wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145",
+    "episode": 2000,
+    "sets": 40,
+    "soc_hit_pct": 83.64607864909848,
+    "step_pass_pct": 91.20659722222221,
+    "block_pass_pct": 87.23958333333334,
+    "failed_blocks": 245,
+    "assessed_blocks": 1920,
+    "mae_kw": 5.792107303455335,
+    "mean_error_to_award_pct": 3.9765972254815187,
+    "below_p90_sets": 12,
+    "monthly_failed_blocks_20days": 122.5,
+    "global_tracking_pct": 91.20659722222221,
+    "local_soc_pct": 83.64607864909848,
+    "global_local_sum": 174.85267587132074,
+    "abs_error_quantiles_kw": {
+      "50": 2.5542252040044673,
+      "80": 7.604519653320317,
+      "90": 13.868518447875976,
+      "95": 24.59742469787597,
+      "98": 39.15336791992178,
+      "99": 50.03356842041009
+    },
+    "by_band": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 198,
+        "pass_pct": 78.78787878787878,
+        "global_tracking_pct": 90.65656565656566,
+        "assessed_5min_points": 1188,
+        "first_step_mae_kw": 4.0560363458864614
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 15,
+        "blocks": 558,
+        "pass_pct": 79.39068100358423,
+        "global_tracking_pct": 84.02031063321385,
+        "assessed_5min_points": 3348,
+        "first_step_mae_kw": 6.984607562070467
+      },
+      {
+        "from_kw": 15,
+        "to_kw": 20,
+        "blocks": 344,
+        "pass_pct": 85.17441860465115,
+        "global_tracking_pct": 89.77713178294574,
+        "assessed_5min_points": 2064,
+        "first_step_mae_kw": 7.195111929649689
+      },
+      {
+        "from_kw": 20,
+        "to_kw": 30,
+        "blocks": 494,
+        "pass_pct": 95.74898785425101,
+        "global_tracking_pct": 97.16599190283401,
+        "assessed_5min_points": 2964,
+        "first_step_mae_kw": 4.712878038405407
+      },
+      {
+        "from_kw": 30,
+        "to_kw": null,
+        "blocks": 326,
+        "pass_pct": 95.0920245398773,
+        "global_tracking_pct": 96.31901840490798,
+        "assessed_5min_points": 1956,
+        "first_step_mae_kw": 5.608512100266533
+      }
+    ],
+    "by_baseline_step": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 1544,
+        "pass_pct": 88.08290155440415,
+        "global_tracking_pct": 91.90414507772022,
+        "assessed_5min_points": 9264,
+        "first_step_mae_kw": 5.31749846574104
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 25,
+        "blocks": 240,
+        "pass_pct": 85.41666666666666,
+        "global_tracking_pct": 89.09722222222223,
+        "assessed_5min_points": 1440,
+        "first_step_mae_kw": 8.627906314531963
+      },
+      {
+        "from_kw": 25,
+        "to_kw": 50,
+        "blocks": 88,
+        "pass_pct": 76.13636363636364,
+        "global_tracking_pct": 85.41666666666666,
+        "assessed_5min_points": 528,
+        "first_step_mae_kw": 9.42200202291662
+      },
+      {
+        "from_kw": 50,
+        "to_kw": 100,
+        "blocks": 8,
+        "pass_pct": 100.0,
+        "global_tracking_pct": 100.0,
+        "assessed_5min_points": 48,
+        "first_step_mae_kw": 3.069593608379364
+      },
+      {
+        "from_kw": 100,
+        "to_kw": null,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      }
+    ],
+    "band_by_baseline_step": [
+      {
+        "band_from_kw": 0,
+        "band_to_kw": 10,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 144,
+            "pass_pct": 81.25,
+            "global_tracking_pct": 91.89814814814815,
+            "assessed_5min_points": 864,
+            "first_step_mae_kw": 3.630475088953972
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 30,
+            "pass_pct": 76.66666666666667,
+            "global_tracking_pct": 91.66666666666666,
+            "assessed_5min_points": 180,
+            "first_step_mae_kw": 3.580456034342448
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 18,
+            "pass_pct": 55.55555555555556,
+            "global_tracking_pct": 75.92592592592592,
+            "assessed_5min_points": 108,
+            "first_step_mae_kw": 9.142225212521023
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 10,
+        "band_to_kw": 15,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 486,
+            "pass_pct": 78.39506172839506,
+            "global_tracking_pct": 83.19615912208505,
+            "assessed_5min_points": 2916,
+            "first_step_mae_kw": 7.093707977155847
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 38,
+            "pass_pct": 92.10526315789474,
+            "global_tracking_pct": 96.05263157894737,
+            "assessed_5min_points": 228,
+            "first_step_mae_kw": 5.316097083844636
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 8,
+            "pass_pct": 75.0,
+            "global_tracking_pct": 85.41666666666666,
+            "assessed_5min_points": 48,
+            "first_step_mae_kw": 7.042797088623047
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 6,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 36,
+            "first_step_mae_kw": 2.8907927672068277
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 15,
+        "band_to_kw": 20,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 284,
+            "pass_pct": 86.61971830985915,
+            "global_tracking_pct": 92.01877934272301,
+            "assessed_5min_points": 1704,
+            "first_step_mae_kw": 6.199625035373448
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 32,
+            "pass_pct": 68.75,
+            "global_tracking_pct": 68.75,
+            "assessed_5min_points": 192,
+            "first_step_mae_kw": 17.393246054649353
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 18,
+            "pass_pct": 83.33333333333334,
+            "global_tracking_pct": 86.11111111111111,
+            "assessed_5min_points": 108,
+            "first_step_mae_kw": 8.200889057583279
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 20,
+        "band_to_kw": 30,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 388,
+            "pass_pct": 97.9381443298969,
+            "global_tracking_pct": 98.71134020618557,
+            "assessed_5min_points": 2328,
+            "first_step_mae_kw": 3.436916581595067
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 80,
+            "pass_pct": 86.25,
+            "global_tracking_pct": 89.79166666666667,
+            "assessed_5min_points": 480,
+            "first_step_mae_kw": 9.935991531610489
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 22,
+            "pass_pct": 90.9090909090909,
+            "global_tracking_pct": 96.21212121212122,
+            "assessed_5min_points": 132,
+            "first_step_mae_kw": 8.685475782914596
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 2,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 12,
+            "first_step_mae_kw": 3.6059961318969727
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 30,
+        "band_to_kw": null,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 242,
+            "pass_pct": 97.52066115702479,
+            "global_tracking_pct": 98.34710743801654,
+            "assessed_5min_points": 1452,
+            "first_step_mae_kw": 4.734173544182265
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 60,
+            "pass_pct": 93.33333333333333,
+            "global_tracking_pct": 93.33333333333333,
+            "assessed_5min_points": 360,
+            "first_step_mae_kw": 6.830149149894714
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 22,
+            "pass_pct": 72.72727272727273,
+            "global_tracking_pct": 81.81818181818183,
+            "assessed_5min_points": 132,
+            "first_step_mae_kw": 12.251694419167258
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      }
+    ]
+  },
+  "abg6_ercot": {
+    "model": "wr_cap77wd_ercotplan_6station_resbid_abg_20261013_114104",
+    "episode": 1600,
+    "sets": 40,
+    "soc_hit_pct": 55.763019346226905,
+    "step_pass_pct": 92.61284722222223,
+    "block_pass_pct": 90.3125,
+    "failed_blocks": 186,
+    "assessed_blocks": 1920,
+    "mae_kw": 4.944927367064647,
+    "mean_error_to_award_pct": 3.4334822683108235,
+    "below_p90_sets": 10,
+    "monthly_failed_blocks_20days": 93.0,
+    "global_tracking_pct": 92.61284722222223,
+    "local_soc_pct": 55.763019346226905,
+    "global_local_sum": 148.3758665684491,
+    "abs_error_quantiles_kw": {
+      "50": 1.971700668334961,
+      "80": 5.438341522216798,
+      "90": 11.83034133911133,
+      "95": 22.799953460693335,
+      "98": 36.71018585205073,
+      "99": 48.64041442871079
+    },
+    "by_band": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 198,
+        "pass_pct": 93.93939393939394,
+        "global_tracking_pct": 97.05387205387206,
+        "assessed_5min_points": 1188,
+        "first_step_mae_kw": 2.355237420159157
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 15,
+        "blocks": 558,
+        "pass_pct": 82.25806451612904,
+        "global_tracking_pct": 84.73715651135007,
+        "assessed_5min_points": 3348,
+        "first_step_mae_kw": 6.386909924397094
+      },
+      {
+        "from_kw": 15,
+        "to_kw": 20,
+        "blocks": 344,
+        "pass_pct": 86.62790697674419,
+        "global_tracking_pct": 90.98837209302324,
+        "assessed_5min_points": 2064,
+        "first_step_mae_kw": 6.243078492467645
+      },
+      {
+        "from_kw": 20,
+        "to_kw": 30,
+        "blocks": 494,
+        "pass_pct": 97.16599190283401,
+        "global_tracking_pct": 98.14439946018894,
+        "assessed_5min_points": 2964,
+        "first_step_mae_kw": 3.951647505224475
+      },
+      {
+        "from_kw": 30,
+        "to_kw": null,
+        "blocks": 326,
+        "pass_pct": 95.39877300613497,
+        "global_tracking_pct": 96.7280163599182,
+        "assessed_5min_points": 1956,
+        "first_step_mae_kw": 5.169427097392228
+      }
+    ],
+    "by_baseline_step": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 1544,
+        "pass_pct": 91.25647668393782,
+        "global_tracking_pct": 93.30742659758204,
+        "assessed_5min_points": 9264,
+        "first_step_mae_kw": 4.496547584054951
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 25,
+        "blocks": 240,
+        "pass_pct": 87.91666666666667,
+        "global_tracking_pct": 90.48611111111111,
+        "assessed_5min_points": 1440,
+        "first_step_mae_kw": 7.77361771017313
+      },
+      {
+        "from_kw": 25,
+        "to_kw": 50,
+        "blocks": 88,
+        "pass_pct": 82.95454545454545,
+        "global_tracking_pct": 90.15151515151516,
+        "assessed_5min_points": 528,
+        "first_step_mae_kw": 8.35070555860346
+      },
+      {
+        "from_kw": 50,
+        "to_kw": 100,
+        "blocks": 8,
+        "pass_pct": 100.0,
+        "global_tracking_pct": 100.0,
+        "assessed_5min_points": 48,
+        "first_step_mae_kw": 1.6189128458499908
+      },
+      {
+        "from_kw": 100,
+        "to_kw": null,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      }
+    ],
+    "band_by_baseline_step": [
+      {
+        "band_from_kw": 0,
+        "band_to_kw": 10,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 144,
+            "pass_pct": 96.52777777777779,
+            "global_tracking_pct": 98.8425925925926,
+            "assessed_5min_points": 864,
+            "first_step_mae_kw": 1.9329247574011486
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 30,
+            "pass_pct": 93.33333333333333,
+            "global_tracking_pct": 97.22222222222221,
+            "assessed_5min_points": 180,
+            "first_step_mae_kw": 1.7781562566757203
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 18,
+            "pass_pct": 72.22222222222221,
+            "global_tracking_pct": 81.48148148148148,
+            "assessed_5min_points": 108,
+            "first_step_mae_kw": 6.99243688583374
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 10,
+        "band_to_kw": 15,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 486,
+            "pass_pct": 81.89300411522635,
+            "global_tracking_pct": 84.22496570644718,
+            "assessed_5min_points": 2916,
+            "first_step_mae_kw": 6.412966620379732
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 38,
+            "pass_pct": 89.47368421052632,
+            "global_tracking_pct": 96.05263157894737,
+            "assessed_5min_points": 228,
+            "first_step_mae_kw": 4.487581475784904
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 8,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 48,
+            "first_step_mae_kw": 3.862619400024414
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 6,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 36,
+            "first_step_mae_kw": 1.5336232582728069
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 15,
+        "band_to_kw": 20,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 284,
+            "pass_pct": 88.38028169014085,
+            "global_tracking_pct": 93.01643192488262,
+            "assessed_5min_points": 1704,
+            "first_step_mae_kw": 4.959508487947581
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 32,
+            "pass_pct": 68.75,
+            "global_tracking_pct": 71.35416666666666,
+            "assessed_5min_points": 192,
+            "first_step_mae_kw": 17.007560074329376
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 18,
+            "pass_pct": 83.33333333333334,
+            "global_tracking_pct": 88.88888888888889,
+            "assessed_5min_points": 108,
+            "first_step_mae_kw": 10.302611086103651
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 20,
+        "band_to_kw": 30,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 388,
+            "pass_pct": 99.22680412371135,
+            "global_tracking_pct": 99.69931271477664,
+            "assessed_5min_points": 2328,
+            "first_step_mae_kw": 2.866452796711135
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 80,
+            "pass_pct": 88.75,
+            "global_tracking_pct": 90.83333333333333,
+            "assessed_5min_points": 480,
+            "first_step_mae_kw": 8.450847136974335
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 22,
+            "pass_pct": 90.9090909090909,
+            "global_tracking_pct": 96.96969696969697,
+            "assessed_5min_points": 132,
+            "first_step_mae_kw": 7.235635497353294
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 2,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 12,
+            "first_step_mae_kw": 1.874781608581543
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 30,
+        "band_to_kw": null,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 242,
+            "pass_pct": 97.52066115702479,
+            "global_tracking_pct": 98.34710743801654,
+            "assessed_5min_points": 1452,
+            "first_step_mae_kw": 4.24356376656816
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 60,
+            "pass_pct": 93.33333333333333,
+            "global_tracking_pct": 93.33333333333333,
+            "assessed_5min_points": 360,
+            "first_step_mae_kw": 7.02476288874944
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 22,
+            "pass_pct": 77.27272727272727,
+            "global_tracking_pct": 87.87878787878788,
+            "assessed_5min_points": 132,
+            "first_step_mae_kw": 10.612104069102894
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      }
+    ]
+  },
+  "rule6_ercot": {
+    "model": null,
+    "episode": null,
+    "sets": 40,
+    "soc_hit_pct": 100.0,
+    "step_pass_pct": 98.61979166666666,
+    "block_pass_pct": 98.07291666666667,
+    "failed_blocks": 37,
+    "assessed_blocks": 1920,
+    "mae_kw": 0.7535232535056591,
+    "mean_error_to_award_pct": 0.565458897521416,
+    "below_p90_sets": 1,
+    "monthly_failed_blocks_20days": 18.5,
+    "global_tracking_pct": 98.61979166666666,
+    "local_soc_pct": 100.0,
+    "global_local_sum": 198.61979166666666,
+    "abs_error_quantiles_kw": {
+      "50": 5.245208740234375e-05,
+      "80": 0.00010776519775390625,
+      "90": 0.000152587890625,
+      "95": 0.0001983642578125,
+      "98": 0.089019775390625,
+      "99": 31.500274658203125
+    },
+    "by_band": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 198,
+        "pass_pct": 100.0,
+        "global_tracking_pct": 100.0,
+        "assessed_5min_points": 1188,
+        "first_step_mae_kw": 6.353614306209064e-05
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 15,
+        "blocks": 558,
+        "pass_pct": 97.84946236559139,
+        "global_tracking_pct": 98.26762246117084,
+        "assessed_5min_points": 3348,
+        "first_step_mae_kw": 0.44916204805675547
+      },
+      {
+        "from_kw": 15,
+        "to_kw": 20,
+        "blocks": 344,
+        "pass_pct": 95.93023255813954,
+        "global_tracking_pct": 96.89922480620154,
+        "assessed_5min_points": 2064,
+        "first_step_mae_kw": 1.9075640543023356
+      },
+      {
+        "from_kw": 20,
+        "to_kw": 30,
+        "blocks": 494,
+        "pass_pct": 98.98785425101214,
+        "global_tracking_pct": 99.49392712550608,
+        "assessed_5min_points": 2964,
+        "first_step_mae_kw": 0.5215429048306547
+      },
+      {
+        "from_kw": 30,
+        "to_kw": null,
+        "blocks": 326,
+        "pass_pct": 98.15950920245399,
+        "global_tracking_pct": 98.87525562372188,
+        "assessed_5min_points": 1956,
+        "first_step_mae_kw": 1.6465543020813742
+      }
+    ],
+    "by_baseline_step": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 1544,
+        "pass_pct": 98.44559585492227,
+        "global_tracking_pct": 98.93134715025906,
+        "assessed_5min_points": 9264,
+        "first_step_mae_kw": 0.6662766001886086
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 25,
+        "blocks": 240,
+        "pass_pct": 95.0,
+        "global_tracking_pct": 96.11111111111111,
+        "assessed_5min_points": 1440,
+        "first_step_mae_kw": 2.775821249683698
+      },
+      {
+        "from_kw": 25,
+        "to_kw": 50,
+        "blocks": 88,
+        "pass_pct": 98.86363636363636,
+        "global_tracking_pct": 99.24242424242425,
+        "assessed_5min_points": 528,
+        "first_step_mae_kw": 0.07199103182012384
+      },
+      {
+        "from_kw": 50,
+        "to_kw": 100,
+        "blocks": 8,
+        "pass_pct": 100.0,
+        "global_tracking_pct": 100.0,
+        "assessed_5min_points": 48,
+        "first_step_mae_kw": 3.0666589736938477e-05
+      },
+      {
+        "from_kw": 100,
+        "to_kw": null,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      }
+    ],
+    "band_by_baseline_step": [
+      {
+        "band_from_kw": 0,
+        "band_to_kw": 10,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 144,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 864,
+            "first_step_mae_kw": 6.660819053649902e-05
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 30,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 180,
+            "first_step_mae_kw": 6.0168902079264325e-05
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 18,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 108,
+            "first_step_mae_kw": 6.103515625e-05
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 10,
+        "band_to_kw": 15,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 486,
+            "pass_pct": 97.53086419753086,
+            "global_tracking_pct": 98.01097393689986,
+            "assessed_5min_points": 2916,
+            "first_step_mae_kw": 0.5156954524671364
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 38,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 228,
+            "first_step_mae_kw": 5.8349810148540294e-05
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 8,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 48,
+            "first_step_mae_kw": 7.534027099609375e-05
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 6,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 36,
+            "first_step_mae_kw": 3.516674041748047e-05
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 15,
+        "band_to_kw": 20,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 284,
+            "pass_pct": 97.53521126760563,
+            "global_tracking_pct": 98.59154929577466,
+            "assessed_5min_points": 1704,
+            "first_step_mae_kw": 1.1807506192456476
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 32,
+            "pass_pct": 81.25,
+            "global_tracking_pct": 81.25,
+            "assessed_5min_points": 192,
+            "first_step_mae_kw": 9.829327374696732
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 18,
+            "pass_pct": 94.44444444444444,
+            "global_tracking_pct": 96.29629629629629,
+            "assessed_5min_points": 108,
+            "first_step_mae_kw": 0.3516537348429362
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 20,
+        "band_to_kw": 30,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 388,
+            "pass_pct": 99.74226804123711,
+            "global_tracking_pct": 99.87113402061856,
+            "assessed_5min_points": 2328,
+            "first_step_mae_kw": 0.11232037949807881
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 80,
+            "pass_pct": 95.0,
+            "global_tracking_pct": 97.5,
+            "assessed_5min_points": 480,
+            "first_step_mae_kw": 2.675749397277832
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 22,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 132,
+            "first_step_mae_kw": 7.976185191761364e-05
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 2,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 12,
+            "first_step_mae_kw": 1.71661376953125e-05
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 30,
+        "band_to_kw": null,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 242,
+            "pass_pct": 98.34710743801654,
+            "global_tracking_pct": 99.0358126721763,
+            "assessed_5min_points": 1452,
+            "first_step_mae_kw": 1.649504157445155
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 60,
+            "pass_pct": 96.66666666666667,
+            "global_tracking_pct": 97.77777777777777,
+            "assessed_5min_points": 360,
+            "first_step_mae_kw": 2.293244163195292
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 22,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 132,
+            "first_step_mae_kw": 9.033896706321023e-05
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      }
+    ]
+  },
+  "abg20_aemo": {
+    "model": "wr_cap77wd_aemoplan_20station_resbid_abg_20261013_101724",
+    "episode": 1920,
+    "sets": 40,
+    "soc_hit_pct": 47.139545587239034,
+    "step_pass_pct": 97.265625,
+    "block_pass_pct": 93.95833333333333,
+    "failed_blocks": 116,
+    "assessed_blocks": 1920,
+    "mae_kw": 12.119746595714242,
+    "mean_error_to_award_pct": 2.0140841912905456,
+    "below_p90_sets": 4,
+    "monthly_failed_blocks_20days": 58.0,
+    "global_tracking_pct": 97.265625,
+    "local_soc_pct": 47.139545587239034,
+    "global_local_sum": 144.40517058723904,
+    "abs_error_quantiles_kw": {
+      "50": 4.84056282043457,
+      "80": 15.23061523437501,
+      "90": 29.231865692138676,
+      "95": 48.25570373535146,
+      "98": 83.65401489257806,
+      "99": 117.55104034423788
+    },
+    "by_band": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 15,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      },
+      {
+        "from_kw": 15,
+        "to_kw": 20,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      },
+      {
+        "from_kw": 20,
+        "to_kw": 30,
+        "blocks": 18,
+        "pass_pct": 77.77777777777779,
+        "global_tracking_pct": 79.62962962962963,
+        "assessed_5min_points": 108,
+        "first_step_mae_kw": 34.38191350301107
+      },
+      {
+        "from_kw": 30,
+        "to_kw": null,
+        "blocks": 1902,
+        "pass_pct": 94.11146161934806,
+        "global_tracking_pct": 97.43252716438836,
+        "assessed_5min_points": 11412,
+        "first_step_mae_kw": 12.208424838998216
+      }
+    ],
+    "by_baseline_step": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 1264,
+        "pass_pct": 92.40506329113924,
+        "global_tracking_pct": 96.47943037974683,
+        "assessed_5min_points": 7584,
+        "first_step_mae_kw": 14.358623106928565
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 25,
+        "blocks": 360,
+        "pass_pct": 98.88888888888889,
+        "global_tracking_pct": 99.58333333333333,
+        "assessed_5min_points": 2160,
+        "first_step_mae_kw": 6.150743303696315
+      },
+      {
+        "from_kw": 25,
+        "to_kw": 50,
+        "blocks": 128,
+        "pass_pct": 96.09375,
+        "global_tracking_pct": 98.4375,
+        "assessed_5min_points": 768,
+        "first_step_mae_kw": 8.22344559431076
+      },
+      {
+        "from_kw": 50,
+        "to_kw": 100,
+        "blocks": 88,
+        "pass_pct": 95.45454545454545,
+        "global_tracking_pct": 98.86363636363636,
+        "assessed_5min_points": 528,
+        "first_step_mae_kw": 13.786028016697276
+      },
+      {
+        "from_kw": 100,
+        "to_kw": null,
+        "blocks": 40,
+        "pass_pct": 87.5,
+        "global_tracking_pct": 93.75,
+        "assessed_5min_points": 240,
+        "first_step_mae_kw": 19.006627750396728
+      }
+    ],
+    "band_by_baseline_step": [
+      {
+        "band_from_kw": 0,
+        "band_to_kw": 10,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 10,
+        "band_to_kw": 15,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 15,
+        "band_to_kw": 20,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 20,
+        "band_to_kw": 30,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 16,
+            "pass_pct": 75.0,
+            "global_tracking_pct": 77.08333333333334,
+            "assessed_5min_points": 96,
+            "first_step_mae_kw": 36.926382064819336
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 30,
+        "band_to_kw": null,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 1248,
+            "pass_pct": 92.62820512820514,
+            "global_tracking_pct": 96.72809829059828,
+            "assessed_5min_points": 7488,
+            "first_step_mae_kw": 14.069292863878685
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 360,
+            "pass_pct": 98.88888888888889,
+            "global_tracking_pct": 99.58333333333333,
+            "assessed_5min_points": 2160,
+            "first_step_mae_kw": 6.150743303696315
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 128,
+            "pass_pct": 96.09375,
+            "global_tracking_pct": 98.4375,
+            "assessed_5min_points": 768,
+            "first_step_mae_kw": 8.22344559431076
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 88,
+            "pass_pct": 95.45454545454545,
+            "global_tracking_pct": 98.86363636363636,
+            "assessed_5min_points": 528,
+            "first_step_mae_kw": 13.786028016697276
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 40,
+            "pass_pct": 87.5,
+            "global_tracking_pct": 93.75,
+            "assessed_5min_points": 240,
+            "first_step_mae_kw": 19.006627750396728
+          }
+        ]
+      }
+    ]
+  },
+  "abg20_ercot": {
+    "model": "wr_cap77wd_ercotplan_20station_resbid_abg_20261013_101830",
+    "episode": 1680,
+    "sets": 40,
+    "soc_hit_pct": 51.65399657673269,
+    "step_pass_pct": 93.15104166666667,
+    "block_pass_pct": 91.35416666666667,
+    "failed_blocks": 166,
+    "assessed_blocks": 1920,
+    "mae_kw": 17.237058512493967,
+    "mean_error_to_award_pct": 2.8476350405603985,
+    "below_p90_sets": 8,
+    "monthly_failed_blocks_20days": 83.0,
+    "global_tracking_pct": 93.15104166666667,
+    "local_soc_pct": 51.65399657673269,
+    "global_local_sum": 144.80503824339934,
+    "abs_error_quantiles_kw": {
+      "50": 5.4330596923828125,
+      "80": 16.417870330810555,
+      "90": 47.96166992187501,
+      "95": 83.20067977905272,
+      "98": 145.4172222900381,
+      "99": 186.94131591796804
+    },
+    "by_band": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 15,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      },
+      {
+        "from_kw": 15,
+        "to_kw": 20,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      },
+      {
+        "from_kw": 20,
+        "to_kw": 30,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      },
+      {
+        "from_kw": 30,
+        "to_kw": null,
+        "blocks": 1920,
+        "pass_pct": 91.35416666666667,
+        "global_tracking_pct": 93.15104166666667,
+        "assessed_5min_points": 11520,
+        "first_step_mae_kw": 17.78427872887502
+      }
+    ],
+    "by_baseline_step": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 1112,
+        "pass_pct": 89.29856115107914,
+        "global_tracking_pct": 90.90227817745803,
+        "assessed_5min_points": 6672,
+        "first_step_mae_kw": 20.084973546884044
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 25,
+        "blocks": 448,
+        "pass_pct": 97.54464285714286,
+        "global_tracking_pct": 98.80952380952381,
+        "assessed_5min_points": 2688,
+        "first_step_mae_kw": 7.467369614967278
+      },
+      {
+        "from_kw": 25,
+        "to_kw": 50,
+        "blocks": 160,
+        "pass_pct": 95.625,
+        "global_tracking_pct": 98.64583333333333,
+        "assessed_5min_points": 960,
+        "first_step_mae_kw": 13.878707611560822
+      },
+      {
+        "from_kw": 50,
+        "to_kw": 100,
+        "blocks": 128,
+        "pass_pct": 89.0625,
+        "global_tracking_pct": 91.27604166666666,
+        "assessed_5min_points": 768,
+        "first_step_mae_kw": 28.514152920804918
+      },
+      {
+        "from_kw": 100,
+        "to_kw": null,
+        "blocks": 32,
+        "pass_pct": 68.75,
+        "global_tracking_pct": 75.0,
+        "assessed_5min_points": 192,
+        "first_step_mae_kw": 59.864907786250114
+      }
+    ],
+    "band_by_baseline_step": [
+      {
+        "band_from_kw": 0,
+        "band_to_kw": 10,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 10,
+        "band_to_kw": 15,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 15,
+        "band_to_kw": 20,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 20,
+        "band_to_kw": 30,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 30,
+        "band_to_kw": null,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 1112,
+            "pass_pct": 89.29856115107914,
+            "global_tracking_pct": 90.90227817745803,
+            "assessed_5min_points": 6672,
+            "first_step_mae_kw": 20.084973546884044
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 448,
+            "pass_pct": 97.54464285714286,
+            "global_tracking_pct": 98.80952380952381,
+            "assessed_5min_points": 2688,
+            "first_step_mae_kw": 7.467369614967278
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 160,
+            "pass_pct": 95.625,
+            "global_tracking_pct": 98.64583333333333,
+            "assessed_5min_points": 960,
+            "first_step_mae_kw": 13.878707611560822
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 128,
+            "pass_pct": 89.0625,
+            "global_tracking_pct": 91.27604166666666,
+            "assessed_5min_points": 768,
+            "first_step_mae_kw": 28.514152920804918
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 32,
+            "pass_pct": 68.75,
+            "global_tracking_pct": 75.0,
+            "assessed_5min_points": 192,
+            "first_step_mae_kw": 59.864907786250114
+          }
+        ]
+      }
+    ]
+  },
+  "main20_aemo": {
+    "model": "wr_cap77wd_aemoplan_20station_resbid_tanh_ls717_20261013_234053",
+    "episode": 2000,
+    "sets": 40,
+    "soc_hit_pct": 88.97109369903956,
+    "step_pass_pct": 95.94618055555557,
+    "block_pass_pct": 90.67708333333333,
+    "failed_blocks": 179,
+    "assessed_blocks": 1920,
+    "mae_kw": 21.979250041462688,
+    "mean_error_to_award_pct": 3.5328308084052713,
+    "below_p90_sets": 6,
+    "monthly_failed_blocks_20days": 89.5,
+    "global_tracking_pct": 95.94618055555557,
+    "local_soc_pct": 88.97109369903956,
+    "global_local_sum": 184.91727425459507,
+    "abs_error_quantiles_kw": {
+      "50": 14.27618408203125,
+      "80": 32.98389282226563,
+      "90": 48.22451477050782,
+      "95": 66.51208190917968,
+      "98": 98.36733367919884,
+      "99": 129.33185302734373
+    },
+    "by_band": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 15,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      },
+      {
+        "from_kw": 15,
+        "to_kw": 20,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      },
+      {
+        "from_kw": 20,
+        "to_kw": 30,
+        "blocks": 18,
+        "pass_pct": 55.55555555555556,
+        "global_tracking_pct": 70.37037037037037,
+        "assessed_5min_points": 108,
+        "first_step_mae_kw": 42.42353736029731
+      },
+      {
+        "from_kw": 30,
+        "to_kw": null,
+        "blocks": 1902,
+        "pass_pct": 91.00946372239747,
+        "global_tracking_pct": 96.1882229232387,
+        "assessed_5min_points": 11412,
+        "first_step_mae_kw": 23.213581182007786
+      }
+    ],
+    "by_baseline_step": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 1264,
+        "pass_pct": 89.24050632911393,
+        "global_tracking_pct": 94.96308016877637,
+        "assessed_5min_points": 7584,
+        "first_step_mae_kw": 24.48189337612896
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 25,
+        "blocks": 360,
+        "pass_pct": 93.33333333333333,
+        "global_tracking_pct": 98.28703703703704,
+        "assessed_5min_points": 2160,
+        "first_step_mae_kw": 20.319552103678387
+      },
+      {
+        "from_kw": 25,
+        "to_kw": 50,
+        "blocks": 128,
+        "pass_pct": 95.3125,
+        "global_tracking_pct": 98.30729166666666,
+        "assessed_5min_points": 768,
+        "first_step_mae_kw": 20.3087387830019
+      },
+      {
+        "from_kw": 50,
+        "to_kw": 100,
+        "blocks": 88,
+        "pass_pct": 96.5909090909091,
+        "global_tracking_pct": 98.67424242424242,
+        "assessed_5min_points": 528,
+        "first_step_mae_kw": 24.147608691995796
+      },
+      {
+        "from_kw": 100,
+        "to_kw": null,
+        "blocks": 40,
+        "pass_pct": 80.0,
+        "global_tracking_pct": 90.83333333333333,
+        "assessed_5min_points": 240,
+        "first_step_mae_kw": 32.63910994529724
+      }
+    ],
+    "band_by_baseline_step": [
+      {
+        "band_from_kw": 0,
+        "band_to_kw": 10,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 10,
+        "band_to_kw": 15,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 15,
+        "band_to_kw": 20,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 20,
+        "band_to_kw": 30,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 16,
+            "pass_pct": 50.0,
+            "global_tracking_pct": 66.66666666666666,
+            "assessed_5min_points": 96,
+            "first_step_mae_kw": 45.703399658203125
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 30,
+        "band_to_kw": null,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 1248,
+            "pass_pct": 89.74358974358975,
+            "global_tracking_pct": 95.3258547008547,
+            "assessed_5min_points": 7488,
+            "first_step_mae_kw": 24.209822782769034
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 360,
+            "pass_pct": 93.33333333333333,
+            "global_tracking_pct": 98.28703703703704,
+            "assessed_5min_points": 2160,
+            "first_step_mae_kw": 20.319552103678387
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 128,
+            "pass_pct": 95.3125,
+            "global_tracking_pct": 98.30729166666666,
+            "assessed_5min_points": 768,
+            "first_step_mae_kw": 20.3087387830019
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 88,
+            "pass_pct": 96.5909090909091,
+            "global_tracking_pct": 98.67424242424242,
+            "assessed_5min_points": 528,
+            "first_step_mae_kw": 24.147608691995796
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 40,
+            "pass_pct": 80.0,
+            "global_tracking_pct": 90.83333333333333,
+            "assessed_5min_points": 240,
+            "first_step_mae_kw": 32.63910994529724
+          }
+        ]
+      }
+    ]
+  },
+  "main20_ercot": {
+    "model": "wr_cap77wd_ercotplan_20station_resbid_tanh_ls717_20261014_012521",
+    "episode": 2000,
+    "sets": 40,
+    "soc_hit_pct": 83.37679960552539,
+    "step_pass_pct": 92.50868055555557,
+    "block_pass_pct": 88.64583333333333,
+    "failed_blocks": 218,
+    "assessed_blocks": 1920,
+    "mae_kw": 23.821558551143664,
+    "mean_error_to_award_pct": 3.81422959478589,
+    "below_p90_sets": 10,
+    "monthly_failed_blocks_20days": 109.0,
+    "global_tracking_pct": 92.50868055555557,
+    "local_soc_pct": 83.37679960552539,
+    "global_local_sum": 175.88548016108095,
+    "abs_error_quantiles_kw": {
+      "50": 11.611785411834717,
+      "80": 31.299212646484385,
+      "90": 55.0008972167969,
+      "95": 89.02230682373043,
+      "98": 152.02331451416003,
+      "99": 196.87404754638658
+    },
+    "by_band": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 15,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      },
+      {
+        "from_kw": 15,
+        "to_kw": 20,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      },
+      {
+        "from_kw": 20,
+        "to_kw": 30,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      },
+      {
+        "from_kw": 30,
+        "to_kw": null,
+        "blocks": 1920,
+        "pass_pct": 88.64583333333333,
+        "global_tracking_pct": 92.50868055555556,
+        "assessed_5min_points": 11520,
+        "first_step_mae_kw": 25.13127940415094
+      }
+    ],
+    "by_baseline_step": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 1112,
+        "pass_pct": 87.76978417266187,
+        "global_tracking_pct": 91.69664268585132,
+        "assessed_5min_points": 6672,
+        "first_step_mae_kw": 27.09685618435736
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 25,
+        "blocks": 448,
+        "pass_pct": 91.96428571428571,
+        "global_tracking_pct": 95.61011904761905,
+        "assessed_5min_points": 2688,
+        "first_step_mae_kw": 17.082410118409566
+      },
+      {
+        "from_kw": 25,
+        "to_kw": 50,
+        "blocks": 160,
+        "pass_pct": 89.375,
+        "global_tracking_pct": 95.20833333333333,
+        "assessed_5min_points": 960,
+        "first_step_mae_kw": 22.012591779232025
+      },
+      {
+        "from_kw": 50,
+        "to_kw": 100,
+        "blocks": 128,
+        "pass_pct": 86.71875,
+        "global_tracking_pct": 89.84375,
+        "assessed_5min_points": 768,
+        "first_step_mae_kw": 33.264649343676865
+      },
+      {
+        "from_kw": 100,
+        "to_kw": null,
+        "blocks": 32,
+        "pass_pct": 68.75,
+        "global_tracking_pct": 68.75,
+        "assessed_5min_points": 192,
+        "first_step_mae_kw": 65.176065787673
+      }
+    ],
+    "band_by_baseline_step": [
+      {
+        "band_from_kw": 0,
+        "band_to_kw": 10,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 10,
+        "band_to_kw": 15,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 15,
+        "band_to_kw": 20,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 20,
+        "band_to_kw": 30,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 30,
+        "band_to_kw": null,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 1112,
+            "pass_pct": 87.76978417266187,
+            "global_tracking_pct": 91.69664268585132,
+            "assessed_5min_points": 6672,
+            "first_step_mae_kw": 27.09685618435736
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 448,
+            "pass_pct": 91.96428571428571,
+            "global_tracking_pct": 95.61011904761905,
+            "assessed_5min_points": 2688,
+            "first_step_mae_kw": 17.082410118409566
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 160,
+            "pass_pct": 89.375,
+            "global_tracking_pct": 95.20833333333333,
+            "assessed_5min_points": 960,
+            "first_step_mae_kw": 22.012591779232025
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 128,
+            "pass_pct": 86.71875,
+            "global_tracking_pct": 89.84375,
+            "assessed_5min_points": 768,
+            "first_step_mae_kw": 33.264649343676865
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 32,
+            "pass_pct": 68.75,
+            "global_tracking_pct": 68.75,
+            "assessed_5min_points": 192,
+            "first_step_mae_kw": 65.176065787673
+          }
+        ]
+      }
+    ]
+  },
+  "main6_pjm": {
+    "model": "wr_cap77wd_pjmplan_6station_resbid_tanh_g04l15_20261013_081409",
+    "episode": 2000,
+    "sets": 40,
+    "soc_hit_pct": 72.35088064296785,
+    "step_pass_pct": 89.52256944444444,
+    "block_pass_pct": 74.94791666666667,
+    "failed_blocks": 481,
+    "assessed_blocks": 1920,
+    "mae_kw": 6.433483973311377,
+    "mean_error_to_award_pct": 3.6929532684015483,
+    "below_p90_sets": 24,
+    "monthly_failed_blocks_20days": 240.5,
+    "global_tracking_pct": 89.52256944444444,
+    "local_soc_pct": 72.35088064296785,
+    "global_local_sum": 161.8734500874123,
+    "abs_error_quantiles_kw": {
+      "50": 3.886855125427246,
+      "80": 10.348170471191407,
+      "90": 15.57159118652344,
+      "95": 21.16081905364987,
+      "98": 29.338959655761688,
+      "99": 34.62387084960937
+    },
+    "by_band": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 332,
+        "pass_pct": 52.40963855421686,
+        "global_tracking_pct": 76.55622489959839,
+        "assessed_5min_points": 1992,
+        "first_step_mae_kw": 7.514410497912442
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 15,
+        "blocks": 748,
+        "pass_pct": 70.72192513368985,
+        "global_tracking_pct": 87.3663101604278,
+        "assessed_5min_points": 4488,
+        "first_step_mae_kw": 6.427653767651615
+      },
+      {
+        "from_kw": 15,
+        "to_kw": 20,
+        "blocks": 332,
+        "pass_pct": 82.2289156626506,
+        "global_tracking_pct": 94.77911646586345,
+        "assessed_5min_points": 1992,
+        "first_step_mae_kw": 5.48405298842005
+      },
+      {
+        "from_kw": 20,
+        "to_kw": 30,
+        "blocks": 504,
+        "pass_pct": 91.07142857142857,
+        "global_tracking_pct": 97.71825396825396,
+        "assessed_5min_points": 3024,
+        "first_step_mae_kw": 6.8894590520196495
+      },
+      {
+        "from_kw": 30,
+        "to_kw": null,
+        "blocks": 4,
+        "pass_pct": 100.0,
+        "global_tracking_pct": 100.0,
+        "assessed_5min_points": 24,
+        "first_step_mae_kw": 8.352779388427734
+      }
+    ],
+    "by_baseline_step": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 1536,
+        "pass_pct": 75.65104166666666,
+        "global_tracking_pct": 89.50737847222221,
+        "assessed_5min_points": 9216,
+        "first_step_mae_kw": 6.5724426560555
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 25,
+        "blocks": 240,
+        "pass_pct": 71.66666666666667,
+        "global_tracking_pct": 89.23611111111111,
+        "assessed_5min_points": 1440,
+        "first_step_mae_kw": 7.019944297273954
+      },
+      {
+        "from_kw": 25,
+        "to_kw": 50,
+        "blocks": 96,
+        "pass_pct": 64.58333333333334,
+        "global_tracking_pct": 88.36805555555556,
+        "assessed_5min_points": 576,
+        "first_step_mae_kw": 6.744885032375653
+      },
+      {
+        "from_kw": 50,
+        "to_kw": 100,
+        "blocks": 8,
+        "pass_pct": 75.0,
+        "global_tracking_pct": 85.41666666666666,
+        "assessed_5min_points": 48,
+        "first_step_mae_kw": 3.3768599033355713
+      },
+      {
+        "from_kw": 100,
+        "to_kw": null,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      }
+    ],
+    "band_by_baseline_step": [
+      {
+        "band_from_kw": 0,
+        "band_to_kw": 10,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 246,
+            "pass_pct": 51.6260162601626,
+            "global_tracking_pct": 74.32249322493224,
+            "assessed_5min_points": 1476,
+            "first_step_mae_kw": 8.041572956534905
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 40,
+            "pass_pct": 42.5,
+            "global_tracking_pct": 75.0,
+            "assessed_5min_points": 240,
+            "first_step_mae_kw": 8.972608691453933
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 30,
+            "pass_pct": 53.333333333333336,
+            "global_tracking_pct": 88.33333333333333,
+            "assessed_5min_points": 180,
+            "first_step_mae_kw": 3.9834327697753906
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 8,
+            "pass_pct": 75.0,
+            "global_tracking_pct": 85.41666666666666,
+            "assessed_5min_points": 48,
+            "first_step_mae_kw": 3.3768599033355713
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 10,
+        "band_to_kw": 15,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 646,
+            "pass_pct": 72.60061919504643,
+            "global_tracking_pct": 88.1578947368421,
+            "assessed_5min_points": 3876,
+            "first_step_mae_kw": 6.236114635331204
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 46,
+            "pass_pct": 45.65217391304348,
+            "global_tracking_pct": 76.44927536231883,
+            "assessed_5min_points": 276,
+            "first_step_mae_kw": 8.686608946841696
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 32,
+            "pass_pct": 56.25,
+            "global_tracking_pct": 83.33333333333334,
+            "assessed_5min_points": 192,
+            "first_step_mae_kw": 7.713671147823334
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 15,
+        "band_to_kw": 20,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 242,
+            "pass_pct": 85.12396694214877,
+            "global_tracking_pct": 95.66115702479338,
+            "assessed_5min_points": 1452,
+            "first_step_mae_kw": 5.296698353507302
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 58,
+            "pass_pct": 70.6896551724138,
+            "global_tracking_pct": 92.24137931034483,
+            "assessed_5min_points": 348,
+            "first_step_mae_kw": 4.572851444112843
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 24,
+            "pass_pct": 75.0,
+            "global_tracking_pct": 90.27777777777779,
+            "assessed_5min_points": 144,
+            "first_step_mae_kw": 10.135701179504395
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 20,
+        "band_to_kw": 30,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 400,
+            "pass_pct": 89.5,
+            "global_tracking_pct": 97.25,
+            "assessed_5min_points": 2400,
+            "first_step_mae_kw": 6.9861845484375955
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 96,
+            "pass_pct": 96.875,
+            "global_tracking_pct": 99.47916666666666,
+            "assessed_5min_points": 576,
+            "first_step_mae_kw": 6.886175920565923
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 8,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 48,
+            "first_step_mae_kw": 2.092581808567047
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 30,
+        "band_to_kw": null,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 2,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 12,
+            "first_step_mae_kw": 6.120048522949219
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 2,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 12,
+            "first_step_mae_kw": 10.58551025390625
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      }
+    ]
+  },
+  "rule6_pjm": {
+    "model": null,
+    "episode": null,
+    "sets": 40,
+    "soc_hit_pct": 100.0,
+    "step_pass_pct": 98.64583333333333,
+    "block_pass_pct": 95.10416666666667,
+    "failed_blocks": 94,
+    "assessed_blocks": 1920,
+    "mae_kw": 1.1053897900801126,
+    "mean_error_to_award_pct": 0.6378538427479882,
+    "below_p90_sets": 0,
+    "monthly_failed_blocks_20days": 47.0,
+    "global_tracking_pct": 98.64583333333333,
+    "local_soc_pct": 100.0,
+    "global_local_sum": 198.64583333333331,
+    "abs_error_quantiles_kw": {
+      "50": 6.103515625e-05,
+      "80": 0.00012922286987304688,
+      "90": 0.0001678466796875,
+      "95": 0.0002193450927734375,
+      "98": 0.6993539428710938,
+      "99": 31.0398000717157
+    },
+    "by_band": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 332,
+        "pass_pct": 93.67469879518072,
+        "global_tracking_pct": 98.39357429718876,
+        "assessed_5min_points": 1992,
+        "first_step_mae_kw": 0.5577484577535147
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 15,
+        "blocks": 748,
+        "pass_pct": 93.04812834224599,
+        "global_tracking_pct": 98.0837789661319,
+        "assessed_5min_points": 4488,
+        "first_step_mae_kw": 0.6191449638227011
+      },
+      {
+        "from_kw": 15,
+        "to_kw": 20,
+        "blocks": 332,
+        "pass_pct": 96.6867469879518,
+        "global_tracking_pct": 98.99598393574297,
+        "assessed_5min_points": 1992,
+        "first_step_mae_kw": 0.4137178286012397
+      },
+      {
+        "from_kw": 20,
+        "to_kw": 30,
+        "blocks": 504,
+        "pass_pct": 98.01587301587301,
+        "global_tracking_pct": 99.40476190476191,
+        "assessed_5min_points": 3024,
+        "first_step_mae_kw": 0.09178354496520663
+      },
+      {
+        "from_kw": 30,
+        "to_kw": null,
+        "blocks": 4,
+        "pass_pct": 100.0,
+        "global_tracking_pct": 100.0,
+        "assessed_5min_points": 24,
+        "first_step_mae_kw": 0.0001239776611328125
+      }
+    ],
+    "by_baseline_step": [
+      {
+        "from_kw": 0,
+        "to_kw": 10,
+        "blocks": 1536,
+        "pass_pct": 94.53125,
+        "global_tracking_pct": 98.45920138888889,
+        "assessed_5min_points": 9216,
+        "first_step_mae_kw": 0.5241156187233477
+      },
+      {
+        "from_kw": 10,
+        "to_kw": 25,
+        "blocks": 240,
+        "pass_pct": 96.66666666666667,
+        "global_tracking_pct": 99.16666666666667,
+        "assessed_5min_points": 1440,
+        "first_step_mae_kw": 0.10897281567255655
+      },
+      {
+        "from_kw": 25,
+        "to_kw": 50,
+        "blocks": 96,
+        "pass_pct": 97.91666666666666,
+        "global_tracking_pct": 99.65277777777779,
+        "assessed_5min_points": 576,
+        "first_step_mae_kw": 0.007372637589772542
+      },
+      {
+        "from_kw": 50,
+        "to_kw": 100,
+        "blocks": 8,
+        "pass_pct": 100.0,
+        "global_tracking_pct": 100.0,
+        "assessed_5min_points": 48,
+        "first_step_mae_kw": 7.152557373046875e-05
+      },
+      {
+        "from_kw": 100,
+        "to_kw": null,
+        "blocks": 0,
+        "pass_pct": null,
+        "global_tracking_pct": null,
+        "assessed_5min_points": 0,
+        "first_step_mae_kw": null
+      }
+    ],
+    "band_by_baseline_step": [
+      {
+        "band_from_kw": 0,
+        "band_to_kw": 10,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 246,
+            "pass_pct": 93.08943089430895,
+            "global_tracking_pct": 98.23848238482384,
+            "assessed_5min_points": 1476,
+            "first_step_mae_kw": 0.7527082828971429
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 40,
+            "pass_pct": 90.0,
+            "global_tracking_pct": 97.5,
+            "assessed_5min_points": 240,
+            "first_step_mae_kw": 7.696151733398438e-05
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 30,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 180,
+            "first_step_mae_kw": 6.618499755859376e-05
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 8,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 48,
+            "first_step_mae_kw": 7.152557373046875e-05
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 10,
+        "band_to_kw": 15,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 646,
+            "pass_pct": 92.72445820433437,
+            "global_tracking_pct": 97.96181630546955,
+            "assessed_5min_points": 3876,
+            "first_step_mae_kw": 0.715808806537244
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 46,
+            "pass_pct": 93.47826086956522,
+            "global_tracking_pct": 98.18840579710145,
+            "assessed_5min_points": 276,
+            "first_step_mae_kw": 7.556832355001698e-05
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 32,
+            "pass_pct": 93.75,
+            "global_tracking_pct": 98.95833333333334,
+            "assessed_5min_points": 192,
+            "first_step_mae_kw": 0.02195572853088379
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 15,
+        "band_to_kw": 20,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 242,
+            "pass_pct": 95.86776859504133,
+            "global_tracking_pct": 98.69146005509641,
+            "assessed_5min_points": 1452,
+            "first_step_mae_kw": 0.5675518985622185
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 58,
+            "pass_pct": 98.27586206896551,
+            "global_tracking_pct": 99.71264367816092,
+            "assessed_5min_points": 348,
+            "first_step_mae_kw": 6.899340399380387e-05
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 24,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 144,
+            "first_step_mae_kw": 8.440017700195312e-05
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 20,
+        "band_to_kw": 30,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 400,
+            "pass_pct": 97.5,
+            "global_tracking_pct": 99.25,
+            "assessed_5min_points": 2400,
+            "first_step_mae_kw": 0.05028786018490791
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 96,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 576,
+            "first_step_mae_kw": 0.27232207854588825
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 8,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 48,
+            "first_step_mae_kw": 0.00010538101196289062
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      },
+      {
+        "band_from_kw": 30,
+        "band_to_kw": null,
+        "steps": [
+          {
+            "from_kw": 0,
+            "to_kw": 10,
+            "blocks": 2,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 12,
+            "first_step_mae_kw": 8.0108642578125e-05
+          },
+          {
+            "from_kw": 10,
+            "to_kw": 25,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 25,
+            "to_kw": 50,
+            "blocks": 2,
+            "pass_pct": 100.0,
+            "global_tracking_pct": 100.0,
+            "assessed_5min_points": 12,
+            "first_step_mae_kw": 0.0001678466796875
+          },
+          {
+            "from_kw": 50,
+            "to_kw": 100,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          },
+          {
+            "from_kw": 100,
+            "to_kw": null,
+            "blocks": 0,
+            "pass_pct": null,
+            "global_tracking_pct": null,
+            "assessed_5min_points": 0,
+            "first_step_mae_kw": null
+          }
+        ]
+      }
+    ]
+  },
+  "aemo_difference_from_previous_evaluation": {
+    "soc_hit_pct": 13.043478260869563,
+    "step_pass_pct": 8.680555555555557,
+    "block_pass_pct": 10.416666666666657
+  },
+  "evaluation_normalization": "学習時の正規化を指令・入札先読み観測の生成前に読み込む。",
+  "aemo_worker_count_reproduction_max_abs_diff": {
+    "soc_hit_pct": 0.0,
+    "step_pass_pct": 0.0,
+    "block_pass_pct": 0.0,
+    "mae_kw": 0.0
+  },
+  "aemo_paired_inputs_verified": true,
+  "ercot_paired_inputs_verified": true,
+  "pjm_paired_inputs_verified": true
+}

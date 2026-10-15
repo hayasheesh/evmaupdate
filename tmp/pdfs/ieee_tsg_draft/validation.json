@@ -1,0 +1,18 @@
+{
+  "source_unchanged": {
+    "docs\\paper\\paper.docx": true,
+    "docs\\paper\\overview\\draft_ja_tsg_20261015.docx": true,
+    "docs\\paper\\IEEEtran.cls": true
+  },
+  "pages": 6,
+  "tables": 8,
+  "images": 9,
+  "equations": 5,
+  "references": 24,
+  "omitted_blocks": 0,
+  "overfull_boxes": 0,
+  "undefined_references": 0,
+  "replacement_characters": 0,
+  "body_latin_pt": 10,
+  "body_cjk_pt": 9.2
+}

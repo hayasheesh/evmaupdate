@@ -1,0 +1,62 @@
+[
+ {
+  "id": "pjm20_info_main",
+  "cwd": "execute_results/info_bid_20station_20261013",
+  "min_free_gb": 8,
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "TABLE3_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014"
+  },
+  "args": [
+   "info_bid.py",
+   "pjm",
+   "main",
+   "4"
+  ]
+ },
+ {
+  "id": "pjm20_info_oracle",
+  "cwd": "execute_results/info_bid_20station_20261013",
+  "min_free_gb": 8,
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "TABLE3_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014"
+  },
+  "args": [
+   "info_bid.py",
+   "pjm",
+   "oracle",
+   "4"
+  ]
+ },
+ {
+  "id": "pjm20_info_cmd",
+  "cwd": "execute_results/info_bid_20station_20261013",
+  "min_free_gb": 8,
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "TABLE3_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014"
+  },
+  "args": [
+   "info_bid.py",
+   "pjm",
+   "cmd",
+   "4"
+  ]
+ },
+ {
+  "id": "pjm20_info_ev",
+  "cwd": "execute_results/info_bid_20station_20261013",
+  "min_free_gb": 10,
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "TABLE3_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014"
+  },
+  "args": [
+   "info_bid.py",
+   "pjm",
+   "ev",
+   "3"
+  ]
+ }
+]

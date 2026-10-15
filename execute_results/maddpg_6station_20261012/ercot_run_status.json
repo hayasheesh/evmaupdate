@@ -17,12 +17,11 @@
       "finished_at": "2026-10-12T13:24:30"
     },
     "pretrain": {
-      "state": "done",
-      "pid": 12364,
-      "started_at": "2026-10-12T13:24:30",
-      "exit_code": 0,
-      "finished_at": "2026-10-13T01:15:47"
+      "state": "running",
+      "pid": 40188,
+      "started_at": "2026-10-13T10:17:16",
+      "resumed_from": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\archive\\wr_obsdrop_cap77wd_ercotplan_6station_maddpg_20261012_132604",
+      "previous_result": null
     }
-  },
-  "result": "complete"
+  }
 }

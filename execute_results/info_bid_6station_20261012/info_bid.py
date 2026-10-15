@@ -1,6 +1,8 @@
 """前日に当日の指令やEVを知っていたら、どれだけ入札できたかを測る（6 station の検証用の40組）。
 
-    python info_bid.py <aemo|ercot> <oracle|oracle_used|cmd|ev> [workers]
+    python info_bid.py <aemo|ercot|pjm> <oracle|oracle_used|cmd|ev> [workers]
+
+PJM は TABLE3_SW_DIR に resbid_6station_20261012 を渡す（既定の wr_gs_6station_20261011 には PJM がない。入札の束は同じ min70_margin7）。
 
 組は table3_6station_20261012/run_table3.py と同じ（検証用の平日5日 × holdout の指令4本 × EVの乱数2通り）。
 入札器（training.blockwise_bid.build_blockwise_bid_for_day）の条件は本線の検証用の入札と同じで、渡す指令とEVだけを替える。

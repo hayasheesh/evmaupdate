@@ -1,0 +1,16 @@
+{
+  "64": {
+    "sets": 40,
+    "capacity_kw_block_day": 16089.285228112305,
+    "feasible": 39,
+    "infeasible": 1,
+    "unknown": 0
+  },
+  "128": {
+    "sets": 40,
+    "capacity_kw_block_day": 15748.917922296652,
+    "feasible": 39,
+    "infeasible": 1,
+    "unknown": 0
+  }
+}

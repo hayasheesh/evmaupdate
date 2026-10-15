@@ -1,0 +1,3 @@
+研究室PCの実行の写し。学習状態（resume/training_state_ep*.pth）だけ入っていない。
+元: smartgrid-gpu:/home/hayashi/workspace/EVMALOCALUPDATE/archive/wr_cap77wd_pjmplan_20station_resbid_tanh_g04l15_20261015_025502
+更新: 2026-10-16 07:32

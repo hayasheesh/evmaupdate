@@ -1,0 +1,25 @@
+{
+  "source": "https://template-selector.ieee.org/secure/templateSelector/downloadTemplate?publicationTypeId=1&titleId=67&articleId=3&fileId=273",
+  "publication": "IEEE Transactions on Smart Grid",
+  "format": "LaTeX",
+  "archive": "IEEE-Transactions-LaTeX2e-templates-and-instructions.zip",
+  "archive_sha256": "6c315c3b6729bd7b96a6a0e7d3bb6342023413a4cd4d113fb4a193019af1c603",
+  "downloaded_date": "2026-10-15",
+  "official_files": {
+    "bare_jrnl_new_sample4.tex": {
+      "sha256": "a1225c6ddb0c828596fad8285d4344a654e1597d62e757d0109b07e4f579e4fc"
+    },
+    "IEEEtran.cls": {
+      "sha256": "b0eb3567b81aec7fe98144a3ad283eeac2d31035bb19e0d9dcba7da190f18d9d"
+    },
+    "fig1.png": {
+      "sha256": "966fa8e10adb05f5bc7bc32e6debc68be14e2c4cb5c7a6784cac4324472d6c8e"
+    }
+  },
+  "working_manuscript": {
+    "path": "docs/paper/paper.tex",
+    "adapted_from": "bare_jrnl_new_sample4.tex",
+    "content_source": "docs/paper/overview/draft_ja_tsg_20261015.docx",
+    "content_manifest": "docs/paper/draft_assets/content_manifest.json"
+  }
+}

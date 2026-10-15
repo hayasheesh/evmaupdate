@@ -68,6 +68,91 @@ def zero_instruction_tolerance_by_block(
     return max(float(band_fraction), 0.0) * awarded
 
 
+def instruction_band_coefficient(
+    signal_fraction,
+    *,
+    band_fraction: float,
+    band_signal_fraction: float = 0.0,
+):
+    """Band per kW of award for an instruction of ``signal_fraction`` of it.
+
+    Assessment II is a flat 10 % (``band_signal_fraction`` 0). Under the PJM
+    performance-score rule the band grows with the instruction, because the
+    score divides the error by 0.5 * |signal| + 0.5 * AReg
+    (EnvConfig.MARKET_TRACKING_RULE).
+    """
+
+    return (
+        max(float(band_fraction), 0.0)
+        + max(float(band_signal_fraction), 0.0) * np.abs(np.asarray(signal_fraction, dtype=float))
+    )
+
+
+def resolved_idle_band_fraction(band_fraction: float, idle_band_fraction=None) -> float:
+    """The idle band fraction, which is the band fraction unless set apart."""
+
+    return float(band_fraction if idle_band_fraction is None else idle_band_fraction)
+
+
+def tracking_band_fields(fixed_bid: dict) -> dict:
+    """The BiddingLPConfig band fields a stored bid was built with.
+
+    Bids built before the PJM rule store only ``assessment_band_fraction``;
+    they were all built under Assessment II.
+    """
+
+    frac = fixed_bid.get("assessment_band_fraction")
+    idle = fixed_bid.get("idle_band_fraction")
+    return {
+        "assessment_band_fraction": 0.10 if frac is None else float(frac),
+        "band_signal_fraction": float(fixed_bid.get("band_signal_fraction") or 0.0),
+        "idle_band_fraction": None if idle is None else float(idle),
+        "symmetric_award": bool(fixed_bid.get("symmetric_award", False)),
+    }
+
+
+def step_tolerance_kw(
+    regulation_kw,
+    up_kw: float,
+    down_kw: float,
+    *,
+    band_fraction: float,
+    band_signal_fraction: float = 0.0,
+    idle_band_fraction=None,
+    idle_eps: float = 1e-6,
+) -> np.ndarray:
+    """Per-step band (kW) for the steps of one awarded block.
+
+    ``regulation_kw`` is the instruction in kW, negative for up (less
+    consumption) and positive for down. An up step is held to
+    instruction_band_coefficient(|r| / U) * U, a down step likewise with D, and
+    a step without an instruction to the idle fraction times (U + D)
+    (zero_instruction_tolerance_by_block).
+    """
+
+    regulation = np.asarray(regulation_kw, dtype=float)
+    up = max(float(up_kw), 0.0)
+    down = max(float(down_kw), 0.0)
+    up_tol = instruction_band_coefficient(
+        np.abs(regulation) / max(up, 1e-12),
+        band_fraction=band_fraction,
+        band_signal_fraction=band_signal_fraction,
+    ) * up
+    down_tol = instruction_band_coefficient(
+        np.abs(regulation) / max(down, 1e-12),
+        band_fraction=band_fraction,
+        band_signal_fraction=band_signal_fraction,
+    ) * down
+    idle_tol = float(zero_instruction_tolerance_by_block(
+        [up], [down], band_fraction=resolved_idle_band_fraction(band_fraction, idle_band_fraction),
+    )[0])
+    return np.where(
+        regulation < -idle_eps,
+        up_tol,
+        np.where(regulation > idle_eps, down_tol, idle_tol),
+    )
+
+
 def masked_pass_rate(passed, enabled) -> float:
     """Return a pass rate over assessed points; an empty set passes vacuously."""
 

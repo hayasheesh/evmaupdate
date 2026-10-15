@@ -111,8 +111,9 @@ def _bid_envelope_for_env (local_env ,service_date ,bank_dir ):
 
     The bid is read from ``bank_dir``, the bank the episode preparer used, and
     checked against the tolerance series the environment actually holds: for
-    the right bid the implied band -- frac*up or frac*down while an
-    instruction is running, frac*(up+down) while it is not -- reproduces that
+    the right bid the implied band -- frac*up or frac*down (plus the signal
+    term of the PJM rule) while an instruction is running, the idle fraction
+    of up+down while it is not -- reproduces that
     series step for step. None when it does not, so a plot never shows a
     baseline belonging to a different day.
     """
@@ -136,7 +137,12 @@ def _bid_envelope_for_env (local_env ,service_date ,bank_dir ):
     baseline =np .asarray (fixed_bid ["baseline_plan"],dtype =float )
     up =np .asarray (fixed_bid ["up_plan"],dtype =float )
     down =np .asarray (fixed_bid ["down_plan"],dtype =float )
-    frac =float (fixed_bid .get ("assessment_band_fraction")or 0.1 )
+    from market .bid_participation import resolved_idle_band_fraction ,tracking_band_fields
+    band =tracking_band_fields (fixed_bid )
+    frac =band ["assessment_band_fraction"]
+    # Under the PJM rule the band also grows with the instruction (EnvConfig).
+    signal_frac =band ["band_signal_fraction"]
+    idle_frac =resolved_idle_band_fraction (frac ,band ["idle_band_fraction"])
 
     if block .max (initial =0 )>=baseline .size :
         return None
@@ -152,8 +158,8 @@ def _bid_envelope_for_env (local_env ,service_date ,bank_dir ):
     regulation =target [:steps ]-baseline_by_step
     idle_eps =np .maximum (1e-3 ,1e-6 *np .abs (baseline_by_step ))
     expected =np .where (
-    regulation <-idle_eps ,frac *up_by_step ,
-    np .where (regulation >idle_eps ,frac *down_by_step ,frac *(up_by_step +down_by_step )),
+    regulation <-idle_eps ,frac *up_by_step +signal_frac *np .abs (regulation ),
+    np .where (regulation >idle_eps ,frac *down_by_step +signal_frac *np .abs (regulation ),idle_frac *(up_by_step +down_by_step )),
     )
     expected =np .maximum (expected ,1e-6 )
     # A step whose target sits on the baseline can still carry the band of one
