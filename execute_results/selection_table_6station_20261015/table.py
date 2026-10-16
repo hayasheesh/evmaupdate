@@ -6,6 +6,7 @@
     python table.py report                          # 表と図
 
 入札器のほかの条件（最低入札量70 kW、余裕7 kW、基準値の段差の罰）は本線（resbid_6station_20261012 の stage_worker）と同じ。
+ただし BIDDER の変種（q1 など）は、最低入札量・余裕・段差の罰を変える（C4 と、手当てを1つずつ外す比較）。
 EVの候補128通りは本線と同じもの（bid_loss_6station_20261013/data）を使い、指令は128本の先頭からN本を使う。
 
 未見通過率は、検証用の5日 × 設計に使っていない指令128本 × 入札と重ならないEVの乱数3通り ＝ 1,920組で、
@@ -58,6 +59,128 @@ for _acc in ACCURACY_TARGETS:
         VARIANTS[f'acc{_acc}_{_sel}'] = (128, _sel, _acc)
 
 # 既に作ってある入札（本線の検証用、指令256本、SoCの需要の最小・中央・最大）
+# 設計用の指令を、128本の先頭ではなく乱数で n 本選ぶ変種（cmd<n>_r<s>、2026-10-16）。たまたま選んだ指令の当たり外れを見るため、
+# n = 2・4・8・16・32 で乱数を10通り変える（2・4本は10/16夜に足した）。選ぶ番号は日によらず同じで、(n, s) から決まる（cmd_subset_indices）。
+CMD_SUBSET_SEEDS = 10
+CMD_SUBSET = {}
+for _n in (2, 4, 8, 16, 32):
+    for _s in range(CMD_SUBSET_SEEDS):
+        VARIANTS[f'cmd{_n}_r{_s}'] = (_n, 'low2max', None)
+        CMD_SUBSET[f'cmd{_n}_r{_s}'] = _s
+
+
+# 最低入札量 q、アセスメントIの余裕 m、基準値の段差の罰の重み w を変える変種（C4 と、手当てを1つずつ外す比較、2026-10-16）。
+# 指令128本、EVは本線の選び方。本線は q = 70 kW、m = 7 kW、w = 0.5。q = 1 kW は解く単位の下限で、最低入札量なしにあたる。
+BIDDER = {'q1': (1, 7, 0.5), 'q35': (35, 7, 0.5), 'q110': (110, 7, 0.5), 'q180': (180, 7, 0.5),
+          'm0': (70, 0, 0.5), 'm14': (70, 14, 0.5), 'w0': (70, 7, 0.0)}
+for _v in BIDDER:
+    VARIANTS[_v] = (128, 'low2max', None)
+
+
+def bidder_prefix(variant):
+    """入札の束の名前の、最低入札量と余裕（と段差の罰）の部分。"""
+    q, m, w = BIDDER.get(variant, (70, 7, 0.5))
+    return f'min{q:g}_margin{m:g}' + ('' if w == 0.5 else f'_step{w:g}')
+
+
+# 指令が一度も動かない方向のコマには入札しない決まり（training/blockwise_bid.py の _observed_activation_directions_by_block）を
+# 外した変種（cmd<n>_r<s>_nomask、2026-10-16）。選ぶ指令は cmd<n>_r<s> と同じで、この決まりの有無だけが違う。
+NOMASK = set()
+for _n in (2, 4, 8):
+    for _s in range(CMD_SUBSET_SEEDS):
+        _v = f'cmd{_n}_r{_s}_nomask'
+        VARIANTS[_v] = (_n, 'low2max', None)
+        CMD_SUBSET[_v] = _s
+        NOMASK.add(_v)
+
+
+# 設計用の指令を、過去の指令ではなく人工の指令にする変種（syn_h<H>、2026-10-16）。
+# 1本は「開始コマから H 時間、上げきり（発動率1）を続け、ほかは0」か、その下げ版。開始コマを48コマすべてずらし、
+# 上げと下げで96本にする（24時で打ち切る）。H = 0.5 は各コマを30分だけ試す指令、H = 24 は1日中上げきり・下げきりに近い。
+# 指令の振れ幅の上限（発動率1）と、続けて同じ向きに出す時間の上限 H を与えるのと同じで、H が大きいほど厳しい。
+SYNTH = {f'syn_h{_h:g}': float(_h) for _h in (0.5, 1, 2, 3, 4, 6, 8, 12, 24)}
+for _v in SYNTH:
+    VARIANTS[_v] = (96, 'low2max', None)
+
+
+def synthetic_commands(variant):
+    import numpy as np
+    hours = SYNTH[variant]
+    out = []
+    for direction in ('up', 'down'):
+        for k in range(48):
+            on = np.zeros(288)
+            on[6 * k:min(6 * k + int(round(12 * hours)), 288)] = 1.0
+            out.append({'name': f'synthetic_h{hours:g}_{direction}_{k:02d}',
+                        'up_proxy': on if direction == 'up' else np.zeros(288),
+                        'down_proxy': on if direction == 'down' else np.zeros(288),
+                        'weight': 1.0, 'source': f'synthetic:{variant}', 'source_bmu': f'synthetic_{direction}_{k:02d}',
+                        'source_date': 'synthetic'})
+    return out
+
+
+# 過去の指令の統計から設計用の指令を作る変種（stat_q<q>、2026-10-16）。command_stats.py が、設計用（train 区分）の過去の指令から、
+# 窓の長さ L ごとに同じ向きに出させた累積エネルギーの分位点 E_q(L)（約定量×時間）を出す。1本の指令は、開始コマから
+# 同じ向きに出し始め、開始から L 時間の累積が E_q(L) の凹の上包絡になるように発動率を後ろへ行くほど下げる（24時で打ち切る）。
+# 発動率が下がっていくので、どの長さ L の窓をとっても累積は E_q(L) の上包絡を超えない。開始コマを48コマずらし、上げと下げで96本。
+STAT = {'stat_q50': 0.5, 'stat_q80': 0.8, 'stat_q90': 0.9, 'stat_q95': 0.95, 'stat_q99': 0.99, 'stat_qmax': 1.0}
+for _v in STAT:
+    VARIANTS[_v] = (96, 'low2max', None)
+
+
+def stat_rates(task, quantile, direction):
+    """開始からの5分ごとの発動率（288個）。E_q(L) の単調化と凹の上包絡の傾き。"""
+    import numpy as np
+    stats = json.loads((HERE / f'command_stats_{task}.json').read_text(encoding='utf-8'))
+    qi = stats['quantiles'].index(quantile)
+    hours = [0.0] + [float(h) for h in stats['window_hours']]
+    energy = [0.0] + [stats['energy'][direction][f'{h:g}'][qi] for h in stats['window_hours']]
+    energy = list(np.maximum.accumulate(energy))
+    hull = []
+    for point in zip(hours, energy):
+        while len(hull) >= 2:
+            (x1, y1), (x2, y2) = hull[-2], hull[-1]
+            if (y2 - y1) * (point[0] - x1) <= (point[1] - y1) * (x2 - x1):
+                hull.pop()
+            else:
+                break
+        hull.append(point)
+    rates = np.zeros(288)
+    for (x1, y1), (x2, y2) in zip(hull, hull[1:]):
+        slope = min(1.0, (y2 - y1) / (x2 - x1)) if x2 > x1 else 0.0
+        rates[int(round(12 * x1)):int(round(12 * x2))] = slope
+    return rates
+
+
+def design_commands(variant, task):
+    """人工の指令（SYNTH）か、過去の指令の統計から作った指令（STAT）。"""
+    import numpy as np
+    if variant in SYNTH:
+        return synthetic_commands(variant)
+    out = []
+    for direction in ('up', 'down'):
+        rates = stat_rates(task, STAT[variant], direction)
+        for k in range(48):
+            on = np.zeros(288)
+            on[6 * k:] = rates[:288 - 6 * k]
+            out.append({'name': f'{variant}_{direction}_{k:02d}',
+                        'up_proxy': on if direction == 'up' else np.zeros(288),
+                        'down_proxy': on if direction == 'down' else np.zeros(288),
+                        'weight': 1.0, 'source': f'command_stats:{variant}', 'source_bmu': f'{variant}_{direction}_{k:02d}',
+                        'source_date': 'synthetic'})
+    return out
+
+
+def cmd_subset_indices(variant):
+    """設計用の指令128本のうち使う番号（昇順）。乱数の変種でなければ先頭 n 本。"""
+    import numpy as np
+    n = VARIANTS[variant][0]
+    if variant not in CMD_SUBSET:
+        return list(range(min(n, 128)))
+    rng = np.random.default_rng([20261016, n, CMD_SUBSET[variant]])
+    return sorted(int(i) for i in rng.choice(128, size=n, replace=False))
+
+
 EXISTING_TAG = {'main': '128cmd_3ev', 'cmd256': '256cmd_low2max', 'sel_minmedmax': '128cmd_minmedmax'}
 
 
@@ -68,7 +191,11 @@ def base_name(task: str) -> str:
 def bank_name(task: str, variant: str, seed_index: int | None = None) -> str:
     n, sel, acc = VARIANTS[variant]
     tag = EXISTING_TAG.get(variant, f'{n}cmd_{sel}' if acc is None else f'{n}cmd_acc{acc}_{sel}_s{seed_index}')
-    return base_name(task).replace('_128cmd_3ev_', f'_{tag}_')
+    if variant in CMD_SUBSET:
+        tag = f'{n}cmd_{sel}_r{CMD_SUBSET[variant]}' + ('_nomask' if variant in NOMASK else '')
+    if variant in SYNTH or variant in STAT:
+        tag = f'{variant}_{sel}'
+    return base_name(task).replace('_128cmd_3ev_', f'_{tag}_').replace('min70_margin7', bidder_prefix(variant))
 
 
 def bank_names(task: str, variant: str) -> list[str]:
@@ -269,6 +396,16 @@ def cmd_build(task, variant, seed_index=None):
     out = BANKS / bank_name(task, variant, seed_index)
     os.environ['EVMA_LOWER_TRAIN_UPPER_BID_ACTIVATION_SCENARIOS'] = str(n)
     os.environ['EVMA_LOWER_TRAIN_TEST_BID_BANK_DIR'] = str(out)
+    if variant in BIDDER:
+        q, m, w = BIDDER[variant]
+        os.environ['EVMA_LOWER_TRAIN_RESEARCH_MINIMUM_BID_QUANTITY_KW'] = f'{q:g}'
+        os.environ['EVMA_ASSESSMENT_I_CONTROL_MARGIN_KW'] = f'{m:g}'
+        os.environ['EVMA_LOWER_TRAIN_UPPER_BID_BASELINE_STEP_WEIGHT'] = f'{w:g}'
+        import EnvConfig
+        from training.blockwise_bid import minimum_bid_quantity_kw
+        if (minimum_bid_quantity_kw(), EnvConfig.ASSESSMENT_I_CONTROL_MARGIN_KW,
+                EnvConfig.LOWER_TRAIN_UPPER_BID_BASELINE_STEP_WEIGHT) != (float(q), float(m), float(w)):
+            raise RuntimeError('入札器の設定が変種と合わない')
     # 入札の解の保存は鍵に EV の選び方の差し替えを含まないので、使うと本線の入札がそのまま返る。読みも書きもしない。
     os.environ['EVMA_BID_SOLVE_CACHE'] = '0'
     from training import lower_bid_training as lbt
@@ -289,14 +426,29 @@ def cmd_build(task, variant, seed_index=None):
     lbt._selected_ev_scenario_bank = selected
     activation = lbt._activation_scenarios_for_day
 
-    def first_n(*args, **kwargs):
-        # 設計の指令は128本の先頭 n 本（本数を変えても入れ子になる）
-        if kwargs.get('n_scenarios') == n and n < 128:
-            payloads, mode = activation(*args, **dict(kwargs, n_scenarios=128))
-            return payloads[:n], mode
-        return activation(*args, **kwargs)
+    picks = cmd_subset_indices(variant)
+
+    def first_n(service_date, forecast_seed, n_scenarios=None, scenario_partition='forecast', **kwargs):
+        # 設計の指令は128本の先頭 n 本（本数を変えても入れ子になる）。cmd<n>_r<s> は乱数で選んだ n 本。
+        # 入札器は本数を引数で渡さず環境変数（n）で決めるので、本数なしの設計用の呼び出しも差し替える。
+        # 先頭 n 本は差し替えなくても同じ指令になる（本数を変えても入れ子）ので、前の変種の入札は正しい。
+        if (variant in SYNTH or variant in STAT) and scenario_partition == 'forecast' and n_scenarios in (None, n):
+            _payloads, mode = activation(service_date, forecast_seed, n_scenarios=128, scenario_partition=scenario_partition, **kwargs)
+            return design_commands(variant, task), mode
+        if scenario_partition == 'forecast' and n_scenarios in (None, n) and n < 128:
+            payloads, mode = activation(service_date, forecast_seed, n_scenarios=128, scenario_partition=scenario_partition, **kwargs)
+            return [payloads[i] for i in picks], mode
+        return activation(service_date, forecast_seed, n_scenarios=n_scenarios, scenario_partition=scenario_partition, **kwargs)
 
     lbt._activation_scenarios_for_day = first_n
+    if variant in NOMASK:
+        import numpy as np
+        from training import blockwise_bid
+
+        def every_block(activation_scenarios, *, eps=1e-9):
+            return np.ones(blockwise_bid.N_BLOCKS, dtype=bool), np.ones(blockwise_bid.N_BLOCKS, dtype=bool)
+
+        blockwise_bid._observed_activation_directions_by_block = every_block
     import tools.build_training_bid_bank as builder
     sys.argv = ['build_training_bid_bank.py', '--split', 'test', '--days', '5', '--train-split-count', '25',
                 '--paired-train-days', '25', '--paired-test-days', '5', '--workers', '1', '--scenario-workers', '3',
@@ -321,12 +473,23 @@ def check_bank(task, variant, seed_index=None):
         design, ref_design = bid['design_activation_scenario_payload'], ref['design_activation_scenario_payload']
         if len(design) != n:
             raise ValueError(f'設計の指令が {len(design)} 本')
-        for x, y in zip(design, ref_design[:min(n, 128)]):
+        expected = (design_commands(variant, task) if variant in SYNTH or variant in STAT
+                    else [ref_design[i] for i in cmd_subset_indices(variant)] if n < 128 else ref_design[:128])
+        for x, y in zip(design, expected):
             for key in ('up_proxy', 'down_proxy'):
                 np.testing.assert_array_equal(x[key], y[key])
-        for key in ('forecast_seed', 'service_date', 'assessment_band_fraction', 'assessment_i_control_margin_kw'):
+        for key in ('forecast_seed', 'service_date', 'assessment_band_fraction'):
             if bid[key] != ref[key]:
                 raise ValueError(f'本線と違う: {key}')
+        if variant in NOMASK and (len(bid['bid_feasibility']['observed_up_activation_blocks']) != 48
+                                  or len(bid['bid_feasibility']['observed_down_activation_blocks']) != 48):
+            raise ValueError('指令が動かないコマの決まりが外れていない')
+        q, m, _w = BIDDER.get(variant, (70, 7, 0.5))
+        if float(bid['assessment_i_control_margin_kw']) != float(m):
+            raise ValueError('余裕が変種と違う')
+        offers = np.concatenate([np.asarray(bid['up_plan'], float), np.asarray(bid['down_plan'], float)])
+        if np.any((offers > 1e-6) & (offers < q - 1e-3)):
+            raise ValueError('最低入札量より小さい約定量がある')
 
 
 # ---------------- unseen ----------------

@@ -1,0 +1,43 @@
+[
+ {
+  "cwd": ".",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "requires": [
+   "archive/wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534/results/TEST2000/actor_5_ep2000.pth"
+  ],
+  "args": [
+   "execute_results/paper_eval_20261014/run_eval.py",
+   "--task",
+   "pjm",
+   "--stage-dir",
+   "{ROOT}/execute_results/pjmrule_6station_20261015",
+   "--run-dir",
+   "{ROOT}/archive/wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534",
+   "--episode",
+   "2000",
+   "--output",
+   "{ROOT}/execute_results/paper_eval_20261014/pjmrule6_v2",
+   "--modes",
+   "lp",
+   "rule",
+   "marl",
+   "marl_force",
+   "--workers",
+   "6"
+  ],
+  "priority": "below_normal",
+  "id": "pjmrule6_eval"
+ },
+ {
+  "id": "pjmrule6_report",
+  "cwd": ".",
+  "args": [
+   "execute_results/pjmrule_6station_20261015/report_pjm.py",
+   "{ROOT}/execute_results/paper_eval_20261014/pjmrule6_v2/result_pjm_marl_4cmd_2ev.jsonl",
+   "{ROOT}/execute_results/paper_eval_20261014/pjmrule6_v2/result_pjm_marl_force_4cmd_2ev.jsonl",
+   "{ROOT}/execute_results/paper_eval_20261014/pjmrule6_v2/result_pjm_rule_4cmd_2ev.jsonl"
+  ]
+ }
+]

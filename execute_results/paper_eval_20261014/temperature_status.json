@@ -1,7 +1,7 @@
 {
-  "time": "2026-10-16T07:42:13+09:00",
+  "time": "2026-10-17T01:39:53+09:00",
   "valid": false,
-  "sensor_failures": 825,
+  "sensor_failures": 1588,
   "error": "<urlopen error [WinError 10061] 対象のコンピューターによって拒否されたため、接続できませんでした。>",
   "cool_for_restart": false
 }

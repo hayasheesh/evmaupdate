@@ -109,59 +109,64 @@ def fig_final():
 def fig_information():
     """入札時に知る情報と入札量（文書4.2節の表の値）。"""
     labels = ['両方知らない', '指令だけ知る', 'EVだけ知る']
-    vals = {'6 st AEMO': [68.6, 73.2, 96.5], '6 st ERCOT': [70.6, 73.2, 97.8],
-            '20 st AEMO': [83.8, 87.5, 96.7], '20 st ERCOT': [85.2, 87.5, 98.2]}
-    fig, ax = plt.subplots(figsize=(ONE, 1.7))
+    vals = {'6 st AEMO': [68.6, 73.2, 96.5], '6 st ERCOT': [70.6, 73.2, 97.8], '6 st PJM': [73.1, 73.2, 100.0],
+            '20 st AEMO': [83.8, 87.5, 96.7], '20 st ERCOT': [85.2, 87.5, 98.2], '20 st PJM': [87.5, 87.5, 100.0]}
+    fig, ax = plt.subplots(figsize=(ONE, 2.1))
     x = np.arange(len(labels))
-    w = 0.2
+    w = 0.13
+    colors = ['#2a78d6', '#eb6834', '#1baf7a', '#7fb0ea', '#f3a77e', '#8fd9bc']
     for k, (name, v) in enumerate(vals.items()):
-        ax.bar(x + (k - 1.5) * w, v, w, label=name, color=['#2a78d6', '#7fb0ea', '#eb6834', '#f3a77e'][k])
+        ax.bar(x + (k - 2.5) * w, v, w, label=name, color=colors[k])
     ax.set_xticks(x)
     ax.set_xticklabels(labels)
     ax.set_ylabel('両方知る入札量に対する比（%）')
     ax.set_ylim(50, 100)
-    ax.legend(ncol=2, frameon=False, loc='upper left')
+    ax.legend(ncol=3, frameon=False, loc='upper center', bbox_to_anchor=(0.5, -0.16), fontsize=5.5)
     fig.tight_layout()
     fig.savefig(OUT / 'fig_information.png')
     plt.close(fig)
 
 
 def fig_control():
-    """制御の前提と性能（6 station、文書4.3節の値）。先のEVや指令を知る制御は未測定。"""
-    conds = ['全情報のLP', '先のEVも知る\nルールベース', '先の指令も知る\n制御', '今だけ見る\nルールベース', '分散MARL']
-    full_day = {'AEMO': [39, None, None, 30, 9], 'ERCOT': [40, None, None, 32, 7], 'PJM': [None, None, None, 20, 0]}
-    fig, ax = plt.subplots(figsize=(ONE, 1.8))
+    """制御の前提と、追従率（5分ごと）・SoC達成率（6 station、40組）。全情報のLPは成り立った組の値（どちらも100%）。
+    先のEVや指令を知る制御は未測定。"""
+    conds = ['全情報のLP', '先のEVも知る' + chr(10) + 'ルールベース', '先の指令も知る' + chr(10) + '制御', '今だけ見る' + chr(10) + 'ルールベース', '分散MARL']
+    tracking = {'AEMO': [100, None, None, 98.9, 95.0], 'ERCOT': [100, None, None, 98.6, 91.2], 'PJM': [100, None, None, 98.6, 89.5]}
+    soc = {'AEMO': [100, None, None, 100, 87.6], 'ERCOT': [100, None, None, 100, 83.6], 'PJM': [100, None, None, 100, 72.4]}
+    fig, axes = plt.subplots(2, 1, figsize=(ONE, 2.6), sharex=True)
     x = np.arange(len(conds))
     w = 0.26
-    for k, (task, vals) in enumerate(full_day.items()):
-        for i, v in enumerate(vals):
-            if v is None:
-                ax.text(x[i] + (k - 1) * w, 1, '未', ha='center', fontsize=5.5, color='#888888')
-            else:
-                ax.bar(x[i] + (k - 1) * w, v, w, color=['#2a78d6', '#eb6834', '#1baf7a'][k], label=task if i == 3 else None)
-    ax.set_xticks(x)
-    ax.set_xticklabels(conds, fontsize=5.8)
-    ax.set_ylabel('1日すべて帯の中の組（/40）')
-    ax.set_ylim(0, 42)
-    ax.legend(frameon=False, ncol=3, loc='upper right')
+    for ax, data, label, low in ((axes[0], tracking, '追従率（%）', 80), (axes[1], soc, 'SoC達成率（%）', 60)):
+        for k, (task, vals) in enumerate(data.items()):
+            color = ['#2a78d6', '#eb6834', '#1baf7a'][k]
+            for i, v in enumerate(vals):
+                if v is None:
+                    ax.text(x[i] + (k - 1) * w, low + 1, '未', ha='center', fontsize=5.5, color='#888888')
+                else:
+                    ax.bar(x[i] + (k - 1) * w, v - low, w, bottom=low, color=color, label=task if i == 3 else None)
+        ax.set_ylabel(label, fontsize=6.5)
+        ax.set_ylim(low, 101)
+    axes[0].legend(frameon=False, ncol=1, loc='upper center', bbox_to_anchor=(0.45, 1.02), fontsize=5.5)
+    axes[1].set_xticks(x)
+    axes[1].set_xticklabels(conds, fontsize=5.8)
     fig.tight_layout()
     fig.savefig(OUT / 'fig_control.png')
     plt.close(fig)
 
 
 def fig_band():
-    """帯の幅ごとの30分コマの合格率（6 station、文書4.4節の値）。"""
+    """帯の幅ごとの追従率（5分ごと、6 station、paper_eval_20261014/control_summary.json の by_band）。"""
     bins = ['<10', '10–15', '15–20', '20–30', '≥30']
-    marl = {'AEMO': [68.3, 77.6, 89.1, 93.2, 99.2], 'ERCOT': [78.8, 79.4, 85.2, 95.7, 95.1], 'PJM': [52.4, 70.7, 82.2, 91.1, 100.0]}
-    rule = {'AEMO': [99.0, 96.7, 96.1, 98.6, 99.4], 'ERCOT': [100.0, 97.8, 95.9, 99.0, 98.2], 'PJM': [93.7, 93.0, 96.7, 98.0, 100.0]}
+    marl = {'AEMO': [88.0, 88.7, 94.3, 96.6, 99.6], 'ERCOT': [90.7, 84.0, 89.8, 97.2, 96.3], 'PJM': [76.6, 87.4, 94.8, 97.7, 100.0]}
+    rule = {'AEMO': [99.7, 98.4, 97.5, 99.1, 99.6], 'ERCOT': [100.0, 98.3, 96.9, 99.5, 98.9], 'PJM': [98.4, 98.1, 99.0, 99.4, 100.0]}
     fig, ax = plt.subplots(figsize=(ONE, 1.8))
     for k, task in enumerate(marl):
         c = ['#2a78d6', '#eb6834', '#1baf7a'][k]
         ax.plot(bins, marl[task], 'o-', color=c, ms=3, lw=1, label=f'MARL {task}')
         ax.plot(bins, rule[task], 's--', color=c, ms=2.5, lw=0.8, alpha=0.6, label=f'ルール {task}')
     ax.set_xlabel('帯の幅（kW）')
-    ax.set_ylabel('30分コマの合格率（%）')
-    ax.set_ylim(45, 101)
+    ax.set_ylabel('追従率（5分ごと、%）')
+    ax.set_ylim(70, 101)
     ax.legend(frameon=False, ncol=2, fontsize=5.5, loc='lower right')
     fig.tight_layout()
     fig.savefig(OUT / 'fig_band.png')
@@ -197,32 +202,36 @@ def fig_abg():
 
 
 def fig_selection():
-    """選び方の表の途中結果（6 station ERCOT、研究室の記録を写したもの）。"""
-    labels = {'main': '本線', 'cmd8': '指令8〜64本', 'cmd16': '', 'cmd32': '', 'cmd64': '',
-              'cnt1': 'EV1', 'cnt2': 'EV2', 'cnt4': 'EV4', 'cnt6': 'EV6', 'sel_low1medmax': '下1中最',
+    """選び方の表（6 station、AEMO は Windows、ERCOT は研究室の記録を写したもの）。上が AEMO、下が ERCOT。"""
+    labels = {'main': '本線', 'cmd8': '', 'cmd16': '', 'cmd32': '指令8〜256本', 'cmd64': '', 'cmd256': '',
+              'cnt1': 'EV1', 'cnt2': 'EV2', 'cnt4': 'EV4', 'cnt6': 'EV6', 'sel_low1medmax': '下1中最', 'sel_minmedmax': '最小中最',
               'sel_random0': '', 'sel_random1': '無作為（3回）', 'sel_random2': '',
               'acc95_low2max': '精度95', 'acc91_low2max': '精度91', 'acc85_low2max': '精度85',
               'acc95_random0': '95', 'acc91_random0': '91', 'acc85_random0': '85'}
-    fig, ax = plt.subplots(figsize=(ONE, 1.9))
-    for f in sorted((SEL / 'from_lab').glob('unseen_ercot_*.jsonl')):
-        v = f.stem.replace('unseen_ercot_', '')
-        rs = rows(f)
-        if v not in labels or len({(r['bank'], r['day'], r['chunk']) for r in rs}) < 40:
-            continue
-        trials = [x for r in rs for x in r['rows']]
-        ok = 100 * sum(x['feasible'] is True for x in trials) / len(trials)
-        cap = np.mean(list({(r['bank'], r['day']): r['offered_capacity_kw_block'] for r in rs}.values()))
-        c = '#d03b3b' if v == 'main' else ('#2a78d6' if v.startswith('cmd') else '#eb6834' if v.startswith('cnt')
-                                           else '#9c64c7' if v.startswith('acc') else '#888888')
-        # 予測精度の3水準：塗りつぶしは本線と同じ選び方（下2上1）、白抜きは無作為に3通り
-        face = 'none' if v.startswith('acc') and v.endswith('random0') else c
-        ax.scatter(cap / 1000, ok, s=12, color=c, facecolors=face, zorder=3)
-        if labels[v]:
-            offset = {'cmd8': (-20, -9), 'cnt6': (-4, -9), 'sel_random1': (-2, -10), 'acc91_low2max': (4, 1)}.get(v, (2, 2))
-            ax.annotate(labels[v], (cap / 1000, ok), fontsize=5.5, xytext=offset, textcoords='offset points')
-    ax.set_xlabel('入札量（MW・コマ／日）')
-    ax.set_ylabel('未見通過率（%、1,920組）')
-    ax.set_title('ERCOT（紫は予測精度、白抜きは無作為に3通り。AEMO は測定中）', fontsize=6)
+    fig, axes = plt.subplots(2, 1, figsize=(ONE, 3.6), sharex=True)
+    for ax, task in zip(axes, ('aemo', 'ercot')):
+        files = {f.stem.replace(f'unseen_{task}_', ''): f for f in sorted(SEL.glob(f'unseen_{task}_*.jsonl'))}
+        files.update({f.stem.replace(f'unseen_{task}_', ''): f for f in sorted((SEL / 'from_lab').glob(f'unseen_{task}_*.jsonl'))})
+        for v, f in sorted(files.items()):
+            rs = rows(f)
+            if v not in labels:
+                continue
+            trials = [x for r in rs for x in r['rows']]
+            if len(trials) != 1920:
+                continue
+            ok = 100 * sum(x['feasible'] is True for x in trials) / len(trials)
+            cap = np.mean(list({(r['bank'], r['day']): r['offered_capacity_kw_block'] for r in rs}.values()))
+            c = '#d03b3b' if v == 'main' else ('#2a78d6' if v.startswith('cmd') else '#eb6834' if v.startswith('cnt')
+                                               else '#9c64c7' if v.startswith('acc') else '#888888')
+            face = 'none' if v.startswith('acc') and v.endswith('random0') else c
+            ax.scatter(cap / 1000, ok, s=10, color=c, facecolors=face, zorder=3)
+            if labels[v]:
+                offset = {'cmd32': (-6, -10), 'cnt6': (-4, -9), 'cnt1': (2, -8), 'sel_random1': (-2, -10), 'acc91_low2max': (4, 1)}.get(v, (2, 2))
+                ax.annotate(labels[v], (cap / 1000, ok), fontsize=5, xytext=offset, textcoords='offset points')
+        ax.set_ylabel('未見通過率（%）')
+        ax.set_title(task.upper(), fontsize=6.5)
+    axes[1].set_xlabel('入札量（MW・コマ／日）')
+    fig.suptitle('紫は予測精度、白抜きは無作為に3通り（1,920組）', fontsize=6)
     fig.tight_layout()
     fig.savefig(OUT / 'fig_selection.png')
     plt.close(fig)

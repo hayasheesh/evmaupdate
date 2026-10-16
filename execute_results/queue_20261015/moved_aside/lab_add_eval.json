@@ -1,0 +1,143 @@
+{
+ "labgpu_b0_aemo": [
+  {
+   "cwd": ".",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "requires": [
+    "archive/wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913/results/TEST2000/actor_5_ep2000.pth"
+   ],
+   "args": [
+    "execute_results/paper_eval_20261014/run_eval.py",
+    "--task",
+    "aemo",
+    "--stage-dir",
+    "{ROOT}/execute_results/b0_6station_20261015",
+    "--run-dir",
+    "{ROOT}/archive/wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913",
+    "--episode",
+    "2000",
+    "--output",
+    "{ROOT}/execute_results/paper_eval_20261014/b0_6_aemo_v2",
+    "--modes",
+    "lp",
+    "rule",
+    "marl",
+    "marl_force",
+    "--workers",
+    "3"
+   ],
+   "min_free_gb": 6,
+   "id": "b0_aemo_eval"
+  }
+ ],
+ "labgpu_b0_ercot": [
+  {
+   "cwd": ".",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "requires": [
+    "archive/wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020/results/TEST2000/actor_5_ep2000.pth"
+   ],
+   "args": [
+    "execute_results/paper_eval_20261014/run_eval.py",
+    "--task",
+    "ercot",
+    "--stage-dir",
+    "{ROOT}/execute_results/b0_6station_20261015",
+    "--run-dir",
+    "{ROOT}/archive/wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020",
+    "--episode",
+    "2000",
+    "--output",
+    "{ROOT}/execute_results/paper_eval_20261014/b0_6_ercot_v2",
+    "--modes",
+    "lp",
+    "rule",
+    "marl",
+    "marl_force",
+    "--workers",
+    "3"
+   ],
+   "min_free_gb": 6,
+   "id": "b0_ercot_eval"
+  }
+ ],
+ "labgpu_pjmrule20": [
+  {
+   "cwd": ".",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "requires": [
+    "archive/wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405/results/TEST2000/actor_19_ep2000.pth"
+   ],
+   "args": [
+    "execute_results/paper_eval_20261014/run_eval.py",
+    "--task",
+    "pjm",
+    "--stage-dir",
+    "{ROOT}/execute_results/pjmrule_20station_20261015",
+    "--run-dir",
+    "{ROOT}/archive/wr_cap77wd_pjmplan_20station_pjmrule75_g04l15_20261015_135405",
+    "--episode",
+    "2000",
+    "--output",
+    "{ROOT}/execute_results/paper_eval_20261014/pjmrule20_v2",
+    "--modes",
+    "lp",
+    "rule",
+    "marl",
+    "marl_force",
+    "--workers",
+    "2"
+   ],
+   "min_free_gb": 8,
+   "id": "pjmrule20_eval"
+  },
+  {
+   "id": "pjmrule20_report",
+   "cwd": ".",
+   "args": [
+    "execute_results/pjmrule_6station_20261015/report_pjm.py",
+    "{ROOT}/execute_results/paper_eval_20261014/pjmrule20_v2/result_pjm_marl_4cmd_2ev.jsonl",
+    "{ROOT}/execute_results/paper_eval_20261014/pjmrule20_v2/result_pjm_marl_force_4cmd_2ev.jsonl",
+    "{ROOT}/execute_results/paper_eval_20261014/pjmrule20_v2/result_pjm_rule_4cmd_2ev.jsonl"
+   ]
+  }
+ ],
+ "lab3": [
+  {
+   "id": "lp20_aemo_main",
+   "cwd": "execute_results/info_bid_20station_20261013",
+   "min_free_gb": 8,
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1",
+    "TABLE3_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014"
+   },
+   "args": [
+    "info_bid.py",
+    "aemo",
+    "main",
+    "4"
+   ]
+  },
+  {
+   "id": "lp20_ercot_main",
+   "cwd": "execute_results/info_bid_20station_20261013",
+   "min_free_gb": 8,
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1",
+    "TABLE3_SW_DIR": "{ROOT}/execute_results/resbid_20station_20261014"
+   },
+   "args": [
+    "info_bid.py",
+    "ercot",
+    "main",
+    "4"
+   ]
+  }
+ ]
+}

@@ -412,15 +412,16 @@ def main():
     for heading in restored:
         expected = expected.replace(heading[1:], heading, 1)
     assert expected == "".join(final_text), "Body text changed."
-    assert len(tb.findall(q("tbl"))) == 8
-    assert len(tb.findall(".//{" + A + "}blip")) == 9
+    tables = len(tb.findall(q("tbl")))
+    figures = len(tb.findall(".//{" + A + "}blip"))
+    assert tables == len(sb.findall(q("tbl"))) and figures == len(sb.findall(".//{" + A + "}blip"))
     with ZipFile(OUTPUT, "w", compression=ZIP_DEFLATED) as archive:
         for name, data in output.items():
             archive.writestr(name, data)
     report = {
         "reference_sha256": sha(REFERENCE.read_bytes()),
         "source_sha256": sha(SOURCE.read_bytes()), "output": str(OUTPUT),
-        "unchanged_body_text_except_restored_headings": True, "tables": 8, "figures": 9,
+        "unchanged_body_text_except_restored_headings": True, "tables": tables, "figures": figures,
         "roles": dict(roles), "body_latin_pt": 10, "body_japanese_pt": 9,
         "exact_line_pt": {k: v / 20 for k, v in EXACT_LINE.items()},
         "restored_headings": restored, "table_widths_twips": table_widths,

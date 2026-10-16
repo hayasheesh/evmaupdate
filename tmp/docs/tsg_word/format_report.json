@@ -1,6 +1,6 @@
 {
   "reference_sha256": "eea69bea29ff9c6e72eabc7717cd0cb58a39ea187894d73d09d70817773d817b",
-  "source_sha256": "da0ce294320916a89bf5f15561f2fec5b14748b6a7a415480f25c976a046d119",
+  "source_sha256": "d60339e2894e39c740d83bbff16fa4a7a46cb7d69f7e24d8825189bd191e9d76",
   "output": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\docs\\paper\\overview\\draft_ja_tsg_20261015_IEEE.docx",
   "unchanged_body_text_except_restored_headings": true,
   "tables": 8,
@@ -8,19 +8,19 @@
   "roles": {
     "title": 1,
     "author": 1,
+    "body": 51,
     "section_break": 3,
     "abstract": 1,
     "keywords": 1,
     "section": 6,
-    "note": 13,
-    "body": 46,
+    "note": 10,
     "caption": 17,
     "empty": 8,
-    "subsection": 10,
+    "subsection": 12,
     "equation": 5,
     "figure": 9,
     "references_heading": 1,
-    "reference": 24
+    "reference": 31
   },
   "body_latin_pt": 10,
   "body_japanese_pt": 9,
@@ -51,16 +51,18 @@
       713
     ],
     [
-      1218,
-      1454,
-      1028,
-      669,
-      669
+      1139,
+      691,
+      607,
+      675,
+      660,
+      660,
+      607
     ],
     [
-      2106,
-      1494,
-      1440
+      1653,
+      1692,
+      1695
     ],
     [
       538,
@@ -76,11 +78,11 @@
       1664
     ],
     [
-      1157,
-      960,
-      966,
-      891,
-      1067
+      1429,
+      894,
+      899,
+      842,
+      976
     ]
   ],
   "margins_inches": [

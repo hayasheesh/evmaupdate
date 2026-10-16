@@ -1,0 +1,21 @@
+{
+  "task": "pjm",
+  "run": "wr_cap77wd_pjmplan_6station_pjmrule75_g04l15_20261015_180534",
+  "episode": 2000,
+  "stage_dir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\pjmrule_6station_20261015",
+  "evaluation_sha256": "a1c3de47613ce26cef8f04059c7ff3ba074990fb48b609fcdc1181dd240a9901",
+  "actors_sha256": {
+    "actor_0_ep2000.pth": "486c2eacd44edbae6d5dfb8163343826896479c04fcc6831167a6a3d74812474",
+    "actor_1_ep2000.pth": "502d9015991488aa1022ffa22531ede288aed43a1b3486d5d521bf121e6a8b65",
+    "actor_2_ep2000.pth": "1b6a1f8c305a7e7563f9f8c94d187ef2b1ec19b3c89437ae7c9f8ea705e3296c",
+    "actor_3_ep2000.pth": "c1af14b5b4e4f5d02f6f6a3bb0cb9d32269ff8474b375593b0e9932507511573",
+    "actor_4_ep2000.pth": "81468da8b24f24e40853d9b50030076c8b0e33d2992c137afb752183df2c665e",
+    "actor_5_ep2000.pth": "709a9bd606c2b685ace7cc6ed82a4cfa21b95e5043d3af4f24fa809a909f5428"
+  },
+  "sets": {
+    "days": 5,
+    "commands": 4,
+    "ev_seeds": 2,
+    "seed_formula": "4000000 + 1000*day + 10*command + ev_seed"
+  }
+}

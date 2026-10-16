@@ -1,0 +1,437 @@
+[
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_build_cmd8_r1",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "cmd8_r1"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_unseen_cmd8_r1",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "cmd8_r1",
+   "8"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_build_cmd16_r1",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "cmd16_r1"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_unseen_cmd16_r1",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "cmd16_r1",
+   "8"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_build_cmd32_r1",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "cmd32_r1"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_unseen_cmd32_r1",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "cmd32_r1",
+   "8"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_build_cmd8_r3",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "cmd8_r3"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_unseen_cmd8_r3",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "cmd8_r3",
+   "8"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_build_cmd16_r3",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "cmd16_r3"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_unseen_cmd16_r3",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "cmd16_r3",
+   "8"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_build_cmd32_r3",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "cmd32_r3"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_unseen_cmd32_r3",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "cmd32_r3",
+   "8"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_build_cmd8_r5",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "cmd8_r5"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_unseen_cmd8_r5",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "cmd8_r5",
+   "8"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_build_cmd16_r5",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "cmd16_r5"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_unseen_cmd16_r5",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "cmd16_r5",
+   "8"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_build_cmd32_r5",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "cmd32_r5"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_unseen_cmd32_r5",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "cmd32_r5",
+   "8"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_build_cmd8_r7",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "cmd8_r7"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_unseen_cmd8_r7",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "cmd8_r7",
+   "8"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_build_cmd16_r7",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "cmd16_r7"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_unseen_cmd16_r7",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "cmd16_r7",
+   "8"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_build_cmd32_r7",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "cmd32_r7"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_unseen_cmd32_r7",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "cmd32_r7",
+   "8"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_build_cmd8_r9",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "cmd8_r9"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_unseen_cmd8_r9",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "cmd8_r9",
+   "8"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_build_cmd16_r9",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "cmd16_r9"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_unseen_cmd16_r9",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "cmd16_r9",
+   "8"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_build_cmd32_r9",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "cmd32_r9"
+  ]
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "id": "sel_aemo_unseen_cmd32_r9",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "cmd32_r9",
+   "8"
+  ]
+ }
+]

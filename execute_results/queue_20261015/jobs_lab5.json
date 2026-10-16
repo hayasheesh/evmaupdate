@@ -1,0 +1,176 @@
+[
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_ercot_build_stat_q95",
+  "args": [
+   "table.py",
+   "build",
+   "ercot",
+   "stat_q95"
+  ],
+  "min_free_gb": 6
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_ercot_unseen_stat_q95",
+  "args": [
+   "table.py",
+   "unseen",
+   "ercot",
+   "stat_q95",
+   "6"
+  ],
+  "min_free_gb": 6
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_ercot_build_stat_q80",
+  "args": [
+   "table.py",
+   "build",
+   "ercot",
+   "stat_q80"
+  ],
+  "min_free_gb": 6
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_ercot_unseen_stat_q80",
+  "args": [
+   "table.py",
+   "unseen",
+   "ercot",
+   "stat_q80",
+   "6"
+  ],
+  "min_free_gb": 6
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_ercot_build_stat_q99",
+  "args": [
+   "table.py",
+   "build",
+   "ercot",
+   "stat_q99"
+  ],
+  "min_free_gb": 6
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_ercot_unseen_stat_q99",
+  "args": [
+   "table.py",
+   "unseen",
+   "ercot",
+   "stat_q99",
+   "6"
+  ],
+  "min_free_gb": 6
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_ercot_build_stat_q90",
+  "args": [
+   "table.py",
+   "build",
+   "ercot",
+   "stat_q90"
+  ],
+  "min_free_gb": 6
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_ercot_unseen_stat_q90",
+  "args": [
+   "table.py",
+   "unseen",
+   "ercot",
+   "stat_q90",
+   "6"
+  ],
+  "min_free_gb": 6
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_ercot_build_stat_q50",
+  "args": [
+   "table.py",
+   "build",
+   "ercot",
+   "stat_q50"
+  ],
+  "min_free_gb": 6
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_ercot_unseen_stat_q50",
+  "args": [
+   "table.py",
+   "unseen",
+   "ercot",
+   "stat_q50",
+   "6"
+  ],
+  "min_free_gb": 6
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_ercot_build_stat_qmax",
+  "args": [
+   "table.py",
+   "build",
+   "ercot",
+   "stat_qmax"
+  ],
+  "min_free_gb": 6
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_ercot_unseen_stat_qmax",
+  "args": [
+   "table.py",
+   "unseen",
+   "ercot",
+   "stat_qmax",
+   "6"
+  ],
+  "min_free_gb": 6
+ }
+]

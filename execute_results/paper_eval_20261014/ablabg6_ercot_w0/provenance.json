@@ -1,0 +1,21 @@
+{
+  "task": "ercot",
+  "run": "wr_cap77wd_ercotplan_6station_resbid_abg_20261013_114104",
+  "episode": 1600,
+  "stage_dir": "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\execute_results\\bidder_ablation_6station_20261016",
+  "evaluation_sha256": "28b570ecf87b4f7d44a1d85daab57062a1103e5e7eb192729feaf4ab86a5f0bf",
+  "actors_sha256": {
+    "actor_0_ep1600.pth": "872200efe5159be0ba0359c1f52862d48977e200348779e12a0c90744f07b424",
+    "actor_1_ep1600.pth": "35f944480d20406e032c05ffb2c22b894486275c6554d00eb5cf379e3560ae33",
+    "actor_2_ep1600.pth": "2c36ffc6cf2913493d96f76e94c7340360c359574efc09a14091037fc60c30e4",
+    "actor_3_ep1600.pth": "d003b2cbaed54c3ffdaff4514cb7403d1118fbcf79816d46afb5bac6c1384dc0",
+    "actor_4_ep1600.pth": "ef52e6de996d278ce0b625b9ba9da4876e920a0fac11f0a966a74567506c0b67",
+    "actor_5_ep1600.pth": "2b9fe2ec149e7747caad8c93b7b6c5fee743b0997449e5e40a03c3281ce0a847"
+  },
+  "sets": {
+    "days": 5,
+    "commands": 4,
+    "ev_seeds": 2,
+    "seed_formula": "4000000 + 1000*day + 10*command + ev_seed"
+  }
+}

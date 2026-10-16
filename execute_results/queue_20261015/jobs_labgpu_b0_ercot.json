@@ -25,5 +25,36 @@
    "ercot",
    "pretrain"
   ]
+ },
+ {
+  "cwd": ".",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "requires": [
+   "archive/wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020/results/TEST2000/actor_5_ep2000.pth"
+  ],
+  "args": [
+   "execute_results/paper_eval_20261014/run_eval.py",
+   "--task",
+   "ercot",
+   "--stage-dir",
+   "{ROOT}/execute_results/b0_6station_20261015",
+   "--run-dir",
+   "{ROOT}/archive/wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020",
+   "--episode",
+   "2000",
+   "--output",
+   "{ROOT}/execute_results/paper_eval_20261014/b0_6_ercot_v2",
+   "--modes",
+   "lp",
+   "rule",
+   "marl",
+   "marl_force",
+   "--workers",
+   "3"
+  ],
+  "min_free_gb": 6,
+  "id": "b0_ercot_eval"
  }
 ]

@@ -1,0 +1,176 @@
+[
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_aemo_build_stat_q95",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "stat_q95"
+  ],
+  "priority": "below_normal"
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_aemo_unseen_stat_q95",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "stat_q95",
+   "4"
+  ],
+  "priority": "below_normal"
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_aemo_build_stat_q80",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "stat_q80"
+  ],
+  "priority": "below_normal"
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_aemo_unseen_stat_q80",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "stat_q80",
+   "4"
+  ],
+  "priority": "below_normal"
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_aemo_build_stat_q99",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "stat_q99"
+  ],
+  "priority": "below_normal"
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_aemo_unseen_stat_q99",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "stat_q99",
+   "4"
+  ],
+  "priority": "below_normal"
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_aemo_build_stat_q90",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "stat_q90"
+  ],
+  "priority": "below_normal"
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_aemo_unseen_stat_q90",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "stat_q90",
+   "4"
+  ],
+  "priority": "below_normal"
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_aemo_build_stat_q50",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "stat_q50"
+  ],
+  "priority": "below_normal"
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_aemo_unseen_stat_q50",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "stat_q50",
+   "4"
+  ],
+  "priority": "below_normal"
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_aemo_build_stat_qmax",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "stat_qmax"
+  ],
+  "priority": "below_normal"
+ },
+ {
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "id": "sel_aemo_unseen_stat_qmax",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "stat_qmax",
+   "4"
+  ],
+  "priority": "below_normal"
+ }
+]

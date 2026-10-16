@@ -196,5 +196,35 @@
    "acc85_random0",
    "8"
   ]
+ },
+ {
+  "id": "sel_aemo_unseen_cnt4",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "priority": "below_normal",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "cnt4",
+   "8"
+  ]
+ },
+ {
+  "id": "sel_aemo_unseen_cnt6",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "priority": "below_normal",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "cnt6",
+   "8"
+  ]
  }
 ]

@@ -1,0 +1,21 @@
+{
+  "task": "ercot",
+  "run": "wr_cap77wd_ercotplan_6station_b0_tanh_ls717_20261015_123020",
+  "episode": 2000,
+  "stage_dir": "/workspace/EVMALOCALUPDATE/execute_results/b0_6station_20261015",
+  "evaluation_sha256": "28b570ecf87b4f7d44a1d85daab57062a1103e5e7eb192729feaf4ab86a5f0bf",
+  "actors_sha256": {
+    "actor_5_ep2000.pth": "85cde291904931a6eef81bdde7f25baf5d9c76f6353ab5af89bc608a8408bc47",
+    "actor_1_ep2000.pth": "d286225cc8c388ea3c37b8ee9a1ea76881fc82921b61a583d3be20d3cabc9a58",
+    "actor_0_ep2000.pth": "2062c104312cda90c725bf2614b02521e2c2bd964317dfdac4b93133819f81fe",
+    "actor_4_ep2000.pth": "d1fdfdb5cee3c40a263a65d1dac8b3c0b4c8c74b24fd45c99160c0ecc2fe0065",
+    "actor_3_ep2000.pth": "c2fc50b4b0f9d2ae7328c0231d2e07faec43932b8fe7e2394a4eb3f91996b934",
+    "actor_2_ep2000.pth": "983eb2999e230c57fb7ebaddbf637ca6ff76c41be8d485ebd78535db268727d1"
+  },
+  "sets": {
+    "days": 5,
+    "commands": 4,
+    "ev_seeds": 2,
+    "seed_formula": "4000000 + 1000*day + 10*command + ev_seed"
+  }
+}

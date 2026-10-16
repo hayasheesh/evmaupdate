@@ -17,9 +17,12 @@
       "finished_at": "2026-10-15T18:05:15"
     },
     "pretrain": {
-      "state": "running",
+      "state": "done",
       "pid": 2376,
-      "started_at": "2026-10-15T18:05:15"
+      "started_at": "2026-10-15T18:05:15",
+      "exit_code": 0,
+      "finished_at": "2026-10-16T10:42:30"
     }
-  }
+  },
+  "result": "complete"
 }

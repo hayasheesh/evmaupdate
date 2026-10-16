@@ -1,0 +1,876 @@
+{
+ "lab3": [
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd8_r0",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd8_r0"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd8_r0",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd8_r0",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd16_r0",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd16_r0"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd16_r0",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd16_r0",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd32_r0",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd32_r0"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd32_r0",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd32_r0",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd8_r2",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd8_r2"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd8_r2",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd8_r2",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd16_r2",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd16_r2"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd16_r2",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd16_r2",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd32_r2",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd32_r2"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd32_r2",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd32_r2",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd8_r4",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd8_r4"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd8_r4",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd8_r4",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd16_r4",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd16_r4"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd16_r4",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd16_r4",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd32_r4",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd32_r4"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd32_r4",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd32_r4",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd8_r6",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd8_r6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd8_r6",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd8_r6",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd16_r6",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd16_r6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd16_r6",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd16_r6",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd32_r6",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd32_r6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd32_r6",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd32_r6",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd8_r8",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd8_r8"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd8_r8",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd8_r8",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd16_r8",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd16_r8"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd16_r8",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd16_r8",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd32_r8",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd32_r8"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd32_r8",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd32_r8",
+    "6"
+   ]
+  }
+ ],
+ "lab4": [
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd8_r1",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd8_r1"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd8_r1",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd8_r1",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd16_r1",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd16_r1"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd16_r1",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd16_r1",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd32_r1",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd32_r1"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd32_r1",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd32_r1",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd8_r3",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd8_r3"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd8_r3",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd8_r3",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd16_r3",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd16_r3"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd16_r3",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd16_r3",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd32_r3",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd32_r3"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd32_r3",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd32_r3",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd8_r5",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd8_r5"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd8_r5",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd8_r5",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd16_r5",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd16_r5"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd16_r5",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd16_r5",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd32_r5",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd32_r5"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd32_r5",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd32_r5",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd8_r7",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd8_r7"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd8_r7",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd8_r7",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd16_r7",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd16_r7"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd16_r7",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd16_r7",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd32_r7",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd32_r7"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd32_r7",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd32_r7",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd8_r9",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd8_r9"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd8_r9",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd8_r9",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd16_r9",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd16_r9"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd16_r9",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd16_r9",
+    "6"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_build_cmd32_r9",
+   "args": [
+    "table.py",
+    "build",
+    "ercot",
+    "cmd32_r9"
+   ]
+  },
+  {
+   "cwd": "execute_results/selection_table_6station_20261015",
+   "env": {
+    "CUDA_VISIBLE_DEVICES": "-1"
+   },
+   "min_free_gb": 6,
+   "id": "sel_ercot_unseen_cmd32_r9",
+   "args": [
+    "table.py",
+    "unseen",
+    "ercot",
+    "cmd32_r9",
+    "6"
+   ]
+  }
+ ]
+}

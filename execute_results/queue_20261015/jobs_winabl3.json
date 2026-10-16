@@ -1,0 +1,246 @@
+[
+ {
+  "id": "abl_ercot_build_q1",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "build",
+   "ercot",
+   "q1"
+  ]
+ },
+ {
+  "id": "abl_ercot_unseen_q1",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "unseen",
+   "ercot",
+   "q1",
+   "6"
+  ]
+ },
+ {
+  "id": "abl_ercot_eval_q1",
+  "cwd": ".",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "BIDDER_VARIANT": "q1"
+  },
+  "priority": "below_normal",
+  "requires": [
+   "archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145/results/TEST2000/actor_5_ep2000.pth"
+  ],
+  "args": [
+   "execute_results/paper_eval_20261014/run_eval.py",
+   "--task",
+   "ercot",
+   "--stage-dir",
+   "{ROOT}/execute_results/bidder_ablation_6station_20261016",
+   "--run-dir",
+   "{ROOT}/archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145",
+   "--episode",
+   "2000",
+   "--output",
+   "{ROOT}/execute_results/paper_eval_20261014/abl6_ercot_q1",
+   "--modes",
+   "lp",
+   "rule",
+   "marl",
+   "marl_force",
+   "--workers",
+   "4"
+  ]
+ },
+ {
+  "id": "abl_ercot_build_w0",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "build",
+   "ercot",
+   "w0"
+  ]
+ },
+ {
+  "id": "abl_ercot_unseen_w0",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "unseen",
+   "ercot",
+   "w0",
+   "6"
+  ]
+ },
+ {
+  "id": "abl_ercot_eval_w0",
+  "cwd": ".",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "BIDDER_VARIANT": "w0"
+  },
+  "priority": "below_normal",
+  "requires": [
+   "archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145/results/TEST2000/actor_5_ep2000.pth"
+  ],
+  "args": [
+   "execute_results/paper_eval_20261014/run_eval.py",
+   "--task",
+   "ercot",
+   "--stage-dir",
+   "{ROOT}/execute_results/bidder_ablation_6station_20261016",
+   "--run-dir",
+   "{ROOT}/archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145",
+   "--episode",
+   "2000",
+   "--output",
+   "{ROOT}/execute_results/paper_eval_20261014/abl6_ercot_w0",
+   "--modes",
+   "lp",
+   "rule",
+   "marl",
+   "marl_force",
+   "--workers",
+   "4"
+  ]
+ },
+ {
+  "id": "abl_ercot_build_q35",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "build",
+   "ercot",
+   "q35"
+  ]
+ },
+ {
+  "id": "abl_ercot_unseen_q35",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "unseen",
+   "ercot",
+   "q35",
+   "6"
+  ]
+ },
+ {
+  "id": "abl_ercot_eval_q35",
+  "cwd": ".",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "BIDDER_VARIANT": "q35"
+  },
+  "priority": "below_normal",
+  "requires": [
+   "archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145/results/TEST2000/actor_5_ep2000.pth"
+  ],
+  "args": [
+   "execute_results/paper_eval_20261014/run_eval.py",
+   "--task",
+   "ercot",
+   "--stage-dir",
+   "{ROOT}/execute_results/bidder_ablation_6station_20261016",
+   "--run-dir",
+   "{ROOT}/archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145",
+   "--episode",
+   "2000",
+   "--output",
+   "{ROOT}/execute_results/paper_eval_20261014/abl6_ercot_q35",
+   "--modes",
+   "lp",
+   "rule",
+   "marl",
+   "marl_force",
+   "--workers",
+   "4"
+  ]
+ },
+ {
+  "id": "abl_ercot_build_q180",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "build",
+   "ercot",
+   "q180"
+  ]
+ },
+ {
+  "id": "abl_ercot_unseen_q180",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "unseen",
+   "ercot",
+   "q180",
+   "6"
+  ]
+ },
+ {
+  "id": "abl_ercot_eval_q180",
+  "cwd": ".",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "BIDDER_VARIANT": "q180"
+  },
+  "priority": "below_normal",
+  "requires": [
+   "archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145/results/TEST2000/actor_5_ep2000.pth"
+  ],
+  "args": [
+   "execute_results/paper_eval_20261014/run_eval.py",
+   "--task",
+   "ercot",
+   "--stage-dir",
+   "{ROOT}/execute_results/bidder_ablation_6station_20261016",
+   "--run-dir",
+   "{ROOT}/archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145",
+   "--episode",
+   "2000",
+   "--output",
+   "{ROOT}/execute_results/paper_eval_20261014/abl6_ercot_q180",
+   "--modes",
+   "lp",
+   "rule",
+   "marl",
+   "marl_force",
+   "--workers",
+   "4"
+  ]
+ }
+]

@@ -1,0 +1,246 @@
+[
+ {
+  "id": "abl_aemo_build_q1",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "q1"
+  ]
+ },
+ {
+  "id": "abl_aemo_unseen_q1",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "q1",
+   "6"
+  ]
+ },
+ {
+  "id": "abl_aemo_eval_q1",
+  "cwd": ".",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "BIDDER_VARIANT": "q1"
+  },
+  "priority": "below_normal",
+  "requires": [
+   "archive/wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306/results/TEST2000/actor_5_ep2000.pth"
+  ],
+  "args": [
+   "execute_results/paper_eval_20261014/run_eval.py",
+   "--task",
+   "aemo",
+   "--stage-dir",
+   "{ROOT}/execute_results/bidder_ablation_6station_20261016",
+   "--run-dir",
+   "{ROOT}/archive/wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306",
+   "--episode",
+   "2000",
+   "--output",
+   "{ROOT}/execute_results/paper_eval_20261014/abl6_aemo_q1",
+   "--modes",
+   "lp",
+   "rule",
+   "marl",
+   "marl_force",
+   "--workers",
+   "4"
+  ]
+ },
+ {
+  "id": "abl_aemo_build_w0",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "w0"
+  ]
+ },
+ {
+  "id": "abl_aemo_unseen_w0",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "w0",
+   "6"
+  ]
+ },
+ {
+  "id": "abl_aemo_eval_w0",
+  "cwd": ".",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "BIDDER_VARIANT": "w0"
+  },
+  "priority": "below_normal",
+  "requires": [
+   "archive/wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306/results/TEST2000/actor_5_ep2000.pth"
+  ],
+  "args": [
+   "execute_results/paper_eval_20261014/run_eval.py",
+   "--task",
+   "aemo",
+   "--stage-dir",
+   "{ROOT}/execute_results/bidder_ablation_6station_20261016",
+   "--run-dir",
+   "{ROOT}/archive/wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306",
+   "--episode",
+   "2000",
+   "--output",
+   "{ROOT}/execute_results/paper_eval_20261014/abl6_aemo_w0",
+   "--modes",
+   "lp",
+   "rule",
+   "marl",
+   "marl_force",
+   "--workers",
+   "4"
+  ]
+ },
+ {
+  "id": "abl_aemo_build_q35",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "q35"
+  ]
+ },
+ {
+  "id": "abl_aemo_unseen_q35",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "q35",
+   "6"
+  ]
+ },
+ {
+  "id": "abl_aemo_eval_q35",
+  "cwd": ".",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "BIDDER_VARIANT": "q35"
+  },
+  "priority": "below_normal",
+  "requires": [
+   "archive/wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306/results/TEST2000/actor_5_ep2000.pth"
+  ],
+  "args": [
+   "execute_results/paper_eval_20261014/run_eval.py",
+   "--task",
+   "aemo",
+   "--stage-dir",
+   "{ROOT}/execute_results/bidder_ablation_6station_20261016",
+   "--run-dir",
+   "{ROOT}/archive/wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306",
+   "--episode",
+   "2000",
+   "--output",
+   "{ROOT}/execute_results/paper_eval_20261014/abl6_aemo_q35",
+   "--modes",
+   "lp",
+   "rule",
+   "marl",
+   "marl_force",
+   "--workers",
+   "4"
+  ]
+ },
+ {
+  "id": "abl_aemo_build_q180",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "build",
+   "aemo",
+   "q180"
+  ]
+ },
+ {
+  "id": "abl_aemo_unseen_q180",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "unseen",
+   "aemo",
+   "q180",
+   "6"
+  ]
+ },
+ {
+  "id": "abl_aemo_eval_q180",
+  "cwd": ".",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "BIDDER_VARIANT": "q180"
+  },
+  "priority": "below_normal",
+  "requires": [
+   "archive/wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306/results/TEST2000/actor_5_ep2000.pth"
+  ],
+  "args": [
+   "execute_results/paper_eval_20261014/run_eval.py",
+   "--task",
+   "aemo",
+   "--stage-dir",
+   "{ROOT}/execute_results/bidder_ablation_6station_20261016",
+   "--run-dir",
+   "{ROOT}/archive/wr_cap77wd_aemoplan_6station_resbid_tanh_ls717_20261012_102306",
+   "--episode",
+   "2000",
+   "--output",
+   "{ROOT}/execute_results/paper_eval_20261014/abl6_aemo_q180",
+   "--modes",
+   "lp",
+   "rule",
+   "marl",
+   "marl_force",
+   "--workers",
+   "4"
+  ]
+ }
+]

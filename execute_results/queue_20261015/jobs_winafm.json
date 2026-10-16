@@ -1,0 +1,18 @@
+[
+ {
+  "id": "afm_aemo6_l05_2000",
+  "cwd": "execute_results/prior_marl_full_20261014",
+  "priority": "below_normal",
+  "args": [
+   "driver.py",
+   "--task",
+   "aemo",
+   "--run",
+   "{ROOT}/execute_results/prior_marl_full_20261014/runs/aemo6_l05_2000",
+   "--episodes",
+   "2000",
+   "--local-factor",
+   "0.5"
+  ]
+ }
+]

@@ -1,0 +1,281 @@
+[
+ {
+  "id": "abl_ercot_build_m0",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "build",
+   "ercot",
+   "m0"
+  ]
+ },
+ {
+  "id": "abl_ercot_unseen_m0",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "unseen",
+   "ercot",
+   "m0",
+   "6"
+  ]
+ },
+ {
+  "id": "abl_ercot_eval_m0",
+  "cwd": ".",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "BIDDER_VARIANT": "m0"
+  },
+  "priority": "below_normal",
+  "requires": [
+   "archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145/results/TEST2000/actor_5_ep2000.pth"
+  ],
+  "args": [
+   "execute_results/paper_eval_20261014/run_eval.py",
+   "--task",
+   "ercot",
+   "--stage-dir",
+   "{ROOT}/execute_results/bidder_ablation_6station_20261016",
+   "--run-dir",
+   "{ROOT}/archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145",
+   "--episode",
+   "2000",
+   "--output",
+   "{ROOT}/execute_results/paper_eval_20261014/abl6_ercot_m0",
+   "--modes",
+   "lp",
+   "rule",
+   "marl",
+   "marl_force",
+   "--workers",
+   "4"
+  ]
+ },
+ {
+  "id": "abl_ercot_eval_sel_random0",
+  "cwd": ".",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "BIDDER_VARIANT": "sel_random0"
+  },
+  "priority": "below_normal",
+  "requires": [
+   "archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145/results/TEST2000/actor_5_ep2000.pth"
+  ],
+  "args": [
+   "execute_results/paper_eval_20261014/run_eval.py",
+   "--task",
+   "ercot",
+   "--stage-dir",
+   "{ROOT}/execute_results/bidder_ablation_6station_20261016",
+   "--run-dir",
+   "{ROOT}/archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145",
+   "--episode",
+   "2000",
+   "--output",
+   "{ROOT}/execute_results/paper_eval_20261014/abl6_ercot_sel_random0",
+   "--modes",
+   "lp",
+   "rule",
+   "marl",
+   "marl_force",
+   "--workers",
+   "4"
+  ]
+ },
+ {
+  "id": "abl_ercot_eval_sel_random1",
+  "cwd": ".",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "BIDDER_VARIANT": "sel_random1"
+  },
+  "priority": "below_normal",
+  "requires": [
+   "archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145/results/TEST2000/actor_5_ep2000.pth"
+  ],
+  "args": [
+   "execute_results/paper_eval_20261014/run_eval.py",
+   "--task",
+   "ercot",
+   "--stage-dir",
+   "{ROOT}/execute_results/bidder_ablation_6station_20261016",
+   "--run-dir",
+   "{ROOT}/archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145",
+   "--episode",
+   "2000",
+   "--output",
+   "{ROOT}/execute_results/paper_eval_20261014/abl6_ercot_sel_random1",
+   "--modes",
+   "lp",
+   "rule",
+   "marl",
+   "marl_force",
+   "--workers",
+   "4"
+  ]
+ },
+ {
+  "id": "abl_ercot_eval_sel_random2",
+  "cwd": ".",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "BIDDER_VARIANT": "sel_random2"
+  },
+  "priority": "below_normal",
+  "requires": [
+   "archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145/results/TEST2000/actor_5_ep2000.pth"
+  ],
+  "args": [
+   "execute_results/paper_eval_20261014/run_eval.py",
+   "--task",
+   "ercot",
+   "--stage-dir",
+   "{ROOT}/execute_results/bidder_ablation_6station_20261016",
+   "--run-dir",
+   "{ROOT}/archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145",
+   "--episode",
+   "2000",
+   "--output",
+   "{ROOT}/execute_results/paper_eval_20261014/abl6_ercot_sel_random2",
+   "--modes",
+   "lp",
+   "rule",
+   "marl",
+   "marl_force",
+   "--workers",
+   "4"
+  ]
+ },
+ {
+  "id": "abl_ercot_build_q110",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "build",
+   "ercot",
+   "q110"
+  ]
+ },
+ {
+  "id": "abl_ercot_unseen_q110",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "unseen",
+   "ercot",
+   "q110",
+   "6"
+  ]
+ },
+ {
+  "id": "abl_ercot_eval_q110",
+  "cwd": ".",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "BIDDER_VARIANT": "q110"
+  },
+  "priority": "below_normal",
+  "requires": [
+   "archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145/results/TEST2000/actor_5_ep2000.pth"
+  ],
+  "args": [
+   "execute_results/paper_eval_20261014/run_eval.py",
+   "--task",
+   "ercot",
+   "--stage-dir",
+   "{ROOT}/execute_results/bidder_ablation_6station_20261016",
+   "--run-dir",
+   "{ROOT}/archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145",
+   "--episode",
+   "2000",
+   "--output",
+   "{ROOT}/execute_results/paper_eval_20261014/abl6_ercot_q110",
+   "--modes",
+   "lp",
+   "rule",
+   "marl",
+   "marl_force",
+   "--workers",
+   "4"
+  ]
+ },
+ {
+  "id": "abl_ercot_build_m14",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "build",
+   "ercot",
+   "m14"
+  ]
+ },
+ {
+  "id": "abl_ercot_unseen_m14",
+  "cwd": "execute_results/selection_table_6station_20261015",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1"
+  },
+  "priority": "below_normal",
+  "args": [
+   "table.py",
+   "unseen",
+   "ercot",
+   "m14",
+   "6"
+  ]
+ },
+ {
+  "id": "abl_ercot_eval_m14",
+  "cwd": ".",
+  "env": {
+   "CUDA_VISIBLE_DEVICES": "-1",
+   "BIDDER_VARIANT": "m14"
+  },
+  "priority": "below_normal",
+  "requires": [
+   "archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145/results/TEST2000/actor_5_ep2000.pth"
+  ],
+  "args": [
+   "execute_results/paper_eval_20261014/run_eval.py",
+   "--task",
+   "ercot",
+   "--stage-dir",
+   "{ROOT}/execute_results/bidder_ablation_6station_20261016",
+   "--run-dir",
+   "{ROOT}/archive/wr_cap77wd_ercotplan_6station_resbid_tanh_ls717_20261013_023145",
+   "--episode",
+   "2000",
+   "--output",
+   "{ROOT}/execute_results/paper_eval_20261014/abl6_ercot_m14",
+   "--modes",
+   "lp",
+   "rule",
+   "marl",
+   "marl_force",
+   "--workers",
+   "4"
+  ]
+ }
+]

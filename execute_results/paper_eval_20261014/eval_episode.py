@@ -178,8 +178,13 @@ def run_episode(args):
            'service_date': str(fixed_bid.get('service_date')), 'offered_capacity_kw_block': float(np.sum(up + down))}
     t0 = time.time()
     if mode == 'lp':
+        # PJM の規則の入札は、指令に比例して広がる帯と指令0の帯も、入札を作ったときと同じにする
+        # （training/blockwise_bid.py の BiddingLPConfig と同じ。日本の規則では 0 と None で、前と同じ帯になる）。
         cfg = BiddingLPConfig(assessment_band_fraction=float(fixed_bid['assessment_band_fraction']),
-                              apply_transition_band=bool(fixed_bid['apply_transition_band']))
+                              apply_transition_band=bool(fixed_bid['apply_transition_band']),
+                              band_signal_fraction=float(fixed_bid.get('band_signal_fraction', 0.0)),
+                              idle_band_fraction=(float(fixed_bid['idle_band_fraction'])
+                                                  if fixed_bid.get('market_tracking_rule') == 'pjm' else None))
         _t, _tol, lower, upper = fixed_bid_tracking_bands(cfg, baseline, up, down, np.asarray(command['up_proxy'], float),
                                                          np.asarray(command['down_proxy'], float),
                                                          apply_transition_band=cfg.apply_transition_band)

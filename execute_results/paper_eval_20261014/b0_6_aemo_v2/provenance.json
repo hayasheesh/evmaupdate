@@ -1,0 +1,21 @@
+{
+  "task": "aemo",
+  "run": "wr_cap77wd_aemoplan_6station_b0_tanh_ls717_20261015_140913",
+  "episode": 2000,
+  "stage_dir": "/workspace/EVMALOCALUPDATE/execute_results/b0_6station_20261015",
+  "evaluation_sha256": "28b570ecf87b4f7d44a1d85daab57062a1103e5e7eb192729feaf4ab86a5f0bf",
+  "actors_sha256": {
+    "actor_5_ep2000.pth": "b2d1f55bf4d6ab574523882659a97aac2055d2bef0cfa77fcadcc501d7ae2004",
+    "actor_1_ep2000.pth": "5cd74ad1b0294e037bd66e20c50e0a871b3181b1780c72a628e55fad40df8c63",
+    "actor_0_ep2000.pth": "edb32ea1f9b40c0a7f0abf540111c1c8b5c32681d1a65650c518f87206f33a62",
+    "actor_4_ep2000.pth": "2ce91d78e5bc9f0fbda12de2f16670f22ef996fe5c2459d803034b269d54e811",
+    "actor_3_ep2000.pth": "bce7cb453284e1b59e8ef199b653784fd0c24da645af2cb89f11547390cdafec",
+    "actor_2_ep2000.pth": "7096a316b278be546813ad89fcfe6e4c482ed939a2990f04d6b93df19e546c06"
+  },
+  "sets": {
+    "days": 5,
+    "commands": 4,
+    "ev_seeds": 2,
+    "seed_formula": "4000000 + 1000*day + 10*command + ev_seed"
+  }
+}
