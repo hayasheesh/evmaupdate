@@ -1,9 +1,9 @@
 {
-  "time": "2026-10-17T01:39:50+09:00",
+  "time": "2026-10-17T02:27:50+09:00",
   "paused_pids": [],
   "mode": "nosensor",
   "cpu_package_c": null,
-  "gpu_c": 43.0,
+  "gpu_c": 35.0,
   "hot_reason": null,
   "pid": 47032
 }
