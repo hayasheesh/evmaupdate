@@ -1,0 +1,13 @@
+{
+  "mode": "multi",
+  "started_at": "2026-10-20T00:17:08",
+  "args": [
+    "--episodes",
+    "2000"
+  ],
+  "state": "done",
+  "pid": 148237,
+  "exit_code": 0,
+  "finished_at": "2026-10-20T14:40:36",
+  "result": "complete"
+}

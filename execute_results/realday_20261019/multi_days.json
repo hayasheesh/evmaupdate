@@ -1,0 +1,1322 @@
+[
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-15",
+   "sessions": 66,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-10-10",
+   "sessions": 14,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-05-22",
+   "sessions": 79,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-03-21",
+   "sessions": 10,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-12-17",
+   "sessions": 68,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-05-03",
+   "sessions": 10,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-07",
+   "sessions": 66,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-09-27",
+   "sessions": 19,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-05-03",
+   "sessions": 69,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-05-22",
+   "sessions": 7,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-05",
+   "sessions": 69,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-02-12",
+   "sessions": 9,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-07",
+   "sessions": 66,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-02-08",
+   "sessions": 8,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-06-20",
+   "sessions": 72,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-08-28",
+   "sessions": 13,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-15",
+   "sessions": 66,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-04-12",
+   "sessions": 9,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-09-26",
+   "sessions": 65,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-12-21",
+   "sessions": 15,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-06-18",
+   "sessions": 66,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-03-27",
+   "sessions": 12,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-12-12",
+   "sessions": 67,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-04-16",
+   "sessions": 9,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-16",
+   "sessions": 72,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-01-14",
+   "sessions": 22,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-07-03",
+   "sessions": 64,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-01-10",
+   "sessions": 2,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-19",
+   "sessions": 67,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-09-28",
+   "sessions": 16,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-16",
+   "sessions": 72,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-05-31",
+   "sessions": 9,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-05-17",
+   "sessions": 77,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2020-01-13",
+   "sessions": 37,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-28",
+   "sessions": 68,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-07-29",
+   "sessions": 15,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-09-18",
+   "sessions": 57,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-06-07",
+   "sessions": 10,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-07-12",
+   "sessions": 78,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-01-02",
+   "sessions": 2,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-26",
+   "sessions": 53,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-11-09",
+   "sessions": 14,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-12-18",
+   "sessions": 64,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-06-05",
+   "sessions": 9,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-06-20",
+   "sessions": 72,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-08-23",
+   "sessions": 10,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-08",
+   "sessions": 64,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-11-08",
+   "sessions": 4,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-29",
+   "sessions": 70,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-06-27",
+   "sessions": 14,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-05-18",
+   "sessions": 69,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-10-03",
+   "sessions": 24,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-05",
+   "sessions": 69,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-03-21",
+   "sessions": 15,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-12-14",
+   "sessions": 69,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-04-06",
+   "sessions": 6,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-06-14",
+   "sessions": 72,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-11-04",
+   "sessions": 37,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-22",
+   "sessions": 70,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-12-17",
+   "sessions": 11,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-09-20",
+   "sessions": 65,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2020-01-31",
+   "sessions": 14,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-07-05",
+   "sessions": 70,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-05-07",
+   "sessions": 6,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-29",
+   "sessions": 70,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-03-09",
+   "sessions": 8,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-25",
+   "sessions": 72,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-01-02",
+   "sessions": 20,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-06-18",
+   "sessions": 66,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-02-11",
+   "sessions": 2,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-15",
+   "sessions": 66,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-02-22",
+   "sessions": 13,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2019-01-07",
+   "sessions": 69,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-01-15",
+   "sessions": 22,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-05-31",
+   "sessions": 78,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-11-26",
+   "sessions": 29,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-02",
+   "sessions": 70,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-04-10",
+   "sessions": 12,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-09-24",
+   "sessions": 57,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-03-26",
+   "sessions": 11,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-06-26",
+   "sessions": 78,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-03-13",
+   "sessions": 13,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-20",
+   "sessions": 59,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-03-19",
+   "sessions": 12,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-09-28",
+   "sessions": 44,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-11-05",
+   "sessions": 11,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-05-30",
+   "sessions": 73,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-05-03",
+   "sessions": 12,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-19",
+   "sessions": 67,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-08-08",
+   "sessions": 13,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-30",
+   "sessions": 76,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-10-21",
+   "sessions": 14,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-07-11",
+   "sessions": 78,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-04-04",
+   "sessions": 8,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-09-20",
+   "sessions": 65,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-11-07",
+   "sessions": 4,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-09-19",
+   "sessions": 63,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-05-21",
+   "sessions": 15,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-06-28",
+   "sessions": 67,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2020-01-31",
+   "sessions": 15,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-12-12",
+   "sessions": 67,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-06-08",
+   "sessions": 14,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2019-01-04",
+   "sessions": 30,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-04-23",
+   "sessions": 5,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-07-19",
+   "sessions": 89,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-08-06",
+   "sessions": 6,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-08",
+   "sessions": 64,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-02-20",
+   "sessions": 11,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-19",
+   "sessions": 70,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-06-04",
+   "sessions": 14,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-06-19",
+   "sessions": 81,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-04-03",
+   "sessions": 16,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-26",
+   "sessions": 53,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-08-21",
+   "sessions": 8,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-09-24",
+   "sessions": 57,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-02-23",
+   "sessions": 10,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-07-06",
+   "sessions": 67,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-02-27",
+   "sessions": 5,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-04",
+   "sessions": 72,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-10-01",
+   "sessions": 8,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-13",
+   "sessions": 65,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-11-28",
+   "sessions": 22,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-06-18",
+   "sessions": 66,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-03-25",
+   "sessions": 8,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-10",
+   "sessions": 70,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2020-01-27",
+   "sessions": 15,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-19",
+   "sessions": 70,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2020-01-06",
+   "sessions": 17,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-07-03",
+   "sessions": 64,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-10-24",
+   "sessions": 29,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-15",
+   "sessions": 65,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-07-06",
+   "sessions": 15,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-12",
+   "sessions": 28,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-02-25",
+   "sessions": 16,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-08-06",
+   "sessions": 87,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-12-09",
+   "sessions": 33,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-09-14",
+   "sessions": 24,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-12-19",
+   "sessions": 18,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-12-14",
+   "sessions": 69,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-04-30",
+   "sessions": 11,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-06-01",
+   "sessions": 63,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-09-18",
+   "sessions": 20,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-26",
+   "sessions": 53,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-10-11",
+   "sessions": 12,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-09-20",
+   "sessions": 65,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-02-22",
+   "sessions": 13,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-07-05",
+   "sessions": 70,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-01-30",
+   "sessions": 5,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-04",
+   "sessions": 72,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-04-06",
+   "sessions": 6,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-09-17",
+   "sessions": 61,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-05-09",
+   "sessions": 10,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-07-20",
+   "sessions": 82,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-08-01",
+   "sessions": 11,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-11",
+   "sessions": 71,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-03-23",
+   "sessions": 16,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-12-17",
+   "sessions": 68,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-05-07",
+   "sessions": 11,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-07-18",
+   "sessions": 79,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-09-13",
+   "sessions": 16,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-16",
+   "sessions": 75,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2020-01-28",
+   "sessions": 13,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2019-01-07",
+   "sessions": 69,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-05-14",
+   "sessions": 7,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-07-24",
+   "sessions": 83,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-04-11",
+   "sessions": 12,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-12",
+   "sessions": 28,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-02-08",
+   "sessions": 8,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-19",
+   "sessions": 70,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-12-05",
+   "sessions": 4,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-06-01",
+   "sessions": 63,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-07-03",
+   "sessions": 6,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-16",
+   "sessions": 72,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-11-16",
+   "sessions": 8,
+   "ports": 27
+  }
+ ],
+ [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-20",
+   "sessions": 59,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-06-21",
+   "sessions": 10,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-05-17",
+   "sessions": 77,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-02-08",
+   "sessions": 2,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-16",
+   "sessions": 72,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-02-28",
+   "sessions": 13,
+   "ports": 27
+  }
+ ]
+]

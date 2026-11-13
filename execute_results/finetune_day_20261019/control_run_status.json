@@ -1,0 +1,13 @@
+{
+  "mode": "control",
+  "started_at": "2026-10-19T12:30:59",
+  "args": [
+    "--episodes",
+    "1000"
+  ],
+  "state": "done",
+  "pid": 50832,
+  "exit_code": 0,
+  "finished_at": "2026-10-19T17:03:44",
+  "result": "complete"
+}

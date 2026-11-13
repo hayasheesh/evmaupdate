@@ -1,0 +1,410 @@
+{
+ "q05": [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-12-21",
+   "sessions": 20,
+   "rank": 2,
+   "target_rank": 3.7,
+   "weekdays": 75,
+   "median_sessions": 67.0,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-09-14",
+   "sessions": 7,
+   "rank": 22,
+   "target_rank": 22.450000000000003,
+   "weekdays": 450,
+   "median_sessions": 12.0,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-05-08",
+   "sessions": 60,
+   "rank": 4,
+   "target_rank": 3.75,
+   "weekdays": 76,
+   "median_sessions": 75.0,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-02-05",
+   "sessions": 2,
+   "rank": 12,
+   "target_rank": 12.450000000000001,
+   "weekdays": 250,
+   "median_sessions": 12.0,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-12-07",
+   "sessions": 33,
+   "rank": 6,
+   "target_rank": 3.7,
+   "weekdays": 75,
+   "median_sessions": 67.0,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-09-18",
+   "sessions": 7,
+   "rank": 23,
+   "target_rank": 22.450000000000003,
+   "weekdays": 450,
+   "median_sessions": 12.0,
+   "ports": 27
+  }
+ ],
+ "q20": [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-02",
+   "sessions": 61,
+   "rank": 17,
+   "target_rank": 14.8,
+   "weekdays": 75,
+   "median_sessions": 67.0,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-04-13",
+   "sessions": 10,
+   "rank": 89,
+   "target_rank": 89.80000000000001,
+   "weekdays": 450,
+   "median_sessions": 12.0,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-05-21",
+   "sessions": 67,
+   "rank": 15,
+   "target_rank": 15.0,
+   "weekdays": 76,
+   "median_sessions": 75.0,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-04-26",
+   "sessions": 7,
+   "rank": 49,
+   "target_rank": 49.800000000000004,
+   "weekdays": 250,
+   "median_sessions": 12.0,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-12-10",
+   "sessions": 63,
+   "rank": 19,
+   "target_rank": 14.8,
+   "weekdays": 75,
+   "median_sessions": 67.0,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-05-30",
+   "sessions": 10,
+   "rank": 91,
+   "target_rank": 89.80000000000001,
+   "weekdays": 450,
+   "median_sessions": 12.0,
+   "ports": 27
+  }
+ ],
+ "q35": [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-12-06",
+   "sessions": 64,
+   "rank": 23,
+   "target_rank": 25.9,
+   "weekdays": 75,
+   "median_sessions": 67.0,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-07-04",
+   "sessions": 11,
+   "rank": 157,
+   "target_rank": 157.14999999999998,
+   "weekdays": 450,
+   "median_sessions": 12.0,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-08-07",
+   "sessions": 70,
+   "rank": 27,
+   "target_rank": 26.25,
+   "weekdays": 76,
+   "median_sessions": 75.0,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-05-16",
+   "sessions": 10,
+   "rank": 87,
+   "target_rank": 87.14999999999999,
+   "weekdays": 250,
+   "median_sessions": 12.0,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-14",
+   "sessions": 65,
+   "rank": 29,
+   "target_rank": 25.9,
+   "weekdays": 75,
+   "median_sessions": 67.0,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-07-05",
+   "sessions": 11,
+   "rank": 158,
+   "target_rank": 157.14999999999998,
+   "weekdays": 450,
+   "median_sessions": 12.0,
+   "ports": 27
+  }
+ ],
+ "q65": [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-01",
+   "sessions": 69,
+   "rank": 48,
+   "target_rank": 48.1,
+   "weekdays": 75,
+   "median_sessions": 67.0,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-08-13",
+   "sessions": 14,
+   "rank": 292,
+   "target_rank": 291.85,
+   "weekdays": 450,
+   "median_sessions": 12.0,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-06-11",
+   "sessions": 78,
+   "rank": 47,
+   "target_rank": 48.75,
+   "weekdays": 76,
+   "median_sessions": 75.0,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-10-02",
+   "sessions": 17,
+   "rank": 162,
+   "target_rank": 161.85,
+   "weekdays": 250,
+   "median_sessions": 12.0,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-05",
+   "sessions": 69,
+   "rank": 50,
+   "target_rank": 48.1,
+   "weekdays": 75,
+   "median_sessions": 67.0,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-07-02",
+   "sessions": 14,
+   "rank": 291,
+   "target_rank": 291.85,
+   "weekdays": 450,
+   "median_sessions": 12.0,
+   "ports": 27
+  }
+ ],
+ "q80": [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-09",
+   "sessions": 70,
+   "rank": 58,
+   "target_rank": 59.2,
+   "weekdays": 75,
+   "median_sessions": 67.0,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-08-20",
+   "sessions": 15,
+   "rank": 359,
+   "target_rank": 359.20000000000005,
+   "weekdays": 450,
+   "median_sessions": 12.0,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-07-27",
+   "sessions": 81,
+   "rank": 60,
+   "target_rank": 60.0,
+   "weekdays": 76,
+   "median_sessions": 75.0,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-11-28",
+   "sessions": 34,
+   "rank": 199,
+   "target_rank": 199.20000000000002,
+   "weekdays": 250,
+   "median_sessions": 12.0,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-09-27",
+   "sessions": 70,
+   "rank": 57,
+   "target_rank": 59.2,
+   "weekdays": 75,
+   "median_sessions": 67.0,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-09-26",
+   "sessions": 15,
+   "rank": 360,
+   "target_rank": 359.20000000000005,
+   "weekdays": 450,
+   "median_sessions": 12.0,
+   "ports": 27
+  }
+ ],
+ "q95": [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-24",
+   "sessions": 73,
+   "rank": 71,
+   "target_rank": 70.3,
+   "weekdays": 75,
+   "median_sessions": 67.0,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-01-29",
+   "sessions": 19,
+   "rank": 427,
+   "target_rank": 426.54999999999995,
+   "weekdays": 450,
+   "median_sessions": 12.0,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-08-03",
+   "sessions": 90,
+   "rank": 72,
+   "target_rank": 71.25,
+   "weekdays": 76,
+   "median_sessions": 75.0,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-11-15",
+   "sessions": 45,
+   "rank": 237,
+   "target_rank": 236.54999999999998,
+   "weekdays": 250,
+   "median_sessions": 12.0,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-30",
+   "sessions": 78,
+   "rank": 74,
+   "target_rank": 70.3,
+   "weekdays": 75,
+   "median_sessions": 67.0,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2019-02-26",
+   "sessions": 19,
+   "rank": 428,
+   "target_rank": 426.54999999999995,
+   "weekdays": 450,
+   "median_sessions": 12.0,
+   "ports": 27
+  }
+ ]
+}

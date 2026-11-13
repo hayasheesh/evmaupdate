@@ -1,0 +1,13 @@
+{
+  "mode": "vary_mix50warm10_ml_busy",
+  "started_at": "2026-10-21T01:07:30",
+  "args": [
+    "--episodes",
+    "100"
+  ],
+  "state": "done",
+  "pid": 176033,
+  "exit_code": 0,
+  "finished_at": "2026-10-21T01:52:50",
+  "result": "complete"
+}

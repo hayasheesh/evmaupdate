@@ -1,0 +1,13 @@
+{
+  "mode": "vary_frozen_ml_average",
+  "started_at": "2026-10-20T12:28:13",
+  "args": [
+    "--episodes",
+    "20"
+  ],
+  "state": "done",
+  "pid": 159471,
+  "exit_code": 0,
+  "finished_at": "2026-10-20T12:31:00",
+  "result": "complete"
+}

@@ -1,0 +1,13 @@
+{
+  "mode": "scratch_ml_average",
+  "started_at": "2026-10-19T21:28:24",
+  "args": [
+    "--episodes",
+    "1000"
+  ],
+  "state": "done",
+  "pid": 146500,
+  "exit_code": 0,
+  "finished_at": "2026-10-20T04:36:30",
+  "result": "complete"
+}

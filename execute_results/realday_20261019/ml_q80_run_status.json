@@ -1,0 +1,13 @@
+{
+  "mode": "ml_q80",
+  "started_at": "2026-10-20T09:20:28",
+  "args": [
+    "--episodes",
+    "300"
+  ],
+  "state": "done",
+  "pid": 157517,
+  "exit_code": 0,
+  "finished_at": "2026-10-20T12:17:47",
+  "result": "complete"
+}

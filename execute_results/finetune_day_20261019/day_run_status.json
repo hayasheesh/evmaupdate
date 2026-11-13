@@ -1,0 +1,18 @@
+{
+  "mode": "day",
+  "started_at": "2026-10-19T12:30:59",
+  "args": [
+    "--episodes",
+    "1000"
+  ],
+  "state": "done",
+  "pid": 32500,
+  "exit_code": 0,
+  "finished_at": "2026-10-19T15:13:11",
+  "result": "stopped",
+  "stopped": {
+    "training_ep": 200,
+    "reason": "利用者の指示で止めた（D の車を使い回す世界は、来る車の中身まで前日に分かることになるため）",
+    "state": "resume/training_state_ep200.pth"
+  }
+}

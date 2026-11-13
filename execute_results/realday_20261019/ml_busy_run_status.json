@@ -1,0 +1,13 @@
+{
+  "mode": "ml_busy",
+  "started_at": "2026-10-19T13:15:23",
+  "args": [
+    "--episodes",
+    "1000"
+  ],
+  "state": "done",
+  "pid": 142222,
+  "exit_code": 0,
+  "finished_at": "2026-10-19T19:17:41",
+  "result": "complete"
+}

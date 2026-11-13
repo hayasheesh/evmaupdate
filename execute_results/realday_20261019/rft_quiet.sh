@@ -1,0 +1,107 @@
+#!/bin/bash
+# realday の finetune（Windows の control、研究室の scratch_ml_*・multi・multift_ml_*、足したテストの日の ml_q*）の見張り。手を打つ必要があるときだけ1行出して終わる
+# （Claude の Bash の run_in_background で動かす）。
+#   bash rft_quiet.sh
+# 2026-10-21 から結果は Windows に写さない（利用者の指示で Windows では作業しない。集計は研究室で summarize_real.py）。
+# 見るもの：学習の Traceback、ログが15分止まる、学習の終了、Windows の GPU の停止の印、評価の失敗（両方の機械）、評価の終了（500回と1000回だけ知らせる）、
+#           研究室の評価の結果を Windows に写す（評価が済むたび）、E（multi）と F（multift）の評価が3日そろったとき、
+#           足したテストの日（more_days.py）の段の区切り（milestone）と終わり、学習し直しのやり方を変えた比較（vary_finetune.py）の
+#           変え方ごとの100回の評価と終わり、B と C の20〜80回の評価（eval_early.sh）の終わり、勾配の比（Windows の2本、30分ごと、ft_grad_log.txt と同じ形で
+#           rft_grad_log.txt に書く。大域の割合が 0.40〜0.80 の外、本線の2000回目と比べて大きさが3倍超か1/3未満で知らせる）。
+H=/c/Users/admin/Desktop/EVMALOCALUPDATE/execute_results/realday_20261019
+ROOT=/c/Users/admin/Desktop/EVMALOCALUPDATE
+LAB=/home/hayashi/workspace/EVMALOCALUPDATE/execute_results/realday_20261019
+SSH="ssh -o BatchMode=yes -o ConnectTimeout=20"
+REP=$H/rft_reported.txt; touch "$REP"
+PIDF=$H/rft_quiet.pid
+WMODES=""  # Windows で学習中の mode（C は 10/20 に1000回まで終わった）
+[ -f "$PIDF" ] && kill "$(cat "$PIDF")" 2>/dev/null
+echo $$ > "$PIDF"
+last_grad=0
+unreach=0
+fire() { grep -qxF "$1" "$REP" && return 0; echo "$1" >> "$REP"; echo "$(date +%H:%M) $2"; exit 0; }
+while true; do
+  [ "$(cat "$PIDF")" = "$$" ] || exit 0
+  now=$(date +%s)
+  for m in $WMODES; do
+    res=$(python -c "import json,sys; print(json.load(open(sys.argv[1])).get('result') or 'running')" "$H/${m}_run_status.json" 2>/dev/null)
+    [ -n "$res" ] && [ "$res" != running ] && fire "w_${m}_result_$res" "Windows の $m の学習が $res"
+    tb=$(grep -c Traceback "$H/logs/${m}_pretrain.stderr.log" 2>/dev/null)
+    [ "${tb:-0}" -gt 0 ] && fire "w_${m}_tb$tb" "Windows の $m で Traceback $tb 件"
+    mt=$(date -r "$H/logs/${m}_pretrain.stdout.log" +%s 2>/dev/null || echo "$now")
+    [ $((now - mt)) -gt 900 ] && fire "w_${m}_silent_$mt" "Windows の $m のログが $(( (now - mt) / 60 )) 分止まっている"
+  done
+  [ -f "$H/RFT_GPU_STOPPED.txt" ] && fire "w_gpu_stop" "Windows の GPU の温度で止めた: $(cat "$H/RFT_GPU_STOPPED.txt")"
+  for f in "$H"/FAILED_*; do [ -e "$f" ] && fire "w_${f##*/}" "Windows の評価が失敗: ${f##*/FAILED_}"; done
+  # 評価が済んだ知らせは500回と1000回だけ（ほかは rft_eval_done.txt に書くだけ）
+  for tag in $(grep -o '[^ ]* exit 0$' "$H/rft_eval_queue_windows.log" 2>/dev/null | cut -d' ' -f1); do
+    grep -qxF "w_eval_$tag" "$H/rft_eval_done.txt" 2>/dev/null || echo "w_eval_$tag" >> "$H/rft_eval_done.txt"
+    case $tag in *500|*500_*|*1000|*1000_*) fire "w_eval_$tag" "Windows の評価 $tag が済んだ";; esac
+  done
+  lab=$(timeout 90 $SSH smartgrid-gpu "cd $LAB 2>/dev/null && for m in scratch_ml_busy scratch_ml_quiet scratch_ml_average multi multift_ml_busy multift_ml_quiet multift_ml_average ml_q05 ml_q20 ml_q35 ml_q65 ml_q80 ml_q95 \$(ls vary_*_run_status.json 2>/dev/null | sed s/_run_status.json//); do [ -e \${m}_run_status.json ] || continue; r=\$(python3 -c \"import json,sys; print(json.load(open(sys.argv[1])).get('result') or 'running')\" \${m}_run_status.json 2>/dev/null); t=\$(grep -c Traceback logs/\${m}_pretrain.stderr.log 2>/dev/null); a=\$(( \$(date +%s) - \$(stat -c %Y logs/\${m}_pretrain.stdout.log 2>/dev/null || date +%s) )); echo \"st:\$m:\${r:-none}:\${t:-0}:\$a\"; done; for f in FAILED_*; do [ -e \"\$f\" ] && echo \"fail:\$f\"; done; [ -e CHAIN_FAILED.txt ] && echo chain:failed; [ -e EVAL_EARLY_DONE.txt ] && echo early:done; cat rft_eval_queue_lab.log more_days_eval.log vary_eval.log 2>/dev/null | grep -o '[^ ]* exit 0\$' | cut -d' ' -f1 | sed 's/^/done:/'; grep -o 'milestone .*\|all done.*' logs/more_days.log 2>/dev/null | tr ' ' '_' | sed 's/^/more:/'; grep -o 'milestone .*_100\|milestone .*_end\|all done.*' logs/vary_finetune.log 2>/dev/null | tr ' ' '_' | sed 's/^/vary:/'" 2>/dev/null)
+  if [ -z "$lab" ]; then
+    unreach=$((unreach + 1))
+    [ $unreach -ge 3 ] && fire "lab_unreach_$(date +%Y%m%d%H)" "研究室に3回続けて繋がらない"
+  else
+    unreach=0
+    alldone=" $(echo "$lab" | tr ' ' '\n' | grep '^done:' | cut -d: -f2 | tr '\n' ' ') "
+    for x in $lab; do
+      case $x in
+        st:*) IFS=: read -r _ m r t a <<< "$x"
+              # 足したテストの日（ml_q*）の学習が済んだことは more_days.py の区切りで知らせる
+              [ "$r" != running ] && [ "$r" != none ] && ! { [ "$r" = complete ] && [[ $m == ml_q* || $m == vary_* ]]; } && fire "l_${m}_result_$r" "研究室の $m の学習が $r"
+              [ "${t:-0}" -gt 0 ] && fire "l_${m}_tb$t" "研究室の $m で Traceback $t 件"
+              [ "${a:-0}" -gt 900 ] && [ "$r" = running ] && fire "l_${m}_silent_$((now / 3600))" "研究室の $m のログが $((a / 60)) 分止まっている";;
+        fail:*) fire "l_${x#fail:}" "研究室の評価が失敗: ${x#fail:FAILED_}";;
+        chain:*) fire "l_chain_failed" "研究室のいろいろな日の流れ（chain_multi）が失敗";;
+        early:*) grep -qxF "l_early_done" "$REP" && continue
+                 mkdir -p "$H/eval"; :
+                 fire "l_early_done" "B と C の20〜80回の評価（9日）が済んだ";;
+        done:*) tag=${x#done:}
+                if ! grep -qxF "l_eval_$tag" "$H/rft_eval_done.txt" 2>/dev/null; then
+                  mkdir -p "$H/eval"; :
+                  echo "l_eval_$tag" >> "$H/rft_eval_done.txt"
+                fi
+                ;;
+        more:*) k=${x#more:}
+                grep -qxF "l_more_$k" "$REP" && continue
+                :
+                mkdir -p "$H/eval"; :
+                fire "l_more_$k" "足したテストの日: ${k//_/ }";;
+        vary:*) k=${x#vary:}
+                grep -qxF "l_vary_$k" "$REP" && continue
+                mkdir -p "$H/eval"; :
+                fire "l_vary_$k" "学習し直しのやり方の比較: ${k//_/ }";;
+      esac
+    done
+    for ep in 1000 1500 2000; do
+      n=0; for p in busy quiet average; do case "$alldone" in *" multi${ep}_ml_$p "*) n=$((n + 1));; esac; done
+      [ $n -eq 3 ] && fire "l_eval_multi${ep}_all" "研究室の評価 E（multi）${ep}回が3日とも済んだ"
+    done
+    for ep in 100 500 1000; do
+      n=0; for p in busy quiet average; do case "$alldone" in *" multift_ml_$p$ep "*) n=$((n + 1));; esac; done
+      [ $n -eq 3 ] && fire "l_eval_multift${ep}_all" "研究室の評価 F（multift）${ep}回が3日とも済んだ"
+    done
+  fi
+  if [ $((now - last_grad)) -gt 1800 ]; then
+    last_grad=$now
+    for m in $WMODES; do
+      d=$(ls -d "$ROOT"/archive/realday_aemo6_${m}_2* 2>/dev/null | tail -1)
+      [ -n "$d" ] || continue
+      g=$(python "$ROOT/execute_results/wr_gs_6station_20261011/grad_check.py" "$(cygpath -w "$d")" --json 2>/dev/null | tail -1)
+      [ -n "$g" ] || continue
+      echo "$(date +%m-%dT%H:%M) $g" >> "$H/rft_grad_log.txt"
+      ep=$(echo "$g" | python -c "import json,sys; print(json.load(sys.stdin).get('episode') or 0)" 2>/dev/null)
+      off=$(echo "$g" | python -c "
+import json,sys
+g=json.load(sys.stdin); o=[]
+if not 0.40<=g['global_ratio']<=0.80: o.append('ratio%.2f'%g['global_ratio'])
+for k,ref in (('local_raw',11.46),('global_raw',25.94)):
+    q=g[k]/ref
+    if q>3 or q<1/3: o.append('%sx%.1f'%(k,q))
+print(' '.join(o))" 2>/dev/null)
+      [ "${ep:-0}" -ge 100 ] && [ -n "$off" ] && fire "w_${m}_grad_$ep" "Windows の $m の勾配が範囲外（ep$ep: $off）"
+    done
+  fi
+  sleep 300
+done

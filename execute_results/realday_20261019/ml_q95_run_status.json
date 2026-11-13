@@ -1,0 +1,13 @@
+{
+  "mode": "ml_q95",
+  "started_at": "2026-10-20T09:26:17",
+  "args": [
+    "--episodes",
+    "300"
+  ],
+  "state": "done",
+  "pid": 157815,
+  "exit_code": 0,
+  "finished_at": "2026-10-20T12:27:34",
+  "result": "complete"
+}

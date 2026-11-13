@@ -1,0 +1,487 @@
+{
+ "ACN_CALTECH_GARAGE1": {
+  "days": 65,
+  "methods": {
+   "all_mean": {
+    "day_wape_pct": 8.92187126479789,
+    "hour_wape_pct": 35.17923773294668
+   },
+   "prior_mean": {
+    "day_wape_pct": 11.767492076640004,
+    "hour_wape_pct": 36.105777405248276
+   },
+   "last_week": {
+    "day_wape_pct": 9.566274827725984,
+    "hour_wape_pct": 46.04783137413863
+   },
+   "same_wd_4w": {
+    "day_wape_pct": 10.14896635589785,
+    "hour_wape_pct": 38.88832590190515
+   },
+   "weekdays_4w": {
+    "day_wape_pct": 9.319195774589636,
+    "hour_wape_pct": 36.17686544335964
+   }
+  },
+  "test_dates": {
+   "2018-06-07": {
+    "pattern": "average",
+    "actual": 74.0,
+    "all_mean": {
+     "day_total": 73.43589743589743,
+     "day_err_pct": -0.7623007623007692,
+     "hour_wape_pct": 37.17948717948718
+    },
+    "prior_mean": {
+     "day_total": 66.32142857142857,
+     "day_err_pct": -10.37644787644788,
+     "hour_wape_pct": 37.69305019305019
+    },
+    "last_week": {
+     "day_total": 78.0,
+     "day_err_pct": 5.405405405405405,
+     "hour_wape_pct": 48.648648648648646
+    },
+    "same_wd_4w": {
+     "day_total": 73.25,
+     "day_err_pct": -1.0135135135135136,
+     "hour_wape_pct": 40.87837837837838
+    },
+    "weekdays_4w": {
+     "day_total": 70.38888888888889,
+     "day_err_pct": -4.879879879879884,
+     "hour_wape_pct": 38.66366366366366
+    }
+   },
+   "2018-07-26": {
+    "pattern": "busy",
+    "actual": 85.0,
+    "all_mean": {
+     "day_total": 73.43589743589743,
+     "day_err_pct": -13.604826546003022,
+     "hour_wape_pct": 25.761689291101057
+    },
+    "prior_mean": {
+     "day_total": 70.88709677419355,
+     "day_err_pct": -16.603415559772294,
+     "hour_wape_pct": 27.191650853889946
+    },
+    "last_week": {
+     "day_total": 89.0,
+     "day_err_pct": 4.705882352941177,
+     "hour_wape_pct": 35.294117647058826
+    },
+    "same_wd_4w": {
+     "day_total": 76.0,
+     "day_err_pct": -10.588235294117647,
+     "hour_wape_pct": 33.529411764705884
+    },
+    "weekdays_4w": {
+     "day_total": 73.77777777777777,
+     "day_err_pct": -13.202614379084975,
+     "hour_wape_pct": 30.065359477124183
+    }
+   }
+  }
+ },
+ "ACN_JPL_ARROYO1": {
+  "days": 56,
+  "methods": {
+   "all_mean": {
+    "day_wape_pct": 16.126649232451296,
+    "hour_wape_pct": 43.47177282330867
+   },
+   "prior_mean": {
+    "day_wape_pct": 19.45642361128669,
+    "hour_wape_pct": 47.51750916621947
+   },
+   "last_week": {
+    "day_wape_pct": 20.13651877133106,
+    "hour_wape_pct": 53.924914675767916
+   },
+   "same_wd_4w": {
+    "day_wape_pct": 17.19283276450512,
+    "hour_wape_pct": 46.3452787258248
+   },
+   "weekdays_4w": {
+    "day_wape_pct": 16.16371832576635,
+    "hour_wape_pct": 44.4597114710156
+   }
+  },
+  "test_dates": {
+   "2018-10-31": {
+    "pattern": "average",
+    "actual": 67.0,
+    "all_mean": {
+     "day_total": 60.8051948051948,
+     "day_err_pct": -9.245977902694326,
+     "hour_wape_pct": 43.167280480713316
+    },
+    "prior_mean": {
+     "day_total": 59.02777777777778,
+     "day_err_pct": -11.898839137645107,
+     "hour_wape_pct": 53.02653399668326
+    },
+    "last_week": {
+     "day_total": 73.0,
+     "day_err_pct": 8.955223880597014,
+     "hour_wape_pct": 29.850746268656717
+    },
+    "same_wd_4w": {
+     "day_total": 69.25,
+     "day_err_pct": 3.3582089552238807,
+     "hour_wape_pct": 43.656716417910445
+    },
+    "weekdays_4w": {
+     "day_total": 65.33333333333333,
+     "day_err_pct": -2.4875621890547333,
+     "hour_wape_pct": 44.11276948590382
+    }
+   },
+   "2018-11-01": {
+    "pattern": "average",
+    "actual": 67.0,
+    "all_mean": {
+     "day_total": 60.8051948051948,
+     "day_err_pct": -9.245977902694326,
+     "hour_wape_pct": 28.707113781740645
+    },
+    "prior_mean": {
+     "day_total": 59.486486486486484,
+     "day_err_pct": -11.21419927390077,
+     "hour_wape_pct": 36.950383219039935
+    },
+    "last_week": {
+     "day_total": 72.0,
+     "day_err_pct": 7.462686567164179,
+     "hour_wape_pct": 52.23880597014925
+    },
+    "same_wd_4w": {
+     "day_total": 69.75,
+     "day_err_pct": 4.104477611940299,
+     "hour_wape_pct": 23.507462686567163
+    },
+    "weekdays_4w": {
+     "day_total": 65.88888888888889,
+     "day_err_pct": -1.6583747927031556,
+     "hour_wape_pct": 25.870646766169145
+    }
+   },
+   "2018-11-09": {
+    "pattern": "quiet",
+    "actual": 36.0,
+    "all_mean": {
+     "day_total": 60.8051948051948,
+     "day_err_pct": 68.90331890331889,
+     "hour_wape_pct": 104.47330447330445
+    },
+    "prior_mean": {
+     "day_total": 60.627906976744185,
+     "day_err_pct": 68.41085271317829,
+     "hour_wape_pct": 104.7157622739018
+    },
+    "last_week": {
+     "day_total": 70.0,
+     "day_err_pct": 94.44444444444444,
+     "hour_wape_pct": 138.88888888888889
+    },
+    "same_wd_4w": {
+     "day_total": 51.5,
+     "day_err_pct": 43.05555555555556,
+     "hour_wape_pct": 75.0
+    },
+    "weekdays_4w": {
+     "day_total": 65.26315789473685,
+     "day_err_pct": 81.28654970760236,
+     "hour_wape_pct": 117.8362573099415
+    }
+   },
+   "2018-12-20": {
+    "pattern": "busy",
+    "actual": 71.0,
+    "all_mean": {
+     "day_total": 60.8051948051948,
+     "day_err_pct": -14.35888055606366,
+     "hour_wape_pct": 26.541064569233583
+    },
+    "prior_mean": {
+     "day_total": 61.15942028985507,
+     "day_err_pct": -13.859971422739338,
+     "hour_wape_pct": 26.47479077362727
+    },
+    "last_week": {
+     "day_total": 65.0,
+     "day_err_pct": -8.450704225352112,
+     "hour_wape_pct": 25.35211267605634
+    },
+    "same_wd_4w": {
+     "day_total": 66.33333333333333,
+     "day_err_pct": -6.57276995305165,
+     "hour_wape_pct": 29.10798122065728
+    },
+    "weekdays_4w": {
+     "day_total": 64.94117647058823,
+     "day_err_pct": -8.533554266777138,
+     "hour_wape_pct": 26.926263463131733
+    }
+   }
+  }
+ },
+ "RESIDENTIAL NORWAY _ OSL_S": {
+  "days": 394,
+  "methods": {
+   "all_mean": {
+    "day_wape_pct": 22.43488947444682,
+    "hour_wape_pct": 92.11357200484424
+   },
+   "prior_mean": {
+    "day_wape_pct": 22.857101244933492,
+    "hour_wape_pct": 92.12342783727728
+   },
+   "last_week": {
+    "day_wape_pct": 28.380836870830805,
+    "hour_wape_pct": 111.66363452597534
+   },
+   "same_wd_4w": {
+    "day_wape_pct": 23.64564382454013,
+    "hour_wape_pct": 98.27336432854926
+   },
+   "weekdays_4w": {
+    "day_wape_pct": 21.85937498737543,
+    "hour_wape_pct": 93.07775838926148
+   }
+  },
+  "test_dates": {
+   "2019-02-21": {
+    "pattern": "busy",
+    "actual": 17.0,
+    "all_mean": {
+     "day_total": 12.426991150442477,
+     "day_err_pct": -26.900052056220723,
+     "hour_wape_pct": 89.73191046330035
+    },
+    "prior_mean": {
+     "day_total": 12.0,
+     "day_err_pct": -29.41176470588235,
+     "hour_wape_pct": 90.4380475594493
+    },
+    "last_week": {
+     "day_total": 14.0,
+     "day_err_pct": -17.647058823529413,
+     "hour_wape_pct": 100.0
+    },
+    "same_wd_4w": {
+     "day_total": 17.5,
+     "day_err_pct": 2.9411764705882355,
+     "hour_wape_pct": 100.0
+    },
+    "weekdays_4w": {
+     "day_total": 13.94736842105263,
+     "day_err_pct": -17.956656346749234,
+     "hour_wape_pct": 84.21052631578947
+    }
+   },
+   "2019-05-22": {
+    "pattern": "quiet",
+    "actual": 8.0,
+    "all_mean": {
+     "day_total": 12.426991150442477,
+     "day_err_pct": 55.337389380530965,
+     "hour_wape_pct": 144.88384955752213
+    },
+    "prior_mean": {
+     "day_total": 12.20274914089347,
+     "day_err_pct": 52.53436426116838,
+     "hour_wape_pct": 143.4278350515464
+    },
+    "last_week": {
+     "day_total": 12.0,
+     "day_err_pct": 50.0,
+     "hour_wape_pct": 75.0
+    },
+    "same_wd_4w": {
+     "day_total": 11.333333333333334,
+     "day_err_pct": 41.66666666666667,
+     "hour_wape_pct": 91.66666666666667
+    },
+    "weekdays_4w": {
+     "day_total": 11.11764705882353,
+     "day_err_pct": 38.97058823529414,
+     "hour_wape_pct": 115.44117647058825
+    }
+   },
+   "2019-08-19": {
+    "pattern": "busy",
+    "actual": 17.0,
+    "all_mean": {
+     "day_total": 12.426991150442477,
+     "day_err_pct": -26.900052056220723,
+     "hour_wape_pct": 81.09057782404999
+    },
+    "prior_mean": {
+     "day_total": 12.094674556213018,
+     "day_err_pct": -28.85485555168813,
+     "hour_wape_pct": 83.22311172989906
+    },
+    "last_week": {
+     "day_total": 12.0,
+     "day_err_pct": -29.41176470588235,
+     "hour_wape_pct": 88.23529411764706
+    },
+    "same_wd_4w": {
+     "day_total": 12.0,
+     "day_err_pct": -29.41176470588235,
+     "hour_wape_pct": 68.62745098039215
+    },
+    "weekdays_4w": {
+     "day_total": 11.866666666666667,
+     "day_err_pct": -30.196078431372545,
+     "hour_wape_pct": 78.0392156862745
+    }
+   },
+   "2019-11-21": {
+    "pattern": "average",
+    "actual": 12.0,
+    "all_mean": {
+     "day_total": 12.426991150442477,
+     "day_err_pct": 3.5582595870206437,
+     "hour_wape_pct": 80.73377581120944
+    },
+    "prior_mean": {
+     "day_total": 12.276543209876545,
+     "day_err_pct": 2.3045267489712065,
+     "hour_wape_pct": 80.82304526748972
+    },
+    "last_week": {
+     "day_total": 8.0,
+     "day_err_pct": -33.333333333333336,
+     "hour_wape_pct": 116.66666666666667
+    },
+    "same_wd_4w": {
+     "day_total": 12.25,
+     "day_err_pct": 2.0833333333333335,
+     "hour_wape_pct": 89.58333333333333
+    },
+    "weekdays_4w": {
+     "day_total": 13.210526315789474,
+     "day_err_pct": 10.087719298245618,
+     "hour_wape_pct": 90.78947368421053
+    }
+   },
+   "2019-12-04": {
+    "pattern": "average",
+    "actual": 12.0,
+    "all_mean": {
+     "day_total": 12.426991150442477,
+     "day_err_pct": 3.5582595870206437,
+     "hour_wape_pct": 103.33702064896754
+    },
+    "prior_mean": {
+     "day_total": 12.318840579710145,
+     "day_err_pct": 2.6570048309178715,
+     "hour_wape_pct": 102.85829307568439
+    },
+    "last_week": {
+     "day_total": 9.0,
+     "day_err_pct": -25.0,
+     "hour_wape_pct": 141.66666666666666
+    },
+    "same_wd_4w": {
+     "day_total": 12.75,
+     "day_err_pct": 6.25,
+     "hour_wape_pct": 93.75
+    },
+    "weekdays_4w": {
+     "day_total": 14.31578947368421,
+     "day_err_pct": 19.29824561403509,
+     "hour_wape_pct": 104.38596491228071
+    }
+   }
+  }
+ },
+ "RESIDENTIAL NORWAY _ TRO_R": {
+  "days": 215,
+  "methods": {
+   "all_mean": {
+    "day_wape_pct": 61.106767218248486,
+    "hour_wape_pct": 90.50191747170388
+   },
+   "prior_mean": {
+    "day_wape_pct": 54.74985577087151,
+    "hour_wape_pct": 80.6056421482826
+   },
+   "last_week": {
+    "day_wape_pct": 23.29475498645654,
+    "hour_wape_pct": 83.03373553311992
+   },
+   "same_wd_4w": {
+    "day_wape_pct": 22.45752277764097,
+    "hour_wape_pct": 72.06353114996308
+   },
+   "weekdays_4w": {
+    "day_wape_pct": 20.285463264618986,
+    "hour_wape_pct": 69.30728791673107
+   }
+  },
+  "test_dates": {
+   "2019-02-22": {
+    "pattern": "quiet",
+    "actual": 4.0,
+    "all_mean": {
+     "day_total": 17.93227091633466,
+     "day_err_pct": 348.3067729083665,
+     "hour_wape_pct": 385.9561752988048
+    },
+    "prior_mean": {
+     "day_total": 3.6944444444444446,
+     "day_err_pct": -7.638888888888884,
+     "hour_wape_pct": 143.75
+    },
+    "last_week": {
+     "day_total": 11.0,
+     "day_err_pct": 175.0,
+     "hour_wape_pct": 375.0
+    },
+    "same_wd_4w": {
+     "day_total": 7.0,
+     "day_err_pct": 75.0,
+     "hour_wape_pct": 212.5
+    },
+    "weekdays_4w": {
+     "day_total": 4.526315789473684,
+     "day_err_pct": 13.157894736842103,
+     "hour_wape_pct": 152.63157894736844
+    }
+   },
+   "2019-12-23": {
+    "pattern": "busy",
+    "actual": 40.0,
+    "all_mean": {
+     "day_total": 17.93227091633466,
+     "day_err_pct": -55.16932270916335,
+     "hour_wape_pct": 64.75099601593625
+    },
+    "prior_mean": {
+     "day_total": 15.679824561403509,
+     "day_err_pct": -60.80043859649123,
+     "hour_wape_pct": 69.9232456140351
+    },
+    "last_week": {
+     "day_total": 31.0,
+     "day_err_pct": -22.5,
+     "hour_wape_pct": 72.5
+    },
+    "same_wd_4w": {
+     "day_total": 34.25,
+     "day_err_pct": -14.375,
+     "hour_wape_pct": 71.875
+    },
+    "weekdays_4w": {
+     "day_total": 36.8,
+     "day_err_pct": -8.000000000000007,
+     "hour_wape_pct": 73.00000000000001
+    }
+   }
+  }
+ }
+}

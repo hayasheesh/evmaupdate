@@ -1,0 +1,13 @@
+{
+  "mode": "busy",
+  "started_at": "2026-10-19T08:59:00",
+  "args": [
+    "--episodes",
+    "1000"
+  ],
+  "state": "done",
+  "pid": 139567,
+  "exit_code": 0,
+  "finished_at": "2026-10-19T12:54:22",
+  "result": "complete"
+}

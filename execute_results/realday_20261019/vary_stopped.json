@@ -1,0 +1,66 @@
+{
+ "vary_lrx10_ml_quiet": {
+  "best_episode": 80,
+  "best": 181.50237127371275,
+  "last_episode": 400,
+  "last": 173.1475835591689,
+  "completed_at_request": 400,
+  "at": "2026-10-21T02:55:35"
+ },
+ "vary_mix50_ml_busy": {
+  "best_episode": 40,
+  "best": 178.10763888888889,
+  "last_episode": 400,
+  "last": 171.69890873015873,
+  "completed_at_request": 400,
+  "at": "2026-10-21T03:40:44"
+ },
+ "vary_mix50_ml_quiet": {
+  "best_episode": 100,
+  "best": 178.79855465221317,
+  "last_episode": 600,
+  "last": 173.93405600722673,
+  "completed_at_request": 600,
+  "at": "2026-10-21T09:17:12"
+ },
+ "vary_lrx10_ml_busy": {
+  "best_episode": 500,
+  "best": 180.8209325396826,
+  "last_episode": 800,
+  "last": 177.53472222222223,
+  "completed_at_request": 800,
+  "at": "2026-10-21T11:07:25"
+ },
+ "vary_lrx10_ml_q05": {
+  "best_episode": 600,
+  "best": 178.72931235431236,
+  "last_episode": 900,
+  "last": 170.95571095571097,
+  "completed_at_request": 800,
+  "at": "2026-10-21T11:37:16"
+ },
+ "vary_lrx30_ml_q05": {
+  "best_episode": 80,
+  "best": 171.0506993006993,
+  "last_episode": 400,
+  "last": 167.10343822843822,
+  "completed_at_request": 400,
+  "at": "2026-10-21T11:53:12"
+ },
+ "vary_lrx30_ml_busy": {
+  "best_episode": 400,
+  "best": 184.88591269841268,
+  "last_episode": 700,
+  "last": 179.32291666666666,
+  "completed_at_request": 600,
+  "at": "2026-10-21T16:54:32"
+ },
+ "vary_mix50utd4_ml_quiet": {
+  "best_episode": 400,
+  "best": 180.74469286359528,
+  "last_episode": 700,
+  "last": 177.11607949412826,
+  "completed_at_request": 600,
+  "at": "2026-10-22T02:55:32"
+ }
+}

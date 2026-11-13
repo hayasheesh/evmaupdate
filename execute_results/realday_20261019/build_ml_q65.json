@@ -1,0 +1,146 @@
+{
+ "pattern": "ml_q65",
+ "days": [
+  {
+   "station": 0,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-10-01",
+   "sessions": 69,
+   "rank": 48,
+   "target_rank": 48.1,
+   "weekdays": 75,
+   "median_sessions": 67.0,
+   "ports": 52
+  },
+  {
+   "station": 1,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-08-13",
+   "sessions": 14,
+   "rank": 292,
+   "target_rank": 291.85,
+   "weekdays": 450,
+   "median_sessions": 12.0,
+   "ports": 27
+  },
+  {
+   "station": 2,
+   "source": "ACN_CALTECH_GARAGE1",
+   "date": "2018-06-11",
+   "sessions": 78,
+   "rank": 47,
+   "target_rank": 48.75,
+   "weekdays": 76,
+   "median_sessions": 75.0,
+   "ports": 53
+  },
+  {
+   "station": 3,
+   "source": "RESIDENTIAL NORWAY _ TRO_R",
+   "date": "2019-10-02",
+   "sessions": 17,
+   "rank": 162,
+   "target_rank": 161.85,
+   "weekdays": 250,
+   "median_sessions": 12.0,
+   "ports": 76
+  },
+  {
+   "station": 4,
+   "source": "ACN_JPL_ARROYO1",
+   "date": "2018-11-05",
+   "sessions": 69,
+   "rank": 50,
+   "target_rank": 48.1,
+   "weekdays": 75,
+   "median_sessions": 67.0,
+   "ports": 52
+  },
+  {
+   "station": 5,
+   "source": "RESIDENTIAL NORWAY _ OSL_S",
+   "date": "2018-07-02",
+   "sessions": 14,
+   "rank": 291,
+   "target_rank": 291.85,
+   "weekdays": 450,
+   "median_sessions": 12.0,
+   "ports": 27
+  }
+ ],
+ "forecast_used": [
+  {
+   "station": 0,
+   "date": "2018-10-01",
+   "forecast_total": 56.53125,
+   "days_used": 16,
+   "actual_total": 69.0
+  },
+  {
+   "station": 1,
+   "date": "2018-08-13",
+   "forecast_total": 10.733333333333334,
+   "days_used": 6,
+   "actual_total": 14.0
+  },
+  {
+   "station": 2,
+   "date": "2018-06-11",
+   "forecast_total": 74.27894736842106,
+   "days_used": 19,
+   "actual_total": 78.0
+  },
+  {
+   "station": 3,
+   "date": "2019-10-02",
+   "forecast_total": 16.263157894736842,
+   "days_used": 19,
+   "actual_total": 17.0
+  },
+  {
+   "station": 4,
+   "date": "2018-11-05",
+   "forecast_total": 66.71578947368421,
+   "days_used": 19,
+   "actual_total": 69.0
+  },
+  {
+   "station": 5,
+   "date": "2018-07-02",
+   "forecast_total": 12.110000000000001,
+   "days_used": 20,
+   "actual_total": 14.0
+  }
+ ],
+ "real_arrivals_by_station": [
+  37,
+  15,
+  42,
+  8,
+  44,
+  18
+ ],
+ "real_midnight_by_station": [
+  0,
+  10,
+  4,
+  4,
+  0,
+  3
+ ],
+ "real_connected_volume": 8426.0,
+ "day_forecast_volume": 8353.6640625,
+ "main_forecast_volume": 9762.1015625,
+ "wape_day_forecast_vs_real": 7.073993442914787,
+ "wape_main_forecast_vs_real": 20.103789609541895,
+ "day_forecast_p5_pct": -13.78813002153807,
+ "day_forecast_p95_pct": 13.478946831901052,
+ "real_vs_day_forecast_volume_pct": 0.8659186790227702,
+ "capacity_kw_block": 13357.039209238688,
+ "main_capacity_kw_block": 17303.50255666177,
+ "picks": [
+  60,
+  54,
+  6
+ ]
+}

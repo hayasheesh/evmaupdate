@@ -24,7 +24,7 @@ from Config import (
 )
 from EnvConfig import POWER_TO_ENERGY
 from training.Agent import MADDPG
-from training.Agent.standard_maddpg import build_marl_agent
+from training.Agent.comparison_learners import build_learner
 
 
 _ACTOR_PATTERN = re.compile(r"actor_\d+_ep(\d+)\.pth$")
@@ -75,7 +75,7 @@ def find_model_path_and_episode(
 def build_agent(env) -> MADDPG:
     """Construct the lower controller named by Config.MARL_ALGORITHM from an EVEnv."""
 
-    return build_marl_agent(
+    return build_learner(
         s_dim=int(env._get_obs().shape[1]),
         max_evs_per_station=env.max_ev_per_station,
         n_agent=env.num_stations,

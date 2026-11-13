@@ -1,0 +1,1 @@
+﻿main_aemo6_training_state_ep2000.pth は 2026-11-01 に D:\EVMALOCALUPDATE_resume\execute_results\realday_20261019\main_state へ移した（続きから学習するときは、ここへ戻す）。

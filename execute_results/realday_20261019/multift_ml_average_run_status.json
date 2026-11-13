@@ -1,0 +1,13 @@
+{
+  "mode": "multift_ml_average",
+  "started_at": "2026-10-20T14:47:17",
+  "args": [
+    "--episodes",
+    "1000"
+  ],
+  "state": "done",
+  "pid": 165250,
+  "exit_code": 0,
+  "finished_at": "2026-10-21T01:26:58",
+  "result": "complete"
+}

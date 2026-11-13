@@ -1,0 +1,1 @@
+研究室 smartgrid-gpu:/home/hayashi/workspace/EVMALOCALUPDATE/execute_results/realday_20261019 と archive/realday_*（lab_runs/ に CSV・JSON・TXT だけ）から写した。写した時刻 2026-11-13 14:29。行動器の重み・学習状態・図・TensorBoard の記録・コードの写しは含めていない（研究室の archive にある）。

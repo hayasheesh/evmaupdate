@@ -1,0 +1,13 @@
+{
+  "mode": "vary_mix50_ml_average",
+  "started_at": "2026-10-21T02:56:36",
+  "args": [
+    "--episodes",
+    "100"
+  ],
+  "state": "done",
+  "pid": 179164,
+  "exit_code": 0,
+  "finished_at": "2026-10-21T03:52:19",
+  "result": "complete"
+}

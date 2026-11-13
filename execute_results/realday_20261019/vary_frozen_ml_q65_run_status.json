@@ -1,0 +1,13 @@
+{
+  "mode": "vary_frozen_ml_q65",
+  "started_at": "2026-10-20T12:36:14",
+  "args": [
+    "--episodes",
+    "20"
+  ],
+  "state": "done",
+  "pid": 159644,
+  "exit_code": 0,
+  "finished_at": "2026-10-20T12:37:51",
+  "result": "complete"
+}

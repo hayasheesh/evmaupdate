@@ -1,0 +1,13 @@
+{
+  "mode": "vary_mix50_ml_q95",
+  "started_at": "2026-10-21T04:40:46",
+  "args": [
+    "--episodes",
+    "100"
+  ],
+  "state": "done",
+  "pid": 181862,
+  "exit_code": 0,
+  "finished_at": "2026-10-21T05:38:09",
+  "result": "complete"
+}

@@ -1,0 +1,15 @@
+{
+  "mode": "vary_utd4_ml_busy",
+  "started_at": "2026-10-22T02:56:34",
+  "args": [
+    "--episodes",
+    "1000",
+    "--resume-run",
+    "/workspace/EVMALOCALUPDATE/archive/realday_aemo6_vary_utd4_ml_busy_20261020_213259"
+  ],
+  "state": "done",
+  "pid": 191059,
+  "exit_code": 0,
+  "finished_at": "2026-10-22T03:13:47",
+  "result": "complete"
+}

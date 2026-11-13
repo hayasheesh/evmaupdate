@@ -1,0 +1,15 @@
+{
+  "mode": "control",
+  "started_at": "2026-10-20T06:28:14",
+  "args": [
+    "--episodes",
+    "1000",
+    "--resume-run",
+    "C:\\Users\\admin\\Desktop\\EVMALOCALUPDATE\\archive\\realday_aemo6_control_20261019_175637"
+  ],
+  "state": "done",
+  "pid": 4928,
+  "exit_code": 0,
+  "finished_at": "2026-10-20T11:42:01",
+  "result": "complete"
+}

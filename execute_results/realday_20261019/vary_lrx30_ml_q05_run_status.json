@@ -1,0 +1,15 @@
+{
+  "mode": "vary_lrx30_ml_q05",
+  "started_at": "2026-10-21T08:52:30",
+  "args": [
+    "--episodes",
+    "1000",
+    "--resume-run",
+    "/workspace/EVMALOCALUPDATE/archive/realday_aemo6_vary_lrx30_ml_q05_20261020_144933"
+  ],
+  "state": "done",
+  "pid": 184938,
+  "exit_code": 0,
+  "finished_at": "2026-10-21T11:53:46",
+  "result": "complete"
+}

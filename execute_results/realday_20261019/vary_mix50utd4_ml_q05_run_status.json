@@ -1,0 +1,15 @@
+{
+  "mode": "vary_mix50utd4_ml_q05",
+  "started_at": "2026-10-21T11:08:27",
+  "args": [
+    "--episodes",
+    "1000",
+    "--resume-run",
+    "/workspace/EVMALOCALUPDATE/archive/realday_aemo6_vary_mix50utd4_ml_q05_20261020_163156"
+  ],
+  "state": "done",
+  "pid": 186357,
+  "exit_code": 0,
+  "finished_at": "2026-10-22T03:13:03",
+  "result": "complete"
+}

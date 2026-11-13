@@ -1,0 +1,15 @@
+{
+  "mode": "vary_lrx10_ml_busy",
+  "started_at": "2026-10-21T01:35:30",
+  "args": [
+    "--episodes",
+    "1000",
+    "--resume-run",
+    "/workspace/EVMALOCALUPDATE/archive/realday_aemo6_vary_lrx10_ml_busy_20261020_124230"
+  ],
+  "state": "done",
+  "pid": 177278,
+  "exit_code": 1,
+  "finished_at": "2026-10-21T01:35:52",
+  "result": "failed"
+}

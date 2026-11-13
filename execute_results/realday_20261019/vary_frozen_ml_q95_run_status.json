@@ -1,0 +1,13 @@
+{
+  "mode": "vary_frozen_ml_q95",
+  "started_at": "2026-10-20T12:40:14",
+  "args": [
+    "--episodes",
+    "20"
+  ],
+  "state": "done",
+  "pid": 159684,
+  "exit_code": 0,
+  "finished_at": "2026-10-20T12:41:55",
+  "result": "complete"
+}

@@ -1,0 +1,13 @@
+{
+  "mode": "ml_quiet",
+  "started_at": "2026-10-19T13:15:23",
+  "args": [
+    "--episodes",
+    "1000"
+  ],
+  "state": "done",
+  "pid": 142230,
+  "exit_code": 0,
+  "finished_at": "2026-10-19T19:13:10",
+  "result": "complete"
+}

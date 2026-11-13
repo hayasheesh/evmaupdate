@@ -1,0 +1,13 @@
+{
+  "mode": "ml_average",
+  "started_at": "2026-10-19T13:15:23",
+  "args": [
+    "--episodes",
+    "1000"
+  ],
+  "state": "done",
+  "pid": 142244,
+  "exit_code": 0,
+  "finished_at": "2026-10-19T19:15:06",
+  "result": "complete"
+}

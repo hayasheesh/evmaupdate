@@ -1,0 +1,13 @@
+{
+  "mode": "ml_q35",
+  "started_at": "2026-10-20T06:55:03",
+  "args": [
+    "--episodes",
+    "300"
+  ],
+  "state": "done",
+  "pid": 155793,
+  "exit_code": 0,
+  "finished_at": "2026-10-20T09:18:54",
+  "result": "complete"
+}

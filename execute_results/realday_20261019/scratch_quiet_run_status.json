@@ -1,0 +1,13 @@
+{
+  "mode": "scratch_quiet",
+  "started_at": "2026-10-19T09:55:44",
+  "args": [
+    "--episodes",
+    "1000"
+  ],
+  "state": "done",
+  "pid": 140217,
+  "exit_code": 0,
+  "finished_at": "2026-10-19T12:54:36",
+  "result": "complete"
+}

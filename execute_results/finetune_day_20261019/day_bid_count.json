@@ -1,0 +1,11 @@
+{
+ "service_date": "2024-02-01",
+ "capacity_kw_block": 19045.846659822244,
+ "main_capacity_kw_block": 17303.50255666177,
+ "picks": [
+  23,
+  12,
+  125
+ ],
+ "k": 1.0
+}
